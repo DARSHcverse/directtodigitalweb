@@ -128,11 +128,12 @@ body::before {
 /* --- Hero Section --- */
 .hero {
   padding: 96px 0 64px;
-  text-align: left; /* Adjusted for sidebar layout */
+  text-align: center; /* Adjusted for centered layout */
 }
 
+/* UPDATED: Removed margin-left to allow auto margin to center it */
 .hero .container {
-    margin-left: 3rem; /* Align content to the left of the main area */
+    /* No margin override needed, defaults to auto */
 }
 
 .hero-title {
@@ -146,7 +147,7 @@ body::before {
 
 .hero-subtitle {
   color: var(--muted);
-  margin: 0 0 32px; /* Removed auto margin */
+  margin: 0 auto 32px; /* Center with auto margin */
   font-size: 1.125rem;
   max-width: 600px;
   line-height: 1.6;
@@ -155,7 +156,7 @@ body::before {
 .hero-actions {
   display: flex;
   gap: 16px;
-  justify-content: flex-start; /* Align buttons to the left */
+  justify-content: center; /* Align buttons to the center */
 }
 
 /* --- Buttons --- */
@@ -195,8 +196,9 @@ body::before {
   padding: 48px 0;
 }
 
+/* UPDATED: Removed margin-left to allow auto margin to center it */
 .page .container {
-    margin-left: 0; /* Align content to the left of the main area */
+    /* No margin override needed, defaults to auto */
 }
 
 .page-title {
@@ -268,6 +270,7 @@ body::before {
   border-radius: 16px;
   border: 1px solid var(--border);
   backdrop-filter: blur(12px);
+  margin: 0 auto; /* Center the form itself */
 }
 
 .form-row {
@@ -307,11 +310,11 @@ body::before {
 
 /* --- Footer --- */
 .footer {
-  border-top: 1px solid var(--border);
+  border-top: 2px solid var(--border);
   padding: 24px 0;
   color: var(--muted);
   text-align: center;
-  margin-top: 48px;
+  margin-top: 60px;
 }
 
 /* --- Responsive Layout --- */
