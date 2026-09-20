@@ -18,6 +18,10 @@ export type Project = {
  * except `image` and `url` is required — fill in what you have and we will
  * expand from there. Delete any placeholder you do not need.
  */
+/** True while the list is still placeholder content. Drives noindex on /design
+ *  so Google never sees "TODO: Project name". Flip to false once real work lands. */
+export const projectsArePlaceholder = true;
+
 export const projects: Project[] = [
   {
     slug: "project-one",
