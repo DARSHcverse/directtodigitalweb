@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
 import HomePage from './components/HomePage.jsx';
 import DesignPage from './components/DesignPage.jsx';
@@ -11,9 +11,15 @@ import NavBar from './components/NavBar.jsx';
 import Footer from './components/Footer.jsx';
 
 function App() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const showBookNow = location.pathname !== '/booking';
+
   return (
     <div className="app-shell">
       <NavBar />
+      
       <main className="main">
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -22,8 +28,17 @@ function App() {
           <Route path="/quote" element={<QuotePage />} />
           <Route path="/booking" element={<BookingPage />} />
         </Routes>
+        {/* Global Floating Book Now Button */}
+        {showBookNow && (
+          <button
+            className="book-now-floating"
+            onClick={() => navigate('/booking')}
+          >
+            Book Now
+          </button>
+        )}
+        <Footer />
       </main>
-      <Footer />
     </div>
   );
 }
