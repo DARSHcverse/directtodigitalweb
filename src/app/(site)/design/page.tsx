@@ -6,31 +6,50 @@ import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/metadata";
 import { projects, projectsArePlaceholder } from "@/lib/projects";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "Recent Work",
   description:
-    "Recent websites designed and built for small businesses across the UK — portfolio and case studies from D2D Web.",
+    "Websites and web apps built for real businesses — booking platforms, e-commerce, education software and local business sites. See recent work from D2D Web.",
   path: "/design",
-  // Placeholder entries must never reach the index.
   noIndex: projectsArePlaceholder,
 });
+
+/** Lists the portfolio for search engines. */
+function workListSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Recent work",
+    itemListElement: projects.map((project, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: project.title,
+      url: project.url,
+    })),
+  };
+}
 
 export default function DesignPage() {
   return (
     <>
       <JsonLd
-        data={breadcrumbSchema([
-          { name: "Home", path: "/" },
-          { name: "Work", path: "/design" },
-        ])}
+        data={[
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Work", path: "/design" },
+          ]),
+          ...(projects.length > 0 ? [workListSchema()] : []),
+        ]}
       />
       <section className="py-12">
         <Container>
           <h1 className="mb-2 text-4xl font-bold">Recent work</h1>
-          <p className="mb-8 max-w-[640px] text-lg text-muted">
-            A look at recent projects and the kinds of sites I build for small
-            businesses.
+          <p className="mb-10 max-w-[640px] text-lg text-muted">
+            Live sites and web apps built for real businesses — from booking
+            platforms to local business websites. Every one of these is online
+            and in use.
           </p>
 
           {projects.length === 0 ? (
@@ -39,10 +58,9 @@ export default function DesignPage() {
                 Case studies coming soon
               </h2>
               <p className="mx-auto max-w-[520px] leading-relaxed text-muted">
-                I&apos;m currently writing up recent projects properly rather
-                than posting screenshots without context. In the meantime, ask
-                me directly and I&apos;ll walk you through relevant work and put
-                you in touch with clients.
+                I&apos;m currently writing up recent projects properly. In the
+                meantime, ask me directly and I&apos;ll walk you through
+                relevant work.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-4">
                 <ButtonLink href="/contact" variant="primary">
@@ -52,63 +70,79 @@ export default function DesignPage() {
               </div>
             </div>
           ) : (
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6">
-            {projects.map((project) => (
-              <article
-                key={project.slug}
-                className="group relative overflow-hidden rounded-2xl border border-edge bg-linear-[135deg,rgb(20_20_20/0.6),rgb(20_20_20/0.4)] p-6 backdrop-blur-md transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_16px_40px_rgb(0_0_0/0.3)]"
-              >
-                <span className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-brand to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-
-                {project.image ? (
-                  <Image
-                    src={project.image}
-                    alt={`${project.title} website`}
-                    width={600}
-                    height={338}
-                    className="mb-5 h-[140px] w-full rounded-xl object-cover"
-                  />
-                ) : (
-                  <div className="mb-5 h-[140px] rounded-xl border border-white/5 bg-linear-[135deg,var(--color-edge),rgb(139_92_246/0.1)]" />
-                )}
-
-                <h2 className="mb-1 text-xl font-semibold">{project.title}</h2>
-                <p className="mb-2 text-sm text-muted">{project.client}</p>
-                <p className="mb-4 text-muted">{project.summary}</p>
-
-                <ul className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <li
-                      key={tag}
-                      className="rounded-full border border-edge px-3 py-1 text-xs text-muted"
-                    >
-                      {tag}
-                    </li>
-                  ))}
-                </ul>
-
-                {project.url ? (
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-8">
+              {projects.map((project, index) => (
+                <article
+                  key={project.slug}
+                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-edge bg-card/60 backdrop-blur-md transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_16px_40px_rgb(0_0_0/0.3)]"
+                >
                   <a
                     href={project.url}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="mt-4 inline-block text-sm font-semibold text-brand hover:underline"
+                    className="block overflow-hidden border-b border-edge"
                   >
-                    Visit site →
+                    <Image
+                      src={project.image}
+                      alt={`Screenshot of the ${project.title} website`}
+                      width={project.imageWidth}
+                      height={project.imageHeight}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      // First two are likely above the fold.
+                      priority={index < 2}
+                      className="w-full transition duration-500 group-hover:scale-[1.03]"
+                    />
                   </a>
-                ) : null}
-              </article>
-            ))}
-          </div>
+
+                  <div className="flex flex-1 flex-col p-6">
+                    <h2 className="text-xl font-semibold">{project.title}</h2>
+                    <p className="mt-1 text-sm text-muted">{project.client}</p>
+                    <p className="mt-3 flex-1 leading-relaxed text-muted">
+                      {project.summary}
+                    </p>
+
+                    <ul className="mt-5 flex flex-wrap gap-2">
+                      {project.tags.map((tag) => (
+                        <li
+                          key={tag}
+                          className="rounded-full border border-edge px-3 py-1 text-xs text-muted"
+                        >
+                          {tag}
+                        </li>
+                      ))}
+                    </ul>
+
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-brand no-underline hover:underline"
+                    >
+                      Visit live site
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
           )}
 
-          <div className="mt-12 border-t border-edge pt-12 text-center">
+          <div className="mt-16 border-t border-edge pt-12 text-center">
             <h2 className="mb-4 text-2xl font-bold">
               Want something like this?
             </h2>
-            <ButtonLink href="/quote" variant="primary">
-              Get a free quote
-            </ButtonLink>
+            <p className="mx-auto mb-8 max-w-[520px] text-muted">
+              Tell me what your business needs and I&apos;ll send a fixed quote.
+              Happy to put you in touch with past clients too.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <ButtonLink href="/quote" variant="primary">
+                Get a free quote
+              </ButtonLink>
+              <ButtonLink href={`mailto:${site.contactEmail}`}>
+                Email me
+              </ButtonLink>
+            </div>
           </div>
         </Container>
       </section>

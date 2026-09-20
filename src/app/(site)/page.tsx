@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ButtonLink } from "@/components/Button";
 import { Container } from "@/components/Container";
 import { FaqSection } from "@/components/FaqSection";
+import { FeaturedWork } from "@/components/FeaturedWork";
 import { Testimonials } from "@/components/Testimonials";
 import { JsonLd } from "@/components/JsonLd";
 import { faqSchema } from "@/lib/schema";
@@ -86,6 +87,8 @@ export default function HomePage() {
             ))}
           </div>
         </section>
+
+        <FeaturedWork />
 
         <section aria-labelledby="process-heading" className="py-16">
           <h2 id="process-heading" className="mb-2 text-3xl font-bold">
