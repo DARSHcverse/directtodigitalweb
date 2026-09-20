@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ButtonLink } from "@/components/Button";
 import { Container } from "@/components/Container";
 import { FaqSection } from "@/components/FaqSection";
+import { Testimonials } from "@/components/Testimonials";
 import { JsonLd } from "@/components/JsonLd";
 import { faqSchema } from "@/lib/schema";
 import { faqs } from "@/lib/faqs";
@@ -108,6 +109,8 @@ export default function HomePage() {
             ))}
           </ol>
         </section>
+
+        <Testimonials />
 
         <FaqSection />
 

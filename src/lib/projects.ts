@@ -1,7 +1,7 @@
 export type Project = {
   slug: string;
   title: string;
-  /** Client or sector, e.g. "Independent cafe, Leeds". */
+  /** Client or sector, e.g. "Event hire business, Melbourne". */
   client: string;
   /** One-line outcome — what the site achieved. */
   summary: string;
@@ -13,28 +13,15 @@ export type Project = {
 };
 
 /**
- * TODO(Darshan): replace these with your real client work.
- * Patch 3 turns each entry into a full case study page. For now every field
- * except `image` and `url` is required — fill in what you have and we will
- * expand from there. Delete any placeholder you do not need.
+ * TODO(Darshan): you said you would supply the project list for D2D Web
+ * yourself — add entries here when ready.
+ *
+ * While this array is empty, /design shows an honest "work in progress"
+ * state, is marked noindex, and is excluded from the sitemap. Adding the
+ * first project reverses all three automatically, so there is nothing else
+ * to remember to switch on.
  */
-/** True while the list is still placeholder content. Drives noindex on /design
- *  so Google never sees "TODO: Project name". Flip to false once real work lands. */
-export const projectsArePlaceholder = true;
+export const projects: Project[] = [];
 
-export const projects: Project[] = [
-  {
-    slug: "project-one",
-    title: "TODO: Project name",
-    client: "TODO: Client / sector",
-    summary: "TODO: What you built and the result it produced.",
-    tags: ["Web design", "Next.js"],
-  },
-  {
-    slug: "project-two",
-    title: "TODO: Project name",
-    client: "TODO: Client / sector",
-    summary: "TODO: What you built and the result it produced.",
-    tags: ["E-commerce"],
-  },
-];
+/** Drives noindex on /design and its exclusion from the sitemap. */
+export const projectsArePlaceholder = projects.length === 0;

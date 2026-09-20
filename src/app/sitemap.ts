@@ -5,7 +5,10 @@ import { projectsArePlaceholder } from "@/lib/projects";
 /** Keep in step with the routes under app/(site). */
 const routes = [
   { path: "/", changeFrequency: "monthly", priority: 1.0 },
+  { path: "/services", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/pricing", changeFrequency: "monthly", priority: 0.9 },
   { path: "/design", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/about", changeFrequency: "yearly", priority: 0.7 },
   { path: "/quote", changeFrequency: "yearly", priority: 0.8 },
   { path: "/booking", changeFrequency: "yearly", priority: 0.8 },
   { path: "/contact", changeFrequency: "yearly", priority: 0.7 },

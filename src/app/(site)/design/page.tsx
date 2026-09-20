@@ -33,6 +33,25 @@ export default function DesignPage() {
             businesses.
           </p>
 
+          {projects.length === 0 ? (
+            <div className="rounded-2xl border border-edge bg-card/60 p-10 text-center backdrop-blur-md">
+              <h2 className="mb-3 text-xl font-semibold">
+                Case studies coming soon
+              </h2>
+              <p className="mx-auto max-w-[520px] leading-relaxed text-muted">
+                I&apos;m currently writing up recent projects properly rather
+                than posting screenshots without context. In the meantime, ask
+                me directly and I&apos;ll walk you through relevant work and put
+                you in touch with clients.
+              </p>
+              <div className="mt-8 flex flex-wrap justify-center gap-4">
+                <ButtonLink href="/contact" variant="primary">
+                  Ask to see examples
+                </ButtonLink>
+                <ButtonLink href="/services">What I build</ButtonLink>
+              </div>
+            </div>
+          ) : (
           <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6">
             {projects.map((project) => (
               <article
@@ -81,6 +100,7 @@ export default function DesignPage() {
               </article>
             ))}
           </div>
+          )}
 
           <div className="mt-12 border-t border-edge pt-12 text-center">
             <h2 className="mb-4 text-2xl font-bold">
