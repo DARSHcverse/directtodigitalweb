@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+/* Design tokens ported from the original App.css so the visual identity
+   survives the migration unchanged. */
+@theme {
+  --color-bg: #0b0b0b;
+  --color-fg: #ffffff;
+  --color-muted: #bfb9c9;
+  --color-brand: #8b5cf6;
+  --color-brand-dark: #6d28d9;
+  --color-card: #141414;
+  --color-edge: #252525;
+
+  --color-success: #9ae6b4;
+  --color-danger: #feb2b2;
+
+  --spacing-sidebar: 16.25rem; /* 260px */
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --animate-gradient-wave: gradient-wave 8s ease infinite;
+
+  @keyframes gradient-wave {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* Ambient gradient wash, ported from body::before. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      radial-gradient(ellipse 80% 60% at 50% -10%, rgb(139 92 246 / 0.2), transparent),
+      radial-gradient(ellipse 50% 80% at 10% 110%, rgb(139 92 246 / 0.15), transparent),
+      radial-gradient(ellipse 50% 80% at 90% 110%, rgb(100 116 139 / 0.15), transparent);
+  }
+
+  /* Visible keyboard focus — absent from the original stylesheet. */
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
