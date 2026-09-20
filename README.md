@@ -2,7 +2,7 @@
 
 Freelance web design showcase and lead-generation site.
 
-**Stack:** Next.js 16 (App Router) · TypeScript (strict) · Tailwind CSS v4 · Resend · Vercel
+**Stack:** Next.js 16 (App Router) · TypeScript (strict) · Tailwind CSS v4 · Resend · Vercel Analytics · Vercel
 
 ## Getting started
 
@@ -48,7 +48,32 @@ src/
     site.ts             Site-wide constants (name, URL, services)
     lead.ts             Zod schema shared by client and server
     projects.ts         Portfolio entries
+    landings.ts         Audience/service landing page content
+    pricing.ts          Pricing tiers
+    faqs.ts             Homepage FAQs (also emitted as FAQPage schema)
+    testimonials.ts     Client testimonials
+    schema.ts           JSON-LD builders
 ```
+
+## Content
+
+Most page content lives in `src/lib` as typed data, not inside components,
+so copy can be edited without touching JSX.
+
+- **Portfolio** — add to `projects.ts`. An empty array automatically makes
+  `/design` noindex and drops it from the sitemap; adding a project reverses
+  both.
+- **Landing pages** — add to `landings.ts` and the route, sitemap and footer
+  links follow automatically. Each needs its own copy and FAQs: thin,
+  templated variants of the same page are worse than not having them.
+- **FAQs** — `faqs.ts` is rendered on the page *and* emitted as FAQPage
+  schema. Google requires the two to match, so never let them diverge.
+
+## Analytics
+
+Vercel Analytics and Speed Insights are wired into the root layout. They
+only report once deployed to Vercel — the `/_vercel/insights` endpoint does
+not exist locally, so seeing no requests in `next start` is expected.
 
 ## Leads
 

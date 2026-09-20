@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/Container";
 import { site, serviceCatalogue } from "@/lib/site";
+import { landings } from "@/lib/landings";
 
 const explore = [
   { href: "/services", label: "Services" },
@@ -53,6 +54,16 @@ export function Footer() {
               Explore
             </p>
             <ul className="grid gap-2 text-sm">
+              {landings.map((landing) => (
+                <li key={landing.slug}>
+                  <Link
+                    href={`/for/${landing.slug}`}
+                    className="text-muted no-underline transition hover:text-fg"
+                  >
+                    {landing.heading}
+                  </Link>
+                </li>
+              ))}
               {explore.map((item) => (
                 <li key={item.href}>
                   <Link

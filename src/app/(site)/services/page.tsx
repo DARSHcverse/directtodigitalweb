@@ -5,6 +5,8 @@ import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/metadata";
 import { serviceCatalogue } from "@/lib/site";
+import { landings } from "@/lib/landings";
+import Link from "next/link";
 
 export const metadata: Metadata = pageMetadata({
   title: "Web Design Services",
@@ -70,6 +72,35 @@ export default function ServicesPage() {
               </article>
             ))}
           </div>
+
+          <section
+            aria-labelledby="who-for"
+            className="mt-16 border-t border-edge pt-12"
+          >
+            <h2 id="who-for" className="mb-2 text-2xl font-bold">
+              Looking for something specific?
+            </h2>
+            <p className="mb-8 text-muted">
+              More detail on the situations I most often get called about.
+            </p>
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-4">
+              {landings.map((landing) => (
+                <Link
+                  key={landing.slug}
+                  href={`/for/${landing.slug}`}
+                  className="group rounded-2xl border border-edge bg-card/60 p-6 no-underline backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-brand/40"
+                >
+                  <h3 className="mb-2 text-lg font-semibold text-fg">
+                    {landing.heading}
+                  </h3>
+                  <p className="text-sm text-muted">{landing.audience}</p>
+                  <span className="mt-4 inline-block text-sm font-semibold text-brand">
+                    Read more →
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
 
           <div className="mt-12 border-t border-edge pt-12 text-center">
             <h2 className="mb-4 text-2xl font-bold">

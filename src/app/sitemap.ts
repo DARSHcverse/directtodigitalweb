@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
 import { projectsArePlaceholder } from "@/lib/projects";
+import { landings } from "@/lib/landings";
 
 /** Keep in step with the routes under app/(site). */
 const routes = [
@@ -16,7 +17,7 @@ const routes = [
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
-  return routes
+  const core = routes
     // /design is noindex while the portfolio is placeholder content, and a
     // sitemap entry for a noindexed URL is a contradictory signal.
     .filter((route) => !(route.path === "/design" && projectsArePlaceholder))
@@ -26,4 +27,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: route.changeFrequency,
       priority: route.priority,
     }));
+
+  const landingPages = landings.map((landing) => ({
+    url: `${site.url}/for/${landing.slug}`,
+    lastModified,
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
+
+  return [...core, ...landingPages];
 }
