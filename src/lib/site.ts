@@ -13,7 +13,7 @@ export const site = {
   locale: "en_GB",
   currency: "GBP",
   /** Where lead notifications are delivered, and the only public contact route. */
-  contactEmail: "dharshansubramaniyam@gmail.com",
+  contactEmail: "direct2digitalweb@gmail.com",
   /**
    * Remote-first, serving the whole UK. No street address or phone is published:
    * inventing NAP data is an active local-SEO liability, so this stays empty
