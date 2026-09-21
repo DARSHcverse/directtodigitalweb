@@ -1,3 +1,43 @@
+const FALLBACK_URL = "https://d2dweb.co.uk";
+
+/**
+ * Resolve the canonical origin.
+ *
+ * Deliberately defensive: `??` alone is not enough, because an environment
+ * variable set to an empty string in a dashboard is defined, and `new URL("")`
+ * throws ERR_INVALID_URL at module scope — which fails the whole build rather
+ * than any one page. Whitespace-only and protocol-less values are handled for
+ * the same reason.
+ */
+function resolveSiteUrl(): string {
+  const candidates = [
+    process.env.NEXT_PUBLIC_SITE_URL,
+    // Set automatically by Vercel; the stable production domain, not the
+    // per-deployment URL, so canonicals stay consistent across deploys.
+    process.env.VERCEL_PROJECT_PRODUCTION_URL,
+  ];
+
+  for (const candidate of candidates) {
+    const trimmed = candidate?.trim();
+    if (!trimmed) continue;
+
+    const withProtocol = /^https?:\/\//i.test(trimmed)
+      ? trimmed
+      : `https://${trimmed}`;
+
+    try {
+      // Normalised, and without a trailing slash so `${site.url}${path}`
+      // never produces a double slash.
+      return new URL(withProtocol).origin;
+    } catch {
+      // Malformed value — try the next candidate rather than failing the build.
+      continue;
+    }
+  }
+
+  return FALLBACK_URL;
+}
+
 /**
  * Single source of truth for site-wide constants.
  * Metadata, schema, sitemap and robots all read from here.
@@ -5,8 +45,8 @@
 export const site = {
   name: "D2D Web",
   legalName: "D2D Web",
-  /** Update once the production domain is attached in Vercel. */
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://d2dweb.co.uk",
+  /** Canonical origin, no trailing slash. Set NEXT_PUBLIC_SITE_URL to override. */
+  url: resolveSiteUrl(),
   tagline: "Freelance Web Design & Development, UK-wide",
   description:
     "Freelance web designer building fast, modern, search-friendly websites for small businesses across the UK. Remote-first, fixed quotes, no jargon.",

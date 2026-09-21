@@ -31,7 +31,7 @@ Set these in `.env.local` locally, and in Vercel → Project → Settings → En
 | `RESEND_API_KEY` | yes | From resend.com/api-keys |
 | `RESEND_FROM_EMAIL` | yes | Must be on a domain verified in Resend |
 | `LEAD_INBOX` | no | Where leads land; defaults to `site.contactEmail` |
-| `NEXT_PUBLIC_SITE_URL` | no | Canonical origin for OG/metadata |
+| `NEXT_PUBLIC_SITE_URL` | no | Canonical origin for OG/metadata. Leave it **unset** rather than blank if you have no domain yet; the build falls back to the Vercel production domain, then to the default in `site.ts`. |
 
 Without the Resend variables the site still builds and renders — the lead form returns a friendly "not configured yet" error.
 
