@@ -64,7 +64,7 @@ export const projects: Project[] = [
   {
     slug: "the-shan-booth",
     title: "The Shan Booth",
-    client: "Event hire, Melbourne",
+    client: "Event hire, weddings and events",
     summary:
       "A photo booth hire site for weddings, corporate events and parties, with online quotes, secure payments and automated booking confirmations.",
     url: "https://www.photoboothwithshan.com.au",
