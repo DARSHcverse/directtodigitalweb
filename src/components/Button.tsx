@@ -2,19 +2,19 @@ import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
+/** Square corners and flat fills: structural, not the rounded-pill default
+ *  that every template ships with. */
 const base =
-  "inline-flex items-center justify-center rounded-lg px-6 py-3 font-semibold no-underline transition duration-200 " +
-  "hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-60";
+  "inline-flex items-center justify-center px-6 py-3.5 text-sm font-bold tracking-wide no-underline transition duration-150 " +
+  "disabled:pointer-events-none disabled:opacity-60";
 
 const variants = {
-  /** Amber on navy text: the highest-contrast CTA in the palette. */
-  primary:
-    "bg-amber text-navy-deep shadow-sm hover:bg-amber-deep hover:shadow-md",
+  primary: "bg-amber text-navy-deep hover:bg-amber-deep",
+  navy: "bg-navy text-white hover:bg-navy-deep",
   secondary:
-    "border border-edge bg-surface text-navy hover:border-navy/30 hover:shadow-sm",
-  /** For use on navy backgrounds. */
+    "border-2 border-navy bg-transparent text-navy hover:bg-navy hover:text-white",
   onDark:
-    "border border-white/25 bg-white/5 text-white hover:border-white/50 hover:bg-white/10",
+    "border-2 border-white/40 bg-transparent text-white hover:border-white hover:bg-white/10",
 } as const;
 
 type Variant = keyof typeof variants;

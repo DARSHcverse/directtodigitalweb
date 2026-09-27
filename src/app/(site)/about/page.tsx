@@ -67,7 +67,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <aside className="h-fit rounded-2xl border border-edge bg-surface p-8 shadow-sm">
+            <aside className="h-fit border-2 border-edge bg-surface p-8">
               <h2 className="mb-6 text-sm font-semibold tracking-widest text-amber-deep uppercase">
                 At a glance
               </h2>

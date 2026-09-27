@@ -38,7 +38,7 @@ export default function ServicesPage() {
               <article
                 key={service.slug}
                 id={service.slug}
-                className="scroll-mt-24 rounded-2xl border border-edge bg-surface p-8 shadow-sm transition duration-300 hover:border-navy/30"
+                className="scroll-mt-24 border-2 border-edge bg-surface p-8 transition duration-300 hover:border-navy"
               >
                 <div className="grid gap-8 md:grid-cols-[1.2fr_1fr]">
                   <div>
@@ -88,7 +88,7 @@ export default function ServicesPage() {
                 <Link
                   key={landing.slug}
                   href={`/for/${landing.slug}`}
-                  className="group rounded-2xl border border-edge bg-surface p-6 no-underline shadow-sm transition duration-300 hover:-translate-y-1 hover:border-navy/30"
+                  className="group border-2 border-edge bg-surface p-6 no-underline transition duration-300 hover:-translate-y-1 hover:border-navy"
                 >
                   <h3 className="mb-2 text-lg font-semibold text-ink">
                     {landing.heading}

@@ -20,11 +20,13 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-16 bg-navy text-white/80">
+    <footer className="border-t-2 border-navy bg-navy text-white/80">
       <Container>
         <div className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <p className="mb-3 text-lg font-bold text-white">{site.name}</p>
+            <p className="mb-3 text-lg font-bold text-white">
+              Trade Web <span className="text-amber">Co.</span>
+            </p>
             <p className="text-sm leading-relaxed text-white/70">
               Websites for UK tradespeople — written, built and set up for you.
             </p>
@@ -39,7 +41,7 @@ export function Footer() {
                 <li key={service.slug}>
                   <Link
                     href={`/services#${service.slug}`}
-                    className="text-white/70 no-underline transition hover:text-amber"
+                    className="text-sm text-white/70 no-underline transition hover:text-amber"
                   >
                     {service.name}
                   </Link>
@@ -57,7 +59,7 @@ export function Footer() {
                 <li key={landing.slug}>
                   <Link
                     href={`/for/${landing.slug}`}
-                    className="text-white/70 no-underline transition hover:text-amber"
+                    className="text-sm text-white/70 no-underline transition hover:text-amber"
                   >
                     {landing.heading}
                   </Link>
@@ -67,7 +69,7 @@ export function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-white/70 no-underline transition hover:text-amber"
+                    className="text-sm text-white/70 no-underline transition hover:text-amber"
                   >
                     {item.label}
                   </Link>
@@ -85,7 +87,7 @@ export function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-white/70 no-underline transition hover:text-amber"
+                    className="text-sm text-white/70 no-underline transition hover:text-amber"
                   >
                     {item.label}
                   </Link>
@@ -94,7 +96,7 @@ export function Footer() {
               <li>
                 <a
                   href={`mailto:${site.contactEmail}`}
-                  className="text-white/70 no-underline transition hover:text-amber"
+                  className="text-sm text-white/70 no-underline transition hover:text-amber"
                 >
                   Email me
                 </a>

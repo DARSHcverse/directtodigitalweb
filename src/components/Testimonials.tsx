@@ -12,7 +12,7 @@ export function Testimonials() {
         {testimonials.map((item) => (
           <figure
             key={item.author}
-            className="rounded-2xl border border-edge bg-surface p-8 shadow-sm"
+            className="border-2 border-edge bg-surface p-8"
           >
             <span aria-hidden="true" className="text-4xl leading-none text-amber-deep">
               &ldquo;

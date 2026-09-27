@@ -53,7 +53,7 @@ export default function DesignPage() {
           </p>
 
           {projects.length === 0 ? (
-            <div className="rounded-2xl border border-edge bg-surface p-10 text-center shadow-sm">
+            <div className="border-2 border-edge bg-surface p-10 text-center">
               <h2 className="mb-3 text-xl font-semibold">
                 Case studies coming soon
               </h2>
@@ -74,7 +74,7 @@ export default function DesignPage() {
               {projects.map((project, index) => (
                 <article
                   key={project.slug}
-                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-edge bg-surface shadow-sm transition duration-300 hover:-translate-y-1.5 hover:border-navy/30 hover:shadow-lg"
+                  className="group relative flex flex-col overflow-hidden border-2 border-edge bg-surface transition duration-300 hover:-translate-y-0.5 hover:border-navy hover:shadow-none"
                 >
                   <a
                     href={project.url}
@@ -90,7 +90,7 @@ export default function DesignPage() {
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       // First two are likely above the fold.
                       priority={index < 2}
-                      className="w-full transition duration-500 group-hover:scale-[1.03]"
+                      className="aspect-[16/10] w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]"
                     />
                   </a>
 
@@ -105,7 +105,7 @@ export default function DesignPage() {
                       {project.tags.map((tag) => (
                         <li
                           key={tag}
-                          className="rounded-full border border-edge px-3 py-1 text-xs text-muted"
+                          className="border border-edge px-2.5 py-1 text-xs text-muted"
                         >
                           {tag}
                         </li>

@@ -10,7 +10,7 @@ export function FaqSection() {
         {faqs.map((faq) => (
           <details
             key={faq.question}
-            className="group rounded-2xl border border-edge bg-surface p-6 shadow-sm transition hover:border-navy/30"
+            className="group border-2 border-edge bg-surface p-6 transition hover:border-navy"
           >
             <summary className="cursor-pointer list-none text-lg font-semibold marker:content-none">
               <span className="flex items-center justify-between gap-4">

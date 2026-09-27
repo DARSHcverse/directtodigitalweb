@@ -37,10 +37,10 @@ export default function PricingPage() {
               <article
                 key={tier.name}
                 className={cn(
-                  "relative flex h-full flex-col rounded-2xl border bg-surface p-8 shadow-sm transition duration-300",
+                  "relative flex h-full flex-col rounded-none border bg-surface p-8 shadow-sm transition duration-300",
                   tier.featured
-                    ? "border-amber shadow-md"
-                    : "border-edge hover:border-navy/30",
+                    ? "border-amber shadow-none"
+                    : "border-edge hover:border-navy",
                 )}
               >
                 {tier.featured ? (
@@ -82,7 +82,7 @@ export default function PricingPage() {
             ))}
           </div>
 
-          <div className="mt-12 rounded-2xl border border-edge bg-surface p-8 shadow-sm">
+          <div className="mt-12 border-2 border-edge bg-surface p-8">
             <h2 className="mb-3 text-xl font-semibold">
               What affects the price?
             </h2>

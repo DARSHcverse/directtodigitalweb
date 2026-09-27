@@ -20,7 +20,7 @@ export function FeaturedWork() {
         {featured.map((project) => (
           <article
             key={project.slug}
-            className="group overflow-hidden rounded-2xl border border-edge bg-surface shadow-sm transition duration-300 hover:-translate-y-1.5 hover:border-navy/30"
+            className="group overflow-hidden border-2 border-edge bg-surface transition duration-300 hover:-translate-y-0.5 hover:border-navy"
           >
             <a
               href={project.url}
@@ -34,7 +34,7 @@ export function FeaturedWork() {
                 width={project.imageWidth}
                 height={project.imageHeight}
                 sizes="(max-width: 768px) 100vw, 33vw"
-                className="w-full transition duration-500 group-hover:scale-[1.03]"
+                className="aspect-[16/10] w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]"
               />
             </a>
             <div className="p-6">

@@ -16,7 +16,7 @@ export function FormShell({
     <form
       onSubmit={onSubmit}
       noValidate
-      className="mx-auto grid max-w-[640px] gap-5 rounded-2xl border border-edge bg-surface p-8 shadow-sm"
+      className="mx-auto grid max-w-[640px] gap-5 border-2 border-edge bg-surface p-8"
     >
       {children}
     </form>

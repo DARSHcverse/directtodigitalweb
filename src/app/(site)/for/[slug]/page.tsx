@@ -78,7 +78,7 @@ export default async function LandingPage({
               {landing.painPoints.map((point) => (
                 <li
                   key={point}
-                  className="flex gap-3 rounded-xl border border-edge bg-surface px-5 py-4 shadow-sm"
+                  className="flex gap-3 border-l-4 border-amber bg-surface px-5 py-4"
                 >
                   <span aria-hidden="true" className="text-amber-deep">
                     —
@@ -100,7 +100,7 @@ export default async function LandingPage({
               {landing.solutions.map((solution) => (
                 <article
                   key={solution.title}
-                  className="rounded-2xl border border-edge bg-surface p-6 shadow-sm transition duration-300 hover:border-navy/30"
+                  className="border-2 border-edge bg-surface p-6 transition duration-300 hover:border-navy"
                 >
                   <h3 className="mb-3 text-lg font-semibold">
                     {solution.title}
@@ -123,7 +123,7 @@ export default async function LandingPage({
                 {proof.map((project) => (
                   <article
                     key={project.slug}
-                    className="group overflow-hidden rounded-2xl border border-edge bg-surface shadow-sm transition duration-300 hover:-translate-y-1.5 hover:border-navy/30"
+                    className="group overflow-hidden border-2 border-edge bg-surface transition duration-300 hover:-translate-y-0.5 hover:border-navy"
                   >
                     <a
                       href={project.url}
@@ -137,7 +137,7 @@ export default async function LandingPage({
                         width={project.imageWidth}
                         height={project.imageHeight}
                         sizes="(max-width: 768px) 100vw, 33vw"
-                        className="w-full transition duration-500 group-hover:scale-[1.03]"
+                        className="aspect-[16/10] w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]"
                       />
                     </a>
                     <div className="p-6">
@@ -171,7 +171,7 @@ export default async function LandingPage({
               {landing.faqs.map((faq) => (
                 <details
                   key={faq.question}
-                  className="group rounded-2xl border border-edge bg-surface p-6 shadow-sm transition hover:border-navy/30"
+                  className="group border-2 border-edge bg-surface p-6 transition hover:border-navy"
                 >
                   <summary className="cursor-pointer list-none text-lg font-semibold marker:content-none">
                     <span className="flex items-center justify-between gap-4">
