@@ -19,10 +19,9 @@ export type Project = {
  * Real client work. Screenshots were captured from the live sites; retake them
  * if a site is redesigned, since a stale screenshot is worse than none.
  *
- * TODO(Darshan): the `summary` lines describe what each site does, taken from
- * the sites themselves. If you can add an outcome to any of them — enquiries,
- * bookings, sales — say so and I will work it in. Results convert far better
- * than feature lists.
+ * The `summary` lines describe what each site does, taken from the sites
+ * themselves. Where a real outcome is known — enquiries won, bookings taken,
+ * sales made — say so instead: results convert far better than feature lists.
  */
 export const projects: Project[] = [
   {

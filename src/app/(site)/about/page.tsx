@@ -14,7 +14,6 @@ export const metadata: Metadata = pageMetadata({
   path: "/about",
 });
 
-/** TODO(Darshan): verify every claim here reflects your current situation. */
 const facts = [
   { label: "Degree", value: "BSc Information Technology (Distinction)" },
   { label: "Focus", value: "Application development" },

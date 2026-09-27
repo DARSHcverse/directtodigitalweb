@@ -1,34 +1,36 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 
+// Next emits the noindex robots tag for not-found automatically.
 export const metadata: Metadata = {
   title: "Page not found",
-  robots: { index: false, follow: true },
 };
 
 export default function NotFound() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center px-6 text-center">
-      <p className="mb-4 text-sm font-semibold tracking-widest text-amber-deep uppercase">
-        404
+    <main className="bg-blueprint flex min-h-screen flex-col items-center justify-center px-6 text-center">
+      <p className="rule-label mb-4 text-xs font-bold tracking-[0.2em] text-navy uppercase">
+        Error 404
       </p>
-      <h1 className="mb-4 text-4xl font-bold">That page doesn&apos;t exist</h1>
-      <p className="mb-8 max-w-[480px] text-muted">
-        The link may be out of date. Try the homepage, or get in touch if you
-        were looking for something specific.
+      <h1 className="mb-4 text-[clamp(2rem,5vw,3rem)] leading-[1.07] font-bold tracking-display text-navy">
+        That page doesn&apos;t exist
+      </h1>
+      <p className="mb-8 max-w-[440px] leading-relaxed text-muted">
+        The link may be out of date. Try the homepage, or tell me what you were
+        looking for and I&apos;ll point you at it.
       </p>
-      <div className="flex flex-wrap justify-center gap-4">
+      <div className="flex flex-wrap justify-center gap-3">
         <Link
           href="/"
-          className="inline-flex items-center justify-center rounded-lg bg-linear-to-r from-navy to-navy-soft px-6 py-3 font-semibold text-white no-underline transition hover:brightness-110"
+          className="inline-flex items-center justify-center bg-amber px-6 py-3.5 text-sm font-bold tracking-wide text-navy-deep no-underline transition hover:bg-amber-deep"
         >
           Back to home
         </Link>
         <Link
           href="/contact"
-          className="inline-flex items-center justify-center rounded-lg border border-edge bg-edge/50 px-6 py-3 font-semibold text-ink no-underline transition hover:border-white/20"
+          className="inline-flex items-center justify-center border-2 border-navy px-6 py-3.5 text-sm font-bold tracking-wide text-navy no-underline transition hover:bg-navy hover:text-white"
         >
-          Contact
+          Get in touch
         </Link>
       </div>
     </main>

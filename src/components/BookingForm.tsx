@@ -7,6 +7,7 @@ import {
   FormShell,
   FormStatus,
   Honeypot,
+  PrivacyNotice,
   Input,
   Select,
   Textarea,
@@ -67,6 +68,7 @@ export function BookingForm() {
         <Field label="Notes" htmlFor="message">
           <Textarea id="message" name="message" rows={4} value={form.message} onChange={handleChange} />
         </Field>
+        <PrivacyNotice />
         <Button type="submit" variant="primary" disabled={status.loading}>
           {status.loading ? "Sending…" : "Request Booking"}
         </Button>

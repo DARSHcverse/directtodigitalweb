@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
@@ -73,6 +74,21 @@ export function Honeypot() {
         autoComplete="off"
       />
     </div>
+  );
+}
+
+/** Point-of-collection notice. UK GDPR expects this where the data is
+ *  entered, not only in a footer link. */
+export function PrivacyNotice() {
+  return (
+    <p className="text-sm leading-relaxed text-muted">
+      Your details are used only to reply to this enquiry. No marketing, no
+      mailing list, no sharing.{" "}
+      <Link href="/privacy" className="font-semibold text-navy hover:text-amber-deep">
+        Privacy policy
+      </Link>
+      .
+    </p>
   );
 }
 

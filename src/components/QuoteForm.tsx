@@ -7,6 +7,7 @@ import {
   FormShell,
   FormStatus,
   Honeypot,
+  PrivacyNotice,
   Input,
   Select,
   Textarea,
@@ -77,6 +78,7 @@ export function QuoteForm() {
         <Field label="Project details" htmlFor="details">
           <Textarea id="details" name="details" rows={5} value={form.details} onChange={handleChange} />
         </Field>
+        <PrivacyNotice />
         <Button type="submit" variant="primary" disabled={status.loading}>
           {status.loading ? "Sending…" : "Get Estimate"}
         </Button>

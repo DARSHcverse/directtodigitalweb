@@ -105,10 +105,24 @@ export function Footer() {
           </nav>
         </div>
 
-        <div className="border-t border-white/15 py-6 text-center text-sm text-white/60">
+        <div className="flex flex-col items-center justify-between gap-3 border-t border-white/15 py-6 text-sm text-white/60 sm:flex-row">
           <p>
             © {year} {site.name}. All rights reserved.
           </p>
+          <nav aria-label="Legal" className="flex gap-5">
+            <Link
+              href="/privacy"
+              className="text-white/60 no-underline transition hover:text-amber"
+            >
+              Privacy
+            </Link>
+            <Link
+              href="/terms"
+              className="text-white/60 no-underline transition hover:text-amber"
+            >
+              Terms
+            </Link>
+          </nav>
         </div>
       </Container>
     </footer>

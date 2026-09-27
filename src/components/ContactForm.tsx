@@ -7,6 +7,7 @@ import {
   FormShell,
   FormStatus,
   Honeypot,
+  PrivacyNotice,
   Input,
   Textarea,
 } from "@/components/Form";
@@ -73,6 +74,7 @@ export function ContactForm() {
             required
           />
         </Field>
+        <PrivacyNotice />
         <Button type="submit" variant="primary" disabled={status.loading}>
           {status.loading ? "Sending…" : "Send Message"}
         </Button>
