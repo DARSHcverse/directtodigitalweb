@@ -18,8 +18,9 @@ export const metadata: Metadata = pageMetadata({
 const facts = [
   { label: "Degree", value: "BSc Information Technology (Distinction)" },
   { label: "Focus", value: "Application development" },
-  { label: "Works with", value: "Small businesses, UK-wide" },
-  { label: "Stack", value: "React · Next.js · Node · Flutter" },
+  { label: "Works with", value: "Trades and small businesses" },
+  { label: "Based", value: "UK, working remotely" },
+  { label: "Also serving", value: "Long-standing clients in Australia" },
 ] as const;
 
 export default function AboutPage() {
@@ -48,16 +49,23 @@ export default function AboutPage() {
           <div className="grid gap-8 md:grid-cols-[1.4fr_1fr]">
             <div className="grid gap-4 text-muted">
               <p className="leading-relaxed">
-                I&apos;m a full-stack developer with a distinction-grade degree
-                in Information Technology, majoring in application development.
-                More usefully for you: I build real products that real
-                businesses run on, not portfolio exercises.
+                I&apos;m a developer with a distinction-grade degree in
+                Information Technology. More usefully for you: I build things
+                businesses actually run on, not portfolio exercises.
               </p>
               <p className="leading-relaxed">
                 That includes a 24/7 booking and CRM platform handling staff
                 scheduling, invoicing and payments, and an event booking site
                 with Stripe checkout that started taking bookings in its first
                 week live. Both are still running and still maintained.
+              </p>
+              <p className="leading-relaxed">
+                I studied in Australia and built up a client base there, and I
+                still look after those sites today. Working across two markets
+                is useful in a way that might not be obvious: the same handful
+                of things decide whether a small business gets found and gets
+                called, wherever it trades. You get the benefit of having seen
+                that work, and fail, more than once.
               </p>
               <p className="leading-relaxed">
                 Working with me means dealing with the person who actually
@@ -87,6 +95,25 @@ export default function AboutPage() {
                   </div>
                 ))}
               </dl>
+              <div className="mt-6 border-t border-edge pt-6">
+                <p className="mb-3 text-xs font-bold tracking-[0.2em] text-navy uppercase">
+                  Check me out
+                </p>
+                <ul className="grid gap-2">
+                  {site.sameAs.map((url) => (
+                    <li key={url}>
+                      <a
+                        href={url}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="text-sm font-semibold text-navy no-underline hover:text-amber-deep"
+                      >
+                        {url.includes("linkedin") ? "LinkedIn" : "GitHub"} ↗
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </aside>
           </div>
 

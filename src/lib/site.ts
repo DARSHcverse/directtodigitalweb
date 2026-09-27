@@ -71,8 +71,16 @@ export const site = {
    */
   areaServed: "United Kingdom",
   founder: "Darshan Subramaniyam",
-  /** Add profile URLs here and they flow into schema sameAs automatically. */
-  sameAs: [] as string[],
+  /**
+   * Profile URLs. These feed schema sameAs, which is how Google ties this
+   * site to a real, verifiable person rather than an anonymous brand.
+   * The personal job-seeking portfolio is deliberately excluded — it states
+   * he is looking for full-time roles, which undercuts a supplier pitch.
+   */
+  sameAs: [
+    "https://www.linkedin.com/in/darshhpe",
+    "https://github.com/DARSHcverse",
+  ] as string[],
 } as const;
 
 export const services = [
