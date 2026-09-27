@@ -20,6 +20,16 @@ export type Landing = {
   proofSlugs: string[];
   /** Page-specific FAQs, kept distinct from the homepage set. */
   faqs: { question: string; answer: string }[];
+  /**
+   * Hero spec card. Mirrors the homepage device so the pages read as one
+   * site, but the rows are written per trade — a generic card here would
+   * undo the point of having separate pages.
+   */
+  card: {
+    title: string;
+    body: string;
+    rows: [string, string][];
+  };
 };
 
 /**
@@ -33,6 +43,15 @@ export type Landing = {
 export const landings: Landing[] = [
   {
     slug: "plumbers",
+    card: {
+      title: "Ready for the 2am call",
+      body: "When a boiler goes, they scan for a number and proof you are legitimate. Both sit at the top.",
+      rows: [
+        ["Gas Safe number", "Shown up front"],
+        ["Phone", "Tap to call"],
+        ["Loads on", "One bar of 4G"],
+      ],
+    },
     heading: "Websites for plumbers",
     title: "Website Design for Plumbers UK",
     metaDescription:
@@ -86,6 +105,15 @@ export const landings: Landing[] = [
   },
   {
     slug: "electricians",
+    card: {
+      title: "Registered, and visibly so",
+      body: "Electrical work is bought on certification. The scheme logos and numbers do the selling before you speak.",
+      rows: [
+        ["NICEIC / NAPIT", "Front and centre"],
+        ["EICR enquiries", "Own page"],
+        ["Part P", "Stated clearly"],
+      ],
+    },
     heading: "Websites for electricians",
     title: "Website Design for Electricians UK",
     metaDescription:
@@ -139,6 +167,15 @@ export const landings: Landing[] = [
   },
   {
     slug: "builders",
+    card: {
+      title: "Proof you finish the job",
+      body: "Nobody signs off an extension from a Facebook page. Finished work, shown properly, is what wins it.",
+      rows: [
+        ["Project gallery", "Before and after"],
+        ["Job size", "Set expectations"],
+        ["Testimonials", "From real clients"],
+      ],
+    },
     heading: "Websites for builders",
     title: "Website Design for Builders UK",
     metaDescription:
@@ -192,6 +229,15 @@ export const landings: Landing[] = [
   },
   {
     slug: "small-business-websites",
+    card: {
+      title: "Yours, with no strings",
+      body: "A sharp site that loads fast, says what you do, and sends enquiries straight to your inbox.",
+      rows: [
+        ["Monthly fee", "None"],
+        ["Hosting", "A few pounds"],
+        ["You manage", "Nothing"],
+      ],
+    },
     heading: "Websites for small businesses",
     title: "Small Business Website Design UK",
     metaDescription:
@@ -245,6 +291,15 @@ export const landings: Landing[] = [
   },
   {
     slug: "booking-websites",
+    card: {
+      title: "Open while you sleep",
+      body: "Customers book a slot themselves and pay a deposit, so the diary fills without a single phone call.",
+      rows: [
+        ["Bookings", "24/7"],
+        ["Deposits", "Taken up front"],
+        ["Reminders", "Automatic"],
+      ],
+    },
     heading: "Websites with online booking",
     title: "Booking System Website Design",
     metaDescription:
@@ -298,6 +353,15 @@ export const landings: Landing[] = [
   },
   {
     slug: "website-redesign",
+    card: {
+      title: "Rebuilt, rankings intact",
+      body: "The risk in a redesign is losing the search visibility you already have. Redirects are mapped before launch.",
+      rows: [
+        ["Existing URLs", "Redirected"],
+        ["Your content", "Kept"],
+        ["Load time", "Cut sharply"],
+      ],
+    },
     heading: "Website redesign",
     title: "Website Redesign Services UK",
     metaDescription:
