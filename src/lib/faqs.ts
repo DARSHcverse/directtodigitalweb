@@ -25,6 +25,11 @@ export const faqs = [
       "Every site I build ships with the technical SEO groundwork in place: fast server-rendered pages, proper meta tags, structured data, a sitemap and mobile-friendly layouts. That gives you a solid foundation, though ranking for competitive terms also depends on your content and time.",
   },
   {
+    question: "Will I be able to update the website myself?",
+    answer:
+      "Yes. Every site includes an admin area built into your own website — you go to your address, add /admin, and sign in. On the Starter option you can write and publish blog posts. On Business and E-commerce you can edit any page: prices, services, opening hours, photos and text. It works like writing an email, changes appear within seconds, and you cannot break the design because the layout stays locked.",
+  },
+  {
     question: "Do you provide hosting and ongoing support?",
     answer:
       "Sites are deployed to modern hosting that is fast and inexpensive to run, and I can manage that for you. Ongoing support and maintenance are available if you want them, and are never bundled in without asking.",

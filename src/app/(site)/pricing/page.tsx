@@ -4,7 +4,7 @@ import { Container, SectionLabel } from "@/components/Container";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/metadata";
-import { tiers, formatFrom } from "@/lib/pricing";
+import { tiers, formatFrom, adminExplainer } from "@/lib/pricing";
 import { cn } from "@/lib/cn";
 
 export const metadata: Metadata = pageMetadata({
@@ -68,6 +68,15 @@ export default function PricingPage() {
                 </p>
                 <p className="mt-2 text-sm text-muted">{tier.bestFor}</p>
 
+                <div className="mt-5 border-l-4 border-amber bg-bg py-3 pl-4">
+                  <p className="text-sm font-bold text-navy">
+                    {tier.admin.label}
+                  </p>
+                  <p className="mt-1 text-sm leading-relaxed text-muted">
+                    {tier.admin.summary}
+                  </p>
+                </div>
+
                 <ul className="mt-6 grid flex-1 gap-3 text-sm">
                   {tier.features.map((feature) => (
                     <li key={feature} className="flex gap-3">
@@ -89,6 +98,50 @@ export default function PricingPage() {
               </article>
             ))}
           </div>
+
+          <section
+            aria-labelledby="admin-explainer"
+            className="mt-16 border-t-2 border-navy pt-12"
+          >
+            <SectionLabel>Updating your own site</SectionLabel>
+            <h2
+              id="admin-explainer"
+              className="mb-3 text-3xl font-bold tracking-display text-navy"
+            >
+              {adminExplainer.heading}
+            </h2>
+            <p className="mb-10 max-w-[44rem] text-lg leading-relaxed text-muted">
+              {adminExplainer.intro}
+            </p>
+
+            <div className="grid gap-px bg-edge sm:grid-cols-2">
+              {adminExplainer.points.map((point) => (
+                <article key={point.title} className="bg-bg p-6">
+                  <h3 className="mb-2 text-lg font-bold text-navy">
+                    {point.title}
+                  </h3>
+                  <p className="leading-relaxed text-muted">{point.body}</p>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-8 grid gap-6 md:grid-cols-2">
+              {adminExplainer.comparison.map((row) => (
+                <article
+                  key={row.tier}
+                  className="border-2 border-edge bg-surface p-6"
+                >
+                  <p className="text-xs font-bold tracking-[0.2em] text-muted uppercase">
+                    {row.tier}
+                  </p>
+                  <p className="mt-2 text-xl font-bold text-navy">{row.has}</p>
+                  <p className="mt-3 leading-relaxed text-muted">
+                    {row.detail}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </section>
 
           <div className="mt-12 border-2 border-edge bg-surface p-8">
             <h2 className="mb-3 text-xl font-bold text-navy">

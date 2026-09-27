@@ -18,6 +18,13 @@ export type Tier = {
   bestFor: string;
   features: string[];
   featured?: boolean;
+  /** What the owner can change themselves. The commonest objection to paying
+   *  a developer is "I'll be stuck needing you for every edit", so each tier
+   *  answers it explicitly. */
+  admin: {
+    label: string;
+    summary: string;
+  };
 };
 
 export const tiers: Tier[] = [
@@ -32,8 +39,14 @@ export const tiers: Tier[] = [
       "Contact form with email notifications",
       "Basic SEO setup and sitemap",
       "Google-ready performance",
+      "Blog admin — post and edit articles yourself",
       "Launch support",
     ],
+    admin: {
+      label: "Blog admin",
+      summary:
+        "Write, edit and publish blog posts yourself, from a simple editor built into your own site. Page content stays with me — send me a change and it is done.",
+    },
   },
   {
     name: "Business",
@@ -48,8 +61,14 @@ export const tiers: Tier[] = [
       "Booking or quote forms",
       "Copywriting guidance",
       "Analytics setup",
+      "Full admin — edit any page, not just the blog",
       "30 days post-launch support",
     ],
+    admin: {
+      label: "Full admin",
+      summary:
+        "Edit any page on the site — text, prices, photos, opening hours, services. Nothing is locked behind me, and you never wait on a developer for a wording change.",
+    },
   },
   {
     name: "E-commerce",
@@ -62,8 +81,14 @@ export const tiers: Tier[] = [
       "Order and inventory management",
       "Customer accounts",
       "Everything in Business",
+      "Full admin, plus product and order management",
       "Training on running the store",
     ],
+    admin: {
+      label: "Full admin + shop",
+      summary:
+        "Everything in Business, plus adding products, changing prices and managing orders. Running the shop day to day never needs a developer.",
+    },
   },
 ];
 
@@ -75,3 +100,48 @@ export function formatFrom(amount: number): string {
     maximumFractionDigits: 0,
   }).format(amount);
 }
+
+/**
+ * Explains what "admin" means to someone who has never used a CMS.
+ *
+ * Deliberately avoids the word CMS, and avoids implying a separate platform:
+ * the editor lives on the customer's own site, which is the part that makes
+ * it feel safe rather than like another subscription to manage.
+ */
+export const adminExplainer = {
+  heading: "What the admin area actually is",
+  intro:
+    "Every site includes a way to change your own content, so you are not paying a developer to fix a typo. It is part of your website, at your own address — not another platform to sign up for, and nothing extra to pay monthly.",
+  points: [
+    {
+      title: "You log into your own site",
+      body: "Go to your website, add /admin to the address, and sign in. That is it. No separate account with another company, no app to install, nothing else to remember.",
+    },
+    {
+      title: "It looks like writing an email",
+      body: "Type, format, add a photo, press publish. If you can send an email with an attachment, you can use it. There is no code and nothing you can break by clicking the wrong thing.",
+    },
+    {
+      title: "Changes appear straight away",
+      body: "Publish and it is live within seconds. No waiting on anyone, no queue, no 'I'll get to it next week'.",
+    },
+    {
+      title: "You cannot break the design",
+      body: "You edit the words and pictures. The layout, spacing and styling stay locked, so the site still looks right however much you change.",
+    },
+  ],
+  comparison: [
+    {
+      tier: "Starter",
+      has: "Blog posts only",
+      detail:
+        "Write and publish articles to keep the site fresh and give Google new pages to find. Your main pages — services, about, contact — are changed by sending them to me, which is usually quicker than doing it yourself for a handful of edits a year.",
+    },
+    {
+      tier: "Business and E-commerce",
+      has: "Every page",
+      detail:
+        "Change anything: your prices, services, opening hours, photos, the text on any page, plus the blog. Useful if your details move around — seasonal pricing, new services, staff changes — and you want it done the moment you think of it.",
+    },
+  ],
+} as const;
