@@ -52,7 +52,7 @@ function adminEmail(lead: LeadInput): string {
 function clientEmail(lead: LeadInput): string {
   return `
     <h2 style="margin:0 0 16px">Thanks, ${esc(lead.name)}.</h2>
-    <p>I've received your ${esc(leadKindLabel[lead.kind].toLowerCase())} and will reply within one business day.</p>
+    <p>I've received your ${esc(leadKindLabel[lead.kind].toLowerCase())} and will reply within one working day.</p>
     ${lead.topic ? row("You asked about", lead.topic) : ""}
     <p style="margin-top:24px">— ${esc(site.name)}</p>
   `;

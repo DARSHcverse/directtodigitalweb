@@ -3,7 +3,7 @@ import { faqs } from "@/lib/faqs";
 export function FaqSection() {
   return (
     <section aria-labelledby="faq-heading" className="py-16">
-      <h2 id="faq-heading" className="mb-8 text-3xl font-bold">
+      <h2 id="faq-heading" className="mb-8 text-3xl font-bold tracking-display text-navy">
         Frequently asked questions
       </h2>
       <div className="grid gap-4">

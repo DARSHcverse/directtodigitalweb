@@ -69,7 +69,7 @@ export function QuoteForm() {
           </Select>
         </Field>
         <Field label="Budget (GBP)" htmlFor="budget" hint="A rough range is fine.">
-          <Input id="budget" name="budget" value={form.budget} onChange={handleChange} placeholder="e.g. £1,000–£3,000" />
+          <Input id="budget" name="budget" value={form.budget} onChange={handleChange} placeholder="e.g. £800–£2,000" />
         </Field>
         <Field label="Timeline" htmlFor="timeline">
           <Input id="timeline" name="timeline" value={form.timeline} onChange={handleChange} placeholder="e.g. 4–6 weeks" />

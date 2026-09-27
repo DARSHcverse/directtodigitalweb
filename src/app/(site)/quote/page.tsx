@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Container } from "@/components/Container";
+import { Container, SectionLabel } from "@/components/Container";
 import { QuoteForm } from "@/components/QuoteForm";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/metadata";
 export const metadata: Metadata = pageMetadata({
   title: "Get a Free Website Quote",
   description:
-    "Request a free, fixed-price quote for your website. Tell me what your business needs and I'll send a tailored estimate within one business day.",
+    "Request a free, fixed-price quote for your website. Tell me what your business needs and I'll send a tailored estimate within one working day.",
   path: "/quote",
 });
 
@@ -21,13 +21,19 @@ export default function QuotePage() {
           { name: "Quote", path: "/quote" },
         ])}
       />
-      <section className="py-12">
+      <section className="bg-blueprint border-b-2 border-navy py-14">
         <Container>
-          <h1 className="mb-2 text-4xl font-bold">Get a free quote</h1>
+          <SectionLabel>No obligation</SectionLabel>
+          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy">Get a fixed quote</h1>
           <p className="mb-8 max-w-[640px] text-lg text-muted">
             Tell me what you need and I&apos;ll send a fixed price and timeline —
-            usually within one business day. No obligation, and no sales pitch.
+            usually within one working day. No obligation, and no sales pitch.
           </p>
+        </Container>
+      </section>
+
+      <section className="py-14">
+        <Container>
           <QuoteForm />
         </Container>
       </section>

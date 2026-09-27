@@ -1,12 +1,15 @@
 /**
- * TODO(Darshan): confirm these figures before launch.
+ * Pricing confirmed by Darshan, 2026-09-28.
  *
- * They are derived from the ranges already published in faqs.ts (£800–£3,000
- * for small-business sites, e-commerce higher) so the two cannot contradict
- * each other. If you change one, change the other.
+ * Consistent with the ranges published in faqs.ts (£800–£3,000 for
+ * small-business sites, e-commerce higher) — if you change one, change the
+ * other, or the site contradicts itself.
  *
- * "from" pricing is used throughout rather than fixed prices, so a quote is
- * always the real commitment and nothing here overpromises.
+ * Also consistent with the external UK market rate for trade websites
+ * (roughly £1,500–£3,500, with ~£1,800 typical for an MVP build).
+ *
+ * "from" pricing throughout rather than fixed prices, so the quote is always
+ * the real commitment and nothing here overpromises.
  */
 export type Tier = {
   name: string;

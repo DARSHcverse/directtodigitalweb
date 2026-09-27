@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Container } from "@/components/Container";
+import { Container, SectionLabel } from "@/components/Container";
 import { ButtonLink } from "@/components/Button";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
@@ -43,18 +43,24 @@ export default function DesignPage() {
           ...(projects.length > 0 ? [workListSchema()] : []),
         ]}
       />
-      <section className="py-12">
+      <section className="bg-blueprint border-b-2 border-navy py-14">
         <Container>
-          <h1 className="mb-2 text-4xl font-bold">Recent work</h1>
+          <SectionLabel>Live client work</SectionLabel>
+          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy">Recent work</h1>
           <p className="mb-10 max-w-[640px] text-lg text-muted">
             Live sites and web apps built for real businesses — from booking
             platforms to local business websites. Every one of these is online
             and in use.
           </p>
+        </Container>
+      </section>
+
+      <section className="py-14">
+        <Container>
 
           {projects.length === 0 ? (
             <div className="border-2 border-edge bg-surface p-10 text-center">
-              <h2 className="mb-3 text-xl font-semibold">
+              <h2 className="mb-3 text-xl font-bold text-navy">
                 Case studies coming soon
               </h2>
               <p className="mx-auto max-w-[520px] leading-relaxed text-muted">
@@ -128,7 +134,7 @@ export default function DesignPage() {
           )}
 
           <div className="mt-16 border-t border-edge pt-12 text-center">
-            <h2 className="mb-4 text-2xl font-bold">
+            <h2 className="mb-4 text-3xl font-bold tracking-display text-navy">
               Want something like this?
             </h2>
             <p className="mx-auto mb-8 max-w-[520px] text-muted">
@@ -137,7 +143,7 @@ export default function DesignPage() {
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <ButtonLink href="/quote" variant="primary">
-                Get a free quote
+                Get a fixed quote
               </ButtonLink>
               <ButtonLink href={`mailto:${site.contactEmail}`}>
                 Email me

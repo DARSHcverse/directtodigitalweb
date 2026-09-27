@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Container } from "@/components/Container";
+import { Container, SectionLabel } from "@/components/Container";
 import { ContactForm } from "@/components/ContactForm";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbSchema, contactPageSchema } from "@/lib/schema";
@@ -9,7 +9,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = pageMetadata({
   title: "Contact",
   description:
-    "Get in touch about your website project. Freelance web design for small businesses across the UK — I reply within one business day.",
+    "Get in touch about your website project. Freelance web design for small businesses across the UK — I reply within one working day.",
   path: "/contact",
 });
 
@@ -25,12 +25,13 @@ export default function ContactPage() {
           ]),
         ]}
       />
-      <section className="py-12">
+      <section className="bg-blueprint border-b-2 border-navy py-14">
         <Container>
-          <h1 className="mb-2 text-4xl font-bold">Contact</h1>
+          <SectionLabel>One working day reply</SectionLabel>
+          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy">Contact</h1>
           <p className="mb-8 max-w-[640px] text-lg text-muted">
             Tell me about your project and I&apos;ll get back to you within one
-            business day. Prefer email? Reach me at{" "}
+            working day. Prefer email? Reach me at{" "}
             <a
               href={`mailto:${site.contactEmail}`}
               className="text-amber-deep hover:underline"
@@ -39,6 +40,11 @@ export default function ContactPage() {
             </a>
             .
           </p>
+        </Container>
+      </section>
+
+      <section className="py-14">
+        <Container>
           <ContactForm />
         </Container>
       </section>

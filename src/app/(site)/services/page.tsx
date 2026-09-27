@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ButtonLink } from "@/components/Button";
-import { Container } from "@/components/Container";
+import { Container, SectionLabel } from "@/components/Container";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/metadata";
@@ -24,14 +24,20 @@ export default function ServicesPage() {
           { name: "Services", path: "/services" },
         ])}
       />
-      <section className="py-12">
+      <section className="bg-blueprint border-b-2 border-navy py-14">
         <Container>
-          <h1 className="mb-2 text-4xl font-bold">Services</h1>
+          <SectionLabel>What I build</SectionLabel>
+          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy">Services</h1>
           <p className="mb-12 max-w-[640px] text-lg text-muted">
             Three ways I help small businesses get online properly. Not sure
             which you need? Describe your situation and I&apos;ll point you to
             the right one.
           </p>
+        </Container>
+      </section>
+
+      <section className="py-14">
+        <Container>
 
           <div className="grid gap-8">
             {serviceCatalogue.map((service) => (
@@ -77,7 +83,7 @@ export default function ServicesPage() {
             aria-labelledby="who-for"
             className="mt-16 border-t border-edge pt-12"
           >
-            <h2 id="who-for" className="mb-2 text-2xl font-bold">
+            <h2 id="who-for" className="mb-2 text-3xl font-bold tracking-display text-navy">
               Looking for something specific?
             </h2>
             <p className="mb-8 text-muted">
@@ -103,12 +109,12 @@ export default function ServicesPage() {
           </section>
 
           <div className="mt-12 border-t border-edge pt-12 text-center">
-            <h2 className="mb-4 text-2xl font-bold">
+            <h2 className="mb-4 text-3xl font-bold tracking-display text-navy">
               Something else in mind?
             </h2>
             <p className="mx-auto mb-8 max-w-[520px] text-muted">
               If your project doesn&apos;t fit neatly into one of these, get in
-              touch anyway and we&apos;ll work out what you need.
+              touch anyway and I&apos;ll work out what you need.
             </p>
             <ButtonLink href="/contact">Ask a question</ButtonLink>
           </div>

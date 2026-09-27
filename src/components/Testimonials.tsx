@@ -5,7 +5,7 @@ export function Testimonials() {
 
   return (
     <section aria-labelledby="testimonials-heading" className="py-16">
-      <h2 id="testimonials-heading" className="mb-8 text-3xl font-bold">
+      <h2 id="testimonials-heading" className="mb-8 text-3xl font-bold tracking-display text-navy">
         What clients say
       </h2>
       <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-6">

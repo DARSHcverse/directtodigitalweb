@@ -32,6 +32,6 @@ export const faqs = [
   {
     question: "What do you need from me to get started?",
     answer:
-      "An idea of what your business does, examples of sites you like, and any text or images you already have. If content is not ready, that is normal, and we can work through it together as the build progresses.",
+      "An idea of what your business does, examples of sites you like, and any text or images you already have. If content is not ready, that is normal, and I can work through it together as the build progresses.",
   },
 ] as const;

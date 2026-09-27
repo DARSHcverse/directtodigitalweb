@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ButtonLink } from "@/components/Button";
-import { Container } from "@/components/Container";
+import { Container, SectionLabel } from "@/components/Container";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/metadata";
@@ -23,28 +23,36 @@ export default function PricingPage() {
           { name: "Pricing", path: "/pricing" },
         ])}
       />
-      <section className="py-12">
+      <section className="bg-blueprint border-b-2 border-navy py-14">
         <Container>
-          <h1 className="mb-2 text-4xl font-bold">Pricing</h1>
+          <SectionLabel>Fixed prices, agreed up front</SectionLabel>
+          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy">
+            Pricing
+          </h1>
           <p className="mb-10 max-w-[640px] text-lg text-muted">
             Every project is quoted as a fixed price agreed before work starts.
             The figures below are starting points — tell me what you need and
             you&apos;ll get an exact number.
           </p>
+        </Container>
+      </section>
+
+      <section className="py-14">
+        <Container>
 
           <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start gap-6">
             {tiers.map((tier) => (
               <article
                 key={tier.name}
                 className={cn(
-                  "relative flex h-full flex-col rounded-none border bg-surface p-8 shadow-sm transition duration-300",
+                  "relative flex h-full flex-col border-2 bg-surface p-8 transition duration-300",
                   tier.featured
                     ? "border-amber shadow-none"
                     : "border-edge hover:border-navy",
                 )}
               >
                 {tier.featured ? (
-                  <span className="absolute -top-3 left-8 rounded-full bg-linear-to-r from-navy to-navy-soft px-3 py-1 text-xs font-semibold text-white">
+                  <span className="absolute -top-3 left-8 bg-amber px-3 py-1 text-xs font-bold tracking-wide text-navy-deep uppercase">
                     Most popular
                   </span>
                 ) : null}
@@ -83,7 +91,7 @@ export default function PricingPage() {
           </div>
 
           <div className="mt-12 border-2 border-edge bg-surface p-8">
-            <h2 className="mb-3 text-xl font-semibold">
+            <h2 className="mb-3 text-xl font-bold text-navy">
               What affects the price?
             </h2>
             <p className="leading-relaxed text-muted">
@@ -97,7 +105,7 @@ export default function PricingPage() {
           </div>
 
           <div className="mt-12 border-t border-edge pt-12 text-center">
-            <h2 className="mb-4 text-2xl font-bold">
+            <h2 className="mb-4 text-3xl font-bold tracking-display text-navy">
               Not sure which fits?
             </h2>
             <p className="mx-auto mb-8 max-w-[520px] text-muted">
@@ -105,7 +113,7 @@ export default function PricingPage() {
               option — even if it&apos;s the cheapest one.
             </p>
             <ButtonLink href="/quote" variant="primary">
-              Get a free quote
+              Get a fixed quote
             </ButtonLink>
           </div>
         </Container>

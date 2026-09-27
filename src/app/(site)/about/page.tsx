@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ButtonLink } from "@/components/Button";
-import { Container } from "@/components/Container";
+import { Container, SectionLabel } from "@/components/Container";
 import { JsonLd } from "@/components/JsonLd";
 import { Testimonials } from "@/components/Testimonials";
 import { breadcrumbSchema } from "@/lib/schema";
@@ -31,13 +31,19 @@ export default function AboutPage() {
           { name: "About", path: "/about" },
         ])}
       />
-      <section className="py-12">
+      <section className="bg-blueprint border-b-2 border-navy py-14">
         <Container>
-          <h1 className="mb-2 text-4xl font-bold">About</h1>
+          <SectionLabel>Who you&apos;re dealing with</SectionLabel>
+          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy">About</h1>
           <p className="mb-10 max-w-[640px] text-lg text-muted">
             {site.name} is run by {site.founder} — one developer, working
             directly with you.
           </p>
+        </Container>
+      </section>
+
+      <section className="py-14">
+        <Container>
 
           <div className="grid gap-8 md:grid-cols-[1.4fr_1fr]">
             <div className="grid gap-4 text-muted">
@@ -87,14 +93,14 @@ export default function AboutPage() {
           <Testimonials />
 
           <div className="border-t border-edge pt-12 text-center">
-            <h2 className="mb-4 text-2xl font-bold">Let&apos;s talk</h2>
+            <h2 className="mb-4 text-3xl font-bold tracking-display text-navy">Let&apos;s talk</h2>
             <p className="mx-auto mb-8 max-w-[520px] text-muted">
               Tell me what your business needs and I&apos;ll tell you honestly
               whether I can help.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <ButtonLink href="/quote" variant="primary">
-                Get a free quote
+                Get a fixed quote
               </ButtonLink>
               <ButtonLink href="/contact">Ask a question</ButtonLink>
             </div>

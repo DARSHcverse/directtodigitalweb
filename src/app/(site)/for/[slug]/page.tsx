@@ -120,7 +120,7 @@ export default async function LandingPage({
       <section className="py-14">
         <Container>
           <section aria-labelledby="problems" className="py-16">
-            <h2 id="problems" className="mb-6 text-2xl font-bold">
+            <h2 id="problems" className="mb-6 text-3xl font-bold tracking-display text-navy">
               Sound familiar?
             </h2>
             <ul className="grid gap-3">
@@ -139,7 +139,7 @@ export default async function LandingPage({
           </section>
 
           <section aria-labelledby="solutions" className="py-4 pb-16">
-            <h2 id="solutions" className="mb-2 text-2xl font-bold">
+            <h2 id="solutions" className="mb-2 text-3xl font-bold tracking-display text-navy">
               How I fix it
             </h2>
             <p className="mb-8 text-muted">
@@ -162,7 +162,7 @@ export default async function LandingPage({
 
           {proof.length > 0 ? (
             <section aria-labelledby="proof" className="border-t border-edge py-16">
-              <h2 id="proof" className="mb-2 text-2xl font-bold">
+              <h2 id="proof" className="mb-2 text-3xl font-bold tracking-display text-navy">
                 I&apos;ve built this before
               </h2>
               <p className="mb-8 text-muted">
@@ -213,7 +213,7 @@ export default async function LandingPage({
             aria-labelledby="landing-faq"
             className="border-t border-edge py-16"
           >
-            <h2 id="landing-faq" className="mb-8 text-2xl font-bold">
+            <h2 id="landing-faq" className="mb-8 text-3xl font-bold tracking-display text-navy">
               Common questions
             </h2>
             <div className="grid gap-4">
@@ -240,16 +240,16 @@ export default async function LandingPage({
           </section>
 
           <section className="border-t border-edge py-16 text-center">
-            <h2 className="mb-4 text-2xl font-bold">
+            <h2 className="mb-4 text-3xl font-bold tracking-display text-navy">
               Let&apos;s talk about your project
             </h2>
             <p className="mx-auto mb-8 max-w-[520px] text-muted">
               Tell me what you need and I&apos;ll send a fixed quote, usually
-              within one business day.
+              within one working day.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <ButtonLink href="/quote" variant="primary">
-                Get a free quote
+                Get a fixed quote
               </ButtonLink>
               <ButtonLink href="/contact">Ask a question</ButtonLink>
             </div>

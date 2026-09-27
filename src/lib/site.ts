@@ -49,7 +49,7 @@ export const site = {
   url: resolveSiteUrl(),
   tagline: "Websites for Tradespeople, Built For You",
   description:
-    "We build websites for UK tradespeople — plumbers, electricians, builders and roofers. Written, built and set up for you, so you never have to log in. Fixed quotes from £800.",
+    "I build websites for UK tradespeople — plumbers, electricians, builders and roofers. Written, built and set up for you, so you never have to log in. Fixed quotes from £800.",
   locale: "en_GB",
   currency: "GBP",
   /**
