@@ -18,7 +18,7 @@ export default async function OgImage() {
           justifyContent: "center",
           padding: "80px",
           background:
-            "radial-gradient(ellipse 80% 60% at 50% 0%, #2a1a5e, #0b0b0b)",
+            "linear-gradient(135deg, #0f2a47, #0a1e33)",
           color: "white",
           fontFamily: "sans-serif",
         }}
@@ -33,7 +33,7 @@ export default async function OgImage() {
         >
           {site.name}
         </div>
-        <div style={{ fontSize: 40, color: "#bfb9c9", lineHeight: 1.3 }}>
+        <div style={{ fontSize: 40, color: "#cbd7e6", lineHeight: 1.3 }}>
           {site.tagline}
         </div>
         <div
@@ -42,7 +42,7 @@ export default async function OgImage() {
             width: 180,
             height: 8,
             borderRadius: 999,
-            background: "linear-gradient(90deg, #8b5cf6, #6d28d9)",
+            background: "linear-gradient(90deg, #f5a623, #d98b0f)",
           }}
         />
       </div>

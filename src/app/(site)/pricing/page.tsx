@@ -37,14 +37,14 @@ export default function PricingPage() {
               <article
                 key={tier.name}
                 className={cn(
-                  "relative flex h-full flex-col rounded-2xl border bg-card/60 p-8 backdrop-blur-md transition duration-300",
+                  "relative flex h-full flex-col rounded-2xl border bg-surface p-8 shadow-sm transition duration-300",
                   tier.featured
-                    ? "border-brand/60 shadow-[0_16px_40px_rgb(139_92_246/0.15)]"
-                    : "border-edge hover:border-brand/40",
+                    ? "border-amber shadow-md"
+                    : "border-edge hover:border-navy/30",
                 )}
               >
                 {tier.featured ? (
-                  <span className="absolute -top-3 left-8 rounded-full bg-linear-to-r from-brand to-brand-dark px-3 py-1 text-xs font-semibold text-white">
+                  <span className="absolute -top-3 left-8 rounded-full bg-linear-to-r from-navy to-navy-soft px-3 py-1 text-xs font-semibold text-white">
                     Most popular
                   </span>
                 ) : null}
@@ -63,7 +63,7 @@ export default function PricingPage() {
                 <ul className="mt-6 grid flex-1 gap-3 text-sm">
                   {tier.features.map((feature) => (
                     <li key={feature} className="flex gap-3">
-                      <span aria-hidden="true" className="text-brand">
+                      <span aria-hidden="true" className="text-amber-deep">
                         ✓
                       </span>
                       <span className="text-muted">{feature}</span>
@@ -82,7 +82,7 @@ export default function PricingPage() {
             ))}
           </div>
 
-          <div className="mt-12 rounded-2xl border border-edge bg-card/60 p-8 backdrop-blur-md">
+          <div className="mt-12 rounded-2xl border border-edge bg-surface p-8 shadow-sm">
             <h2 className="mb-3 text-xl font-semibold">
               What affects the price?
             </h2>

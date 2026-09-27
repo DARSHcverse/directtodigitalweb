@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { cn } from "@/lib/cn";
+import { site } from "@/lib/site";
 
 const links = [
   { href: "/", label: "Home" },
@@ -22,7 +22,7 @@ export function NavBar() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-20 border-edge bg-[rgb(6,6,8)] backdrop-blur-lg",
+        "sticky top-0 z-20 border-navy-soft/40 bg-navy",
         "border-b lg:h-screen lg:w-sidebar lg:shrink-0 lg:border-r lg:border-b-0",
       )}
     >
@@ -32,15 +32,20 @@ export function NavBar() {
           "lg:w-full lg:max-w-none lg:flex-col lg:items-center lg:gap-10 lg:px-6 lg:py-8",
         )}
       >
-        <Link href="/" aria-label="D2D Web — home" className="inline-flex items-center">
-          <Image
-            src="/images/d2d-logo-white.png"
-            alt="D2D Web"
-            width={150}
-            height={150}
-            priority
-            className="h-12 w-auto lg:h-[150px]"
-          />
+        {/* TODO(Darshan): swap for the Trade Web Co logo once the SVG exists.
+            Until then this is set in type — the old D2D mark is the wrong
+            brand and the wrong palette. */}
+        <Link
+          href="/"
+          aria-label={`${site.name} — home`}
+          className="inline-flex flex-col leading-none no-underline"
+        >
+          <span className="text-xl font-bold tracking-tight text-white lg:text-2xl">
+            Trade Web
+          </span>
+          <span className="text-xl font-bold tracking-tight text-amber lg:text-2xl">
+            Co.
+          </span>
         </Link>
 
         <button
@@ -48,7 +53,7 @@ export function NavBar() {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="primary-navigation"
-          className="rounded-lg border border-edge p-2 text-fg lg:hidden"
+          className="rounded-lg border border-white/25 p-2 text-white lg:hidden"
         >
           <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -78,9 +83,11 @@ export function NavBar() {
                 aria-current={active ? "page" : undefined}
                 onClick={() => setOpen(false)}
                 className={cn(
-                  "rounded-lg px-4 py-3 no-underline transition duration-300",
-                  "hover:bg-white/8 hover:text-fg lg:hover:translate-x-1",
-                  active ? "bg-white/8 text-fg" : "text-muted",
+                  "rounded-lg px-4 py-3 no-underline transition duration-200",
+                  "hover:bg-white/10 hover:text-white lg:hover:translate-x-1",
+                  active
+                    ? "bg-white/10 text-white shadow-[inset_3px_0_0_0_var(--color-amber)]"
+                    : "text-white/70",
                 )}
               >
                 {label}

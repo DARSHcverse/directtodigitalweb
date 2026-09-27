@@ -1,30 +1,39 @@
 @import "tailwindcss";
 
-/* Design tokens ported from the original App.css so the visual identity
-   survives the migration unchanged. */
+/**
+ * Trade Web Co palette.
+ *
+ * Navy + safety amber, on a light surface. Chosen deliberately over the
+ * previous purple-on-black: that palette reads as a tech/SaaS product, which
+ * is both unfamiliar to a tradesperson and visually identical to the
+ * site-builder competitors we cannot beat on price. Navy and amber are
+ * workwear and site-signage colours — they read as competent and established
+ * to this audience without anyone consciously noticing why.
+ */
 @theme {
-  --color-bg: #0b0b0b;
-  --color-fg: #ffffff;
-  --color-muted: #bfb9c9;
-  --color-brand: #8b5cf6;
-  --color-brand-dark: #6d28d9;
-  --color-card: #141414;
-  --color-edge: #252525;
+  /* Brand */
+  --color-navy: #0f2a47;
+  --color-navy-deep: #0a1e33;
+  --color-navy-soft: #1c3d61;
+  --color-amber: #f5a623;
+  --color-amber-deep: #d98b0f;
 
-  --color-success: #9ae6b4;
-  --color-danger: #feb2b2;
+  /* Surfaces */
+  --color-bg: #f7f9fc;
+  --color-surface: #ffffff;
+  --color-edge: #dde5ef;
 
-  --spacing-sidebar: 16.25rem; /* 260px */
+  /* Text — both clear WCAG AA on light surfaces. */
+  --color-ink: #111827;
+  --color-muted: #5b6b7f;
+
+  /* Status */
+  --color-success: #0f7b52;
+  --color-danger: #b4232a;
+
+  --spacing-sidebar: 16.25rem;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-
-  --animate-gradient-wave: gradient-wave 8s ease infinite;
-
-  @keyframes gradient-wave {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
 }
 
 @layer base {
@@ -34,28 +43,16 @@
 
   body {
     background-color: var(--color-bg);
-    color: var(--color-fg);
+    color: var(--color-ink);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
 
-  /* Ambient gradient wash, ported from body::before. */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background-image:
-      radial-gradient(ellipse 80% 60% at 50% -10%, rgb(139 92 246 / 0.2), transparent),
-      radial-gradient(ellipse 50% 80% at 10% 110%, rgb(139 92 246 / 0.15), transparent),
-      radial-gradient(ellipse 50% 80% at 90% 110%, rgb(100 116 139 / 0.15), transparent);
-  }
-
-  /* Visible keyboard focus — absent from the original stylesheet. */
+  /* Visible keyboard focus. Amber on light needs a darker ring to stay
+     clearly visible, so the navy is used rather than the accent. */
   :focus-visible {
-    outline: 2px solid var(--color-brand);
+    outline: 2px solid var(--color-navy);
     outline-offset: 2px;
   }
 

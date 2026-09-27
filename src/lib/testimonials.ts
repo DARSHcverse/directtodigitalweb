@@ -8,7 +8,7 @@ export type Testimonial = {
 /**
  * Only genuine client testimonials belong here. Employment references from
  * the personal portfolio are deliberately excluded: they speak to Darshan as
- * an employee, not to D2D Web as a supplier.
+ * an employee, not to Trade Web Co as a supplier.
  */
 export const testimonials: Testimonial[] = [
   {

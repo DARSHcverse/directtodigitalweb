@@ -9,7 +9,7 @@ export default function SiteLayout({
     <div className="flex min-h-screen flex-col lg:flex-row">
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-lg focus:bg-brand focus:px-4 focus:py-2 focus:text-white"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-lg focus:bg-amber focus:px-4 focus:py-2 focus:text-white"
       >
         Skip to content
       </a>

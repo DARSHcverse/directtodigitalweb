@@ -2,8 +2,8 @@ import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
 const field =
-  "rounded-lg border border-edge bg-bg/80 px-4 py-3 text-fg outline-none transition " +
-  "focus:border-brand focus:shadow-[0_0_0_3px_rgb(139_92_246/0.25)]";
+  "rounded-lg border border-edge bg-surface px-4 py-3 text-ink outline-none transition " +
+  "focus:border-navy focus:shadow-[0_0_0_3px_rgb(15_42_71/0.15)]";
 
 export function FormShell({
   onSubmit,
@@ -16,7 +16,7 @@ export function FormShell({
     <form
       onSubmit={onSubmit}
       noValidate
-      className="mx-auto grid max-w-[640px] gap-5 rounded-2xl border border-edge bg-card/60 p-8 backdrop-blur-md"
+      className="mx-auto grid max-w-[640px] gap-5 rounded-2xl border border-edge bg-surface p-8 shadow-sm"
     >
       {children}
     </form>

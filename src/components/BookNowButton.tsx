@@ -11,9 +11,9 @@ export function BookNowButton() {
   return (
     <Link
       href="/booking"
-      className="fixed right-5 bottom-5 z-50 rounded-full bg-linear-[270deg,var(--color-brand-dark),white,black,var(--color-brand-dark)] bg-[length:800%_800%] px-6 py-4 text-lg font-bold text-white no-underline shadow-[0_4px_15px_rgb(0_0_0/0.2)] transition duration-300 animate-gradient-wave hover:scale-110"
+      className="fixed right-5 bottom-5 z-50 rounded-full bg-amber px-6 py-4 text-base font-bold text-navy-deep no-underline shadow-lg transition duration-200 hover:bg-amber-deep hover:shadow-xl"
     >
-      Book Now
+      Get a callback
     </Link>
   );
 }

@@ -11,7 +11,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = pageMetadata({
   title: "Recent Work",
   description:
-    "Websites and web apps built for real businesses — booking platforms, e-commerce, education software and local business sites. See recent work from D2D Web.",
+    "Websites and web apps built for real businesses — booking platforms, e-commerce, education software and local business sites. See recent work from Trade Web Co.",
   path: "/design",
   noIndex: projectsArePlaceholder,
 });
@@ -53,7 +53,7 @@ export default function DesignPage() {
           </p>
 
           {projects.length === 0 ? (
-            <div className="rounded-2xl border border-edge bg-card/60 p-10 text-center backdrop-blur-md">
+            <div className="rounded-2xl border border-edge bg-surface p-10 text-center shadow-sm">
               <h2 className="mb-3 text-xl font-semibold">
                 Case studies coming soon
               </h2>
@@ -74,7 +74,7 @@ export default function DesignPage() {
               {projects.map((project, index) => (
                 <article
                   key={project.slug}
-                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-edge bg-card/60 backdrop-blur-md transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_16px_40px_rgb(0_0_0/0.3)]"
+                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-edge bg-surface shadow-sm transition duration-300 hover:-translate-y-1.5 hover:border-navy/30 hover:shadow-lg"
                 >
                   <a
                     href={project.url}
@@ -116,7 +116,7 @@ export default function DesignPage() {
                       href={project.url}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-brand no-underline hover:underline"
+                      className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-amber-deep no-underline hover:underline"
                     >
                       Visit live site
                       <span aria-hidden="true">↗</span>

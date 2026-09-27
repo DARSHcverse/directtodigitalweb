@@ -10,7 +10,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = pageMetadata({
   title: "About",
   description:
-    "D2D Web is run by Darshan Subramaniam, a full-stack developer building websites for small businesses. Real products, live and in use — not just portfolio pieces.",
+    "Trade Web Co is run by Darshan Subramaniam, a developer building websites for tradespeople and small businesses. Real sites, live and in use — not just portfolio pieces.",
   path: "/about",
 });
 
@@ -67,8 +67,8 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <aside className="h-fit rounded-2xl border border-edge bg-card/60 p-8 backdrop-blur-md">
-              <h2 className="mb-6 text-sm font-semibold tracking-widest text-brand uppercase">
+            <aside className="h-fit rounded-2xl border border-edge bg-surface p-8 shadow-sm">
+              <h2 className="mb-6 text-sm font-semibold tracking-widest text-amber-deep uppercase">
                 At a glance
               </h2>
               <dl className="grid gap-5">

@@ -38,7 +38,7 @@ export default function ServicesPage() {
               <article
                 key={service.slug}
                 id={service.slug}
-                className="scroll-mt-24 rounded-2xl border border-edge bg-card/60 p-8 backdrop-blur-md transition duration-300 hover:border-brand/40"
+                className="scroll-mt-24 rounded-2xl border border-edge bg-surface p-8 shadow-sm transition duration-300 hover:border-navy/30"
               >
                 <div className="grid gap-8 md:grid-cols-[1.2fr_1fr]">
                   <div>
@@ -54,13 +54,13 @@ export default function ServicesPage() {
                   </div>
 
                   <div>
-                    <h3 className="mb-4 text-sm font-semibold tracking-widest text-brand uppercase">
+                    <h3 className="mb-4 text-sm font-semibold tracking-widest text-amber-deep uppercase">
                       What&apos;s included
                     </h3>
                     <ul className="grid gap-3 text-sm">
                       {service.includes.map((item) => (
                         <li key={item} className="flex gap-3">
-                          <span aria-hidden="true" className="text-brand">
+                          <span aria-hidden="true" className="text-amber-deep">
                             ✓
                           </span>
                           <span className="text-muted">{item}</span>
@@ -88,13 +88,13 @@ export default function ServicesPage() {
                 <Link
                   key={landing.slug}
                   href={`/for/${landing.slug}`}
-                  className="group rounded-2xl border border-edge bg-card/60 p-6 no-underline backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-brand/40"
+                  className="group rounded-2xl border border-edge bg-surface p-6 no-underline shadow-sm transition duration-300 hover:-translate-y-1 hover:border-navy/30"
                 >
-                  <h3 className="mb-2 text-lg font-semibold text-fg">
+                  <h3 className="mb-2 text-lg font-semibold text-ink">
                     {landing.heading}
                   </h3>
                   <p className="text-sm text-muted">{landing.audience}</p>
-                  <span className="mt-4 inline-block text-sm font-semibold text-brand">
+                  <span className="mt-4 inline-block text-sm font-semibold text-amber-deep">
                     Read more →
                   </span>
                 </Link>

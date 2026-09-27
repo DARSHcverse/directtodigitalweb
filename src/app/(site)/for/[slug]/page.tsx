@@ -54,7 +54,7 @@ export default async function LandingPage({
 
       <section className="py-12">
         <Container>
-          <p className="mb-3 text-sm font-semibold tracking-widest text-brand uppercase">
+          <p className="mb-3 text-sm font-semibold tracking-widest text-amber-deep uppercase">
             {landing.audience}
           </p>
           <h1 className="mb-4 text-[clamp(2rem,5vw,3rem)] leading-tight font-bold">
@@ -78,9 +78,9 @@ export default async function LandingPage({
               {landing.painPoints.map((point) => (
                 <li
                   key={point}
-                  className="flex gap-3 rounded-xl border border-edge bg-card/60 px-5 py-4 backdrop-blur-md"
+                  className="flex gap-3 rounded-xl border border-edge bg-surface px-5 py-4 shadow-sm"
                 >
-                  <span aria-hidden="true" className="text-brand">
+                  <span aria-hidden="true" className="text-amber-deep">
                     —
                   </span>
                   <span className="text-muted">{point}</span>
@@ -100,7 +100,7 @@ export default async function LandingPage({
               {landing.solutions.map((solution) => (
                 <article
                   key={solution.title}
-                  className="rounded-2xl border border-edge bg-card/60 p-6 backdrop-blur-md transition duration-300 hover:border-brand/40"
+                  className="rounded-2xl border border-edge bg-surface p-6 shadow-sm transition duration-300 hover:border-navy/30"
                 >
                   <h3 className="mb-3 text-lg font-semibold">
                     {solution.title}
@@ -123,7 +123,7 @@ export default async function LandingPage({
                 {proof.map((project) => (
                   <article
                     key={project.slug}
-                    className="group overflow-hidden rounded-2xl border border-edge bg-card/60 backdrop-blur-md transition duration-300 hover:-translate-y-1.5 hover:border-brand/40"
+                    className="group overflow-hidden rounded-2xl border border-edge bg-surface shadow-sm transition duration-300 hover:-translate-y-1.5 hover:border-navy/30"
                   >
                     <a
                       href={project.url}
@@ -152,7 +152,7 @@ export default async function LandingPage({
               <div className="mt-8">
                 <Link
                   href="/design"
-                  className="text-sm font-semibold text-brand no-underline hover:underline"
+                  className="text-sm font-semibold text-amber-deep no-underline hover:underline"
                 >
                   See all work →
                 </Link>
@@ -171,14 +171,14 @@ export default async function LandingPage({
               {landing.faqs.map((faq) => (
                 <details
                   key={faq.question}
-                  className="group rounded-2xl border border-edge bg-card/60 p-6 backdrop-blur-md transition hover:border-brand/40"
+                  className="group rounded-2xl border border-edge bg-surface p-6 shadow-sm transition hover:border-navy/30"
                 >
                   <summary className="cursor-pointer list-none text-lg font-semibold marker:content-none">
                     <span className="flex items-center justify-between gap-4">
                       {faq.question}
                       <span
                         aria-hidden="true"
-                        className="shrink-0 text-brand transition-transform duration-300 group-open:rotate-45"
+                        className="shrink-0 text-amber-deep transition-transform duration-300 group-open:rotate-45"
                       >
                         +
                       </span>

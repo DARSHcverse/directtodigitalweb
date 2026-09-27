@@ -33,7 +33,7 @@ export default function ContactPage() {
             business day. Prefer email? Reach me at{" "}
             <a
               href={`mailto:${site.contactEmail}`}
-              className="text-brand hover:underline"
+              className="text-amber-deep hover:underline"
             >
               {site.contactEmail}
             </a>

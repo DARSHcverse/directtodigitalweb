@@ -20,19 +20,18 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-16 border-t border-edge">
+    <footer className="mt-16 bg-navy text-white/80">
       <Container>
         <div className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <p className="mb-3 text-lg font-bold">{site.name}</p>
-            <p className="text-sm leading-relaxed text-muted">
-              Freelance web design and development for small businesses across
-              the UK.
+            <p className="mb-3 text-lg font-bold text-white">{site.name}</p>
+            <p className="text-sm leading-relaxed text-white/70">
+              Websites for UK tradespeople — written, built and set up for you.
             </p>
           </div>
 
           <nav aria-labelledby="footer-services">
-            <p id="footer-services" className="mb-3 text-sm font-semibold">
+            <p id="footer-services" className="mb-3 text-sm font-semibold text-white">
               Services
             </p>
             <ul className="grid gap-2 text-sm">
@@ -40,7 +39,7 @@ export function Footer() {
                 <li key={service.slug}>
                   <Link
                     href={`/services#${service.slug}`}
-                    className="text-muted no-underline transition hover:text-fg"
+                    className="text-white/70 no-underline transition hover:text-amber"
                   >
                     {service.name}
                   </Link>
@@ -50,7 +49,7 @@ export function Footer() {
           </nav>
 
           <nav aria-labelledby="footer-explore">
-            <p id="footer-explore" className="mb-3 text-sm font-semibold">
+            <p id="footer-explore" className="mb-3 text-sm font-semibold text-white">
               Explore
             </p>
             <ul className="grid gap-2 text-sm">
@@ -58,7 +57,7 @@ export function Footer() {
                 <li key={landing.slug}>
                   <Link
                     href={`/for/${landing.slug}`}
-                    className="text-muted no-underline transition hover:text-fg"
+                    className="text-white/70 no-underline transition hover:text-amber"
                   >
                     {landing.heading}
                   </Link>
@@ -68,7 +67,7 @@ export function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-muted no-underline transition hover:text-fg"
+                    className="text-white/70 no-underline transition hover:text-amber"
                   >
                     {item.label}
                   </Link>
@@ -78,7 +77,7 @@ export function Footer() {
           </nav>
 
           <nav aria-labelledby="footer-start">
-            <p id="footer-start" className="mb-3 text-sm font-semibold">
+            <p id="footer-start" className="mb-3 text-sm font-semibold text-white">
               Get started
             </p>
             <ul className="grid gap-2 text-sm">
@@ -86,7 +85,7 @@ export function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-muted no-underline transition hover:text-fg"
+                    className="text-white/70 no-underline transition hover:text-amber"
                   >
                     {item.label}
                   </Link>
@@ -95,7 +94,7 @@ export function Footer() {
               <li>
                 <a
                   href={`mailto:${site.contactEmail}`}
-                  className="text-muted no-underline transition hover:text-fg"
+                  className="text-white/70 no-underline transition hover:text-amber"
                 >
                   Email me
                 </a>
@@ -104,7 +103,7 @@ export function Footer() {
           </nav>
         </div>
 
-        <div className="border-t border-edge py-6 text-center text-sm text-muted">
+        <div className="border-t border-white/15 py-6 text-center text-sm text-white/60">
           <p>
             © {year} {site.name}. All rights reserved.
           </p>

@@ -3,16 +3,18 @@ import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
 const base =
-  "inline-flex items-center justify-center rounded-lg px-6 py-3 font-semibold no-underline transition duration-300 " +
+  "inline-flex items-center justify-center rounded-lg px-6 py-3 font-semibold no-underline transition duration-200 " +
   "hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-60";
 
 const variants = {
+  /** Amber on navy text: the highest-contrast CTA in the palette. */
   primary:
-    "border-0 bg-linear-to-r from-brand to-brand-dark text-fg shadow-[0_4px_15px_rgb(139_92_246/0.25)] " +
-    "hover:brightness-110 hover:shadow-[0_8px_25px_rgb(139_92_246/0.4)]",
+    "bg-amber text-navy-deep shadow-sm hover:bg-amber-deep hover:shadow-md",
   secondary:
-    "border border-edge bg-edge/50 text-fg backdrop-blur-sm " +
-    "hover:border-white/20 hover:shadow-[0_8px_25px_rgb(0_0_0/0.2)]",
+    "border border-edge bg-surface text-navy hover:border-navy/30 hover:shadow-sm",
+  /** For use on navy backgrounds. */
+  onDark:
+    "border border-white/25 bg-white/5 text-white hover:border-white/50 hover:bg-white/10",
 } as const;
 
 type Variant = keyof typeof variants;

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ButtonLink } from "@/components/Button";
 import { Container } from "@/components/Container";
 import { FaqSection } from "@/components/FaqSection";
+import { ProofBand } from "@/components/ProofBand";
 import { FeaturedWork } from "@/components/FeaturedWork";
 import { Testimonials } from "@/components/Testimonials";
 import { JsonLd } from "@/components/JsonLd";
@@ -42,16 +43,17 @@ export default function HomePage() {
 
       <section className="pt-24 pb-16 text-center">
         <Container>
-          <p className="mb-4 text-sm font-semibold tracking-widest text-brand uppercase">
-            Freelance web design · UK-wide
+          <p className="mb-4 text-sm font-semibold tracking-widest text-amber-deep uppercase">
+            Websites for UK tradespeople
           </p>
-          <h1 className="mb-6 bg-linear-45 from-fg to-muted bg-clip-text text-[clamp(2.5rem,6vw,4rem)] leading-tight font-bold text-transparent">
-            Websites that win you customers
+          <h1 className="mb-6 text-[clamp(2.5rem,6vw,4rem)] leading-tight font-bold text-navy">
+            Your customers are checking. Are you there?
           </h1>
           <p className="mx-auto mb-8 max-w-[640px] text-lg leading-relaxed text-muted">
-            I design and build fast, modern websites for small businesses across
-            the UK. Fixed quotes, clear timelines, and no jargon — just a site
-            that makes your business look the part and brings in enquiries.
+            Two thirds of customers look you up before they call. If there is
+            nothing to find, they call the next name on the list. I build
+            websites for plumbers, electricians, builders and roofers — written,
+            built and set up for you, so you never have to log in.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <ButtonLink href="/quote" variant="primary">
@@ -60,10 +62,13 @@ export default function HomePage() {
             <ButtonLink href="/design">See recent work</ButtonLink>
           </div>
           <p className="mt-6 text-sm text-muted">
-            Free, no-obligation quote · Reply within one business day
+            Fixed price agreed up front · No monthly fees · Reply within one
+            business day
           </p>
         </Container>
       </section>
+
+      <ProofBand />
 
       <Container>
         <section aria-labelledby="services-heading" className="py-16">
@@ -71,13 +76,14 @@ export default function HomePage() {
             What I build
           </h2>
           <p className="mb-8 text-muted">
-            Whatever your business needs online, built properly from the start.
+            Trades are what I know best, but the same applies to any local
+            business that needs to be found.
           </p>
           <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6">
             {serviceCatalogue.map((service) => (
               <article
                 key={service.name}
-                className="rounded-2xl border border-edge bg-card/60 p-6 backdrop-blur-md transition duration-300 hover:-translate-y-1.5 hover:border-brand/40"
+                className="rounded-2xl border border-edge bg-surface p-6 shadow-sm transition duration-300 hover:-translate-y-1.5 hover:border-navy/30"
               >
                 <h3 className="mb-3 text-xl font-semibold">{service.name}</h3>
                 <p className="leading-relaxed text-muted">
@@ -101,9 +107,9 @@ export default function HomePage() {
             {steps.map((step, index) => (
               <li
                 key={step.title}
-                className="rounded-2xl border border-edge bg-card/60 p-6 backdrop-blur-md"
+                className="rounded-2xl border border-edge bg-surface p-6 shadow-sm"
               >
-                <span className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-r from-brand to-brand-dark font-bold text-white">
+                <span className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-r from-navy to-navy-soft font-bold text-white">
                   {index + 1}
                 </span>
                 <h3 className="mb-2 text-lg font-semibold">{step.title}</h3>

@@ -1,4 +1,4 @@
-const FALLBACK_URL = "https://d2dweb.co.uk";
+const FALLBACK_URL = "https://tradewebco.co.uk";
 
 /**
  * Resolve the canonical origin.
@@ -43,17 +43,27 @@ function resolveSiteUrl(): string {
  * Metadata, schema, sitemap and robots all read from here.
  */
 export const site = {
-  name: "D2D Web",
-  legalName: "D2D Web",
+  name: "Trade Web Co",
+  legalName: "Trade Web Co",
   /** Canonical origin, no trailing slash. Set NEXT_PUBLIC_SITE_URL to override. */
   url: resolveSiteUrl(),
-  tagline: "Freelance Web Design & Development, UK-wide",
+  tagline: "Websites for Tradespeople, Built For You",
   description:
-    "Freelance web designer building fast, modern, search-friendly websites for small businesses across the UK. Remote-first, fixed quotes, no jargon.",
+    "We build websites for UK tradespeople — plumbers, electricians, builders and roofers. Written, built and set up for you, so you never have to log in. Fixed quotes from £800.",
   locale: "en_GB",
   currency: "GBP",
-  /** Where lead notifications are delivered, and the only public contact route. */
-  contactEmail: "direct2digitalweb@gmail.com",
+  /**
+   * The public contact address.
+   *
+   * Still the Gmail account until the domain is bought and mail is set up on
+   * it; switch to hello@tradewebco.co.uk once that exists, or set
+   * NEXT_PUBLIC_CONTACT_EMAIL to override without a code change. Publishing an
+   * address that does not receive mail loses leads silently, so this stays
+   * pointed at a mailbox that actually works.
+   */
+  contactEmail:
+    process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim() ||
+    "direct2digitalweb@gmail.com",
   /**
    * Remote-first, serving the whole UK. No street address or phone is published:
    * inventing NAP data is an active local-SEO liability, so this stays empty

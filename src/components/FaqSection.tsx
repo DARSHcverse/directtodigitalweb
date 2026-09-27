@@ -10,14 +10,14 @@ export function FaqSection() {
         {faqs.map((faq) => (
           <details
             key={faq.question}
-            className="group rounded-2xl border border-edge bg-card/60 p-6 backdrop-blur-md transition hover:border-brand/40"
+            className="group rounded-2xl border border-edge bg-surface p-6 shadow-sm transition hover:border-navy/30"
           >
             <summary className="cursor-pointer list-none text-lg font-semibold marker:content-none">
               <span className="flex items-center justify-between gap-4">
                 {faq.question}
                 <span
                   aria-hidden="true"
-                  className="shrink-0 text-brand transition-transform duration-300 group-open:rotate-45"
+                  className="shrink-0 text-amber-deep transition-transform duration-300 group-open:rotate-45"
                 >
                   +
                 </span>
