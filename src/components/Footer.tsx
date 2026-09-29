@@ -94,6 +94,14 @@ export function Footer() {
                 </li>
               ))}
               <li>
+                <Link
+                  href="/portal"
+                  className="text-sm text-white/70 no-underline transition hover:text-amber"
+                >
+                  Client login
+                </Link>
+              </li>
+              <li>
                 <a
                   href={`mailto:${site.contactEmail}`}
                   className="text-sm text-white/70 no-underline transition hover:text-amber"

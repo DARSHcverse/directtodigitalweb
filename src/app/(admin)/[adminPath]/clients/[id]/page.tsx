@@ -4,6 +4,11 @@ import { requireOwner } from "@/lib/admin/auth";
 import { adminPath } from "@/lib/admin/paths";
 import { getClient } from "@/lib/admin/clients";
 import { archiveClient } from "@/app/(admin)/[adminPath]/clients/actions";
+import {
+  enablePortal,
+  disablePortal,
+} from "@/app/(admin)/[adminPath]/clients/portal-actions";
+import { site } from "@/lib/site";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { ClientForm } from "@/components/admin/ClientForm";
 
@@ -127,6 +132,49 @@ export default async function ClientDetailPage({
                     </li>
                   ))}
                 </ul>
+              )}
+            </section>
+
+            <section className="border-2 border-edge bg-surface p-6">
+              <h2 className="mb-2 text-lg font-bold text-navy">
+                Client portal
+              </h2>
+              {client.portal_enabled ? (
+                <>
+                  <p className="mb-4 text-sm leading-relaxed text-muted">
+                    They can sign in at{" "}
+                    <span className="font-semibold text-navy">
+                      {`${site.url}/portal`}
+                    </span>{" "}
+                    using {client.email}. No password — they get an emailed
+                    link each time.
+                  </p>
+                  <form action={disablePortal}>
+                    <input type="hidden" name="id" value={client.id} />
+                    <button
+                      type="submit"
+                      className="border-2 border-edge px-4 py-2 text-sm font-bold text-muted transition hover:border-navy hover:text-navy"
+                    >
+                      Revoke access
+                    </button>
+                  </form>
+                </>
+              ) : (
+                <>
+                  <p className="mb-4 text-sm leading-relaxed text-muted">
+                    Lets them check progress, read invoices, fill in their
+                    brief and message you — without a password to forget.
+                  </p>
+                  <form action={enablePortal}>
+                    <input type="hidden" name="id" value={client.id} />
+                    <button
+                      type="submit"
+                      className="bg-amber px-4 py-2 text-sm font-bold text-navy-deep transition hover:bg-amber-deep"
+                    >
+                      Give portal access
+                    </button>
+                  </form>
+                </>
               )}
             </section>
 
