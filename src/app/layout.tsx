@@ -4,8 +4,6 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { site } from "@/lib/site";
-import { JsonLd } from "@/components/JsonLd";
-import { organisationSchema, webSiteSchema } from "@/lib/schema";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -75,9 +73,6 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en-GB" className={inter.variable}>
-      <head>
-        <JsonLd data={[organisationSchema(), webSiteSchema()]} />
-      </head>
       <body className="font-sans">
         {children}
         <Analytics />
