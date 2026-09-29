@@ -26,8 +26,11 @@ export async function getOwner(): Promise<Owner | null> {
     if (error || !data.user) return null;
     userId = data.user.id;
     email = data.user.email ?? null;
-  } catch {
-    // Supabase not configured — treat as signed out rather than crashing.
+  } catch (err) {
+    // Misconfiguration must not look identical to "not signed in": without a
+    // log, a missing env var on the host presents as an endless login loop
+    // with no clue why.
+    console.error("[admin] session lookup failed:", err);
     return null;
   }
 
@@ -38,12 +41,25 @@ export async function getOwner(): Promise<Owner | null> {
       .eq("user_id", userId)
       .maybeSingle();
 
-    if (error || !data) return null;
+    if (error) {
+      console.error("[admin] owner lookup failed:", error.message);
+      return null;
+    }
+    if (!data) {
+      // Authenticated, but not registered as the owner. Expected for anyone
+      // who signed up through Supabase directly.
+      console.warn(`[admin] user ${email ?? userId} is not in owner_accounts`);
+      return null;
+    }
     return {
       id: data.user_id as string,
       email: (data.email as string) ?? email ?? "",
     };
-  } catch {
+  } catch (err) {
+    console.error(
+      "[admin] owner lookup threw — is SUPABASE_SECRET_KEY set on this host?",
+      err,
+    );
     return null;
   }
 }
