@@ -1,7 +1,9 @@
+import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { leadSchema, leadKindLabel, type LeadInput } from "@/lib/lead";
 import { site } from "@/lib/site";
+import { isDbConfigured, serviceClient } from "@/lib/db/server";
 
 /** Escape untrusted input before it goes anywhere near an HTML email body.
  *  The old Netlify functions interpolated raw user input — this closes that. */
@@ -76,6 +78,17 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
   }
 
+  // Which page the enquiry came from, so we learn what actually converts.
+  const referer = request.headers.get("referer");
+  let sourcePath: string | null = null;
+  if (referer) {
+    try {
+      sourcePath = new URL(referer).pathname.slice(0, 200);
+    } catch {
+      sourcePath = null;
+    }
+  }
+
   const parsed = leadSchema.safeParse(payload);
   if (!parsed.success) {
     return NextResponse.json(
@@ -91,10 +104,48 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true });
   }
 
+  // Persist first, notify second.
+  //
+  // The enquiry is the thing of value: if email delivery fails the lead must
+  // still exist. Previously a Resend outage lost it permanently, since the
+  // inbox was the only record.
+  let stored = false;
+  if (isDbConfigured()) {
+    try {
+      const { error } = await serviceClient().from("leads").insert({
+        kind: lead.kind,
+        name: lead.name,
+        email: lead.email,
+        phone: lead.phone || null,
+        topic: lead.topic || null,
+        budget: lead.budget || null,
+        timeline: lead.timeline || null,
+        message: lead.message || null,
+        source_path: sourcePath,
+        // Hashed, not raw: enough to correlate abuse, not a stored identifier.
+        ip_hash:
+          ip === "unknown"
+            ? null
+            : createHash("sha256").update(ip).digest("hex").slice(0, 32),
+      });
+      if (error) {
+        console.error("Lead insert failed:", error.message);
+      } else {
+        stored = true;
+      }
+    } catch (err) {
+      // Never fail the visitor's submission over a database problem — the
+      // email below is still a usable fallback.
+      console.error("Lead insert threw:", err);
+    }
+  }
+
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.RESEND_FROM_EMAIL;
   if (!apiKey || !from) {
     console.error("Resend env vars missing: RESEND_API_KEY / RESEND_FROM_EMAIL");
+    // The lead is safely recorded, so tell the visitor it worked — it did.
+    if (stored) return NextResponse.json({ ok: true });
     return NextResponse.json(
       { error: "Email is not configured yet. Please try again later." },
       { status: 500 },
@@ -114,6 +165,7 @@ export async function POST(request: Request) {
 
     if (error) {
       console.error("Resend admin send failed:", error);
+      if (stored) return NextResponse.json({ ok: true });
       return NextResponse.json(
         { error: "We couldn't send that just now. Please email me directly." },
         { status: 502 },
@@ -121,6 +173,7 @@ export async function POST(request: Request) {
     }
   } catch (err) {
     console.error("Resend threw:", err);
+    if (stored) return NextResponse.json({ ok: true });
     return NextResponse.json(
       { error: "We couldn't send that just now. Please email me directly." },
       { status: 502 },
