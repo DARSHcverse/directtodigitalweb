@@ -40,3 +40,6 @@ coverage/
 next-env.d.ts
 .vercel
 *.tsbuildinfo
+
+# Supabase CLI local state
+supabase/.temp/
