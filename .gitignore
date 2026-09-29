@@ -20,8 +20,11 @@ out/
 coverage/
 
 # Environment files
+# .env.local is the one that holds real secrets in development, and the
+# earlier patterns did not match it — .env.* covers every variant.
 .env
-.env.*.local
+.env.*
+!.env.example
 
 # IDE / Editor folders
 .vscode/
