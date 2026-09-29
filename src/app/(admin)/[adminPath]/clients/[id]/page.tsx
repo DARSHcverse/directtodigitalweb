@@ -75,18 +75,28 @@ export default async function ClientDetailPage({
 
           <div className="grid gap-6">
             <section className="border-2 border-edge bg-surface p-6">
-              <h2 className="mb-4 text-xl font-bold text-navy">Projects</h2>
+              <div className="mb-4 flex items-center justify-between gap-3">
+                <h2 className="text-xl font-bold text-navy">Projects</h2>
+                <Link
+                  href={`${adminPath("projects/new")}?client=${client.id}`}
+                  className="border-2 border-navy px-3 py-1.5 text-sm font-bold text-navy no-underline transition hover:bg-navy hover:text-white"
+                >
+                  Add
+                </Link>
+              </div>
               {projects.length === 0 ? (
-                <p className="text-sm text-muted">
-                  No projects yet. Project management is the next thing being
-                  built.
-                </p>
+                <p className="text-sm text-muted">No projects yet.</p>
               ) : (
                 <ul className="grid gap-3">
                   {projects.map((p) => (
-                    <li key={p.id} className="border border-edge p-3">
-                      <p className="font-semibold text-navy">{p.title}</p>
-                      <p className="text-sm text-muted">{p.stage}</p>
+                    <li key={p.id}>
+                      <Link
+                        href={adminPath(`projects/${p.id}`)}
+                        className="block border border-edge p-3 no-underline transition hover:border-navy"
+                      >
+                        <p className="font-semibold text-navy">{p.title}</p>
+                        <p className="text-sm text-muted">{p.stage}</p>
+                      </Link>
                     </li>
                   ))}
                 </ul>

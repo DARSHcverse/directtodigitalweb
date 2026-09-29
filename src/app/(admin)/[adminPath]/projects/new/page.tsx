@@ -1,0 +1,58 @@
+import Link from "next/link";
+import { requireOwner } from "@/lib/admin/auth";
+import { adminPath } from "@/lib/admin/paths";
+import { clientOptions } from "@/lib/admin/projects";
+import { AdminHeader } from "@/components/admin/AdminHeader";
+import { ProjectForm } from "@/components/admin/ProjectForm";
+
+export default async function NewProjectPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ client?: string }>;
+}) {
+  const owner = await requireOwner();
+  const { client } = await searchParams;
+  const clients = await clientOptions();
+
+  return (
+    <div className="min-h-screen">
+      <AdminHeader email={owner.email} current="projects" />
+
+      <main className="mx-auto w-[94%] max-w-[900px] py-8">
+        <Link
+          href={adminPath("projects")}
+          className="text-sm font-semibold text-muted no-underline hover:text-navy"
+        >
+          ← Projects
+        </Link>
+
+        <h1 className="mt-3 mb-1 text-3xl font-bold tracking-display text-navy">
+          New project
+        </h1>
+        <p className="mb-8 text-muted">
+          Starts at the brief stage. You can move it along as the build
+          progresses.
+        </p>
+
+        {clients.length === 0 ? (
+          <div className="border-2 border-edge bg-surface p-8 text-center">
+            <p className="font-bold text-navy">Add a client first</p>
+            <p className="mt-2 text-sm text-muted">
+              A project has to belong to someone.
+            </p>
+            <Link
+              href={adminPath("clients/new")}
+              className="mt-5 inline-block bg-amber px-5 py-3 text-sm font-bold text-navy-deep no-underline transition hover:bg-amber-deep"
+            >
+              Add a client
+            </Link>
+          </div>
+        ) : (
+          <div className="border-2 border-edge bg-surface p-6">
+            <ProjectForm clients={clients} presetClientId={client} />
+          </div>
+        )}
+      </main>
+    </div>
+  );
+}
