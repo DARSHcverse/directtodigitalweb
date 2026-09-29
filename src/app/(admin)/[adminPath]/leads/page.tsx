@@ -2,8 +2,8 @@ import Link from "next/link";
 import { requireOwner } from "@/lib/admin/auth";
 import { adminPath } from "@/lib/admin/paths";
 import { listLeads, countByStatus, STATUS_LABEL, LEAD_STATUSES } from "@/lib/admin/leads";
-import { signOut } from "@/app/(admin)/[adminPath]/actions";
 import { LeadCard } from "@/components/admin/LeadCard";
+import { AdminHeader } from "@/components/admin/AdminHeader";
 import { cn } from "@/lib/cn";
 import type { LeadStatus } from "@/lib/db/types";
 
@@ -31,24 +31,7 @@ export default async function LeadsPage({
 
   return (
     <div className="min-h-screen">
-      <header className="border-b-2 border-navy bg-surface">
-        <div className="mx-auto flex w-[94%] max-w-[1100px] items-center justify-between gap-4 py-4">
-          <div>
-            <p className="text-lg font-bold text-navy">
-              Trade Web <span className="text-amber-deep">Co.</span>
-            </p>
-            <p className="text-xs text-muted">{owner.email}</p>
-          </div>
-          <form action={signOut}>
-            <button
-              type="submit"
-              className="border-2 border-edge px-4 py-2 text-sm font-bold text-muted transition hover:border-navy hover:text-navy"
-            >
-              Sign out
-            </button>
-          </form>
-        </div>
-      </header>
+      <AdminHeader email={owner.email} current="leads" />
 
       <main className="mx-auto w-[94%] max-w-[1100px] py-8">
         <h1 className="mb-1 text-3xl font-bold tracking-display text-navy">

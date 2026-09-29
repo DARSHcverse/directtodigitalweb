@@ -1,6 +1,9 @@
 /**
  * Creates the owner account and registers it in owner_accounts.
  *
+ * Also resets the password if the account already exists, so this doubles as
+ * the recovery route when a password is lost.
+ *
  * Run with:  node --env-file=.env.local scripts/create-owner.mjs <email> <password>
  *
  * A Supabase user alone is not enough to reach the admin — getOwner() also
@@ -43,14 +46,23 @@ if (createError) {
     console.error("Could not create user:", createError.message);
     process.exit(1);
   }
-  // Already exists — find them so the script stays re-runnable.
+  // Already exists — find them and reset the password, so this script is
+  // both the setup path and the lost-password recovery path.
   const { data: list } = await db.auth.admin.listUsers();
   userId = list?.users?.find((u) => u.email === email)?.id;
   if (!userId) {
     console.error("User exists but could not be found.");
     process.exit(1);
   }
-  console.log("User already existed; registering as owner.");
+
+  const { error: updateError } = await db.auth.admin.updateUserById(userId, {
+    password,
+  });
+  if (updateError) {
+    console.error("Could not update password:", updateError.message);
+    process.exit(1);
+  }
+  console.log("Account already existed — password reset.");
 }
 
 const { error: ownerError } = await db
