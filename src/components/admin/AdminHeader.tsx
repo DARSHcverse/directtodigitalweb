@@ -8,12 +8,20 @@ export function AdminHeader({
   current,
 }: {
   email: string;
-  current: "leads" | "clients" | "projects" | "account";
+  current:
+    | "leads"
+    | "clients"
+    | "projects"
+    | "invoices"
+    | "settings"
+    | "account";
 }) {
   const tabs = [
     { key: "leads" as const, label: "Leads", href: adminPath("leads") },
     { key: "clients" as const, label: "Clients", href: adminPath("clients") },
     { key: "projects" as const, label: "Projects", href: adminPath("projects") },
+    { key: "invoices" as const, label: "Invoices", href: adminPath("invoices") },
+    { key: "settings" as const, label: "Settings", href: adminPath("settings") },
     { key: "account" as const, label: "Account", href: adminPath("account") },
   ];
 

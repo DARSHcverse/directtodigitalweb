@@ -1,0 +1,172 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { requireOwner } from "@/lib/admin/auth";
+import { adminPath } from "@/lib/admin/paths";
+import {
+  getInvoice,
+  invoiceTargets,
+  displayStatus,
+  STATUS_LABEL,
+} from "@/lib/admin/invoices";
+import { getSettings, missingForInvoicing } from "@/lib/admin/settings";
+import {
+  issueInvoice,
+  markPaid,
+  cancelInvoice,
+} from "@/app/(admin)/[adminPath]/invoices/actions";
+import { AdminHeader } from "@/components/admin/AdminHeader";
+import { InvoiceForm } from "@/components/admin/InvoiceForm";
+import { InvoiceDocument } from "@/components/admin/InvoiceDocument";
+import { PrintButton } from "@/components/admin/PrintButton";
+
+export default async function InvoiceDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const owner = await requireOwner();
+  const { id } = await params;
+
+  const result = await getInvoice(id);
+  if (!result) notFound();
+
+  const { invoice, client, lines } = result;
+  const [settings, { clients, projects }] = await Promise.all([
+    getSettings(),
+    invoiceTargets(),
+  ]);
+
+  const isDraft = invoice.status === "draft";
+  const missing = missingForInvoicing(settings);
+  const shown = displayStatus(invoice);
+
+  return (
+    <div className="min-h-screen">
+      <div className="print:hidden">
+        <AdminHeader email={owner.email} current="invoices" />
+      </div>
+
+      <main className="mx-auto w-[94%] max-w-[900px] py-8 print:w-full print:max-w-none print:py-0">
+        <div className="print:hidden">
+          <Link
+            href={adminPath("invoices")}
+            className="text-sm font-semibold text-muted no-underline hover:text-navy"
+          >
+            ← Invoices
+          </Link>
+
+          <div className="mt-3 mb-6 flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h1 className="text-3xl font-bold tracking-display text-navy">
+                {invoice.invoice_number ?? "Draft invoice"}
+              </h1>
+              <p className="text-muted">
+                {STATUS_LABEL[shown]}
+                {client ? ` · ${client.business_name}` : ""}
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {isDraft && missing.length === 0 ? (
+                <form action={issueInvoice}>
+                  <input type="hidden" name="id" value={invoice.id} />
+                  <button
+                    type="submit"
+                    className="bg-amber px-5 py-2.5 text-sm font-bold text-navy-deep transition hover:bg-amber-deep"
+                  >
+                    Issue invoice
+                  </button>
+                </form>
+              ) : null}
+
+              {invoice.status === "issued" ? (
+                <form action={markPaid}>
+                  <input type="hidden" name="id" value={invoice.id} />
+                  <button
+                    type="submit"
+                    className="bg-success px-5 py-2.5 text-sm font-bold text-white transition hover:brightness-110"
+                  >
+                    Mark paid
+                  </button>
+                </form>
+              ) : null}
+
+              {invoice.status === "paid" ? (
+                <form action={markPaid}>
+                  <input type="hidden" name="id" value={invoice.id} />
+                  <input type="hidden" name="undo" value="1" />
+                  <button
+                    type="submit"
+                    className="border-2 border-edge px-5 py-2.5 text-sm font-bold text-muted transition hover:border-navy hover:text-navy"
+                  >
+                    Mark unpaid
+                  </button>
+                </form>
+              ) : null}
+
+              {!isDraft ? <PrintButton /> : null}
+            </div>
+          </div>
+
+          {isDraft && missing.length > 0 ? (
+            <div className="mb-6 border-l-4 border-amber bg-surface p-5">
+              <p className="font-bold text-navy">Cannot issue yet</p>
+              <p className="mt-1 text-sm leading-relaxed text-muted">
+                Add {missing.join(", ")} in business settings first.
+              </p>
+              <Link
+                href={adminPath("settings")}
+                className="mt-3 inline-block border-2 border-navy px-4 py-2 text-sm font-bold text-navy no-underline transition hover:bg-navy hover:text-white"
+              >
+                Business settings
+              </Link>
+            </div>
+          ) : null}
+        </div>
+
+        <InvoiceDocument
+          invoice={invoice}
+          lines={lines}
+          client={client}
+          settings={settings}
+        />
+
+        {isDraft ? (
+          <section className="mt-8 border-2 border-edge bg-surface p-6 print:hidden">
+            <h2 className="mb-1 text-xl font-bold text-navy">Edit draft</h2>
+            <p className="mb-6 text-sm text-muted">
+              Only drafts can be changed. Once issued, corrections are made
+              with a credit note.
+            </p>
+            <InvoiceForm
+              invoice={invoice}
+              lines={lines}
+              clients={clients}
+              projects={projects}
+            />
+          </section>
+        ) : null}
+
+        <section className="mt-6 border-l-4 border-danger bg-surface p-6 print:hidden">
+          <h2 className="mb-2 text-lg font-bold text-navy">
+            {isDraft ? "Delete draft" : "Cancel invoice"}
+          </h2>
+          <p className="mb-4 text-sm leading-relaxed text-muted">
+            {isDraft
+              ? "A draft was never sent, so it can be removed."
+              : "The invoice keeps its number in the sequence and is marked cancelled. Numbers are never reused."}
+          </p>
+          <form action={cancelInvoice}>
+            <input type="hidden" name="id" value={invoice.id} />
+            <button
+              type="submit"
+              className="border-2 border-danger px-4 py-2 text-sm font-bold text-danger transition hover:bg-danger hover:text-white"
+            >
+              {isDraft ? "Delete draft" : "Cancel invoice"}
+            </button>
+          </form>
+        </section>
+      </main>
+    </div>
+  );
+}
