@@ -84,7 +84,14 @@ export default async function LeadsPage({
         ) : (
           <div className="grid gap-4">
             {leads.map((lead) => (
-              <LeadCard key={lead.id} lead={lead} />
+              <LeadCard
+                key={lead.id}
+                lead={lead}
+                newClientHref={`${adminPath("clients/new")}?lead=${lead.id}`}
+                clientHref={
+                  lead.client_id ? adminPath(`clients/${lead.client_id}`) : "#"
+                }
+              />
             ))}
           </div>
         )}

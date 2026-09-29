@@ -8,10 +8,11 @@ export function AdminHeader({
   current,
 }: {
   email: string;
-  current: "leads" | "account";
+  current: "leads" | "clients" | "account";
 }) {
   const tabs = [
     { key: "leads" as const, label: "Leads", href: adminPath("leads") },
+    { key: "clients" as const, label: "Clients", href: adminPath("clients") },
     { key: "account" as const, label: "Account", href: adminPath("account") },
   ];
 

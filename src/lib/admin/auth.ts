@@ -64,9 +64,21 @@ export async function getOwner(): Promise<Owner | null> {
   }
 }
 
-/** Guard for every admin page. Redirects to the login screen when absent. */
+/** Guard for admin PAGES. Redirects to login when there is no owner. */
 export async function requireOwner(): Promise<Owner> {
   const owner = await getOwner();
   if (!owner) redirect(adminPath("login"));
   return owner;
+}
+
+/**
+ * Guard for server ACTIONS that report errors through useActionState.
+ *
+ * requireOwner() cannot be used there: its redirect() throws NEXT_REDIRECT,
+ * which React catches while settling the action state, so the user is sent to
+ * the login page even when the real failure was something else entirely.
+ * Returning null lets the action surface a proper message instead.
+ */
+export async function ownerForAction(): Promise<Owner | null> {
+  return getOwner();
 }

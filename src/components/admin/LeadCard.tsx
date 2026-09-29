@@ -6,6 +6,7 @@ import {
   updateLeadNotes,
 } from "@/app/(admin)/[adminPath]/leads/actions";
 import type { Lead, LeadStatus } from "@/lib/db/types";
+import Link from "next/link";
 import { cn } from "@/lib/cn";
 
 const STATUSES: LeadStatus[] = ["new", "contacted", "quoted", "won", "lost"];
@@ -31,7 +32,18 @@ function when(iso: string) {
   });
 }
 
-export function LeadCard({ lead }: { lead: Lead }) {
+/** Links are passed in rather than built here: adminPath() reads a
+ *  server-only env var, which is undefined in a client component and would
+ *  silently fall back to the default segment. */
+export function LeadCard({
+  lead,
+  newClientHref,
+  clientHref,
+}: {
+  lead: Lead;
+  newClientHref: string;
+  clientHref: string;
+}) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -159,6 +171,24 @@ export function LeadCard({ lead }: { lead: Lead }) {
               Save notes
             </button>
           </form>
+
+          <div className="mt-5 border-t border-edge pt-5">
+            {lead.client_id ? (
+              <Link
+                href={clientHref}
+                className="text-sm font-bold text-navy no-underline hover:text-amber-deep"
+              >
+                View client →
+              </Link>
+            ) : (
+              <Link
+                href={newClientHref}
+                className="inline-block bg-amber px-4 py-2 text-sm font-bold text-navy-deep no-underline transition hover:bg-amber-deep"
+              >
+                Convert to client
+              </Link>
+            )}
+          </div>
         </div>
       ) : null}
     </article>
