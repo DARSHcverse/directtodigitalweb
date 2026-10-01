@@ -7,6 +7,9 @@ import { ownerForAction, requireOwner } from "@/lib/admin/auth";
 import { serviceClient } from "@/lib/db/server";
 import { adminPath } from "@/lib/admin/paths";
 import { getSettings } from "@/lib/admin/settings";
+import { sendEmail } from "@/lib/email/send";
+import { invoiceEmail } from "@/lib/email/templates";
+import { formatMoney, formatDate } from "@/lib/admin/invoices";
 
 export type InvoiceFormState = { error: string | null };
 
@@ -237,6 +240,44 @@ export async function issueInvoice(formData: FormData) {
     entity: "invoices",
     entity_id: id,
   });
+
+  // Email it to the client. Best-effort: the invoice is issued and numbered
+  // either way, and it is also visible in their portal.
+  const { data: issued } = await db
+    .from("invoices")
+    .select(
+      "invoice_number, total, due_on, payment_ref, client:clients(contact_name, email)",
+    )
+    .eq("id", id)
+    .maybeSingle();
+
+  const settings = await getSettings();
+  const client = issued?.client as
+    | { contact_name: string; email: string }
+    | null
+    | undefined;
+
+  if (issued?.invoice_number && client?.email) {
+    const mail = invoiceEmail({
+      contactName: client.contact_name,
+      invoiceNumber: issued.invoice_number as string,
+      total: formatMoney(issued.total as number),
+      dueOn: formatDate(issued.due_on as string | null),
+      paymentRef: (issued.payment_ref as string | null) ?? null,
+      bank: {
+        accountName: settings?.bank_account_name ?? null,
+        sortCode: settings?.bank_sort_code ?? null,
+        accountNo: settings?.bank_account_no ?? null,
+      },
+    });
+
+    await sendEmail({
+      to: client.email,
+      subject: mail.subject,
+      html: mail.html,
+      text: mail.text,
+    });
+  }
 
   revalidatePath(adminPath(`invoices/${id}`));
   revalidatePath(adminPath("invoices"));

@@ -1,26 +1,10 @@
 import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
-import { leadSchema, leadKindLabel, type LeadInput } from "@/lib/lead";
+import { leadSchema } from "@/lib/lead";
 import { site } from "@/lib/site";
 import { isDbConfigured, serviceClient } from "@/lib/db/server";
-
-/** Escape untrusted input before it goes anywhere near an HTML email body.
- *  The old Netlify functions interpolated raw user input — this closes that. */
-function esc(value: string): string {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-function row(label: string, value?: string | null): string {
-  if (!value) return "";
-  const body = esc(value).replace(/\r?\n/g, "<br>");
-  return `<p style="margin:0 0 8px"><strong>${esc(label)}:</strong> ${body}</p>`;
-}
+import { isEmailConfigured, sendEmail } from "@/lib/email/send";
+import { customerWelcome, ownerLeadAlert } from "@/lib/email/templates";
 
 /** Best-effort in-memory rate limit. Serverless instances are ephemeral and
  *  not shared, so this blunts bursts rather than guaranteeing a global cap.
@@ -38,27 +22,6 @@ function rateLimited(ip: string): boolean {
   return recent.length > MAX_PER_WINDOW;
 }
 
-function adminEmail(lead: LeadInput): string {
-  return `
-    <h2 style="margin:0 0 16px">${esc(leadKindLabel[lead.kind])}</h2>
-    ${row("Name", lead.name)}
-    ${row("Email", lead.email)}
-    ${row("Phone", lead.phone)}
-    ${row(lead.kind === "booking" ? "Service" : "Project type", lead.topic)}
-    ${row("Budget (GBP)", lead.budget)}
-    ${row("Timeline", lead.timeline)}
-    ${row("Message", lead.message)}
-  `;
-}
-
-function clientEmail(lead: LeadInput): string {
-  return `
-    <h2 style="margin:0 0 16px">Thanks, ${esc(lead.name)}.</h2>
-    <p>I've received your ${esc(leadKindLabel[lead.kind].toLowerCase())} and will reply within one working day.</p>
-    ${lead.topic ? row("You asked about", lead.topic) : ""}
-    <p style="margin-top:24px">— ${esc(site.name)}</p>
-  `;
-}
 
 export async function POST(request: Request) {
   const ip =
@@ -140,11 +103,9 @@ export async function POST(request: Request) {
     }
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.RESEND_FROM_EMAIL;
-  if (!apiKey || !from) {
-    console.error("Resend env vars missing: RESEND_API_KEY / RESEND_FROM_EMAIL");
-    // The lead is safely recorded, so tell the visitor it worked — it did.
+  // Notify. Templates live in lib/email so every message shares one layout,
+  // and the lead is already safe whether or not delivery succeeds.
+  if (!isEmailConfigured()) {
     if (stored) return NextResponse.json({ ok: true });
     return NextResponse.json(
       { error: "Email is not configured yet. Please try again later." },
@@ -152,46 +113,32 @@ export async function POST(request: Request) {
     );
   }
 
-  const resend = new Resend(apiKey);
+  const alert = ownerLeadAlert(lead, sourcePath);
+  const toOwner = await sendEmail({
+    to: process.env.LEAD_INBOX ?? site.contactEmail,
+    subject: alert.subject,
+    html: alert.html,
+    text: alert.text,
+    // Replying to the notification goes straight to the enquirer.
+    replyTo: lead.email,
+  });
 
-  try {
-    const { error } = await resend.emails.send({
-      from: `${site.name} <${from}>`,
-      to: [process.env.LEAD_INBOX ?? site.contactEmail],
-      replyTo: lead.email,
-      subject: `${leadKindLabel[lead.kind]} from ${lead.name}`,
-      html: adminEmail(lead),
-    });
-
-    if (error) {
-      console.error("Resend admin send failed:", error);
-      if (stored) return NextResponse.json({ ok: true });
-      return NextResponse.json(
-        { error: "We couldn't send that just now. Please email me directly." },
-        { status: 502 },
-      );
-    }
-  } catch (err) {
-    console.error("Resend threw:", err);
-    if (stored) return NextResponse.json({ ok: true });
+  if (!toOwner.ok && !stored) {
     return NextResponse.json(
       { error: "We couldn't send that just now. Please email me directly." },
       { status: 502 },
     );
   }
 
-  // Confirmation to the client is best-effort: the lead is already captured,
-  // so a failure here must not surface as an error to the visitor.
-  try {
-    await resend.emails.send({
-      from: `${site.name} <${from}>`,
-      to: [lead.email],
-      subject: `Thanks for getting in touch with ${site.name}`,
-      html: clientEmail(lead),
-    });
-  } catch (err) {
-    console.error("Client confirmation failed (non-fatal):", err);
-  }
+  // The acknowledgement is best-effort: the enquiry is already captured, so a
+  // failure here must not be shown to the visitor as a failed submission.
+  const welcome = customerWelcome(lead);
+  await sendEmail({
+    to: lead.email,
+    subject: welcome.subject,
+    html: welcome.html,
+    text: welcome.text,
+  });
 
   return NextResponse.json({ ok: true });
 }

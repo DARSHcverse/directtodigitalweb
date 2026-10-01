@@ -4,6 +4,8 @@ import { revalidatePath } from "next/cache";
 import { requireOwner } from "@/lib/admin/auth";
 import { serviceClient } from "@/lib/db/server";
 import { adminPath } from "@/lib/admin/paths";
+import { sendEmail } from "@/lib/email/send";
+import { portalInvite } from "@/lib/email/templates";
 
 /**
  * Grants a client access to the portal.
@@ -62,6 +64,23 @@ export async function enablePortal(formData: FormData) {
     .from("clients")
     .update({ auth_user_id: userId, portal_enabled: true })
     .eq("id", clientId);
+
+  // Tell them it exists. Access with no invitation is access nobody uses.
+  const { data: full } = await db
+    .from("clients")
+    .select("contact_name, email")
+    .eq("id", clientId)
+    .maybeSingle();
+
+  if (full) {
+    const invite = portalInvite(full.contact_name as string);
+    await sendEmail({
+      to: full.email as string,
+      subject: invite.subject,
+      html: invite.html,
+      text: invite.text,
+    });
+  }
 
   await db.from("audit_log").insert({
     actor: owner.email,
