@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Button } from "@/components/Button";
 import {
   Field,
@@ -13,10 +13,12 @@ import {
   Textarea,
 } from "@/components/Form";
 import { useLeadForm } from "@/lib/useLeadForm";
+import { SuccessOverlay } from "@/components/SuccessOverlay";
 import { projectTypes } from "@/lib/site";
 
 export function QuoteForm() {
   const formRef = useRef<HTMLDivElement>(null);
+  const [showSuccess, setShowSuccess] = useState(false);
   const { form, status, handleChange, submit } = useLeadForm({
     name: "",
     email: "",
@@ -33,7 +35,7 @@ export function QuoteForm() {
       formRef.current?.querySelector<HTMLInputElement>("#company-website")
         ?.value ?? "";
 
-    await submit(
+    const ok = await submit(
       {
         kind: "quote",
         name: form.name,
@@ -47,10 +49,20 @@ export function QuoteForm() {
       honeypot,
       "Thanks — I'll send over a tailored estimate soon.",
     );
+
+    if (ok) setShowSuccess(true);
   }
 
   return (
-    <div ref={formRef}>
+    <>
+      <SuccessOverlay
+        open={showSuccess}
+        heading={"Quote request sent"}
+        message={"Thanks — I\u2019ve got the details and I\u2019ll put together a fixed price for you."}
+        onClose={() => setShowSuccess(false)}
+      />
+
+      <div ref={formRef}>
       <FormShell onSubmit={handleSubmit}>
         <Honeypot />
         <Field label="Name" htmlFor="name">
@@ -82,8 +94,9 @@ export function QuoteForm() {
         <Button type="submit" variant="primary" disabled={status.loading}>
           {status.loading ? "Sending…" : "Get Estimate"}
         </Button>
-        <FormStatus success={status.success} error={status.error} />
+        <FormStatus error={status.error} />
       </FormShell>
-    </div>
+      </div>
+    </>
   );
 }

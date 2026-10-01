@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Button } from "@/components/Button";
 import {
   Field,
@@ -12,9 +12,11 @@ import {
   Textarea,
 } from "@/components/Form";
 import { useLeadForm } from "@/lib/useLeadForm";
+import { SuccessOverlay } from "@/components/SuccessOverlay";
 
 export function ContactForm() {
   const formRef = useRef<HTMLDivElement>(null);
+  const [showSuccess, setShowSuccess] = useState(false);
   const { form, status, handleChange, submit } = useLeadForm({
     name: "",
     email: "",
@@ -27,7 +29,7 @@ export function ContactForm() {
       formRef.current?.querySelector<HTMLInputElement>("#company-website")
         ?.value ?? "";
 
-    await submit(
+    const ok = await submit(
       {
         kind: "contact",
         name: form.name,
@@ -37,10 +39,20 @@ export function ContactForm() {
       honeypot,
       "Thanks — I'll get back to you shortly.",
     );
+
+    if (ok) setShowSuccess(true);
   }
 
   return (
-    <div ref={formRef}>
+    <>
+      <SuccessOverlay
+        open={showSuccess}
+        heading={"Message sent"}
+        message={"Thanks for getting in touch — your message has arrived safely."}
+        onClose={() => setShowSuccess(false)}
+      />
+
+      <div ref={formRef}>
       <FormShell onSubmit={handleSubmit}>
         <Honeypot />
         <Field label="Name" htmlFor="name">
@@ -78,8 +90,9 @@ export function ContactForm() {
         <Button type="submit" variant="primary" disabled={status.loading}>
           {status.loading ? "Sending…" : "Send Message"}
         </Button>
-        <FormStatus success={status.success} error={status.error} />
+        <FormStatus error={status.error} />
       </FormShell>
-    </div>
+      </div>
+    </>
   );
 }
