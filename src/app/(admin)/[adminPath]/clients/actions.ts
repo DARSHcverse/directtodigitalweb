@@ -150,9 +150,18 @@ export async function archiveClient(formData: FormData) {
 
   const db = serviceClient();
   // Soft delete only: business records must survive for six years.
+  //
+  // Portal access is released at the same time. auth_user_id is unique, so
+  // leaving it on an archived row blocks the same person from ever being
+  // given access again under a new client record — and an archived client
+  // should not keep a working login regardless.
   await db
     .from("clients")
-    .update({ deleted_at: new Date().toISOString() })
+    .update({
+      deleted_at: new Date().toISOString(),
+      portal_enabled: false,
+      auth_user_id: null,
+    })
     .eq("id", id);
 
   await db.from("audit_log").insert({
