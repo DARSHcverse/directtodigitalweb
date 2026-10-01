@@ -48,7 +48,10 @@ export async function sendEmail({
       // Sending both parts improves deliverability and serves text-only
       // clients; HTML-only mail is treated as more spam-like.
       text,
-      ...(replyTo ? { replyTo } : {}),
+      // Default replies to the mailbox that is actually read. The sending
+      // domain is verified for sending only, so without this a client hitting
+      // reply would write to an address with no inbox behind it.
+      replyTo: replyTo ?? site.contactEmail,
     });
 
     if (error) {
