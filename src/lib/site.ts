@@ -1,4 +1,6 @@
-const FALLBACK_URL = "https://tradewebco.co.uk";
+// The apex redirects to www, so www is the canonical host. Getting this
+// wrong splits ranking signals between two versions of every page.
+const FALLBACK_URL = "https://www.tradewebco.co.uk";
 
 /**
  * Resolve the canonical origin.
