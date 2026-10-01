@@ -53,17 +53,18 @@ export const site = {
   locale: "en_GB",
   currency: "GBP",
   /**
-   * The public contact address.
+   * The public contact address, shown on the site and in every email
+   * signature.
    *
-   * Still the Gmail account until the domain is bought and mail is set up on
-   * it; switch to hello@tradewebco.co.uk once that exists, or set
-   * NEXT_PUBLIC_CONTACT_EMAIL to override without a code change. Publishing an
-   * address that does not receive mail loses leads silently, so this stays
-   * pointed at a mailbox that actually works.
+   * The domain is owned, so this can move to hello@tradewebco.co.uk whenever
+   * mail is actually routed there — set NEXT_PUBLIC_CONTACT_EMAIL rather than
+   * editing this, so the change needs no deploy. Publishing an address that
+   * does not receive mail loses leads silently, so it stays pointed at a
+   * mailbox that works.
    */
   contactEmail:
     process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim() ||
-    "direct2digitalweb@gmail.com",
+    "tradewebco@gmail.com",
   /**
    * Remote-first, serving the whole UK. No street address or phone is published:
    * inventing NAP data is an active local-SEO liability, so this stays empty
