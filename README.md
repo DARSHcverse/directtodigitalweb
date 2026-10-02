@@ -78,3 +78,22 @@ not exist locally, so seeing no requests in `next start` is expected.
 ## Leads
 
 All three forms (contact, quote, booking) post to `/api/lead`. The route validates with Zod, drops honeypot submissions silently, rate-limits per IP, emails you the lead, and sends the visitor a confirmation.
+
+## Function region
+
+`vercel.json` pins functions to `syd1` because the Supabase project is in
+`ap-southeast-2`. Co-locating them removes roughly a second of cross-Pacific
+latency per admin page; before this, admin pages took 5–10 seconds.
+
+This is a workaround. The database belongs in London (`eu-west-2`) for UK
+clients and UK data residency, but Supabase's free tier allows two active
+projects per user and both slots are in use — one by a separate live product
+that cannot be paused. `scripts/export-data.mjs` and `scripts/import-data.mjs`
+are written and tested for that move; delete `vercel.json` once it happens.
+
+Marketing pages are statically prerendered and served from the edge
+regardless, so UK visitors are unaffected. Only the admin, portal and lead
+API run in Sydney.
+
+Note that `vercel.json` rejects unknown keys, including `//` comment blocks —
+this note lives here for that reason.
