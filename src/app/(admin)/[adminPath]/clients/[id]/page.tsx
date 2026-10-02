@@ -41,14 +41,14 @@ export default async function ClientDetailPage({
       <main className="mx-auto w-[94%] max-w-[1100px] py-8">
         <Link
           href={adminPath("clients")}
-          className="text-sm font-semibold text-muted no-underline hover:text-navy"
+          className="text-sm font-semibold text-muted no-underline hover:text-navy-text"
         >
           ← Clients
         </Link>
 
         <div className="mt-3 mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold tracking-display text-navy">
+            <h1 className="text-3xl font-bold tracking-display text-navy-text">
               {client.business_name}
             </h1>
             <p className="text-muted">
@@ -58,14 +58,14 @@ export default async function ClientDetailPage({
           <div className="flex flex-wrap gap-2">
             <a
               href={`mailto:${client.email}`}
-              className="border-2 border-navy px-4 py-2.5 text-sm font-bold text-navy no-underline transition hover:bg-navy hover:text-white"
+              className="border-2 border-navy rounded-lg px-4 py-2.5 text-sm font-bold text-navy-text no-underline transition hover:bg-navy hover:text-white"
             >
               Email
             </a>
             {client.phone ? (
               <a
                 href={`tel:${client.phone.replace(/\s/g, "")}`}
-                className="border-2 border-navy px-4 py-2.5 text-sm font-bold text-navy no-underline transition hover:bg-navy hover:text-white"
+                className="border-2 border-navy rounded-lg px-4 py-2.5 text-sm font-bold text-navy-text no-underline transition hover:bg-navy hover:text-white"
               >
                 Call
               </a>
@@ -74,18 +74,18 @@ export default async function ClientDetailPage({
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
-          <section className="border-2 border-edge bg-surface p-6">
-            <h2 className="mb-6 text-xl font-bold text-navy">Details</h2>
+          <section className="border-2 border-edge rounded-lg bg-surface p-6">
+            <h2 className="mb-6 text-xl font-bold text-navy-text">Details</h2>
             <ClientForm client={client} />
           </section>
 
           <div className="grid gap-6">
-            <section className="border-2 border-edge bg-surface p-6">
+            <section className="border-2 border-edge rounded-lg bg-surface p-6">
               <div className="mb-4 flex items-center justify-between gap-3">
-                <h2 className="text-xl font-bold text-navy">Projects</h2>
+                <h2 className="text-xl font-bold text-navy-text">Projects</h2>
                 <Link
                   href={`${adminPath("projects/new")}?client=${client.id}`}
-                  className="border-2 border-navy px-3 py-1.5 text-sm font-bold text-navy no-underline transition hover:bg-navy hover:text-white"
+                  className="border-2 border-navy rounded-lg px-3 py-1.5 text-sm font-bold text-navy-text no-underline transition hover:bg-navy hover:text-white"
                 >
                   Add
                 </Link>
@@ -98,9 +98,9 @@ export default async function ClientDetailPage({
                     <li key={p.id}>
                       <Link
                         href={adminPath(`projects/${p.id}`)}
-                        className="block border border-edge p-3 no-underline transition hover:border-navy"
+                        className="block border border-edge rounded-lg p-3 no-underline transition hover:border-navy"
                       >
-                        <p className="font-semibold text-navy">{p.title}</p>
+                        <p className="font-semibold text-navy-text">{p.title}</p>
                         <p className="text-sm text-muted">{p.stage}</p>
                       </Link>
                     </li>
@@ -109,8 +109,8 @@ export default async function ClientDetailPage({
               )}
             </section>
 
-            <section className="border-2 border-edge bg-surface p-6">
-              <h2 className="mb-4 text-xl font-bold text-navy">
+            <section className="border-2 border-edge rounded-lg bg-surface p-6">
+              <h2 className="mb-4 text-xl font-bold text-navy-text">
                 Original enquiry
               </h2>
               {leads.length === 0 ? (
@@ -120,8 +120,8 @@ export default async function ClientDetailPage({
               ) : (
                 <ul className="grid gap-3">
                   {leads.map((l) => (
-                    <li key={l.id} className="border border-edge p-3 text-sm">
-                      <p className="font-semibold text-navy">
+                    <li key={l.id} className="border border-edge rounded-lg p-3 text-sm">
+                      <p className="font-semibold text-navy-text">
                         {date(l.created_at)}
                         {l.source_path ? ` · ${l.source_path}` : ""}
                       </p>
@@ -136,15 +136,15 @@ export default async function ClientDetailPage({
               )}
             </section>
 
-            <section className="border-2 border-edge bg-surface p-6">
-              <h2 className="mb-2 text-lg font-bold text-navy">
+            <section className="border-2 border-edge rounded-lg bg-surface p-6">
+              <h2 className="mb-2 text-lg font-bold text-navy-text">
                 Client portal
               </h2>
               {client.portal_enabled ? (
                 <>
                   <p className="mb-3 text-sm leading-relaxed text-muted">
                     They sign in at{" "}
-                    <span className="font-semibold text-navy">
+                    <span className="font-semibold text-navy-text">
                       {`${site.url}/portal`}
                     </span>{" "}
                     with their join code.
@@ -161,7 +161,7 @@ export default async function ClientDetailPage({
                       <input type="hidden" name="id" value={client.id} />
                       <button
                         type="submit"
-                        className="bg-amber px-4 py-2 text-sm font-bold text-navy-deep transition hover:bg-amber-deep"
+                        className="bg-amber rounded-md px-4 py-2 text-sm font-bold text-on-amber transition hover:bg-amber-deep"
                       >
                         Send a new code
                       </button>
@@ -170,7 +170,7 @@ export default async function ClientDetailPage({
                       <input type="hidden" name="id" value={client.id} />
                       <button
                         type="submit"
-                        className="border-2 border-edge px-4 py-2 text-sm font-bold text-muted transition hover:border-navy hover:text-navy"
+                        className="border-2 border-edge rounded-lg px-4 py-2 text-sm font-bold text-muted transition hover:border-navy hover:text-navy-text"
                       >
                         Revoke access
                       </button>
@@ -193,7 +193,7 @@ export default async function ClientDetailPage({
                     <input type="hidden" name="id" value={client.id} />
                     <button
                       type="submit"
-                      className="bg-amber px-4 py-2 text-sm font-bold text-navy-deep transition hover:bg-amber-deep"
+                      className="bg-amber rounded-md px-4 py-2 text-sm font-bold text-on-amber transition hover:bg-amber-deep"
                     >
                       Give portal access
                     </button>
@@ -203,7 +203,7 @@ export default async function ClientDetailPage({
             </section>
 
             <section className="border-l-4 border-danger bg-surface p-6">
-              <h2 className="mb-2 text-lg font-bold text-navy">Archive</h2>
+              <h2 className="mb-2 text-lg font-bold text-navy-text">Archive</h2>
               <p className="mb-4 text-sm leading-relaxed text-muted">
                 Hides this client from the list. Nothing is deleted — records
                 are kept for six years, as HMRC requires.

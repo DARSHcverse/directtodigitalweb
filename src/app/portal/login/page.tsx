@@ -38,12 +38,12 @@ export default async function PortalLoginPage() {
           <div className="w-full max-w-sm">
             <Link
               href="/"
-              className="rule-label mb-6 inline-block text-xs font-bold tracking-[0.2em] text-navy uppercase no-underline"
+              className="rule-label mb-6 inline-block text-xs font-bold tracking-[0.2em] text-navy-text uppercase no-underline"
             >
               {site.name}
             </Link>
 
-            <h1 className="mb-3 text-[clamp(2rem,4vw,2.75rem)] leading-tight font-bold tracking-display text-navy">
+            <h1 className="mb-3 text-[clamp(2rem,4vw,2.75rem)] leading-tight font-bold tracking-display text-navy-text">
               Client sign in
             </h1>
             <p className="mb-8 leading-relaxed text-muted">
@@ -51,7 +51,7 @@ export default async function PortalLoginPage() {
               every time.
             </p>
 
-            <div className="border-2 border-navy bg-surface p-6">
+            <div className="border-2 border-navy rounded-lg bg-surface p-6">
               <PortalLoginForm />
             </div>
 
@@ -59,7 +59,7 @@ export default async function PortalLoginPage() {
               Not a client yet?{" "}
               <Link
                 href="/quote"
-                className="font-semibold text-navy hover:text-amber-deep"
+                className="font-semibold text-navy-text hover:text-amber-deep"
               >
                 Get a fixed quote
               </Link>
@@ -68,7 +68,7 @@ export default async function PortalLoginPage() {
               Lost your code?{" "}
               <a
                 href={`mailto:${site.contactEmail}?subject=Lost%20my%20sign-in%20code`}
-                className="font-semibold text-navy hover:text-amber-deep"
+                className="font-semibold text-navy-text hover:text-amber-deep"
               >
                 Email me
               </a>{" "}
@@ -78,7 +78,7 @@ export default async function PortalLoginPage() {
         </div>
 
         {/* Reassurance side. Hidden on mobile so the form is not pushed down. */}
-        <div className="hidden bg-navy px-12 py-16 lg:flex lg:items-center">
+        <div className="hidden bg-navy rounded-md px-12 py-16 lg:flex lg:items-center">
           <div className="max-w-md">
             <p className="rule-label mb-4 text-xs font-bold tracking-[0.2em] text-white uppercase">
               Your project

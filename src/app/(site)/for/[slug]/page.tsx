@@ -66,7 +66,7 @@ export default async function LandingPage({
           <div className="grid items-center gap-12 py-14 lg:grid-cols-12 lg:py-20">
             <div className="lg:col-span-7">
               <SectionLabel>{landing.audience}</SectionLabel>
-              <h1 className="max-w-[16ch] text-[clamp(2.1rem,5vw,3.4rem)] leading-[1.07] font-bold tracking-display text-navy">
+              <h1 className="max-w-[16ch] text-[clamp(2.1rem,5vw,3.4rem)] leading-[1.07] font-bold tracking-display text-navy-text">
                 {landing.heading}
               </h1>
               <p className="mt-6 max-w-[34rem] text-lg leading-relaxed text-muted">
@@ -83,7 +83,7 @@ export default async function LandingPage({
             </div>
 
             <div className="lg:col-span-5">
-              <div className="mx-auto max-w-sm border-2 border-navy bg-surface">
+              <div className="mx-auto max-w-sm border-2 border-navy rounded-lg bg-surface">
                 <div className="flex items-center justify-between border-b-2 border-navy bg-navy px-5 py-3">
                   <span className="text-xs font-bold tracking-[0.2em] text-white/70 uppercase">
                     What you get
@@ -91,15 +91,26 @@ export default async function LandingPage({
                   <span className="h-2 w-2 bg-amber" />
                 </div>
                 <div className="p-6">
+                  <span className="logo-swap inline-grid">
                   <Image
                     src="/TradeIcon.png"
                     alt=""
                     width={1080}
                     height={1080}
                     priority
-                    className="h-12 w-12"
+                    className="logo-light h-12 w-12"
                   />
-                  <p className="mt-5 text-xl font-bold text-navy">
+                  <Image
+                    src="/TradeIcon-dark.png"
+                    alt=""
+                    aria-hidden="true"
+                    width={1080}
+                    height={1080}
+                    priority
+                    className="logo-dark h-12 w-12"
+                  />
+                  </span>
+                  <p className="mt-5 text-xl font-bold text-navy-text">
                     {landing.card.title}
                   </p>
                   <p className="mt-2 text-sm leading-relaxed text-muted">
@@ -109,7 +120,7 @@ export default async function LandingPage({
                     {landing.card.rows.map(([label, value]) => (
                       <div key={label} className="flex justify-between gap-4 py-2.5">
                         <dt className="text-sm text-muted">{label}</dt>
-                        <dd className="text-right text-sm font-semibold text-navy">
+                        <dd className="text-right text-sm font-semibold text-navy-text">
                           {value}
                         </dd>
                       </div>
@@ -125,7 +136,7 @@ export default async function LandingPage({
       <section className="py-14">
         <Container>
           <section aria-labelledby="problems" className="py-16">
-            <h2 id="problems" className="mb-6 text-3xl font-bold tracking-display text-navy">
+            <h2 id="problems" className="mb-6 text-3xl font-bold tracking-display text-navy-text">
               Sound familiar?
             </h2>
             <ul className="grid gap-3">
@@ -144,7 +155,7 @@ export default async function LandingPage({
           </section>
 
           <section aria-labelledby="solutions" className="py-4 pb-16">
-            <h2 id="solutions" className="mb-2 text-3xl font-bold tracking-display text-navy">
+            <h2 id="solutions" className="mb-2 text-3xl font-bold tracking-display text-navy-text">
               How I fix it
             </h2>
             <p className="mb-8 text-muted">
@@ -154,7 +165,7 @@ export default async function LandingPage({
               {landing.solutions.map((solution) => (
                 <article
                   key={solution.title}
-                  className="border-2 border-edge bg-surface p-6 transition duration-300 hover:border-navy"
+                  className="border-2 border-edge rounded-lg bg-surface p-6 transition duration-300 hover:border-navy"
                 >
                   <h3 className="mb-3 text-lg font-semibold">
                     {solution.title}
@@ -167,7 +178,7 @@ export default async function LandingPage({
 
           {proof.length > 0 ? (
             <section aria-labelledby="proof" className="border-t border-edge py-16">
-              <h2 id="proof" className="mb-2 text-3xl font-bold tracking-display text-navy">
+              <h2 id="proof" className="mb-2 text-3xl font-bold tracking-display text-navy-text">
                 I&apos;ve built this before
               </h2>
               <p className="mb-8 text-muted">
@@ -177,7 +188,7 @@ export default async function LandingPage({
                 {proof.map((project) => (
                   <article
                     key={project.slug}
-                    className="group overflow-hidden border-2 border-edge bg-surface transition duration-300 hover:-translate-y-0.5 hover:border-navy"
+                    className="group overflow-hidden border-2 border-edge rounded-lg bg-surface transition duration-300 hover:-translate-y-0.5 hover:border-navy"
                   >
                     <a
                       href={project.url}
@@ -218,14 +229,14 @@ export default async function LandingPage({
             aria-labelledby="landing-faq"
             className="border-t border-edge py-16"
           >
-            <h2 id="landing-faq" className="mb-8 text-3xl font-bold tracking-display text-navy">
+            <h2 id="landing-faq" className="mb-8 text-3xl font-bold tracking-display text-navy-text">
               Common questions
             </h2>
             <div className="grid gap-4">
               {landing.faqs.map((faq) => (
                 <details
                   key={faq.question}
-                  className="group border-2 border-edge bg-surface p-6 transition hover:border-navy"
+                  className="group border-2 border-edge rounded-lg bg-surface p-6 transition hover:border-navy"
                 >
                   <summary className="cursor-pointer list-none text-lg font-semibold marker:content-none">
                     <span className="flex items-center justify-between gap-4">
@@ -245,7 +256,7 @@ export default async function LandingPage({
           </section>
 
           <section className="border-t border-edge py-16 text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-display text-navy">
+            <h2 className="mb-4 text-3xl font-bold tracking-display text-navy-text">
               Let&apos;s talk about your project
             </h2>
             <p className="mx-auto mb-8 max-w-[520px] text-muted">

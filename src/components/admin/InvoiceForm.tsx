@@ -11,7 +11,7 @@ import type { Client, Invoice, InvoiceLine, Project } from "@/lib/db/types";
 const initial: InvoiceFormState = { error: null };
 
 const field =
-  "w-full border border-edge bg-surface px-3 py-2.5 text-ink outline-none transition focus:border-navy focus:shadow-[0_0_0_3px_rgb(15_42_71/0.15)]";
+  "w-full border border-edge rounded-lg bg-surface px-3 py-2.5 text-ink outline-none transition focus:border-navy focus:shadow-[0_0_0_3px_rgb(15_42_71/0.15)]";
 const label = "mb-2 block text-sm font-medium text-muted";
 
 type Row = { description: string; quantity: string; unit_price: string };
@@ -118,7 +118,7 @@ export function InvoiceForm({
           {rows.map((row, i) => (
             <div
               key={i}
-              className="grid gap-2 border border-edge p-3 sm:grid-cols-[1fr_5rem_7rem_2.5rem]"
+              className="grid gap-2 border border-edge rounded-lg p-3 sm:grid-cols-[1fr_5rem_7rem_2.5rem]"
             >
               <input
                 name="line_description"
@@ -153,7 +153,7 @@ export function InvoiceForm({
                   )
                 }
                 aria-label={`Remove line ${i + 1}`}
-                className="border border-edge px-2 py-2 text-muted transition hover:border-danger hover:text-danger"
+                className="border border-edge rounded-lg px-2 py-2 text-muted transition hover:border-danger hover:text-danger"
               >
                 ×
               </button>
@@ -169,7 +169,7 @@ export function InvoiceForm({
               { description: "", quantity: "1", unit_price: "" },
             ])
           }
-          className="mt-3 border-2 border-navy px-4 py-2 text-sm font-bold text-navy transition hover:bg-navy hover:text-white"
+          className="mt-3 border-2 border-navy rounded-lg px-4 py-2 text-sm font-bold text-navy-text transition hover:bg-navy hover:text-white"
         >
           Add line
         </button>
@@ -177,7 +177,7 @@ export function InvoiceForm({
 
       <div className="border-l-4 border-amber bg-bg p-4">
         <p className="text-sm text-muted">Subtotal</p>
-        <p className="text-2xl font-bold text-navy">
+        <p className="text-2xl font-bold text-navy-text">
           {new Intl.NumberFormat("en-GB", {
             style: "currency",
             currency: "GBP",
@@ -221,7 +221,7 @@ export function InvoiceForm({
         <button
           type="submit"
           disabled={pending}
-          className="bg-navy px-6 py-3.5 text-sm font-bold tracking-wide text-white transition hover:bg-navy-deep disabled:opacity-60"
+          className="bg-navy rounded-md px-6 py-3.5 text-sm font-bold tracking-wide text-white transition hover:bg-navy-deep disabled:opacity-60"
         >
           {pending ? "Saving…" : editing ? "Save draft" : "Create draft"}
         </button>

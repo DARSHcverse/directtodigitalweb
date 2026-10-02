@@ -3,14 +3,14 @@ import { faqs } from "@/lib/faqs";
 export function FaqSection() {
   return (
     <section aria-labelledby="faq-heading" className="py-16">
-      <h2 id="faq-heading" className="mb-8 text-3xl font-bold tracking-display text-navy">
+      <h2 id="faq-heading" className="mb-8 text-3xl font-bold tracking-display text-navy-text">
         Frequently asked questions
       </h2>
       <div className="grid gap-4">
         {faqs.map((faq) => (
           <details
             key={faq.question}
-            className="group border-2 border-edge bg-surface p-6 transition hover:border-navy"
+            className="group border-2 border-edge rounded-lg bg-surface p-6 transition hover:border-navy"
           >
             <summary className="cursor-pointer list-none text-lg font-semibold marker:content-none">
               <span className="flex items-center justify-between gap-4">

@@ -24,7 +24,7 @@ export default function BookingPage() {
       <section className="bg-blueprint border-b-2 border-navy py-14">
         <Container>
           <SectionLabel>No obligation</SectionLabel>
-          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy">Book a call</h1>
+          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy-text">Book a call</h1>
           <p className="mb-8 max-w-[640px] text-lg text-muted">
             Prefer to talk it through? Send your details and I&apos;ll follow up
             by email to arrange a time that suits you.

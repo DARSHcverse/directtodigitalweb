@@ -34,12 +34,12 @@ export default async function NewClientPage({
       <main className="mx-auto w-[94%] max-w-[900px] py-8">
         <Link
           href={adminPath("clients")}
-          className="text-sm font-semibold text-muted no-underline hover:text-navy"
+          className="text-sm font-semibold text-muted no-underline hover:text-navy-text"
         >
           ← Clients
         </Link>
 
-        <h1 className="mt-3 mb-1 text-3xl font-bold tracking-display text-navy">
+        <h1 className="mt-3 mb-1 text-3xl font-bold tracking-display text-navy-text">
           {fromLead ? "Convert lead to client" : "Add client"}
         </h1>
         <p className="mb-8 text-muted">
@@ -50,7 +50,7 @@ export default async function NewClientPage({
 
         {leads.length > 0 ? (
           <section className="mb-8 border-l-4 border-amber bg-surface p-5">
-            <p className="mb-3 text-sm font-bold text-navy">
+            <p className="mb-3 text-sm font-bold text-navy-text">
               Convert an existing lead instead?
             </p>
             <div className="flex flex-wrap gap-2">
@@ -58,7 +58,7 @@ export default async function NewClientPage({
                 <Link
                   key={l.id}
                   href={`${adminPath("clients/new")}?lead=${l.id}`}
-                  className="border border-edge px-3 py-1.5 text-sm text-navy no-underline transition hover:border-navy"
+                  className="border border-edge rounded-lg px-3 py-1.5 text-sm text-navy-text no-underline transition hover:border-navy"
                 >
                   {l.name}
                 </Link>
@@ -67,7 +67,7 @@ export default async function NewClientPage({
           </section>
         ) : null}
 
-        <div className="border-2 border-edge bg-surface p-6">
+        <div className="border-2 border-edge rounded-lg bg-surface p-6">
           <ClientForm fromLead={fromLead} />
         </div>
       </main>

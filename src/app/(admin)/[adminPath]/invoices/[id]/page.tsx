@@ -50,14 +50,14 @@ export default async function InvoiceDetailPage({
         <div className="print:hidden">
           <Link
             href={adminPath("invoices")}
-            className="text-sm font-semibold text-muted no-underline hover:text-navy"
+            className="text-sm font-semibold text-muted no-underline hover:text-navy-text"
           >
             ← Invoices
           </Link>
 
           <div className="mt-3 mb-6 flex flex-wrap items-center justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold tracking-display text-navy">
+              <h1 className="text-3xl font-bold tracking-display text-navy-text">
                 {invoice.invoice_number ?? "Draft invoice"}
               </h1>
               <p className="text-muted">
@@ -72,7 +72,7 @@ export default async function InvoiceDetailPage({
                   <input type="hidden" name="id" value={invoice.id} />
                   <button
                     type="submit"
-                    className="bg-amber px-5 py-2.5 text-sm font-bold text-navy-deep transition hover:bg-amber-deep"
+                    className="bg-amber rounded-md px-5 py-2.5 text-sm font-bold text-on-amber transition hover:bg-amber-deep"
                   >
                     Issue invoice
                   </button>
@@ -97,7 +97,7 @@ export default async function InvoiceDetailPage({
                   <input type="hidden" name="undo" value="1" />
                   <button
                     type="submit"
-                    className="border-2 border-edge px-5 py-2.5 text-sm font-bold text-muted transition hover:border-navy hover:text-navy"
+                    className="border-2 border-edge rounded-lg px-5 py-2.5 text-sm font-bold text-muted transition hover:border-navy hover:text-navy-text"
                   >
                     Mark unpaid
                   </button>
@@ -110,13 +110,13 @@ export default async function InvoiceDetailPage({
 
           {isDraft && missing.length > 0 ? (
             <div className="mb-6 border-l-4 border-amber bg-surface p-5">
-              <p className="font-bold text-navy">Cannot issue yet</p>
+              <p className="font-bold text-navy-text">Cannot issue yet</p>
               <p className="mt-1 text-sm leading-relaxed text-muted">
                 Add {missing.join(", ")} in business settings first.
               </p>
               <Link
                 href={adminPath("settings")}
-                className="mt-3 inline-block border-2 border-navy px-4 py-2 text-sm font-bold text-navy no-underline transition hover:bg-navy hover:text-white"
+                className="mt-3 inline-block border-2 border-navy rounded-lg px-4 py-2 text-sm font-bold text-navy-text no-underline transition hover:bg-navy hover:text-white"
               >
                 Business settings
               </Link>
@@ -132,8 +132,8 @@ export default async function InvoiceDetailPage({
         />
 
         {isDraft ? (
-          <section className="mt-8 border-2 border-edge bg-surface p-6 print:hidden">
-            <h2 className="mb-1 text-xl font-bold text-navy">Edit draft</h2>
+          <section className="mt-8 border-2 border-edge rounded-lg bg-surface p-6 print:hidden">
+            <h2 className="mb-1 text-xl font-bold text-navy-text">Edit draft</h2>
             <p className="mb-6 text-sm text-muted">
               Only drafts can be changed. Once issued, corrections are made
               with a credit note.
@@ -148,7 +148,7 @@ export default async function InvoiceDetailPage({
         ) : null}
 
         <section className="mt-6 border-l-4 border-danger bg-surface p-6 print:hidden">
-          <h2 className="mb-2 text-lg font-bold text-navy">
+          <h2 className="mb-2 text-lg font-bold text-navy-text">
             {isDraft ? "Delete draft" : "Cancel invoice"}
           </h2>
           <p className="mb-4 text-sm leading-relaxed text-muted">

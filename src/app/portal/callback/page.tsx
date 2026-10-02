@@ -23,7 +23,7 @@ export const dynamic = "force-dynamic";
 export default function PortalCallbackPage() {
   return (
     <main className="bg-blueprint flex min-h-screen items-center justify-center px-6">
-      <div className="w-full max-w-sm border-2 border-navy bg-surface p-8 text-center">
+      <div className="w-full max-w-sm border-2 border-navy rounded-lg bg-surface p-8 text-center">
         <CallbackHandler />
       </div>
     </main>

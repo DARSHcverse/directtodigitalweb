@@ -63,7 +63,7 @@ export default async function LeadsPage({
                   "border-2 px-4 py-2 text-sm font-semibold no-underline transition",
                   active
                     ? "border-navy bg-navy text-white"
-                    : "border-edge text-muted hover:border-navy hover:text-navy",
+                    : "border-edge text-muted hover:border-navy hover:text-navy-text",
                 )}
               >
                 {tab.label}

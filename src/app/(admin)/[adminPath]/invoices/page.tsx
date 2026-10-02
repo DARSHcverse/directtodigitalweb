@@ -52,14 +52,14 @@ export default async function InvoicesPage({
       <main className="mx-auto w-[94%] max-w-[1100px] py-8">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold tracking-display text-navy">
+            <h1 className="text-3xl font-bold tracking-display text-navy-text">
               Invoices
             </h1>
             <p className="text-muted">{totals.counts.all ?? 0} total</p>
           </div>
           <Link
             href={adminPath("invoices/new")}
-            className="bg-navy px-5 py-3 text-sm font-bold text-white no-underline transition hover:bg-navy-deep"
+            className="bg-navy rounded-md px-5 py-3 text-sm font-bold text-white no-underline transition hover:bg-navy-deep"
           >
             New invoice
           </Link>
@@ -67,7 +67,7 @@ export default async function InvoicesPage({
 
         {missing.length > 0 ? (
           <div className="mb-6 border-l-4 border-amber bg-surface p-5">
-            <p className="font-bold text-navy">
+            <p className="font-bold text-navy-text">
               Finish your invoice details first
             </p>
             <p className="mt-1 text-sm leading-relaxed text-muted">
@@ -76,7 +76,7 @@ export default async function InvoicesPage({
             </p>
             <Link
               href={adminPath("settings")}
-              className="mt-3 inline-block border-2 border-navy px-4 py-2 text-sm font-bold text-navy no-underline transition hover:bg-navy hover:text-white"
+              className="mt-3 inline-block border-2 border-navy rounded-lg px-4 py-2 text-sm font-bold text-navy-text no-underline transition hover:bg-navy hover:text-white"
             >
               Business settings
             </Link>
@@ -98,7 +98,7 @@ export default async function InvoicesPage({
                   "mt-1 text-2xl font-bold",
                   stat.label === "Overdue" && stat.value > 0
                     ? "text-danger"
-                    : "text-navy",
+                    : "text-navy-text",
                 )}
               >
                 {formatMoney(stat.value)}
@@ -119,7 +119,7 @@ export default async function InvoicesPage({
                     "border-2 px-4 py-2 text-sm font-semibold no-underline transition",
                     active
                       ? "border-navy bg-navy text-white"
-                      : "border-edge text-muted hover:border-navy hover:text-navy",
+                      : "border-edge text-muted hover:border-navy hover:text-navy-text",
                   )}
                 >
                   {tab.label}
@@ -133,8 +133,8 @@ export default async function InvoicesPage({
         </nav>
 
         {invoices.length === 0 ? (
-          <div className="border-2 border-edge bg-surface p-10 text-center">
-            <p className="text-lg font-bold text-navy">No invoices here</p>
+          <div className="border-2 border-edge rounded-lg bg-surface p-10 text-center">
+            <p className="text-lg font-bold text-navy-text">No invoices here</p>
             <p className="mt-2 text-muted">
               Create a draft, then issue it when you are ready to send.
             </p>
@@ -147,11 +147,11 @@ export default async function InvoicesPage({
                 <Link
                   key={inv.id}
                   href={adminPath(`invoices/${inv.id}`)}
-                  className="flex flex-wrap items-center justify-between gap-4 border-2 border-edge bg-surface p-5 no-underline transition hover:border-navy"
+                  className="flex flex-wrap items-center justify-between gap-4 border-2 border-edge rounded-lg bg-surface p-5 no-underline transition hover:border-navy"
                 >
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-3">
-                      <h2 className="text-lg font-bold text-navy">
+                      <h2 className="text-lg font-bold text-navy-text">
                         {inv.invoice_number ?? "Draft"}
                       </h2>
                       <span
@@ -170,7 +170,7 @@ export default async function InvoicesPage({
                   </div>
 
                   <div className="text-right">
-                    <p className="text-lg font-bold text-navy">
+                    <p className="text-lg font-bold text-navy-text">
                       {formatMoney(inv.total)}
                     </p>
                     <p className="text-sm text-muted">

@@ -46,7 +46,7 @@ export default function DesignPage() {
       <section className="bg-blueprint border-b-2 border-navy py-14">
         <Container>
           <SectionLabel>Live client work</SectionLabel>
-          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy">Trade websites I&apos;ve built</h1>
+          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy-text">Trade websites I&apos;ve built</h1>
           <p className="mb-10 max-w-[640px] text-lg text-muted">
             Live sites and web apps built for real businesses — from booking
             platforms to local business websites. Every one of these is online
@@ -59,8 +59,8 @@ export default function DesignPage() {
         <Container>
 
           {projects.length === 0 ? (
-            <div className="border-2 border-edge bg-surface p-10 text-center">
-              <h2 className="mb-3 text-xl font-bold text-navy">
+            <div className="border-2 border-edge rounded-lg bg-surface p-10 text-center">
+              <h2 className="mb-3 text-xl font-bold text-navy-text">
                 Case studies coming soon
               </h2>
               <p className="mx-auto max-w-[520px] leading-relaxed text-muted">
@@ -80,7 +80,7 @@ export default function DesignPage() {
               {projects.map((project, index) => (
                 <article
                   key={project.slug}
-                  className="group relative flex flex-col overflow-hidden border-2 border-edge bg-surface transition duration-300 hover:-translate-y-0.5 hover:border-navy hover:shadow-none"
+                  className="group relative flex flex-col overflow-hidden border-2 border-edge rounded-lg bg-surface transition duration-300 hover:-translate-y-0.5 hover:border-navy hover:shadow-none"
                 >
                   <a
                     href={project.url}
@@ -111,7 +111,7 @@ export default function DesignPage() {
                       {project.tags.map((tag) => (
                         <li
                           key={tag}
-                          className="border border-edge px-2.5 py-1 text-xs text-muted"
+                          className="border border-edge rounded-lg px-2.5 py-1 text-xs text-muted"
                         >
                           {tag}
                         </li>
@@ -134,7 +134,7 @@ export default function DesignPage() {
           )}
 
           <div className="mt-16 border-t border-edge pt-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-display text-navy">
+            <h2 className="mb-4 text-3xl font-bold tracking-display text-navy-text">
               Want something like this?
             </h2>
             <p className="mx-auto mb-8 max-w-[520px] text-muted">

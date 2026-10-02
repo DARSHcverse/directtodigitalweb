@@ -24,7 +24,7 @@ export function BriefForm({
         <div key={f.name}>
           <label
             htmlFor={f.name}
-            className="mb-2 block text-sm font-semibold text-navy"
+            className="mb-2 block text-sm font-semibold text-navy-text"
           >
             {f.label}
           </label>
@@ -36,7 +36,7 @@ export function BriefForm({
             name={f.name}
             rows={f.rows}
             defaultValue={brief?.[f.name] ?? ""}
-            className="w-full border border-edge bg-surface px-4 py-3 text-ink outline-none transition focus:border-navy focus:shadow-[0_0_0_3px_rgb(15_42_71/0.15)]"
+            className="w-full border border-edge rounded-lg bg-surface px-4 py-3 text-ink outline-none transition focus:border-navy focus:shadow-[0_0_0_3px_rgb(15_42_71/0.15)]"
           />
         </div>
       ))}
@@ -56,7 +56,7 @@ export function BriefForm({
         <button
           type="submit"
           disabled={pending}
-          className="bg-navy px-6 py-3.5 text-sm font-bold tracking-wide text-white transition hover:bg-navy-deep disabled:opacity-60"
+          className="bg-navy rounded-md px-6 py-3.5 text-sm font-bold tracking-wide text-white transition hover:bg-navy-deep disabled:opacity-60"
         >
           {pending ? "Saving…" : "Save"}
         </button>

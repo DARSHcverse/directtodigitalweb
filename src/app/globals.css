@@ -23,8 +23,23 @@
   --color-ink: #10151c;
   --color-muted: #59636f;
 
+  /* Heading ink. Identical to navy in light mode; diverges on dark, where a
+     fill colour would be far too dark to read as text. */
+  --color-navy-text: #0f2a47;
+
+  /* Label colour for text sitting ON amber. Amber stays light in both modes,
+     so this must stay dark in both — it never gets a dark-mode override. */
+  --color-on-amber: #081726;
+
   --color-success: #0f7b52;
   --color-danger: #b4232a;
+
+  /* Moderate radius, not pills. Enough to read as current; restrained enough
+     that the structural feel survives. Panels, inputs and buttons all share
+     --radius-md so nothing drifts apart. */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
@@ -59,9 +74,73 @@
   --tracking-display: -0.035em;
 }
 
+/**
+ * Dark mode.
+ *
+ * Light is the default and the brand's intended first impression; dark follows
+ * the visitor's system preference, and `data-theme` lets a page force either.
+ *
+ * Only the neutrals move. Navy and amber are the brand and stay put, so a
+ * filled navy button is the same colour in both modes — which is also why the
+ * 96 `text-white` labels sitting on those fills need no dark variant.
+ *
+ * The dark surfaces are warm-shifted blue-greys rather than pure grey, so they
+ * sit in the same family as the navy instead of fighting it. `--color-navy`
+ * itself lifts slightly: at #0f2a47 a navy button is nearly invisible against
+ * a dark page, so on dark it becomes the lighter `navy-soft` value and
+ * `navy-deep` inverts to stay the *hover* direction rather than collapsing.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: #0e141c;
+    --color-surface: #161e29;
+    --color-edge: #2a3645;
+    --color-rule: #3c4a5c;
+
+    --color-ink: #e8edf3;
+    --color-muted: #9aa8b8;
+
+    /* Navy lifts so it still reads as a filled control on a dark page, and
+       the deep/soft pair swaps direction so hover still moves toward light. */
+    --color-navy: #2f5c90;
+    --color-navy-deep: #3d6ea6;
+    --color-navy-soft: #24476f;
+
+    /* Headings must lift much further than fills to stay legible. */
+    --color-navy-text: #9dbce3;
+
+    /* Amber holds its hue but sheds a little glare against a dark field. */
+    --color-amber: #e9a235;
+    --color-amber-deep: #f2b457;
+
+    /* Status colours lighten to keep AA contrast on the dark surface. */
+    --color-success: #2f9e74;
+    --color-danger: #e05a60;
+  }
+}
+
+/* Same palette when a theme is pinned explicitly, regardless of the OS. */
+:root[data-theme="dark"] {
+  --color-bg: #0e141c;
+  --color-surface: #161e29;
+  --color-edge: #2a3645;
+  --color-rule: #3c4a5c;
+  --color-ink: #e8edf3;
+  --color-muted: #9aa8b8;
+  --color-navy: #2f5c90;
+  --color-navy-deep: #3d6ea6;
+  --color-navy-soft: #24476f;
+  --color-navy-text: #9dbce3;
+  --color-amber: #e9a235;
+  --color-amber-deep: #f2b457;
+  --color-success: #2f9e74;
+  --color-danger: #e05a60;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
+    color-scheme: light dark;
   }
 
   body {
@@ -108,5 +187,73 @@
     margin-right: 0.75rem;
     vertical-align: middle;
     background-color: var(--color-amber);
+  }
+}
+
+@layer utilities {
+  /**
+   * Logo swap. The mark is navy-on-transparent, so it all but vanishes on a
+   * dark page. Both variants ship in the markup and CSS picks one, which
+   * avoids the flash a JS swap would cause on first paint.
+   */
+  .logo-swap {
+    display: grid;
+    grid-template-areas: "logo";
+  }
+
+  .logo-swap > * {
+    grid-area: logo;
+  }
+
+  .logo-dark { display: none; }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .logo-light { display: none; }
+    :root:not([data-theme="light"]) .logo-dark { display: block; }
+  }
+
+  :root[data-theme="dark"] .logo-light { display: none; }
+  :root[data-theme="dark"] .logo-dark { display: block; }
+
+  /* Marker-pen wash behind the headline phrase. Owns its colour in both
+     modes rather than using bg-amber/35, which won on specificity and turned
+     muddy brown once the page behind it went dark. */
+  .dark-highlight {
+    background-color: rgb(245 166 35 / 0.35);
+  }
+
+  /* On dark, a translucent amber wash behind white text just reads as a
+     brown block. Drop the wash entirely and become a solid amber underline
+     instead — same emphasis, none of the mud. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .dark-highlight {
+      background-color: var(--color-amber);
+      top: auto;
+      bottom: 0.02em;
+      height: 0.09em;
+    }
+  }
+
+  :root[data-theme="dark"] .dark-highlight {
+    background-color: var(--color-amber);
+    top: auto;
+    bottom: 0.02em;
+    height: 0.09em;
+  }
+
+  /* The blueprint grid is drawn in navy ink; on a dark field it needs to be
+     light, or the texture disappears entirely. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .bg-blueprint {
+      background-image:
+        linear-gradient(to right, rgb(255 255 255 / 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgb(255 255 255 / 0.04) 1px, transparent 1px);
+    }
+  }
+
+  :root[data-theme="dark"] .bg-blueprint {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.04) 1px, transparent 1px);
   }
 }

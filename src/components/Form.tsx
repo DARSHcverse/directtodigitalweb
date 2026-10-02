@@ -17,7 +17,7 @@ export function FormShell({
     <form
       onSubmit={onSubmit}
       noValidate
-      className="mx-auto grid max-w-[640px] gap-5 border-2 border-edge bg-surface p-8"
+      className="mx-auto grid max-w-[640px] gap-5 border-2 border-edge rounded-lg bg-surface p-8"
     >
       {children}
     </form>
@@ -84,7 +84,7 @@ export function PrivacyNotice() {
     <p className="text-sm leading-relaxed text-muted">
       Your details are used only to reply to this enquiry. No marketing, no
       mailing list, no sharing.{" "}
-      <Link href="/privacy" className="font-semibold text-navy hover:text-amber-deep">
+      <Link href="/privacy" className="font-semibold text-navy-text hover:text-amber-deep">
         Privacy policy
       </Link>
       .

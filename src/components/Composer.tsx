@@ -72,11 +72,11 @@ export function Composer({
         name="body"
         rows={3}
         placeholder={placeholder}
-        className="w-full border border-edge bg-surface px-4 py-3 text-ink outline-none transition focus:border-navy focus:shadow-[0_0_0_3px_rgb(15_42_71/0.15)]"
+        className="w-full border border-edge rounded-lg bg-surface px-4 py-3 text-ink outline-none transition focus:border-navy focus:shadow-[0_0_0_3px_rgb(15_42_71/0.15)]"
       />
 
       <div className="flex flex-wrap items-center gap-3">
-        <label className="cursor-pointer border-2 border-edge px-4 py-2 text-sm font-bold text-muted transition hover:border-navy hover:text-navy">
+        <label className="cursor-pointer border-2 border-edge rounded-lg px-4 py-2 text-sm font-bold text-muted transition hover:border-navy hover:text-navy-text">
           Attach PDF
           <input
             ref={fileRef}
@@ -96,7 +96,7 @@ export function Composer({
             >
               PDF
             </span>
-            <span className="font-medium text-navy">{fileName}</span>
+            <span className="font-medium text-navy-text">{fileName}</span>
             <button
               type="button"
               onClick={clearFile}
@@ -123,7 +123,7 @@ export function Composer({
         <button
           type="submit"
           disabled={pending}
-          className="bg-navy px-5 py-3 text-sm font-bold text-white transition hover:bg-navy-deep disabled:opacity-60"
+          className="bg-navy rounded-md px-5 py-3 text-sm font-bold text-white transition hover:bg-navy-deep disabled:opacity-60"
         >
           {pending ? "Sending…" : submitLabel}
         </button>

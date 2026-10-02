@@ -13,7 +13,7 @@ import { cn } from "@/lib/cn";
 const STATUSES: LeadStatus[] = ["new", "contacted", "quoted", "won", "lost"];
 
 const STATUS_STYLE: Record<LeadStatus, string> = {
-  new: "bg-amber text-navy-deep",
+  new: "bg-amber text-on-amber",
   contacted: "bg-navy text-white",
   quoted: "bg-navy-soft text-white",
   won: "bg-success text-white",
@@ -48,11 +48,11 @@ export function LeadCard({
   const [open, setOpen] = useState(false);
 
   return (
-    <article className="border-2 border-edge bg-surface">
+    <article className="border-2 border-edge rounded-lg bg-surface">
       <div className="flex flex-wrap items-start justify-between gap-4 p-5">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-3">
-            <h2 className="text-lg font-bold text-navy">{lead.name}</h2>
+            <h2 className="text-lg font-bold text-navy-text">{lead.name}</h2>
             <span
               className={cn(
                 "px-2 py-0.5 text-xs font-bold tracking-wide uppercase",
@@ -69,14 +69,14 @@ export function LeadCard({
           <div className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-sm">
             <a
               href={`mailto:${lead.email}`}
-              className="font-medium text-navy hover:text-amber-deep"
+              className="font-medium text-navy-text hover:text-amber-deep"
             >
               {lead.email}
             </a>
             {lead.phone ? (
               <a
                 href={`tel:${lead.phone.replace(/\s/g, "")}`}
-                className="font-medium text-navy hover:text-amber-deep"
+                className="font-medium text-navy-text hover:text-amber-deep"
               >
                 {lead.phone}
               </a>
@@ -93,7 +93,7 @@ export function LeadCard({
               ]
                 .filter(Boolean)
                 .map((chip) => (
-                  <span key={String(chip)} className="border border-edge px-2 py-1 text-muted">
+                  <span key={String(chip)} className="border border-edge rounded-lg px-2 py-1 text-muted">
                     {chip}
                   </span>
                 ))}
@@ -105,7 +105,7 @@ export function LeadCard({
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
-          className="shrink-0 border-2 border-navy px-4 py-2 text-sm font-bold text-navy transition hover:bg-navy hover:text-white"
+          className="shrink-0 border-2 border-navy rounded-lg px-4 py-2 text-sm font-bold text-navy-text transition hover:bg-navy hover:text-white"
         >
           {open ? "Close" : "Open"}
         </button>
@@ -140,7 +140,7 @@ export function LeadCard({
                       "border-2 px-3 py-1.5 text-sm font-semibold transition",
                       s === lead.status
                         ? "border-navy bg-navy text-white"
-                        : "border-edge text-muted hover:border-navy hover:text-navy",
+                        : "border-edge text-muted hover:border-navy hover:text-navy-text",
                     )}
                   >
                     {s}
@@ -163,11 +163,11 @@ export function LeadCard({
               name="notes"
               rows={3}
               defaultValue={lead.notes ?? ""}
-              className="w-full border border-edge bg-surface px-4 py-3 text-ink outline-none focus:border-navy"
+              className="w-full border border-edge rounded-lg bg-surface px-4 py-3 text-ink outline-none focus:border-navy"
             />
             <button
               type="submit"
-              className="mt-2 bg-navy px-4 py-2 text-sm font-bold text-white transition hover:bg-navy-deep"
+              className="mt-2 bg-navy rounded-md px-4 py-2 text-sm font-bold text-white transition hover:bg-navy-deep"
             >
               Save notes
             </button>
@@ -177,14 +177,14 @@ export function LeadCard({
             {lead.client_id ? (
               <Link
                 href={clientHref}
-                className="text-sm font-bold text-navy no-underline hover:text-amber-deep"
+                className="text-sm font-bold text-navy-text no-underline hover:text-amber-deep"
               >
                 View client →
               </Link>
             ) : (
               <Link
                 href={newClientHref}
-                className="inline-block bg-amber px-4 py-2 text-sm font-bold text-navy-deep no-underline transition hover:bg-amber-deep"
+                className="inline-block bg-amber rounded-md px-4 py-2 text-sm font-bold text-on-amber no-underline transition hover:bg-amber-deep"
               >
                 Convert to client
               </Link>

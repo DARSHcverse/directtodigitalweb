@@ -21,12 +21,12 @@ export default async function NewProjectPage({
       <main className="mx-auto w-[94%] max-w-[900px] py-8">
         <Link
           href={adminPath("projects")}
-          className="text-sm font-semibold text-muted no-underline hover:text-navy"
+          className="text-sm font-semibold text-muted no-underline hover:text-navy-text"
         >
           ← Projects
         </Link>
 
-        <h1 className="mt-3 mb-1 text-3xl font-bold tracking-display text-navy">
+        <h1 className="mt-3 mb-1 text-3xl font-bold tracking-display text-navy-text">
           New project
         </h1>
         <p className="mb-8 text-muted">
@@ -35,20 +35,20 @@ export default async function NewProjectPage({
         </p>
 
         {clients.length === 0 ? (
-          <div className="border-2 border-edge bg-surface p-8 text-center">
-            <p className="font-bold text-navy">Add a client first</p>
+          <div className="border-2 border-edge rounded-lg bg-surface p-8 text-center">
+            <p className="font-bold text-navy-text">Add a client first</p>
             <p className="mt-2 text-sm text-muted">
               A project has to belong to someone.
             </p>
             <Link
               href={adminPath("clients/new")}
-              className="mt-5 inline-block bg-amber px-5 py-3 text-sm font-bold text-navy-deep no-underline transition hover:bg-amber-deep"
+              className="mt-5 inline-block bg-amber rounded-md px-5 py-3 text-sm font-bold text-on-amber no-underline transition hover:bg-amber-deep"
             >
               Add a client
             </Link>
           </div>
         ) : (
-          <div className="border-2 border-edge bg-surface p-6">
+          <div className="border-2 border-edge rounded-lg bg-surface p-6">
             <ProjectForm clients={clients} presetClientId={client} />
           </div>
         )}

@@ -9,7 +9,7 @@ import {
 const initial: LeadFormState = { error: null };
 
 const field =
-  "w-full border border-edge bg-surface px-4 py-3 text-ink outline-none transition focus:border-navy focus:shadow-[0_0_0_3px_rgb(15_42_71/0.15)]";
+  "w-full border border-edge rounded-lg bg-surface px-4 py-3 text-ink outline-none transition focus:border-navy focus:shadow-[0_0_0_3px_rgb(15_42_71/0.15)]";
 const label = "mb-2 block text-sm font-medium text-muted";
 
 export function LeadForm() {
@@ -88,7 +88,7 @@ export function LeadForm() {
         <button
           type="submit"
           disabled={pending}
-          className="bg-navy px-6 py-3.5 text-sm font-bold tracking-wide text-white transition hover:bg-navy-deep disabled:opacity-60"
+          className="bg-navy rounded-md px-6 py-3.5 text-sm font-bold tracking-wide text-white transition hover:bg-navy-deep disabled:opacity-60"
         >
           {pending ? "Saving…" : "Add lead"}
         </button>

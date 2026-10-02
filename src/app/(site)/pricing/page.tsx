@@ -26,7 +26,7 @@ export default function PricingPage() {
       <section className="bg-blueprint border-b-2 border-navy py-14">
         <Container>
           <SectionLabel>Fixed prices, agreed up front</SectionLabel>
-          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy">
+          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy-text">
             What a trade website costs
           </h1>
           <p className="mb-10 max-w-[640px] text-lg text-muted">
@@ -52,7 +52,7 @@ export default function PricingPage() {
                 )}
               >
                 {tier.featured ? (
-                  <span className="absolute -top-3 left-8 bg-amber px-3 py-1 text-xs font-bold tracking-wide text-navy-deep uppercase">
+                  <span className="absolute -top-3 left-8 bg-amber rounded-md px-3 py-1 text-xs font-bold tracking-wide text-on-amber uppercase">
                     Most popular
                   </span>
                 ) : null}
@@ -69,7 +69,7 @@ export default function PricingPage() {
                 <p className="mt-2 text-sm text-muted">{tier.bestFor}</p>
 
                 <div className="mt-5 border-l-4 border-amber bg-bg py-3 pl-4">
-                  <p className="text-sm font-bold text-navy">
+                  <p className="text-sm font-bold text-navy-text">
                     {tier.admin.label}
                   </p>
                   <p className="mt-1 text-sm leading-relaxed text-muted">
@@ -106,7 +106,7 @@ export default function PricingPage() {
             <SectionLabel>Updating your own site</SectionLabel>
             <h2
               id="admin-explainer"
-              className="mb-3 text-3xl font-bold tracking-display text-navy"
+              className="mb-3 text-3xl font-bold tracking-display text-navy-text"
             >
               {adminExplainer.heading}
             </h2>
@@ -117,7 +117,7 @@ export default function PricingPage() {
             <div className="grid gap-px bg-edge sm:grid-cols-2">
               {adminExplainer.points.map((point) => (
                 <article key={point.title} className="bg-bg p-6">
-                  <h3 className="mb-2 text-lg font-bold text-navy">
+                  <h3 className="mb-2 text-lg font-bold text-navy-text">
                     {point.title}
                   </h3>
                   <p className="leading-relaxed text-muted">{point.body}</p>
@@ -129,12 +129,12 @@ export default function PricingPage() {
               {adminExplainer.comparison.map((row) => (
                 <article
                   key={row.tier}
-                  className="border-2 border-edge bg-surface p-6"
+                  className="border-2 border-edge rounded-lg bg-surface p-6"
                 >
                   <p className="text-xs font-bold tracking-[0.2em] text-muted uppercase">
                     {row.tier}
                   </p>
-                  <p className="mt-2 text-xl font-bold text-navy">{row.has}</p>
+                  <p className="mt-2 text-xl font-bold text-navy-text">{row.has}</p>
                   <p className="mt-3 leading-relaxed text-muted">
                     {row.detail}
                   </p>
@@ -143,8 +143,8 @@ export default function PricingPage() {
             </div>
           </section>
 
-          <div className="mt-12 border-2 border-edge bg-surface p-8">
-            <h2 className="mb-3 text-xl font-bold text-navy">
+          <div className="mt-12 border-2 border-edge rounded-lg bg-surface p-8">
+            <h2 className="mb-3 text-xl font-bold text-navy-text">
               What affects the price?
             </h2>
             <p className="leading-relaxed text-muted">
@@ -158,7 +158,7 @@ export default function PricingPage() {
           </div>
 
           <div className="mt-12 border-t border-edge pt-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-display text-navy">
+            <h2 className="mb-4 text-3xl font-bold tracking-display text-navy-text">
               Not sure which fits?
             </h2>
             <p className="mx-auto mb-8 max-w-[520px] text-muted">

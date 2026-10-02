@@ -28,7 +28,7 @@ export default function ContactPage() {
       <section className="bg-blueprint border-b-2 border-navy py-14">
         <Container>
           <SectionLabel>One working day reply</SectionLabel>
-          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy">Get in touch about your website</h1>
+          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy-text">Get in touch about your website</h1>
           <p className="mb-8 max-w-[640px] text-lg text-muted">
             Tell me about your project and I&apos;ll get back to you within one
             working day. Prefer email? Reach me at{" "}

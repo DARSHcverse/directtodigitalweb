@@ -26,7 +26,7 @@ export function NavBar() {
           href="/"
           aria-label={`${site.name} — home`}
           onClick={() => setOpen(false)}
-          className="shrink-0"
+          className="logo-swap shrink-0"
         >
           <Image
             src="/TradeHorizontal.png"
@@ -34,7 +34,16 @@ export function NavBar() {
             width={1080}
             height={431}
             priority
-            className="h-10 w-auto sm:h-11"
+            className="logo-light h-10 w-auto sm:h-11"
+          />
+          <Image
+            src="/TradeHorizontal-dark.png"
+            alt=""
+            aria-hidden="true"
+            width={1080}
+            height={431}
+            priority
+            className="logo-dark h-10 w-auto sm:h-11"
           />
         </Link>
 
@@ -48,7 +57,7 @@ export function NavBar() {
                 aria-current={active ? "page" : undefined}
                 className={cn(
                   "relative px-4 py-2 text-sm font-semibold no-underline transition",
-                  active ? "text-navy" : "text-muted hover:text-navy",
+                  active ? "text-navy-text" : "text-muted hover:text-navy-text",
                 )}
               >
                 {label}
@@ -65,13 +74,13 @@ export function NavBar() {
           })}
           <Link
             href="/portal"
-            className="ml-2 px-3 py-2 text-sm font-medium text-muted no-underline transition hover:text-navy"
+            className="ml-2 rounded-md border-2 border-edge px-4 py-2 text-sm font-semibold text-navy-text no-underline transition hover:border-navy hover:bg-navy hover:text-white"
           >
             Client login
           </Link>
           <Link
             href="/quote"
-            className="ml-1 bg-navy px-5 py-2.5 text-sm font-bold text-white no-underline transition hover:bg-navy-deep"
+            className="ml-1 bg-navy rounded-md px-5 py-2.5 text-sm font-bold text-white no-underline transition hover:bg-navy-deep"
           >
             Get a quote
           </Link>
@@ -82,7 +91,7 @@ export function NavBar() {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="mobile-nav"
-          className="border-2 border-navy p-2 text-navy lg:hidden"
+          className="border-2 border-navy rounded-lg p-2 text-navy-text lg:hidden"
         >
           <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -113,8 +122,8 @@ export function NavBar() {
                   className={cn(
                     "block border-l-4 py-3 pl-4 font-semibold no-underline transition",
                     active
-                      ? "border-amber text-navy"
-                      : "border-transparent text-muted hover:border-edge hover:text-navy",
+                      ? "border-amber text-navy-text"
+                      : "border-transparent text-muted hover:border-edge hover:text-navy-text",
                   )}
                 >
                   {label}
@@ -124,14 +133,14 @@ export function NavBar() {
             <Link
               href="/portal"
               onClick={() => setOpen(false)}
-              className="block border-l-4 border-transparent py-3 pl-4 font-semibold text-muted no-underline transition hover:border-edge hover:text-navy"
+              className="mt-3 block rounded-md border-2 border-edge py-3 text-center font-semibold text-navy-text no-underline transition hover:border-navy"
             >
               Client login
             </Link>
             <Link
               href="/quote"
               onClick={() => setOpen(false)}
-              className="mt-2 mb-3 block bg-navy py-3 text-center font-bold text-white no-underline"
+              className="mt-2 mb-3 block rounded-md bg-navy py-3 text-center font-bold text-white no-underline"
             >
               Get a quote
             </Link>

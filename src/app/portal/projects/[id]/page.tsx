@@ -57,18 +57,18 @@ export default async function PortalProjectPage({
       <main className="mx-auto w-[94%] max-w-[1000px] py-8">
         <Link
           href="/portal"
-          className="text-sm font-semibold text-muted no-underline hover:text-navy"
+          className="text-sm font-semibold text-muted no-underline hover:text-navy-text"
         >
           ← Your projects
         </Link>
 
-        <h1 className="mt-3 mb-6 text-3xl font-bold tracking-display text-navy">
+        <h1 className="mt-3 mb-6 text-3xl font-bold tracking-display text-navy-text">
           {project.title}
         </h1>
 
         <section
           aria-labelledby="progress"
-          className="mb-8 border-2 border-navy bg-surface p-6"
+          className="mb-8 border-2 border-navy rounded-lg bg-surface p-6"
         >
           <h2
             id="progress"
@@ -89,7 +89,7 @@ export default async function PortalProjectPage({
                     now
                       ? "bg-navy text-white"
                       : done
-                        ? "bg-surface text-navy"
+                        ? "bg-surface text-navy-text"
                         : "bg-surface text-muted",
                   )}
                 >
@@ -114,7 +114,7 @@ export default async function PortalProjectPage({
 
           {project.awaiting_client ? (
             <p className="mt-4 border-l-4 border-amber bg-bg px-4 py-3">
-              <span className="font-bold text-navy">Waiting on you: </span>
+              <span className="font-bold text-navy-text">Waiting on you: </span>
               <span className="text-muted">{project.awaiting_client}</span>
             </p>
           ) : null}
@@ -125,7 +125,7 @@ export default async function PortalProjectPage({
                 href={project.live_url}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="font-bold text-navy hover:text-amber-deep"
+                className="font-bold text-navy-text hover:text-amber-deep"
               >
                 View your live site ↗
               </a>
@@ -135,9 +135,9 @@ export default async function PortalProjectPage({
 
         <section
           aria-labelledby="brief"
-          className="mb-8 border-2 border-edge bg-surface p-6"
+          className="mb-8 border-2 border-edge rounded-lg bg-surface p-6"
         >
-          <h2 id="brief" className="mb-1 text-xl font-bold text-navy">
+          <h2 id="brief" className="mb-1 text-xl font-bold text-navy-text">
             About your business
           </h2>
           <p className="mb-6 text-sm leading-relaxed text-muted">
@@ -156,7 +156,7 @@ export default async function PortalProjectPage({
                     )
                     .map(([k, v]) => (
                       <div key={k} className="border-l-4 border-edge pl-4">
-                        <dt className="text-sm font-semibold text-navy">
+                        <dt className="text-sm font-semibold text-navy-text">
                           {k.replace(/_/g, " ")}
                         </dt>
                         <dd className="mt-1 whitespace-pre-wrap text-muted">
@@ -173,9 +173,9 @@ export default async function PortalProjectPage({
 
         <section
           aria-labelledby="messages"
-          className="border-2 border-edge bg-surface p-6"
+          className="border-2 border-edge rounded-lg bg-surface p-6"
         >
-          <h2 id="messages" className="mb-1 text-xl font-bold text-navy">
+          <h2 id="messages" className="mb-1 text-xl font-bold text-navy-text">
             Messages
           </h2>
           <p className="mb-6 text-sm text-muted">

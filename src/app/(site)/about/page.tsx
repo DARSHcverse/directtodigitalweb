@@ -34,7 +34,7 @@ export default function AboutPage() {
       <section className="bg-blueprint border-b-2 border-navy py-14">
         <Container>
           <SectionLabel>Who you&apos;re dealing with</SectionLabel>
-          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy">The person building your site</h1>
+          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy-text">The person building your site</h1>
           <p className="mb-10 max-w-[640px] text-lg text-muted">
             {site.name} is run by {site.founder} — one developer, working
             directly with you.
@@ -80,7 +80,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <aside className="h-fit border-2 border-edge bg-surface p-8">
+            <aside className="h-fit border-2 border-edge rounded-lg bg-surface p-8">
               <h2 className="mb-6 text-sm font-semibold tracking-widest text-amber-deep uppercase">
                 At a glance
               </h2>
@@ -95,7 +95,7 @@ export default function AboutPage() {
                 ))}
               </dl>
               <div className="mt-6 border-t border-edge pt-6">
-                <p className="mb-3 text-xs font-bold tracking-[0.2em] text-navy uppercase">
+                <p className="mb-3 text-xs font-bold tracking-[0.2em] text-navy-text uppercase">
                   Check me out
                 </p>
                 <ul className="grid gap-2">
@@ -105,7 +105,7 @@ export default function AboutPage() {
                         href={url}
                         target="_blank"
                         rel="noreferrer noopener"
-                        className="text-sm font-semibold text-navy no-underline hover:text-amber-deep"
+                        className="text-sm font-semibold text-navy-text no-underline hover:text-amber-deep"
                       >
                         {url.includes("linkedin") ? "LinkedIn" : "GitHub"} ↗
                       </a>
@@ -119,7 +119,7 @@ export default function AboutPage() {
           <Testimonials />
 
           <div className="border-t border-edge pt-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-display text-navy">Let&apos;s talk</h2>
+            <h2 className="mb-4 text-3xl font-bold tracking-display text-navy-text">Let&apos;s talk</h2>
             <p className="mx-auto mb-8 max-w-[520px] text-muted">
               Tell me what your business needs and I&apos;ll tell you honestly
               whether I can help.

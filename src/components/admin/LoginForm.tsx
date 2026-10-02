@@ -20,7 +20,7 @@ export function LoginForm() {
           type="email"
           autoComplete="username"
           required
-          className="border border-edge bg-surface px-4 py-3 text-ink outline-none transition focus:border-navy focus:shadow-[0_0_0_3px_rgb(15_42_71/0.15)]"
+          className="border border-edge rounded-lg bg-surface px-4 py-3 text-ink outline-none transition focus:border-navy focus:shadow-[0_0_0_3px_rgb(15_42_71/0.15)]"
         />
       </div>
 
@@ -34,7 +34,7 @@ export function LoginForm() {
           type="password"
           autoComplete="current-password"
           required
-          className="border border-edge bg-surface px-4 py-3 text-ink outline-none transition focus:border-navy focus:shadow-[0_0_0_3px_rgb(15_42_71/0.15)]"
+          className="border border-edge rounded-lg bg-surface px-4 py-3 text-ink outline-none transition focus:border-navy focus:shadow-[0_0_0_3px_rgb(15_42_71/0.15)]"
         />
       </div>
 
@@ -47,7 +47,7 @@ export function LoginForm() {
       <button
         type="submit"
         disabled={pending}
-        className="mt-2 bg-navy px-6 py-3.5 text-sm font-bold tracking-wide text-white transition hover:bg-navy-deep disabled:opacity-60"
+        className="mt-2 bg-navy rounded-md px-6 py-3.5 text-sm font-bold tracking-wide text-white transition hover:bg-navy-deep disabled:opacity-60"
       >
         {pending ? "Signing in…" : "Sign in"}
       </button>

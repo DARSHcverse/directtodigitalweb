@@ -20,7 +20,7 @@ export function FeaturedWork() {
         {featured.map((project) => (
           <article
             key={project.slug}
-            className="group overflow-hidden border-2 border-edge bg-surface transition duration-300 hover:-translate-y-0.5 hover:border-navy"
+            className="group overflow-hidden border-2 border-edge rounded-lg bg-surface transition duration-300 hover:-translate-y-0.5 hover:border-navy"
           >
             <a
               href={project.url}

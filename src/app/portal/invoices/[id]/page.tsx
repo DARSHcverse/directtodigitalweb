@@ -55,7 +55,7 @@ export default async function PortalInvoicePage({
         <div className="mb-6 flex flex-wrap items-center justify-between gap-4 print:hidden">
           <Link
             href="/portal"
-            className="text-sm font-semibold text-muted no-underline hover:text-navy"
+            className="text-sm font-semibold text-muted no-underline hover:text-navy-text"
           >
             ← Back
           </Link>

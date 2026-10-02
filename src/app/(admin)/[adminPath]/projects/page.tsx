@@ -12,7 +12,7 @@ import { cn } from "@/lib/cn";
 import type { ProjectStage } from "@/lib/db/types";
 
 const STAGE_STYLE: Record<ProjectStage, string> = {
-  brief: "bg-amber text-navy-deep",
+  brief: "bg-amber text-on-amber",
   design: "bg-navy-soft text-white",
   build: "bg-navy text-white",
   review: "bg-navy-soft text-white",
@@ -53,7 +53,7 @@ export default async function ProjectsPage({
       <main className="mx-auto w-[94%] max-w-[1100px] py-8">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold tracking-display text-navy">
+            <h1 className="text-3xl font-bold tracking-display text-navy-text">
               Projects
             </h1>
             <p className="text-muted">
@@ -62,7 +62,7 @@ export default async function ProjectsPage({
           </div>
           <Link
             href={adminPath("projects/new")}
-            className="bg-navy px-5 py-3 text-sm font-bold text-white no-underline transition hover:bg-navy-deep"
+            className="bg-navy rounded-md px-5 py-3 text-sm font-bold text-white no-underline transition hover:bg-navy-deep"
           >
             New project
           </Link>
@@ -80,7 +80,7 @@ export default async function ProjectsPage({
                   "border-2 px-4 py-2 text-sm font-semibold no-underline transition",
                   active
                     ? "border-navy bg-navy text-white"
-                    : "border-edge text-muted hover:border-navy hover:text-navy",
+                    : "border-edge text-muted hover:border-navy hover:text-navy-text",
                 )}
               >
                 {tab.label}
@@ -93,8 +93,8 @@ export default async function ProjectsPage({
         </nav>
 
         {projects.length === 0 ? (
-          <div className="border-2 border-edge bg-surface p-10 text-center">
-            <p className="text-lg font-bold text-navy">No projects here</p>
+          <div className="border-2 border-edge rounded-lg bg-surface p-10 text-center">
+            <p className="text-lg font-bold text-navy-text">No projects here</p>
             <p className="mt-2 text-muted">
               Create one against a client to start tracking a build.
             </p>
@@ -105,11 +105,11 @@ export default async function ProjectsPage({
               <Link
                 key={p.id}
                 href={adminPath(`projects/${p.id}`)}
-                className="flex flex-wrap items-start justify-between gap-4 border-2 border-edge bg-surface p-5 no-underline transition hover:border-navy"
+                className="flex flex-wrap items-start justify-between gap-4 border-2 border-edge rounded-lg bg-surface p-5 no-underline transition hover:border-navy"
               >
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-3">
-                    <h2 className="text-lg font-bold text-navy">{p.title}</h2>
+                    <h2 className="text-lg font-bold text-navy-text">{p.title}</h2>
                     <span
                       className={cn(
                         "px-2 py-0.5 text-xs font-bold tracking-wide uppercase",
@@ -132,7 +132,7 @@ export default async function ProjectsPage({
 
                 <div className="text-right text-sm">
                   {p.agreed_price != null ? (
-                    <p className="font-bold text-navy">
+                    <p className="font-bold text-navy-text">
                       £{Number(p.agreed_price).toLocaleString("en-GB")}
                     </p>
                   ) : null}

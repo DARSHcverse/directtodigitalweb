@@ -54,12 +54,12 @@ export default function HomePage() {
               {/* max-w forces a natural two-line break; a hard <br> orphaned
                   "up" at some widths. The highlight sits on the baseline
                   rather than under the descenders. */}
-              <h1 className="max-w-[15ch] text-[clamp(2.4rem,5.4vw,3.9rem)] leading-[1.07] font-bold tracking-display text-navy">
+              <h1 className="max-w-[15ch] text-[clamp(2.4rem,5.4vw,3.9rem)] leading-[1.07] font-bold tracking-display text-navy-text">
                 They&apos;re looking you up{" "}
                 <span className="relative inline-block whitespace-nowrap">
                   <span
                     aria-hidden="true"
-                    className="absolute inset-x-0 bottom-[0.16em] h-[0.4em] bg-amber/35"
+                    className="absolute inset-x-0 bottom-[0.16em] h-[0.4em] dark-highlight"
                   />
                   <span className="relative">right now.</span>
                 </span>
@@ -95,7 +95,7 @@ export default function HomePage() {
             {/* Trade-card device: the credibility artefact a tradesperson
                 already recognises, rather than a generic hero illustration. */}
             <div className="lg:col-span-5">
-              <div className="mx-auto max-w-sm border-2 border-navy bg-surface">
+              <div className="mx-auto max-w-sm border-2 border-navy rounded-lg bg-surface">
                 <div className="flex items-center justify-between border-b-2 border-navy bg-navy px-5 py-3">
                   <span className="text-xs font-bold tracking-[0.2em] text-white/70 uppercase">
                     Your business
@@ -103,15 +103,26 @@ export default function HomePage() {
                   <span className="h-2 w-2 bg-amber" />
                 </div>
                 <div className="p-6">
+                  <span className="logo-swap inline-grid">
                   <Image
                     src="/TradeIcon.png"
                     alt=""
                     width={1080}
                     height={1080}
                     priority
-                    className="h-14 w-14"
+                    className="logo-light h-14 w-14"
                   />
-                  <p className="mt-5 text-xl font-bold text-navy">
+                  <Image
+                    src="/TradeIcon-dark.png"
+                    alt=""
+                    aria-hidden="true"
+                    width={1080}
+                    height={1080}
+                    priority
+                    className="logo-dark h-14 w-14"
+                  />
+                  </span>
+                  <p className="mt-5 text-xl font-bold text-navy-text">
                     Found in seconds
                   </p>
                   <p className="mt-2 text-sm leading-relaxed text-muted">
@@ -126,7 +137,7 @@ export default function HomePage() {
                     ].map(([k, v]) => (
                       <div key={k} className="flex justify-between py-2.5">
                         <dt className="text-sm text-muted">{k}</dt>
-                        <dd className="text-sm font-semibold text-navy">{v}</dd>
+                        <dd className="text-sm font-semibold text-navy-text">{v}</dd>
                       </div>
                     ))}
                   </dl>
@@ -145,7 +156,7 @@ export default function HomePage() {
           <SectionLabel>Who I build for</SectionLabel>
           <h2
             id="trades"
-            className="mb-8 max-w-[30rem] text-3xl font-bold tracking-display text-navy lg:text-4xl"
+            className="mb-8 max-w-[30rem] text-3xl font-bold tracking-display text-navy-text lg:text-4xl"
           >
             Built around your trade, not a template
           </h2>
@@ -156,7 +167,7 @@ export default function HomePage() {
                 href={`/for/${landing.slug}`}
                 className="group border-b border-edge p-6 no-underline transition hover:bg-navy sm:border-r"
               >
-                <p className="text-lg font-bold text-navy transition group-hover:text-white">
+                <p className="text-lg font-bold text-navy-text transition group-hover:text-white">
                   {landing.heading}
                 </p>
                 <p className="mt-1 text-sm text-muted transition group-hover:text-white/70">
@@ -176,7 +187,7 @@ export default function HomePage() {
           <SectionLabel>What I build</SectionLabel>
           <h2
             id="services-heading"
-            className="mb-10 max-w-[32rem] text-3xl font-bold tracking-display text-navy lg:text-4xl"
+            className="mb-10 max-w-[32rem] text-3xl font-bold tracking-display text-navy-text lg:text-4xl"
           >
             Trades are what I know best. Any local business, really.
           </h2>
@@ -186,7 +197,7 @@ export default function HomePage() {
                 <span className="block text-5xl font-bold tracking-display text-edge">
                   0{i + 1}
                 </span>
-                <h3 className="mt-4 text-xl font-bold text-navy">
+                <h3 className="mt-4 text-xl font-bold text-navy-text">
                   {service.name}
                 </h3>
                 <p className="mt-3 leading-relaxed text-muted">
@@ -240,7 +251,7 @@ export default function HomePage() {
         <Container>
           <div className="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
             <div>
-              <h2 className="max-w-[26rem] text-3xl font-bold tracking-display text-navy lg:text-4xl">
+              <h2 className="max-w-[26rem] text-3xl font-bold tracking-display text-navy-text lg:text-4xl">
                 Find out what it would cost
               </h2>
               <p className="mt-3 max-w-[30rem] text-muted">

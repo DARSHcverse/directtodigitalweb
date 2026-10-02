@@ -26,11 +26,11 @@ export function AdminThread({
   ).length;
 
   return (
-    <section className="border-2 border-edge bg-surface p-6">
+    <section className="border-2 border-edge rounded-lg bg-surface p-6">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-xl font-bold text-navy">Messages</h2>
+        <h2 className="text-xl font-bold text-navy-text">Messages</h2>
         {unread > 0 ? (
-          <span className="bg-amber px-2 py-0.5 text-xs font-bold text-navy-deep uppercase">
+          <span className="bg-amber rounded-md px-2 py-0.5 text-xs font-bold text-on-amber uppercase">
             {unread} new
           </span>
         ) : null}

@@ -64,8 +64,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0f2a47",
-  colorScheme: "light",
+  // Light is the default impression; dark follows the visitor's system
+  // preference. Declaring both stops the browser treating the page as
+  // light-only and lets the mobile browser chrome match the page.
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#0f2a47" },
+    { media: "(prefers-color-scheme: dark)", color: "#0e141c" },
+  ],
+  colorScheme: "light dark",
 };
 
 export default function RootLayout({

@@ -87,10 +87,10 @@ export function CallbackHandler() {
   if (state === "working") {
     return (
       <>
-        <p className="rule-label mb-3 text-xs font-bold tracking-[0.2em] text-navy uppercase">
+        <p className="rule-label mb-3 text-xs font-bold tracking-[0.2em] text-navy-text uppercase">
           Trade Web Co
         </p>
-        <h1 className="mb-2 text-2xl font-bold tracking-display text-navy">
+        <h1 className="mb-2 text-2xl font-bold tracking-display text-navy-text">
           Signing you in…
         </h1>
         <p className="text-sm text-muted">This takes a second.</p>
@@ -100,10 +100,10 @@ export function CallbackHandler() {
 
   return (
     <>
-      <p className="rule-label mb-3 text-xs font-bold tracking-[0.2em] text-navy uppercase">
+      <p className="rule-label mb-3 text-xs font-bold tracking-[0.2em] text-navy-text uppercase">
         Trade Web Co
       </p>
-      <h1 className="mb-2 text-2xl font-bold tracking-display text-navy">
+      <h1 className="mb-2 text-2xl font-bold tracking-display text-navy-text">
         That didn&apos;t work
       </h1>
       <p className="mb-6 text-sm leading-relaxed text-muted">
@@ -111,7 +111,7 @@ export function CallbackHandler() {
       </p>
       <Link
         href="/portal/login"
-        className="inline-block bg-navy px-5 py-3 text-sm font-bold text-white no-underline transition hover:bg-navy-deep"
+        className="inline-block bg-navy rounded-md px-5 py-3 text-sm font-bold text-white no-underline transition hover:bg-navy-deep"
       >
         Send me a new link
       </Link>

@@ -27,7 +27,7 @@ export default function ServicesPage() {
       <section className="bg-blueprint border-b-2 border-navy py-14">
         <Container>
           <SectionLabel>What I build</SectionLabel>
-          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy">Website design for trades</h1>
+          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy-text">Website design for trades</h1>
           <p className="mb-12 max-w-[640px] text-lg text-muted">
             Three ways I help small businesses get online properly. Not sure
             which you need? Describe your situation and I&apos;ll point you to
@@ -44,7 +44,7 @@ export default function ServicesPage() {
               <article
                 key={service.slug}
                 id={service.slug}
-                className="scroll-mt-24 border-2 border-edge bg-surface p-8 transition duration-300 hover:border-navy"
+                className="scroll-mt-24 border-2 border-edge rounded-lg bg-surface p-8 transition duration-300 hover:border-navy"
               >
                 <div className="grid gap-8 md:grid-cols-[1.2fr_1fr]">
                   <div>
@@ -83,7 +83,7 @@ export default function ServicesPage() {
             aria-labelledby="who-for"
             className="mt-16 border-t border-edge pt-12"
           >
-            <h2 id="who-for" className="mb-2 text-3xl font-bold tracking-display text-navy">
+            <h2 id="who-for" className="mb-2 text-3xl font-bold tracking-display text-navy-text">
               Looking for something specific?
             </h2>
             <p className="mb-8 text-muted">
@@ -94,7 +94,7 @@ export default function ServicesPage() {
                 <Link
                   key={landing.slug}
                   href={`/for/${landing.slug}`}
-                  className="group border-2 border-edge bg-surface p-6 no-underline transition duration-300 hover:-translate-y-1 hover:border-navy"
+                  className="group border-2 border-edge rounded-lg bg-surface p-6 no-underline transition duration-300 hover:-translate-y-1 hover:border-navy"
                 >
                   <h3 className="mb-2 text-lg font-semibold text-ink">
                     {landing.heading}
@@ -109,7 +109,7 @@ export default function ServicesPage() {
           </section>
 
           <div className="mt-12 border-t border-edge pt-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-display text-navy">
+            <h2 className="mb-4 text-3xl font-bold tracking-display text-navy-text">
               Something else in mind?
             </h2>
             <p className="mx-auto mb-8 max-w-[520px] text-muted">

@@ -10,7 +10,7 @@ import type { BusinessSettings } from "@/lib/db/types";
 const initial: SettingsState = { error: null, success: null };
 
 const field =
-  "w-full border border-edge bg-surface px-4 py-3 text-ink outline-none transition focus:border-navy focus:shadow-[0_0_0_3px_rgb(15_42_71/0.15)]";
+  "w-full border border-edge rounded-lg bg-surface px-4 py-3 text-ink outline-none transition focus:border-navy focus:shadow-[0_0_0_3px_rgb(15_42_71/0.15)]";
 const label = "mb-2 block text-sm font-medium text-muted";
 
 export function SettingsForm({ settings }: { settings: BusinessSettings }) {
@@ -20,7 +20,7 @@ export function SettingsForm({ settings }: { settings: BusinessSettings }) {
   return (
     <form action={action} className="grid gap-8">
       <section>
-        <h2 className="mb-4 text-lg font-bold text-navy">Business identity</h2>
+        <h2 className="mb-4 text-lg font-bold text-navy-text">Business identity</h2>
         <div className="grid gap-5 sm:grid-cols-2">
           <div>
             <label htmlFor="trading_name" className={label}>
@@ -98,7 +98,7 @@ export function SettingsForm({ settings }: { settings: BusinessSettings }) {
       </section>
 
       <section className="border-t border-edge pt-8">
-        <h2 className="mb-4 text-lg font-bold text-navy">Bank details</h2>
+        <h2 className="mb-4 text-lg font-bold text-navy-text">Bank details</h2>
         <p className="mb-5 text-sm text-muted">
           Printed on every invoice — this is how clients pay you.
         </p>
@@ -141,7 +141,7 @@ export function SettingsForm({ settings }: { settings: BusinessSettings }) {
       </section>
 
       <section className="border-t border-edge pt-8">
-        <h2 className="mb-4 text-lg font-bold text-navy">VAT</h2>
+        <h2 className="mb-4 text-lg font-bold text-navy-text">VAT</h2>
         <label className="flex items-center gap-3">
           <input
             type="checkbox"
@@ -189,7 +189,7 @@ export function SettingsForm({ settings }: { settings: BusinessSettings }) {
       </section>
 
       <section className="border-t border-edge pt-8">
-        <h2 className="mb-4 text-lg font-bold text-navy">Invoicing</h2>
+        <h2 className="mb-4 text-lg font-bold text-navy-text">Invoicing</h2>
         <div className="grid gap-5 sm:grid-cols-2">
           <div>
             <label htmlFor="invoice_prefix" className={label}>
@@ -247,7 +247,7 @@ export function SettingsForm({ settings }: { settings: BusinessSettings }) {
         <button
           type="submit"
           disabled={pending}
-          className="bg-navy px-6 py-3.5 text-sm font-bold tracking-wide text-white transition hover:bg-navy-deep disabled:opacity-60"
+          className="bg-navy rounded-md px-6 py-3.5 text-sm font-bold tracking-wide text-white transition hover:bg-navy-deep disabled:opacity-60"
         >
           {pending ? "Saving…" : "Save settings"}
         </button>

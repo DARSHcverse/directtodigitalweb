@@ -9,7 +9,7 @@ import {
 const initial: PasswordState = { error: null, success: null };
 
 const field =
-  "border border-edge bg-surface px-4 py-3 text-ink outline-none transition focus:border-navy focus:shadow-[0_0_0_3px_rgb(15_42_71/0.15)]";
+  "border border-edge rounded-lg bg-surface px-4 py-3 text-ink outline-none transition focus:border-navy focus:shadow-[0_0_0_3px_rgb(15_42_71/0.15)]";
 
 export function PasswordForm() {
   const [state, action, pending] = useActionState(changePassword, initial);
@@ -75,7 +75,7 @@ export function PasswordForm() {
       <button
         type="submit"
         disabled={pending}
-        className="mt-1 bg-navy px-6 py-3.5 text-sm font-bold tracking-wide text-white transition hover:bg-navy-deep disabled:opacity-60"
+        className="mt-1 bg-navy rounded-md px-6 py-3.5 text-sm font-bold tracking-wide text-white transition hover:bg-navy-deep disabled:opacity-60"
       >
         {pending ? "Updating…" : "Change password"}
       </button>

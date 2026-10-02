@@ -32,7 +32,7 @@ export default async function PortalHome() {
       <PortalHeader businessName={client.business_name} />
 
       <main className="mx-auto w-[94%] max-w-[1000px] py-8">
-        <h1 className="mb-1 text-3xl font-bold tracking-display text-navy">
+        <h1 className="mb-1 text-3xl font-bold tracking-display text-navy-text">
           Hello {client.contact_name.split(" ")[0]}
         </h1>
         <p className="mb-8 text-muted">
@@ -40,12 +40,12 @@ export default async function PortalHome() {
         </p>
 
         <section aria-labelledby="projects" className="mb-10">
-          <h2 id="projects" className="mb-4 text-xl font-bold text-navy">
+          <h2 id="projects" className="mb-4 text-xl font-bold text-navy-text">
             Your projects
           </h2>
 
           {projects.length === 0 ? (
-            <div className="border-2 border-edge bg-surface p-8 text-center">
+            <div className="border-2 border-edge rounded-lg bg-surface p-8 text-center">
               <p className="text-muted">
                 Nothing here yet. It will appear once your project starts.
               </p>
@@ -56,11 +56,11 @@ export default async function PortalHome() {
                 <Link
                   key={p.id}
                   href={`/portal/projects/${p.id}`}
-                  className="block border-2 border-edge bg-surface p-5 no-underline transition hover:border-navy"
+                  className="block border-2 border-edge rounded-lg bg-surface p-5 no-underline transition hover:border-navy"
                 >
                   <div className="flex flex-wrap items-center gap-3">
-                    <h3 className="text-lg font-bold text-navy">{p.title}</h3>
-                    <span className="bg-navy px-2 py-0.5 text-xs font-bold tracking-wide text-white uppercase">
+                    <h3 className="text-lg font-bold text-navy-text">{p.title}</h3>
+                    <span className="bg-navy rounded-md px-2 py-0.5 text-xs font-bold tracking-wide text-white uppercase">
                       {STAGE_LABEL[p.stage]}
                     </span>
                   </div>
@@ -73,7 +73,7 @@ export default async function PortalHome() {
 
                   {p.awaiting_client ? (
                     <p className="mt-3 border-l-4 border-amber bg-bg px-4 py-2 text-sm">
-                      <span className="font-bold text-navy">
+                      <span className="font-bold text-navy-text">
                         Waiting on you:{" "}
                       </span>
                       <span className="text-muted">{p.awaiting_client}</span>
@@ -86,19 +86,19 @@ export default async function PortalHome() {
         </section>
 
         <section aria-labelledby="invoices">
-          <h2 id="invoices" className="mb-4 text-xl font-bold text-navy">
+          <h2 id="invoices" className="mb-4 text-xl font-bold text-navy-text">
             Invoices
           </h2>
 
           {invoices.length === 0 ? (
-            <div className="border-2 border-edge bg-surface p-8 text-center">
+            <div className="border-2 border-edge rounded-lg bg-surface p-8 text-center">
               <p className="text-muted">No invoices yet.</p>
             </div>
           ) : (
             <>
               {unpaid.length > 0 ? (
                 <p className="mb-4 border-l-4 border-amber bg-surface px-4 py-3 text-sm">
-                  <span className="font-bold text-navy">
+                  <span className="font-bold text-navy-text">
                     {formatMoney(
                       unpaid.reduce((s, i) => s + Number(i.total), 0),
                     )}{" "}
@@ -118,10 +118,10 @@ export default async function PortalHome() {
                     <Link
                       key={inv.id}
                       href={`/portal/invoices/${inv.id}`}
-                      className="flex flex-wrap items-center justify-between gap-4 border-2 border-edge bg-surface p-5 no-underline transition hover:border-navy"
+                      className="flex flex-wrap items-center justify-between gap-4 border-2 border-edge rounded-lg bg-surface p-5 no-underline transition hover:border-navy"
                     >
                       <div>
-                        <p className="font-bold text-navy">
+                        <p className="font-bold text-navy-text">
                           {inv.invoice_number}
                         </p>
                         <p className="text-sm text-muted">
@@ -129,7 +129,7 @@ export default async function PortalHome() {
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="text-lg font-bold text-navy">
+                        <p className="text-lg font-bold text-navy-text">
                           {formatMoney(inv.total)}
                         </p>
                         <p

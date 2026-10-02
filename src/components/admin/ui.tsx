@@ -26,7 +26,7 @@ export function PageHeader({
       {back ? (
         <Link
           href={back.href}
-          className="mb-3 inline-block text-sm font-semibold text-muted no-underline hover:text-navy"
+          className="mb-3 inline-block text-sm font-semibold text-muted no-underline hover:text-navy-text"
         >
           ← {back.label}
         </Link>
@@ -34,7 +34,7 @@ export function PageHeader({
 
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-display text-navy">
+          <h1 className="text-3xl font-bold tracking-display text-navy-text">
             {title}
           </h1>
           {subtitle ? <p className="mt-1 text-muted">{subtitle}</p> : null}
@@ -42,7 +42,7 @@ export function PageHeader({
         {action ? (
           <Link
             href={action.href}
-            className="bg-navy px-5 py-3 text-sm font-bold text-white no-underline transition hover:bg-navy-deep"
+            className="bg-navy rounded-md px-5 py-3 text-sm font-bold text-white no-underline transition hover:bg-navy-deep"
           >
             {action.label}
           </Link>
@@ -68,13 +68,13 @@ export function Panel({
     <section
       className={cn(
         "bg-surface p-6",
-        tone === "default" && "border-2 border-edge",
+        tone === "default" && "border-2 border-edge rounded-lg",
         tone === "warning" && "border-l-4 border-amber",
         tone === "danger" && "border-l-4 border-danger",
       )}
     >
       {title ? (
-        <h2 className="mb-1 text-xl font-bold text-navy">{title}</h2>
+        <h2 className="mb-1 text-xl font-bold text-navy-text">{title}</h2>
       ) : null}
       {description ? (
         <p className="mb-5 text-sm leading-relaxed text-muted">{description}</p>
@@ -96,15 +96,15 @@ export function EmptyState({
   action?: { href: string; label: string };
 }) {
   return (
-    <div className="border-2 border-edge bg-surface p-10 text-center">
-      <p className="text-lg font-bold text-navy">{title}</p>
+    <div className="border-2 border-edge rounded-lg bg-surface p-10 text-center">
+      <p className="text-lg font-bold text-navy-text">{title}</p>
       <p className="mx-auto mt-2 max-w-[420px] leading-relaxed text-muted">
         {body}
       </p>
       {action ? (
         <Link
           href={action.href}
-          className="mt-6 inline-block bg-amber px-5 py-3 text-sm font-bold text-navy-deep no-underline transition hover:bg-amber-deep"
+          className="mt-6 inline-block bg-amber rounded-md px-5 py-3 text-sm font-bold text-on-amber no-underline transition hover:bg-amber-deep"
         >
           {action.label}
         </Link>
@@ -140,7 +140,7 @@ export function FilterTabs({
               "border-2 px-4 py-2 text-sm font-semibold no-underline transition",
               active
                 ? "border-navy bg-navy text-white"
-                : "border-edge text-muted hover:border-navy hover:text-navy",
+                : "border-edge text-muted hover:border-navy hover:text-navy-text",
             )}
           >
             {tab.label}
@@ -157,7 +157,7 @@ export function FilterTabs({
 const PILL_TONES = {
   neutral: "bg-edge text-muted",
   navy: "bg-navy text-white",
-  amber: "bg-amber text-navy-deep",
+  amber: "bg-amber text-on-amber",
   success: "bg-success text-white",
   danger: "bg-danger text-white",
 } as const;
@@ -192,7 +192,7 @@ export function RowLink({
   return (
     <Link
       href={href}
-      className="flex flex-wrap items-start justify-between gap-4 border-2 border-edge bg-surface p-5 no-underline transition hover:border-navy"
+      className="flex flex-wrap items-start justify-between gap-4 border-2 border-edge rounded-lg bg-surface p-5 no-underline transition hover:border-navy"
     >
       {children}
     </Link>
@@ -218,7 +218,7 @@ export function StatTile({
           "mt-1 text-2xl font-bold",
           tone === "danger" && "text-danger",
           tone === "success" && "text-success",
-          tone === "navy" && "text-navy",
+          tone === "navy" && "text-navy-text",
         )}
       >
         {value}

@@ -41,26 +41,26 @@ export default async function ProjectDetailPage({
       <main className="mx-auto w-[94%] max-w-[1100px] py-8">
         <Link
           href={adminPath("projects")}
-          className="text-sm font-semibold text-muted no-underline hover:text-navy"
+          className="text-sm font-semibold text-muted no-underline hover:text-navy-text"
         >
           ← Projects
         </Link>
 
         <div className="mt-3 mb-8">
-          <h1 className="text-3xl font-bold tracking-display text-navy">
+          <h1 className="text-3xl font-bold tracking-display text-navy-text">
             {project.title}
           </h1>
           {client ? (
             <Link
               href={adminPath(`clients/${client.id}`)}
-              className="text-muted no-underline hover:text-navy"
+              className="text-muted no-underline hover:text-navy-text"
             >
               {client.business_name} · {client.contact_name}
             </Link>
           ) : null}
         </div>
 
-        <section className="mb-6 border-2 border-edge bg-surface p-6">
+        <section className="mb-6 border-2 border-edge rounded-lg bg-surface p-6">
           <h2 className="mb-4 text-sm font-bold tracking-[0.2em] text-muted uppercase">
             Stage
           </h2>
@@ -76,7 +76,7 @@ export default async function ProjectDetailPage({
                     "border-2 px-4 py-2 text-sm font-semibold transition",
                     s === project.stage
                       ? "border-navy bg-navy text-white"
-                      : "border-edge text-muted hover:border-navy hover:text-navy",
+                      : "border-edge text-muted hover:border-navy hover:text-navy-text",
                   )}
                 >
                   {STAGE_LABEL[s]}
@@ -96,14 +96,14 @@ export default async function ProjectDetailPage({
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
-          <section className="border-2 border-edge bg-surface p-6">
-            <h2 className="mb-6 text-xl font-bold text-navy">Details</h2>
+          <section className="border-2 border-edge rounded-lg bg-surface p-6">
+            <h2 className="mb-6 text-xl font-bold text-navy-text">Details</h2>
             <ProjectForm project={project} clients={clients} />
           </section>
 
           <div className="grid gap-6">
-            <section className="border-2 border-edge bg-surface p-6">
-              <h2 className="mb-2 text-lg font-bold text-navy">Client brief</h2>
+            <section className="border-2 border-edge rounded-lg bg-surface p-6">
+              <h2 className="mb-2 text-lg font-bold text-navy-text">Client brief</h2>
               <p className="mb-4 text-sm leading-relaxed text-muted">
                 {locked
                   ? "Locked. The client can read their brief but no longer change it."
@@ -114,7 +114,7 @@ export default async function ProjectDetailPage({
                 <input type="hidden" name="lock" value={locked ? "0" : "1"} />
                 <button
                   type="submit"
-                  className="border-2 border-navy px-4 py-2 text-sm font-bold text-navy transition hover:bg-navy hover:text-white"
+                  className="border-2 border-navy rounded-lg px-4 py-2 text-sm font-bold text-navy-text transition hover:bg-navy hover:text-white"
                 >
                   {locked ? "Unlock brief" : "Lock brief"}
                 </button>
@@ -123,12 +123,12 @@ export default async function ProjectDetailPage({
 
             {project.live_url ? (
               <section className="border-l-4 border-success bg-surface p-6">
-                <h2 className="mb-2 text-lg font-bold text-navy">Live site</h2>
+                <h2 className="mb-2 text-lg font-bold text-navy-text">Live site</h2>
                 <a
                   href={project.live_url}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="text-sm font-semibold text-navy hover:text-amber-deep"
+                  className="text-sm font-semibold text-navy-text hover:text-amber-deep"
                 >
                   {project.live_url} ↗
                 </a>
@@ -136,7 +136,7 @@ export default async function ProjectDetailPage({
             ) : null}
 
             <section className="border-l-4 border-danger bg-surface p-6">
-              <h2 className="mb-2 text-lg font-bold text-navy">Archive</h2>
+              <h2 className="mb-2 text-lg font-bold text-navy-text">Archive</h2>
               <p className="mb-4 text-sm leading-relaxed text-muted">
                 Hides this project. Nothing is deleted — records are kept for
                 six years.

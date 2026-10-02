@@ -32,14 +32,14 @@ export default async function ClientsPage({
         />
 
         {clients.length === 0 ? (
-          <div className="border-2 border-edge bg-surface p-10 text-center">
-            <p className="text-lg font-bold text-navy">No clients yet</p>
+          <div className="border-2 border-edge rounded-lg bg-surface p-10 text-center">
+            <p className="text-lg font-bold text-navy-text">No clients yet</p>
             <p className="mt-2 text-muted">
               Convert a won lead, or add a client directly.
             </p>
             <Link
               href={adminPath("clients/new")}
-              className="mt-6 inline-block bg-amber px-5 py-3 text-sm font-bold text-navy-deep no-underline transition hover:bg-amber-deep"
+              className="mt-6 inline-block bg-amber rounded-md px-5 py-3 text-sm font-bold text-on-amber no-underline transition hover:bg-amber-deep"
             >
               Add your first client
             </Link>
@@ -50,15 +50,15 @@ export default async function ClientsPage({
               <Link
                 key={c.id}
                 href={adminPath(`clients/${c.id}`)}
-                className="flex flex-wrap items-center justify-between gap-4 border-2 border-edge bg-surface p-5 no-underline transition hover:border-navy"
+                className="flex flex-wrap items-center justify-between gap-4 border-2 border-edge rounded-lg bg-surface p-5 no-underline transition hover:border-navy"
               >
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-3">
-                    <h2 className="text-lg font-bold text-navy">
+                    <h2 className="text-lg font-bold text-navy-text">
                       {c.business_name}
                     </h2>
                     {c.trade ? (
-                      <span className="border border-edge px-2 py-0.5 text-xs text-muted">
+                      <span className="border border-edge rounded-lg px-2 py-0.5 text-xs text-muted">
                         {c.trade}
                       </span>
                     ) : null}
@@ -74,7 +74,7 @@ export default async function ClientsPage({
                 </div>
 
                 <div className="text-right text-sm">
-                  <p className="font-semibold text-navy">
+                  <p className="font-semibold text-navy-text">
                     {c.project_count}{" "}
                     {c.project_count === 1 ? "project" : "projects"}
                   </p>

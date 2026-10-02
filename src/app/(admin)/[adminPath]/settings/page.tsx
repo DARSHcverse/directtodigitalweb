@@ -13,7 +13,7 @@ export default async function SettingsPage() {
       <AdminHeader email={owner.email} current="settings" />
 
       <main className="mx-auto w-[94%] max-w-[900px] py-8">
-        <h1 className="mb-1 text-3xl font-bold tracking-display text-navy">
+        <h1 className="mb-1 text-3xl font-bold tracking-display text-navy-text">
           Business settings
         </h1>
         <p className="mb-8 text-muted">
@@ -22,7 +22,7 @@ export default async function SettingsPage() {
 
         {missing.length > 0 ? (
           <div className="mb-6 border-l-4 border-amber bg-surface p-5">
-            <p className="font-bold text-navy">Still needed</p>
+            <p className="font-bold text-navy-text">Still needed</p>
             <p className="mt-1 text-sm leading-relaxed text-muted">
               Invoices cannot be issued until you add {missing.join(", ")}.
             </p>
@@ -30,12 +30,12 @@ export default async function SettingsPage() {
         ) : null}
 
         {settings ? (
-          <div className="border-2 border-edge bg-surface p-6">
+          <div className="border-2 border-edge rounded-lg bg-surface p-6">
             <SettingsForm settings={settings} />
           </div>
         ) : (
-          <div className="border-2 border-edge bg-surface p-8 text-center">
-            <p className="font-bold text-navy">Settings row missing</p>
+          <div className="border-2 border-edge rounded-lg bg-surface p-8 text-center">
+            <p className="font-bold text-navy-text">Settings row missing</p>
             <p className="mt-2 text-sm text-muted">
               The business_settings table should contain exactly one row. Re-run
               the migrations if this persists.

@@ -81,7 +81,7 @@ export function Thread({
                       href={`/portal/files/${f.id}`}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="inline-flex items-center gap-2 border border-edge bg-surface px-3 py-2 text-sm no-underline transition hover:border-navy"
+                      className="inline-flex items-center gap-2 border border-edge rounded-lg bg-surface px-3 py-2 text-sm no-underline transition hover:border-navy"
                     >
                       <span
                         aria-hidden="true"
@@ -89,7 +89,7 @@ export function Thread({
                       >
                         PDF
                       </span>
-                      <span className="font-medium text-navy">
+                      <span className="font-medium text-navy-text">
                         {f.file_name}
                       </span>
                       <span className="text-muted">

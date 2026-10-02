@@ -53,12 +53,12 @@ export default async function DashboardPage() {
         </div>
 
         <div className="grid gap-6 lg:grid-cols-2">
-          <section className="border-2 border-edge bg-surface p-6">
+          <section className="border-2 border-edge rounded-lg bg-surface p-6">
             <div className="mb-4 flex items-center justify-between gap-3">
-              <h2 className="text-xl font-bold text-navy">New enquiries</h2>
+              <h2 className="text-xl font-bold text-navy-text">New enquiries</h2>
               <Link
                 href={adminPath("leads")}
-                className="text-sm font-semibold text-navy no-underline hover:text-amber-deep"
+                className="text-sm font-semibold text-navy-text no-underline hover:text-amber-deep"
               >
                 All leads →
               </Link>
@@ -72,7 +72,7 @@ export default async function DashboardPage() {
               <ul className="grid gap-3">
                 {d.newLeads.map((lead) => (
                   <li key={lead.id} className="border-l-4 border-amber pl-4">
-                    <p className="font-semibold text-navy">{lead.name}</p>
+                    <p className="font-semibold text-navy-text">{lead.name}</p>
                     <p className="text-sm text-muted">
                       {relativeDate(lead.created_at)}
                       {lead.source_path ? ` · ${lead.source_path}` : ""}
@@ -84,8 +84,8 @@ export default async function DashboardPage() {
             )}
           </section>
 
-          <section className="border-2 border-edge bg-surface p-6">
-            <h2 className="mb-4 text-xl font-bold text-navy">
+          <section className="border-2 border-edge rounded-lg bg-surface p-6">
+            <h2 className="mb-4 text-xl font-bold text-navy-text">
               Unanswered messages
             </h2>
 
@@ -101,7 +101,7 @@ export default async function DashboardPage() {
                       href={adminPath(`projects/${m.project_id}`)}
                       className="block border-l-4 border-amber pl-4 no-underline"
                     >
-                      <p className="font-semibold text-navy">
+                      <p className="font-semibold text-navy-text">
                         {m.project_title ?? "Project"}
                       </p>
                       <p className="line-clamp-2 text-sm text-muted">
@@ -114,12 +114,12 @@ export default async function DashboardPage() {
             )}
           </section>
 
-          <section className="border-2 border-edge bg-surface p-6">
+          <section className="border-2 border-edge rounded-lg bg-surface p-6">
             <div className="mb-4 flex items-center justify-between gap-3">
-              <h2 className="text-xl font-bold text-navy">Active projects</h2>
+              <h2 className="text-xl font-bold text-navy-text">Active projects</h2>
               <Link
                 href={adminPath("projects")}
-                className="text-sm font-semibold text-navy no-underline hover:text-amber-deep"
+                className="text-sm font-semibold text-navy-text no-underline hover:text-amber-deep"
               >
                 All projects →
               </Link>
@@ -135,7 +135,7 @@ export default async function DashboardPage() {
                       href={adminPath(`projects/${p.id}`)}
                       className="flex flex-wrap items-center gap-3 no-underline"
                     >
-                      <span className="font-semibold text-navy">{p.title}</span>
+                      <span className="font-semibold text-navy-text">{p.title}</span>
                       <Pill tone="navy">{STAGE_LABEL[p.stage]}</Pill>
                       <span className="text-sm text-muted">
                         {p.client_name}
@@ -147,8 +147,8 @@ export default async function DashboardPage() {
             )}
           </section>
 
-          <section className="border-2 border-edge bg-surface p-6">
-            <h2 className="mb-4 text-xl font-bold text-navy">
+          <section className="border-2 border-edge rounded-lg bg-surface p-6">
+            <h2 className="mb-4 text-xl font-bold text-navy-text">
               Waiting on clients
             </h2>
 
@@ -164,7 +164,7 @@ export default async function DashboardPage() {
                       href={adminPath(`projects/${p.id}`)}
                       className="block border-l-4 border-amber pl-4 no-underline"
                     >
-                      <p className="font-semibold text-navy">{p.title}</p>
+                      <p className="font-semibold text-navy-text">{p.title}</p>
                       <p className="text-sm text-muted">{p.awaiting_client}</p>
                     </Link>
                   </li>

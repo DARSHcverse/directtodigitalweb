@@ -9,11 +9,11 @@ export default async function LoginPage() {
 
   return (
     <main className="bg-blueprint flex min-h-screen items-center justify-center px-6">
-      <div className="w-full max-w-sm border-2 border-navy bg-surface p-8">
-        <p className="rule-label mb-3 text-xs font-bold tracking-[0.2em] text-navy uppercase">
+      <div className="w-full max-w-sm border-2 border-navy rounded-lg bg-surface p-8">
+        <p className="rule-label mb-3 text-xs font-bold tracking-[0.2em] text-navy-text uppercase">
           Trade Web Co
         </p>
-        <h1 className="mb-6 text-2xl font-bold tracking-display text-navy">
+        <h1 className="mb-6 text-2xl font-bold tracking-display text-navy-text">
           Sign in
         </h1>
         <LoginForm />

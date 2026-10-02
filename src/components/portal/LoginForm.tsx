@@ -46,7 +46,7 @@ export function PortalLoginForm() {
           autoCapitalize="characters"
           spellCheck={false}
           required
-          className="border-2 border-edge bg-surface px-4 py-4 text-center font-mono text-xl tracking-[0.2em] text-navy outline-none transition focus:border-navy focus:shadow-[0_0_0_3px_rgb(15_42_71/0.15)]"
+          className="w-full rounded-lg border-2 border-edge bg-surface px-4 py-4 text-center font-mono text-xl tracking-[0.2em] text-navy-text outline-none transition focus:border-navy focus:shadow-[0_0_0_3px_rgb(15_42_71/0.15)]"
         />
         <p className="text-xs text-muted">
           It&apos;s in the email I sent you when your project started.
@@ -62,7 +62,7 @@ export function PortalLoginForm() {
       <button
         type="submit"
         disabled={pending}
-        className="mt-1 bg-navy px-6 py-3.5 text-sm font-bold tracking-wide text-white transition hover:bg-navy-deep disabled:opacity-60"
+        className="mt-1 w-full rounded-md bg-navy px-6 py-3.5 text-sm font-bold tracking-wide text-white transition hover:bg-navy-deep disabled:opacity-60"
       >
         {pending ? "Signing you in…" : "Sign in"}
       </button>

@@ -31,7 +31,7 @@ export function AdminHeader({
     <header className="border-b-2 border-navy bg-surface">
       <div className="mx-auto flex w-[94%] max-w-[1100px] flex-wrap items-center justify-between gap-4 py-4">
         <div>
-          <p className="text-lg font-bold text-navy">
+          <p className="text-lg font-bold text-navy-text">
             Trade Web <span className="text-amber-deep">Co.</span>
           </p>
           <p className="text-xs text-muted">{email}</p>
@@ -48,7 +48,7 @@ export function AdminHeader({
                   "border-2 px-4 py-2 text-sm font-bold no-underline transition",
                   current === tab.key
                     ? "border-navy bg-navy text-white"
-                    : "border-edge text-muted hover:border-navy hover:text-navy",
+                    : "border-edge text-muted hover:border-navy hover:text-navy-text",
                 )}
               >
                 {tab.label}
@@ -58,7 +58,7 @@ export function AdminHeader({
           <form action={signOut}>
             <button
               type="submit"
-              className="border-2 border-edge px-4 py-2 text-sm font-bold text-muted transition hover:border-navy hover:text-navy"
+              className="border-2 border-edge rounded-lg px-4 py-2 text-sm font-bold text-muted transition hover:border-navy hover:text-navy-text"
             >
               Sign out
             </button>

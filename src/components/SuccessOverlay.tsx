@@ -66,7 +66,7 @@ export function SuccessOverlay({
         className="animate-overlay-in absolute inset-0 bg-navy-deep/70 backdrop-blur-sm"
       />
 
-      <div className="animate-card-in relative w-full max-w-md border-2 border-navy bg-surface">
+      <div className="animate-card-in relative w-full max-w-md border-2 border-navy rounded-lg bg-surface">
         <div className="h-1.5 w-full bg-amber" />
 
         <div className="px-8 pt-10 pb-8 text-center">
@@ -99,7 +99,7 @@ export function SuccessOverlay({
 
           <h2
             id="success-heading"
-            className="mb-3 text-3xl leading-tight font-bold tracking-display text-navy"
+            className="mb-3 text-3xl leading-tight font-bold tracking-display text-navy-text"
           >
             {heading}
           </h2>
@@ -127,7 +127,7 @@ export function SuccessOverlay({
           <div className="flex flex-col gap-3 sm:flex-row">
             <Link
               href="/design"
-              className="flex-1 bg-navy px-5 py-3.5 text-sm font-bold text-white no-underline transition hover:bg-navy-deep"
+              className="flex-1 bg-navy rounded-md px-5 py-3.5 text-sm font-bold text-white no-underline transition hover:bg-navy-deep"
             >
               See recent work
             </Link>
@@ -135,7 +135,7 @@ export function SuccessOverlay({
               ref={closeRef}
               type="button"
               onClick={onClose}
-              className="flex-1 border-2 border-navy px-5 py-3.5 text-sm font-bold text-navy transition hover:bg-navy hover:text-white"
+              className="flex-1 border-2 border-navy rounded-lg px-5 py-3.5 text-sm font-bold text-navy-text transition hover:bg-navy hover:text-white"
             >
               Close
             </button>

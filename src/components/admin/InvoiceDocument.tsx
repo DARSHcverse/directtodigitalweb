@@ -31,16 +31,16 @@ export function InvoiceDocument({
   const isDraft = invoice.status === "draft";
 
   return (
-    <article className="border-2 border-navy bg-surface p-8 print:border-0 print:p-0">
+    <article className="border-2 border-navy rounded-lg bg-surface p-8 print:border-0 print:p-0">
       {isDraft ? (
-        <p className="mb-6 border-l-4 border-amber bg-bg px-4 py-2 text-sm font-bold text-navy print:hidden">
+        <p className="mb-6 border-l-4 border-amber bg-bg px-4 py-2 text-sm font-bold text-navy-text print:hidden">
           DRAFT — not yet issued, and has no invoice number.
         </p>
       ) : null}
 
       <header className="mb-8 flex flex-wrap items-start justify-between gap-6">
         <div>
-          <p className="text-2xl font-bold tracking-display text-navy">
+          <p className="text-2xl font-bold tracking-display text-navy-text">
             {settings?.trading_name ?? "Trade Web Co"}
           </p>
           {settings?.legal_name &&
@@ -68,19 +68,19 @@ export function InvoiceDocument({
           <p className="text-xs font-bold tracking-[0.2em] text-muted uppercase">
             Invoice
           </p>
-          <p className="text-2xl font-bold text-navy">
+          <p className="text-2xl font-bold text-navy-text">
             {invoice.invoice_number ?? "Draft"}
           </p>
           <dl className="mt-3 text-sm">
             <div className="flex justify-end gap-3">
               <dt className="text-muted">Issued</dt>
-              <dd className="font-medium text-navy">
+              <dd className="font-medium text-navy-text">
                 {formatDate(invoice.issued_on)}
               </dd>
             </div>
             <div className="flex justify-end gap-3">
               <dt className="text-muted">Due</dt>
-              <dd className="font-medium text-navy">
+              <dd className="font-medium text-navy-text">
                 {formatDate(invoice.due_on)}
               </dd>
             </div>
@@ -92,7 +92,7 @@ export function InvoiceDocument({
         <p className="mb-1 text-xs font-bold tracking-[0.2em] text-muted uppercase">
           Bill to
         </p>
-        <p className="font-bold text-navy">{client?.business_name ?? "—"}</p>
+        <p className="font-bold text-navy-text">{client?.business_name ?? "—"}</p>
         {client?.contact_name ? (
           <p className="text-sm text-muted">{client.contact_name}</p>
         ) : null}
@@ -107,10 +107,10 @@ export function InvoiceDocument({
       <table className="mb-6 w-full text-sm">
         <thead>
           <tr className="border-b-2 border-navy text-left">
-            <th className="pb-2 font-bold text-navy">Description</th>
-            <th className="pb-2 text-right font-bold text-navy">Qty</th>
-            <th className="pb-2 text-right font-bold text-navy">Unit</th>
-            <th className="pb-2 text-right font-bold text-navy">Amount</th>
+            <th className="pb-2 font-bold text-navy-text">Description</th>
+            <th className="pb-2 text-right font-bold text-navy-text">Qty</th>
+            <th className="pb-2 text-right font-bold text-navy-text">Unit</th>
+            <th className="pb-2 text-right font-bold text-navy-text">Amount</th>
           </tr>
         </thead>
         <tbody>
@@ -121,7 +121,7 @@ export function InvoiceDocument({
               <td className="py-3 text-right text-muted">
                 {formatMoney(line.unit_price)}
               </td>
-              <td className="py-3 text-right font-medium text-navy">
+              <td className="py-3 text-right font-medium text-navy-text">
                 {formatMoney(line.line_total)}
               </td>
             </tr>
@@ -133,43 +133,43 @@ export function InvoiceDocument({
         <dl className="w-full max-w-xs text-sm">
           <div className="flex justify-between py-1">
             <dt className="text-muted">Subtotal</dt>
-            <dd className="text-navy">{formatMoney(invoice.subtotal)}</dd>
+            <dd className="text-navy-text">{formatMoney(invoice.subtotal)}</dd>
           </div>
           {Number(invoice.vat_rate) > 0 ? (
             <div className="flex justify-between py-1">
               <dt className="text-muted">VAT at {invoice.vat_rate}%</dt>
-              <dd className="text-navy">{formatMoney(invoice.vat_amount)}</dd>
+              <dd className="text-navy-text">{formatMoney(invoice.vat_amount)}</dd>
             </div>
           ) : null}
           <div className="mt-2 flex justify-between border-t-2 border-navy pt-2">
-            <dt className="font-bold text-navy">Total due</dt>
-            <dd className="text-xl font-bold text-navy">
+            <dt className="font-bold text-navy-text">Total due</dt>
+            <dd className="text-xl font-bold text-navy-text">
               {formatMoney(invoice.total)}
             </dd>
           </div>
         </dl>
       </div>
 
-      <section className="border-2 border-navy p-5">
-        <p className="mb-3 text-xs font-bold tracking-[0.2em] text-navy uppercase">
+      <section className="border-2 border-navy rounded-lg p-5">
+        <p className="mb-3 text-xs font-bold tracking-[0.2em] text-navy-text uppercase">
           How to pay — bank transfer
         </p>
         <dl className="grid gap-2 text-sm sm:grid-cols-3">
           <div>
             <dt className="text-muted">Account name</dt>
-            <dd className="font-medium text-navy">
+            <dd className="font-medium text-navy-text">
               {settings?.bank_account_name ?? "—"}
             </dd>
           </div>
           <div>
             <dt className="text-muted">Sort code</dt>
-            <dd className="font-medium text-navy">
+            <dd className="font-medium text-navy-text">
               {settings?.bank_sort_code ?? "—"}
             </dd>
           </div>
           <div>
             <dt className="text-muted">Account number</dt>
-            <dd className="font-medium text-navy">
+            <dd className="font-medium text-navy-text">
               {settings?.bank_account_no ?? "—"}
             </dd>
           </div>
@@ -177,7 +177,7 @@ export function InvoiceDocument({
         {invoice.payment_ref ? (
           <p className="mt-3 border-l-4 border-amber pl-3 text-sm">
             <span className="text-muted">Please use reference </span>
-            <span className="font-bold text-navy">{invoice.payment_ref}</span>
+            <span className="font-bold text-navy-text">{invoice.payment_ref}</span>
           </p>
         ) : null}
       </section>
