@@ -8,9 +8,9 @@ import { tiers, formatFrom, adminExplainer } from "@/lib/pricing";
 import { cn } from "@/lib/cn";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Website Pricing",
+  title: "Tradesman Website Cost",
   description:
-    "Transparent website pricing for UK small businesses. Fixed quotes from £800, agreed before any work starts — no hourly billing and no surprise invoices.",
+    "What a tradesman website costs in the UK: fixed prices from £800, no monthly fees and no retainer. See exactly what each package includes.",
   path: "/pricing",
 });
 
@@ -27,7 +27,7 @@ export default function PricingPage() {
         <Container>
           <SectionLabel>Fixed prices, agreed up front</SectionLabel>
           <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy">
-            Pricing
+            What a trade website costs
           </h1>
           <p className="mb-10 max-w-[640px] text-lg text-muted">
             Every project is quoted as a fixed price agreed before work starts.

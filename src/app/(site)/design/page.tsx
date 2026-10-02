@@ -9,9 +9,9 @@ import { projects, projectsArePlaceholder } from "@/lib/projects";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Recent Work",
+  title: "Tradesman Website Examples",
   description:
-    "Websites and web apps built for real businesses — booking platforms, e-commerce, education software and local business sites. See recent work from Trade Web Co.",
+    "Real websites built for UK trades and small businesses — booking platforms, local business sites and e-commerce. See the work and the results.",
   path: "/design",
   noIndex: projectsArePlaceholder,
 });
@@ -46,7 +46,7 @@ export default function DesignPage() {
       <section className="bg-blueprint border-b-2 border-navy py-14">
         <Container>
           <SectionLabel>Live client work</SectionLabel>
-          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy">Recent work</h1>
+          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy">Trade websites I&apos;ve built</h1>
           <p className="mb-10 max-w-[640px] text-lg text-muted">
             Live sites and web apps built for real businesses — from booking
             platforms to local business websites. Every one of these is online

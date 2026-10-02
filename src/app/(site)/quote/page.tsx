@@ -6,9 +6,9 @@ import { breadcrumbSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Get a Free Website Quote",
+  title: "Free Tradesman Website Quote",
   description:
-    "Request a free, fixed-price quote for your website. Tell me what your business needs and I'll send a tailored estimate within one working day.",
+    "Get a free fixed-price quote for your trade website. Tell me what you need and I'll send a price and timeline within one working day. No obligation.",
   path: "/quote",
 });
 

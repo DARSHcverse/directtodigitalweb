@@ -49,7 +49,7 @@ export const site = {
   legalName: "Trade Web Co",
   /** Canonical origin, no trailing slash. Set NEXT_PUBLIC_SITE_URL to override. */
   url: resolveSiteUrl(),
-  tagline: "Websites for Tradespeople, Built For You",
+  tagline: "Web Design for Tradespeople",
   description:
     "I build websites for UK tradespeople — plumbers, electricians, builders and roofers. Written, built and set up for you, so you never have to log in. Fixed quotes from £800.",
   locale: "en_GB",

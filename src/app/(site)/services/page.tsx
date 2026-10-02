@@ -9,9 +9,9 @@ import { landings } from "@/lib/landings";
 import Link from "next/link";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Web Design Services",
+  title: "Website Design for Trades",
   description:
-    "Website design, redesign and e-commerce development for small businesses across the UK. Fixed quotes, clear timelines, built to be found on Google.",
+    "Website design, redesign and e-commerce for UK tradespeople. Built to be found on Google and to turn visitors into enquiries. Fixed quotes from £800.",
   path: "/services",
 });
 
@@ -27,7 +27,7 @@ export default function ServicesPage() {
       <section className="bg-blueprint border-b-2 border-navy py-14">
         <Container>
           <SectionLabel>What I build</SectionLabel>
-          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy">Services</h1>
+          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy">Website design for trades</h1>
           <p className="mb-12 max-w-[640px] text-lg text-muted">
             Three ways I help small businesses get online properly. Not sure
             which you need? Describe your situation and I&apos;ll point you to

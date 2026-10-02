@@ -8,9 +8,9 @@ import { pageMetadata } from "@/lib/metadata";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
-  title: "About",
+  title: "About the Developer",
   description:
-    "Trade Web Co is run by Darshan Subramaniam, a developer building websites for tradespeople and small businesses. Real sites, live and in use — not just portfolio pieces.",
+    "Trade Web Co is Shan, a developer building websites for UK tradespeople. Real sites running real businesses, not portfolio pieces. One person, start to finish.",
   path: "/about",
 });
 
@@ -34,7 +34,7 @@ export default function AboutPage() {
       <section className="bg-blueprint border-b-2 border-navy py-14">
         <Container>
           <SectionLabel>Who you&apos;re dealing with</SectionLabel>
-          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy">About</h1>
+          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy">The person building your site</h1>
           <p className="mb-10 max-w-[640px] text-lg text-muted">
             {site.name} is run by {site.founder} — one developer, working
             directly with you.

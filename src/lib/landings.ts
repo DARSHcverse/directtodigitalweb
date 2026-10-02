@@ -53,9 +53,9 @@ export const landings: Landing[] = [
       ],
     },
     heading: "Websites for plumbers",
-    title: "Website Design for Plumbers UK",
+    title: "Plumber Website Design",
     metaDescription:
-      "Websites for UK plumbers, built for emergency callouts. Phone number above the fold, loads fast on a van signal, and set up for you. Fixed quotes from £800.",
+      "Plumber website design for UK heating engineers. Tap-to-call, Gas Safe shown up front, loads fast on a van signal. Fixed price from £800, live in 2-4 weeks.",
     intro:
       "When someone's boiler fails on a Sunday, they search, they scan, and they ring the first plumber who looks reliable and shows a number. Your website has about ten seconds to be that plumber.",
     audience: "Plumbers, heating engineers and boiler specialists",
@@ -115,9 +115,9 @@ export const landings: Landing[] = [
       ],
     },
     heading: "Websites for electricians",
-    title: "Website Design for Electricians UK",
+    title: "Electrician Website Design",
     metaDescription:
-      "Websites for UK electricians. Show your NICEIC or NAPIT registration, win EICR and rewire enquiries, and get found locally. Fixed quotes from £800.",
+      "Electrician website design for UK contractors. Show NICEIC and Part P, win EICR and rewire enquiries, get found locally. Fixed price from £800.",
     intro:
       "Electrical work is bought on trust and paperwork. Customers want to know you are registered, insured and certified before they let you near a consumer unit — and most of them want to check that without ringing you.",
     audience: "Electricians, EICR testers and electrical contractors",
@@ -177,9 +177,9 @@ export const landings: Landing[] = [
       ],
     },
     heading: "Websites for builders",
-    title: "Website Design for Builders UK",
+    title: "Builder Website Design",
     metaDescription:
-      "Websites for UK builders and extension specialists. Show finished work properly, filter out time-wasters, and win bigger jobs. Fixed quotes from £800.",
+      "Builder website design for UK extension and renovation firms. Show finished work properly, filter out time-wasters, win bigger jobs. Fixed price from £800.",
     intro:
       "Nobody commits fifty thousand pounds to an extension from a Facebook page. For work at that value, people want to see what you have finished, who you did it for, and what it cost them in disruption.",
     audience: "Builders, extension and renovation specialists",
@@ -239,9 +239,9 @@ export const landings: Landing[] = [
       ],
     },
     heading: "Websites for small businesses",
-    title: "Small Business Website Design UK",
+    title: "Small Business Web Design UK",
     metaDescription:
-      "Website design for UK small businesses. Fixed quotes from £800, built to be found on Google and to turn visitors into enquiries. No jargon, no retainers.",
+      "Small business web design in the UK. Fixed price from £800, no monthly fees, built to be found on Google and turn visitors into enquiries.",
     intro:
       "Most small businesses do not need a complicated website. They need one that loads quickly, explains what they do, works on a phone, and makes it easy to get in touch. That is what I build.",
     audience: "Sole traders, trades, salons, consultants and local services",
@@ -301,9 +301,9 @@ export const landings: Landing[] = [
       ],
     },
     heading: "Websites with online booking",
-    title: "Booking System Website Design",
+    title: "Website With Online Booking",
     metaDescription:
-      "Websites with online booking built in — take appointments and deposits 24/7, cut no-shows with automated reminders, and stop losing bookings to voicemail.",
+      "Websites with online booking built in. Take appointments and deposits 24/7, cut no-shows with automatic reminders, stop losing bookings to voicemail.",
     intro:
       "If customers have to phone you to book, you are only open when you answer the phone. A booking system takes enquiries at midnight on a Sunday and puts them straight into your calendar.",
     audience: "Salons, clinics, event hire, tutors and appointment-based services",
@@ -363,9 +363,9 @@ export const landings: Landing[] = [
       ],
     },
     heading: "Website redesign",
-    title: "Website Redesign Services UK",
+    title: "Website Redesign UK",
     metaDescription:
-      "Redesign your existing website without losing your Google rankings. Faster, modern, mobile-ready rebuilds with redirects handled properly at launch.",
+      "Website redesign without losing your Google rankings. Faster, mobile-ready rebuild with every URL redirected properly at launch. Fixed price from £800.",
     intro:
       "A redesign should not undo years of search visibility. The aim is to keep everything that is working — your content, your rankings, your URLs — and rebuild the rest on foundations that are actually fast.",
     audience: "Businesses with a site that is dated, slow or hard to use on a phone",

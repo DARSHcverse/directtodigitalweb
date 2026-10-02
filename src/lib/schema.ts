@@ -92,6 +92,49 @@ export function faqSchema(
   };
 }
 
+/**
+ * Service schema for a landing page.
+ *
+ * Tells Google this page is about one specific service rather than the
+ * business generally, which is what lets a trade page compete for its own
+ * query instead of being treated as a duplicate of the homepage.
+ */
+export function serviceSchema({
+  name,
+  description,
+  path,
+}: {
+  name: string;
+  description: string;
+  path: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${site.url}${path}#service`,
+    name,
+    description,
+    serviceType: name,
+    url: `${site.url}${path}`,
+    provider: { "@id": ORG_ID },
+    areaServed: { "@type": "Country", name: site.areaServed },
+    // "from £800" rather than a fixed figure: every project is quoted, and
+    // a precise price here would be a claim we cannot honour.
+    offers: {
+      "@type": "Offer",
+      priceCurrency: site.currency,
+      price: "800",
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        minPrice: "800",
+        priceCurrency: site.currency,
+        valueAddedTaxIncluded: false,
+      },
+      availability: "https://schema.org/InStock",
+    },
+  };
+}
+
 export function contactPageSchema() {
   return {
     "@context": "https://schema.org",

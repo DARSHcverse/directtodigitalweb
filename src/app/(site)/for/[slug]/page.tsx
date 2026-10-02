@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { ButtonLink } from "@/components/Button";
 import { Container, SectionLabel } from "@/components/Container";
 import { JsonLd } from "@/components/JsonLd";
-import { breadcrumbSchema, faqSchema } from "@/lib/schema";
+import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/metadata";
 import { landings, getLanding, proofFor } from "@/lib/landings";
 
@@ -49,6 +49,11 @@ export default async function LandingPage({
             { name: landing.heading, path: `/for/${landing.slug}` },
           ]),
           faqSchema(landing.faqs),
+          serviceSchema({
+            name: landing.title,
+            description: landing.metaDescription,
+            path: `/for/${landing.slug}`,
+          }),
         ]}
       />
 

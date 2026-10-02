@@ -6,9 +6,9 @@ import { breadcrumbSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Book a Call",
+  title: "Book a Call About Your Website",
   description:
-    "Book a free, no-obligation call to talk through your website project with a UK freelance web designer.",
+    "Book a free, no-obligation call to talk through your trade website. No sales pitch — just a straight answer on what you need and what it costs.",
   path: "/booking",
 });
 
