@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { cn } from "@/lib/cn";
 import { site } from "@/lib/site";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const links = [
   { href: "/services", label: "Services" },
@@ -72,6 +73,7 @@ export function NavBar() {
               </Link>
             );
           })}
+          <ThemeToggle className="ml-2" />
           <Link
             href="/portal"
             className="ml-2 rounded-md border-2 border-edge px-4 py-2 text-sm font-semibold text-navy-text no-underline transition hover:border-navy hover:bg-navy hover:text-white"
@@ -140,10 +142,14 @@ export function NavBar() {
             <Link
               href="/quote"
               onClick={() => setOpen(false)}
-              className="mt-2 mb-3 block rounded-md bg-navy py-3 text-center font-bold text-white no-underline"
+              className="mt-2 block rounded-md bg-navy py-3 text-center font-bold text-white no-underline"
             >
               Get a quote
             </Link>
+            <div className="mt-3 mb-3 flex items-center justify-between border-t border-edge pt-3">
+              <span className="text-sm font-semibold text-muted">Theme</span>
+              <ThemeToggle />
+            </div>
           </div>
         </nav>
       ) : null}

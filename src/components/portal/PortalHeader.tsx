@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { portalSignOut } from "@/app/portal/actions";
 import { site } from "@/lib/site";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export function PortalHeader({ businessName }: { businessName: string }) {
   return (
@@ -14,6 +15,7 @@ export function PortalHeader({ businessName }: { businessName: string }) {
         </Link>
 
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <a
             href={`mailto:${site.contactEmail}`}
             className="border-2 border-edge rounded-lg px-4 py-2 text-sm font-bold text-muted no-underline transition hover:border-navy hover:text-navy-text"

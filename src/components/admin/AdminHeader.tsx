@@ -2,6 +2,7 @@ import Link from "next/link";
 import { adminPath } from "@/lib/admin/paths";
 import { signOut } from "@/app/(admin)/[adminPath]/actions";
 import { cn } from "@/lib/cn";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export function AdminHeader({
   email,
@@ -38,6 +39,7 @@ export function AdminHeader({
         </div>
 
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <nav aria-label="Admin" className="flex gap-2">
             {tabs.map((tab) => (
               <Link
