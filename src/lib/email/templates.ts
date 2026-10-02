@@ -152,11 +152,10 @@ ${lead.message ? `\nMessage:\n${lead.message}\n` : ""}`;
    To the client: portal access
    ──────────────────────────────────────────────────────────── */
 
-export function portalInvite(contactName: string): {
-  subject: string;
-  html: string;
-  text: string;
-} {
+export function portalInvite(
+  contactName: string,
+  joinCode: string,
+): { subject: string; html: string; text: string } {
   const name = firstName(contactName);
 
   const body = [
@@ -171,13 +170,23 @@ export function portalInvite(contactName: string): {
        <li>Your invoices, with the bank details on them</li>
        <li>A place to send me notes about the site</li>
      </ul>`,
+    `<p style="margin:24px 0 8px;font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:${BRAND.muted};">Your code</p>`,
+    // The code is the whole point of the email, so it is set large and
+    // monospaced — this gets read off a phone screen and typed into a form.
+    `<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 24px;">
+       <tr>
+         <td align="center" style="border:2px solid ${BRAND.navy};padding:20px;">
+           <span style="font-family:'Courier New',Courier,monospace;font-size:28px;font-weight:bold;letter-spacing:3px;color:${BRAND.navy};">${esc(joinCode)}</span>
+         </td>
+       </tr>
+     </table>`,
     callout(
-      `<strong style="color:${BRAND.navy};">There's no password.</strong><br>
-       Enter your email and I'll send you a sign-in link each time. Nothing to remember, nothing to forget.`,
+      `<strong style="color:${BRAND.navy};">No password, no email to wait for.</strong><br>
+       Type that code in and you're straight through. Keep this email — the same code works every time.`,
     ),
-    button(`${site.url}/portal`, "Open your portal"),
+    button(`${site.url}/portal`, "Sign in with your code"),
     p(
-      `<span style="font-size:14px;color:${BRAND.muted};">Use this email address when you sign in. If anything doesn't work, just reply here.</span>`,
+      `<span style="font-size:14px;color:${BRAND.muted};">Lost it? Just reply and I'll send a new one.</span>`,
     ),
   ].join("");
 
@@ -196,13 +205,14 @@ I've set up an account so you can check on your website whenever you like.
 You'll be able to see where your build has got to, anything I'm waiting on
 from you, your invoices with bank details, and a place to send me notes.
 
-There's no password — enter your email and I'll send you a sign-in link
-each time.
+YOUR CODE:  ${joinCode}
 
-Open your portal: ${site.url}/portal
+No password, no email to wait for — type that code in and you're straight
+through. Keep this email; the same code works every time.
 
-Use this email address when you sign in. If anything doesn't work, just
-reply here.${plainTextFooter()}`;
+Sign in: ${site.url}/portal
+
+Lost it? Just reply and I'll send a new one.${plainTextFooter()}`;
 
   return { subject: "Your project portal is ready", html, text };
 }

@@ -6,6 +6,7 @@ import { serviceClient } from "@/lib/db/server";
 import { adminPath } from "@/lib/admin/paths";
 import { sendEmail } from "@/lib/email/send";
 import { portalInvite } from "@/lib/email/templates";
+import { generateJoinCode } from "@/lib/portal/join-code";
 
 /**
  * Grants a client access to the portal.
@@ -65,7 +66,11 @@ export async function enablePortal(formData: FormData) {
     .update({ auth_user_id: userId, portal_enabled: true })
     .eq("id", clientId);
 
-  // Tell them it exists. Access with no invitation is access nobody uses.
+  // Issue a join code at the same time. The plain code is shown to the owner
+  // once here and emailed to the client; only its hash is stored.
+  const code = generateJoinCode();
+  await db.rpc("set_join_code", { p_client_id: clientId, p_code: code });
+
   const { data: full } = await db
     .from("clients")
     .select("contact_name, email")
@@ -73,7 +78,7 @@ export async function enablePortal(formData: FormData) {
     .maybeSingle();
 
   if (full) {
-    const invite = portalInvite(full.contact_name as string);
+    const invite = portalInvite(full.contact_name as string, code);
     await sendEmail({
       to: full.email as string,
       subject: invite.subject,
@@ -92,6 +97,48 @@ export async function enablePortal(formData: FormData) {
   revalidatePath(adminPath(`clients/${clientId}`));
 }
 
+/**
+ * Issues a fresh code, replacing any previous one.
+ *
+ * Used when a client loses theirs, or when access should be rotated — the
+ * old code stops working the moment this runs.
+ */
+export async function resendJoinCode(formData: FormData) {
+  const owner = await requireOwner();
+  const clientId = String(formData.get("id") ?? "");
+  if (!clientId) return;
+
+  const db = serviceClient();
+  const { data: client } = await db
+    .from("clients")
+    .select("contact_name, email, portal_enabled")
+    .eq("id", clientId)
+    .is("deleted_at", null)
+    .maybeSingle();
+
+  if (!client?.portal_enabled) return;
+
+  const code = generateJoinCode();
+  await db.rpc("set_join_code", { p_client_id: clientId, p_code: code });
+
+  const invite = portalInvite(client.contact_name as string, code);
+  await sendEmail({
+    to: client.email as string,
+    subject: invite.subject,
+    html: invite.html,
+    text: invite.text,
+  });
+
+  await db.from("audit_log").insert({
+    actor: owner.email,
+    action: "client.join_code_reissued",
+    entity: "clients",
+    entity_id: clientId,
+  });
+
+  revalidatePath(adminPath(`clients/${clientId}`));
+}
+
 export async function disablePortal(formData: FormData) {
   const owner = await requireOwner();
   const clientId = String(formData.get("id") ?? "");
@@ -101,9 +148,11 @@ export async function disablePortal(formData: FormData) {
 
   // The auth user is kept so access can be restored without a new invite;
   // the flag alone controls whether current_client_id() resolves.
+  // Clear the code too: leaving it would let a revoked client sign in again
+  // the moment access was restored, without a new invitation.
   await db
     .from("clients")
-    .update({ portal_enabled: false })
+    .update({ portal_enabled: false, join_code_hash: null })
     .eq("id", clientId);
 
   await db.from("audit_log").insert({

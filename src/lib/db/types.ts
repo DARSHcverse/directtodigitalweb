@@ -46,6 +46,10 @@ export type Client = {
   notes: string | null;
   auth_user_id: string | null;
   portal_enabled: boolean;
+  /** bcrypt hash of the join code; the plain code is never stored. */
+  join_code_hash: string | null;
+  join_code_set_at: string | null;
+  join_code_last_used_at: string | null;
   deleted_at: string | null;
 };
 

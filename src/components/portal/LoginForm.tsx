@@ -1,41 +1,55 @@
 "use client";
 
-import { useActionState } from "react";
-import { sendMagicLink, type LoginState } from "@/app/portal/actions";
+import { useActionState, useState } from "react";
+import { signInWithCode, type LoginState } from "@/app/portal/actions";
 
-const initial: LoginState = { error: null, sent: false };
+const initial: LoginState = { error: null };
 
 export function PortalLoginForm() {
-  const [state, action, pending] = useActionState(sendMagicLink, initial);
+  const [state, action, pending] = useActionState(signInWithCode, initial);
+  const [value, setValue] = useState("");
 
-  if (state.sent) {
-    return (
-      <div role="status" className="border-l-4 border-amber bg-bg p-5">
-        <p className="font-bold text-navy">Check your email</p>
-        <p className="mt-2 text-sm leading-relaxed text-muted">
-          If that address has access, a sign-in link is on its way. It works
-          once and expires after an hour.
-        </p>
-      </div>
-    );
+  /**
+   * Formats as they type: uppercase, dashes inserted automatically.
+   *
+   * The server accepts any shape, but showing the canonical form as it is
+   * typed tells them immediately whether what they are entering looks like
+   * the code on their email.
+   */
+  function onChange(input: string) {
+    const body = input
+      .toUpperCase()
+      .replace(/[^A-Z0-9]/g, "")
+      .replace(/^TWC/, "")
+      .slice(0, 8);
+
+    if (body.length <= 4) {
+      setValue(body ? `TWC-${body}` : "");
+      return;
+    }
+    setValue(`TWC-${body.slice(0, 4)}-${body.slice(4)}`);
   }
 
   return (
     <form action={action} className="grid gap-4">
       <div className="grid gap-2">
-        <label htmlFor="email" className="text-sm font-medium text-muted">
-          Your email
+        <label htmlFor="code" className="text-sm font-medium text-muted">
+          Your code
         </label>
         <input
-          id="email"
-          name="email"
-          type="email"
-          autoComplete="email"
+          id="code"
+          name="code"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder="TWC-XXXX-XXXX"
+          autoComplete="off"
+          autoCapitalize="characters"
+          spellCheck={false}
           required
-          className="border border-edge bg-surface px-4 py-3 text-ink outline-none transition focus:border-navy focus:shadow-[0_0_0_3px_rgb(15_42_71/0.15)]"
+          className="border-2 border-edge bg-surface px-4 py-4 text-center font-mono text-xl tracking-[0.2em] text-navy outline-none transition focus:border-navy focus:shadow-[0_0_0_3px_rgb(15_42_71/0.15)]"
         />
         <p className="text-xs text-muted">
-          No password needed — we email you a link.
+          It&apos;s in the email I sent you when your project started.
         </p>
       </div>
 
@@ -50,7 +64,7 @@ export function PortalLoginForm() {
         disabled={pending}
         className="mt-1 bg-navy px-6 py-3.5 text-sm font-bold tracking-wide text-white transition hover:bg-navy-deep disabled:opacity-60"
       >
-        {pending ? "Sending…" : "Email me a link"}
+        {pending ? "Signing you in…" : "Sign in"}
       </button>
     </form>
   );

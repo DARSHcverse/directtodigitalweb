@@ -7,6 +7,7 @@ import { archiveClient } from "@/app/(admin)/[adminPath]/clients/actions";
 import {
   enablePortal,
   disablePortal,
+  resendJoinCode,
 } from "@/app/(admin)/[adminPath]/clients/portal-actions";
 import { site } from "@/lib/site";
 import { AdminHeader } from "@/components/admin/AdminHeader";
@@ -141,29 +142,52 @@ export default async function ClientDetailPage({
               </h2>
               {client.portal_enabled ? (
                 <>
-                  <p className="mb-4 text-sm leading-relaxed text-muted">
-                    They can sign in at{" "}
+                  <p className="mb-3 text-sm leading-relaxed text-muted">
+                    They sign in at{" "}
                     <span className="font-semibold text-navy">
                       {`${site.url}/portal`}
                     </span>{" "}
-                    using {client.email}. No password — they get an emailed
-                    link each time.
+                    with their join code.
                   </p>
-                  <form action={disablePortal}>
-                    <input type="hidden" name="id" value={client.id} />
-                    <button
-                      type="submit"
-                      className="border-2 border-edge px-4 py-2 text-sm font-bold text-muted transition hover:border-navy hover:text-navy"
-                    >
-                      Revoke access
-                    </button>
-                  </form>
+                  <p className="mb-4 text-sm text-muted">
+                    {client.join_code_last_used_at
+                      ? `Last used ${date(client.join_code_last_used_at)}.`
+                      : client.join_code_set_at
+                        ? "Code sent, not used yet."
+                        : "No code issued — send one below."}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <form action={resendJoinCode}>
+                      <input type="hidden" name="id" value={client.id} />
+                      <button
+                        type="submit"
+                        className="bg-amber px-4 py-2 text-sm font-bold text-navy-deep transition hover:bg-amber-deep"
+                      >
+                        Send a new code
+                      </button>
+                    </form>
+                    <form action={disablePortal}>
+                      <input type="hidden" name="id" value={client.id} />
+                      <button
+                        type="submit"
+                        className="border-2 border-edge px-4 py-2 text-sm font-bold text-muted transition hover:border-navy hover:text-navy"
+                      >
+                        Revoke access
+                      </button>
+                    </form>
+                  </div>
+                  <p className="mt-3 text-xs leading-relaxed text-muted">
+                    Sending a new code replaces the old one immediately. The
+                    code itself is stored hashed, so it can be reissued but
+                    never looked up.
+                  </p>
                 </>
               ) : (
                 <>
                   <p className="mb-4 text-sm leading-relaxed text-muted">
-                    Lets them check progress, read invoices, fill in their
-                    brief and message you — without a password to forget.
+                    Issues a join code and emails it to them. They can then
+                    check progress, read invoices, fill in their brief and
+                    message you — no password, no sign-in link to wait for.
                   </p>
                   <form action={enablePortal}>
                     <input type="hidden" name="id" value={client.id} />

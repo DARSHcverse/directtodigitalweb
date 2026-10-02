@@ -64,8 +64,14 @@ export function NavBar() {
             );
           })}
           <Link
+            href="/portal"
+            className="ml-2 px-3 py-2 text-sm font-medium text-muted no-underline transition hover:text-navy"
+          >
+            Client login
+          </Link>
+          <Link
             href="/quote"
-            className="ml-3 bg-navy px-5 py-2.5 text-sm font-bold text-white no-underline transition hover:bg-navy-deep"
+            className="ml-1 bg-navy px-5 py-2.5 text-sm font-bold text-white no-underline transition hover:bg-navy-deep"
           >
             Get a quote
           </Link>
@@ -115,6 +121,13 @@ export function NavBar() {
                 </Link>
               );
             })}
+            <Link
+              href="/portal"
+              onClick={() => setOpen(false)}
+              className="block border-l-4 border-transparent py-3 pl-4 font-semibold text-muted no-underline transition hover:border-edge hover:text-navy"
+            >
+              Client login
+            </Link>
             <Link
               href="/quote"
               onClick={() => setOpen(false)}
