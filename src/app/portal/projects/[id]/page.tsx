@@ -11,6 +11,7 @@ import { STAGES, STAGE_LABEL, OPEN_STAGES } from "@/lib/admin/projects";
 import { PortalHeader } from "@/components/portal/PortalHeader";
 import { BriefForm } from "@/components/portal/BriefForm";
 import { MessageThread } from "@/components/portal/MessageThread";
+import { projectAttachments } from "@/lib/attachments";
 import { site } from "@/lib/site";
 import type { ProjectStage } from "@/lib/db/types";
 import { cn } from "@/lib/cn";
@@ -40,9 +41,10 @@ export default async function PortalProjectPage({
   const project = await assertOwnsProject(client, id);
   if (!project) notFound();
 
-  const [brief, messages] = await Promise.all([
+  const [brief, messages, attachments] = await Promise.all([
     projectBrief(id),
     projectMessages(id),
+    projectAttachments(id),
   ]);
 
   const locked = Boolean(project.brief_locked_at);
@@ -183,6 +185,7 @@ export default async function PortalProjectPage({
           <MessageThread
             projectId={id}
             messages={messages}
+            attachments={attachments}
             ownerName={site.founder.split(" ")[0] ?? "Darshan"}
           />
         </section>

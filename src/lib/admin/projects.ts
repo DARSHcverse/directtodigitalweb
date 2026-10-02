@@ -1,5 +1,6 @@
 import "server-only";
 import { serviceClient } from "@/lib/db/server";
+import type { Attachment } from "@/lib/attachments";
 import type {
   Client,
   Message,
@@ -100,7 +101,7 @@ export async function getProject(id: string) {
 export async function getProjectDetail(id: string) {
   const db = serviceClient();
 
-  const [project, brief, messages, clients] = await Promise.all([
+  const [project, brief, messages, clients, attachments] = await Promise.all([
     db
       .from("projects")
       .select("*, client:clients(*)")
@@ -118,6 +119,12 @@ export async function getProjectDetail(id: string) {
       .select("id, business_name, contact_name")
       .is("deleted_at", null)
       .order("business_name"),
+    db
+      .from("attachments")
+      .select("*")
+      .eq("project_id", id)
+      .is("deleted_at", null)
+      .order("created_at", { ascending: false }),
   ]);
 
   if (!project.data) return null;
@@ -135,6 +142,7 @@ export async function getProjectDetail(id: string) {
       Client,
       "id" | "business_name" | "contact_name"
     >[],
+    attachments: (attachments.data ?? []) as Attachment[],
   };
 }
 

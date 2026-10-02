@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import { ownerForAction, requireOwner } from "@/lib/admin/auth";
 import { serviceClient } from "@/lib/db/server";
+import { storeAttachment, validatePdf } from "@/lib/attachments";
 import { adminPath } from "@/lib/admin/paths";
 import { STAGES } from "@/lib/admin/projects";
 import type { ProjectStage } from "@/lib/db/types";
@@ -173,14 +174,40 @@ export async function replyToClient(formData: FormData) {
 
   const projectId = String(formData.get("project_id") ?? "");
   const body = String(formData.get("body") ?? "").trim().slice(0, 5000);
-  if (!projectId || !body) return;
+  const file = formData.get("file");
+  const hasFile = file instanceof File && file.size > 0;
+
+  if (!projectId || (!body && !hasFile)) return;
+
+  // Reject before writing, so a failed upload leaves no message pointing at
+  // an attachment that does not exist.
+  if (hasFile) {
+    const check = await validatePdf(file);
+    if (!check.ok) {
+      console.error("[admin] attachment rejected:", check.error);
+      return;
+    }
+  }
 
   const db = serviceClient();
-  await db.from("messages").insert({
-    project_id: projectId,
-    author: "owner",
-    body,
-  });
+  const { data: message } = await db
+    .from("messages")
+    .insert({
+      project_id: projectId,
+      author: "owner",
+      body: body || "(file attached)",
+    })
+    .select("id")
+    .single();
+
+  if (hasFile && message) {
+    await storeAttachment({
+      file,
+      projectId,
+      messageId: message.id as string,
+      uploadedBy: "owner",
+    });
+  }
 
   await db.from("audit_log").insert({
     actor: owner.email,

@@ -5,6 +5,7 @@ import { z } from "zod";
 import { portalClientForAction } from "@/lib/portal/auth";
 import { assertOwnsProject, BRIEF_FIELDS } from "@/lib/portal/data";
 import { serviceClient } from "@/lib/db/server";
+import { storeAttachment, validatePdf } from "@/lib/attachments";
 
 export type BriefState = { error: string | null; success: string | null };
 export type MessageState = { error: string | null };
@@ -47,7 +48,9 @@ export async function saveBrief(
   return { error: null, success: "Saved. You can keep adding to this." };
 }
 
-const messageSchema = z.string().trim().min(1, "Write a message first").max(5000);
+// A message may be text, a file, or both — an attachment with no covering
+// note is a perfectly normal thing to send.
+const messageSchema = z.string().trim().max(5000);
 
 export async function sendMessage(
   _prev: MessageState,
@@ -62,18 +65,46 @@ export async function sendMessage(
 
   const parsed = messageSchema.safeParse(formData.get("body") ?? "");
   if (!parsed.success) {
-    return { error: parsed.error.issues[0]?.message ?? "Write a message." };
+    return { error: parsed.error.issues[0]?.message ?? "Check your message." };
   }
 
-  const { error } = await serviceClient().from("messages").insert({
-    project_id: projectId,
-    // Always 'client' here, never taken from the form — otherwise a message
-    // could be posted as though it came from the owner.
-    author: "client",
-    body: parsed.data,
-  });
+  const file = formData.get("file");
+  const hasFile = file instanceof File && file.size > 0;
+
+  if (!parsed.data && !hasFile) {
+    return { error: "Write a message or attach a file." };
+  }
+
+  // Validate before writing anything, so a rejected file does not leave a
+  // message behind referring to an attachment that never arrived.
+  if (hasFile) {
+    const check = await validatePdf(file);
+    if (!check.ok) return { error: check.error };
+  }
+
+  const { data: message, error } = await serviceClient()
+    .from("messages")
+    .insert({
+      project_id: projectId,
+      // Always 'client' here, never taken from the form — otherwise a message
+      // could be posted as though it came from the owner.
+      author: "client",
+      body: parsed.data || "(file attached)",
+    })
+    .select("id")
+    .single();
 
   if (error) return { error: "Could not send that. Try again." };
+
+  if (hasFile) {
+    const stored = await storeAttachment({
+      file,
+      projectId,
+      messageId: message.id as string,
+      uploadedBy: "client",
+    });
+    if (!stored.ok) return { error: stored.error };
+  }
 
   revalidatePath(`/portal/projects/${projectId}`);
   return { error: null };

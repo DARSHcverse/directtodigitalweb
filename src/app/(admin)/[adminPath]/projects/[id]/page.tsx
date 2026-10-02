@@ -31,7 +31,7 @@ export default async function ProjectDetailPage({
   const result = await getProjectDetail(id);
   if (!result) notFound();
 
-  const { project, client, brief, messages, clients } = result;
+  const { project, client, brief, messages, clients, attachments } = result;
   const locked = Boolean(project.brief_locked_at);
 
   return (
@@ -88,7 +88,11 @@ export default async function ProjectDetailPage({
 
         <div className="mb-6 grid gap-6 lg:grid-cols-2">
           <BriefView brief={brief} />
-          <AdminThread projectId={project.id} messages={messages} />
+          <AdminThread
+            projectId={project.id}
+            messages={messages}
+            attachments={attachments}
+          />
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
