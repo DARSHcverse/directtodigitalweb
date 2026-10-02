@@ -1,12 +1,109 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { requireOwner } from "@/lib/admin/auth";
+import { redirect } from "next/navigation";
+import { z } from "zod";
+import { ownerForAction, requireOwner } from "@/lib/admin/auth";
 import { serviceClient } from "@/lib/db/server";
 import { adminPath } from "@/lib/admin/paths";
 import type { LeadStatus } from "@/lib/db/types";
 
 const VALID: LeadStatus[] = ["new", "contacted", "quoted", "won", "lost"];
+
+export type LeadFormState = { error: string | null };
+
+const leadSchema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(100),
+  email: z.email("Enter a valid email address").max(200),
+  phone: z.string().trim().max(40).optional(),
+  topic: z.string().trim().max(80).optional(),
+  budget: z.string().trim().max(80).optional(),
+  timeline: z.string().trim().max(80).optional(),
+  message: z.string().trim().max(5000).optional(),
+});
+
+/**
+ * Adds a lead by hand.
+ *
+ * Enquiries that arrive by phone or in person were previously impossible to
+ * record — the only way into the pipeline was the website form.
+ */
+export async function createLead(
+  _prev: LeadFormState,
+  formData: FormData,
+): Promise<LeadFormState> {
+  const owner = await ownerForAction();
+  if (!owner) return { error: "Your session has expired. Sign in again." };
+
+  const parsed = leadSchema.safeParse({
+    name: formData.get("name") ?? "",
+    email: formData.get("email") ?? "",
+    phone: formData.get("phone") ?? "",
+    topic: formData.get("topic") ?? "",
+    budget: formData.get("budget") ?? "",
+    timeline: formData.get("timeline") ?? "",
+    message: formData.get("message") ?? "",
+  });
+
+  if (!parsed.success) {
+    return { error: parsed.error.issues[0]?.message ?? "Check the details." };
+  }
+
+  const d = parsed.data;
+  const db = serviceClient();
+  const { data, error } = await db
+    .from("leads")
+    .insert({
+      kind: "contact",
+      name: d.name,
+      email: d.email,
+      phone: d.phone || null,
+      topic: d.topic || null,
+      budget: d.budget || null,
+      timeline: d.timeline || null,
+      message: d.message || null,
+      source_path: "added by hand",
+      status: "new",
+    })
+    .select("id")
+    .single();
+
+  if (error) return { error: "Could not save that lead. Try again." };
+
+  await db.from("audit_log").insert({
+    actor: owner.email,
+    action: "lead.created",
+    entity: "leads",
+    entity_id: data.id as string,
+  });
+
+  redirect(adminPath("leads"));
+}
+
+/**
+ * Hides a lead. Spam and mistakes need somewhere to go, but business records
+ * are kept for six years, so this is a soft delete like everywhere else.
+ */
+export async function archiveLead(formData: FormData) {
+  const owner = await requireOwner();
+  const id = String(formData.get("id") ?? "");
+  if (!id) return;
+
+  const db = serviceClient();
+  await db
+    .from("leads")
+    .update({ deleted_at: new Date().toISOString() })
+    .eq("id", id);
+
+  await db.from("audit_log").insert({
+    actor: owner.email,
+    action: "lead.archived",
+    entity: "leads",
+    entity_id: id,
+  });
+
+  revalidatePath(adminPath("leads"));
+}
 
 export async function updateLeadStatus(formData: FormData) {
   // Every mutation re-checks the session: a server action is a public

@@ -4,6 +4,7 @@ import { useState } from "react";
 import {
   updateLeadStatus,
   updateLeadNotes,
+  archiveLead,
 } from "@/app/(admin)/[adminPath]/leads/actions";
 import type { Lead, LeadStatus } from "@/lib/db/types";
 import Link from "next/link";
@@ -172,7 +173,7 @@ export function LeadCard({
             </button>
           </form>
 
-          <div className="mt-5 border-t border-edge pt-5">
+          <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-edge pt-5">
             {lead.client_id ? (
               <Link
                 href={clientHref}
@@ -188,6 +189,18 @@ export function LeadCard({
                 Convert to client
               </Link>
             )}
+
+            {/* Somewhere for spam and mistakes to go. Soft delete, so the
+                record survives the six-year retention requirement. */}
+            <form action={archiveLead}>
+              <input type="hidden" name="id" value={lead.id} />
+              <button
+                type="submit"
+                className="text-sm font-semibold text-muted transition hover:text-danger"
+              >
+                Archive
+              </button>
+            </form>
           </div>
         </div>
       ) : null}

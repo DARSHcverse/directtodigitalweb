@@ -7,14 +7,25 @@ export type ClientWithCounts = Client & {
   active_project: string | null;
 };
 
-export async function listClients(): Promise<ClientWithCounts[]> {
+export async function listClients(
+  search?: string,
+): Promise<ClientWithCounts[]> {
   const db = serviceClient();
 
-  const { data: clients, error } = await db
+  let query = db
     .from("clients")
     .select("*")
     .is("deleted_at", null)
     .order("created_at", { ascending: false });
+
+  if (search?.trim()) {
+    const term = search.trim().replace(/[,]/g, " ");
+    query = query.or(
+      `business_name.ilike.%${term}%,contact_name.ilike.%${term}%,email.ilike.%${term}%,trade.ilike.%${term}%`,
+    );
+  }
+
+  const { data: clients, error } = await query;
 
   if (error) throw new Error(`Could not load clients: ${error.message}`);
 

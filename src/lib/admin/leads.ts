@@ -18,7 +18,10 @@ export const STATUS_LABEL: Record<LeadStatus, string> = {
   lost: "Lost",
 };
 
-export async function listLeads(status?: LeadStatus | "all") {
+export async function listLeads(
+  status?: LeadStatus | "all",
+  search?: string,
+) {
   let query = serviceClient()
     .from("leads")
     .select("*")
@@ -27,6 +30,15 @@ export async function listLeads(status?: LeadStatus | "all") {
     .limit(200);
 
   if (status && status !== "all") query = query.eq("status", status);
+
+  // Matches across the fields someone would actually search by. Commas are
+  // stripped because they separate clauses in PostgREST's or() syntax.
+  if (search?.trim()) {
+    const term = search.trim().replace(/[,]/g, " ");
+    query = query.or(
+      `name.ilike.%${term}%,email.ilike.%${term}%,message.ilike.%${term}%,topic.ilike.%${term}%`,
+    );
+  }
 
   const { data, error } = await query;
   if (error) throw new Error(`Could not load leads: ${error.message}`);

@@ -3,30 +3,33 @@ import { requireOwner } from "@/lib/admin/auth";
 import { adminPath } from "@/lib/admin/paths";
 import { listClients } from "@/lib/admin/clients";
 import { AdminHeader } from "@/components/admin/AdminHeader";
+import { SearchBox } from "@/components/admin/SearchBox";
+import { PageHeader, EmptyState } from "@/components/admin/ui";
 
-export default async function ClientsPage() {
+export default async function ClientsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>;
+}) {
   const owner = await requireOwner();
-  const clients = await listClients();
+  const { q } = await searchParams;
+  const clients = await listClients(q);
 
   return (
     <div className="min-h-screen">
       <AdminHeader email={owner.email} current="clients" />
 
       <main className="mx-auto w-[94%] max-w-[1100px] py-8">
-        <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-bold tracking-display text-navy">
-              Clients
-            </h1>
-            <p className="text-muted">{clients.length} total</p>
-          </div>
-          <Link
-            href={adminPath("clients/new")}
-            className="bg-navy px-5 py-3 text-sm font-bold text-white no-underline transition hover:bg-navy-deep"
-          >
-            Add client
-          </Link>
-        </div>
+        <PageHeader
+          title="Clients"
+          subtitle={`${clients.length} ${clients.length === 1 ? "client" : "clients"}`}
+          action={{ href: adminPath("clients/new"), label: "Add client" }}
+        />
+
+        <SearchBox
+          basePath={adminPath("clients")}
+          placeholder="Search by business, contact, email or trade…"
+        />
 
         {clients.length === 0 ? (
           <div className="border-2 border-edge bg-surface p-10 text-center">

@@ -4,23 +4,25 @@ import { adminPath } from "@/lib/admin/paths";
 import { listLeads, countByStatus, STATUS_LABEL, LEAD_STATUSES } from "@/lib/admin/leads";
 import { LeadCard } from "@/components/admin/LeadCard";
 import { AdminHeader } from "@/components/admin/AdminHeader";
+import { SearchBox } from "@/components/admin/SearchBox";
+import { PageHeader, EmptyState } from "@/components/admin/ui";
 import { cn } from "@/lib/cn";
 import type { LeadStatus } from "@/lib/db/types";
 
 export default async function LeadsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ status?: string }>;
+  searchParams: Promise<{ status?: string; q?: string }>;
 }) {
   const owner = await requireOwner();
-  const { status } = await searchParams;
+  const { status, q } = await searchParams;
 
   const filter = (
     LEAD_STATUSES.includes(status as LeadStatus) ? status : "all"
   ) as LeadStatus | "all";
 
   const [leads, counts] = await Promise.all([
-    listLeads(filter),
+    listLeads(filter, q),
     countByStatus(),
   ]);
 
@@ -34,13 +36,16 @@ export default async function LeadsPage({
       <AdminHeader email={owner.email} current="leads" />
 
       <main className="mx-auto w-[94%] max-w-[1100px] py-8">
-        <h1 className="mb-1 text-3xl font-bold tracking-display text-navy">
-          Leads
-        </h1>
-        <p className="mb-6 text-muted">
-          {counts.all ?? 0} total ·{" "}
-          <span className="font-semibold text-navy">{counts.new ?? 0} new</span>
-        </p>
+        <PageHeader
+          title="Leads"
+          subtitle={`${counts.all ?? 0} total · ${counts.new ?? 0} new`}
+          action={{ href: adminPath("leads/new"), label: "Add lead" }}
+        />
+
+        <SearchBox
+          basePath={adminPath("leads")}
+          placeholder="Search by name, email, message…"
+        />
 
         <nav aria-label="Filter by status" className="mb-6 flex flex-wrap gap-2">
           {tabs.map((tab) => {
@@ -71,16 +76,25 @@ export default async function LeadsPage({
         </nav>
 
         {leads.length === 0 ? (
-          <div className="border-2 border-edge bg-surface p-10 text-center">
-            <p className="text-lg font-bold text-navy">
-              {filter === "all" ? "No leads yet" : `No ${filter} leads`}
-            </p>
-            <p className="mt-2 text-muted">
-              {filter === "all"
-                ? "Enquiries from the website will appear here as they arrive."
-                : "Try another status filter."}
-            </p>
-          </div>
+          <EmptyState
+            title={
+              q
+                ? "Nothing matched that search"
+                : filter === "all"
+                  ? "No leads yet"
+                  : `No ${filter} leads`
+            }
+            body={
+              q
+                ? "Try a different name, email or phrase."
+                : filter === "all"
+                  ? "Enquiries from the website appear here as they arrive. You can also add one by hand."
+                  : "Try another status filter."
+            }
+            action={
+              q ? undefined : { href: adminPath("leads/new"), label: "Add a lead" }
+            }
+          />
         ) : (
           <div className="grid gap-4">
             {leads.map((lead) => (

@@ -5,7 +5,7 @@ import { LoginForm } from "@/components/admin/LoginForm";
 
 export default async function LoginPage() {
   // Already signed in — no reason to show the form again.
-  if (await getOwner()) redirect(adminPath("leads"));
+  if (await getOwner()) redirect(adminPath("dashboard"));
 
   return (
     <main className="bg-blueprint flex min-h-screen items-center justify-center px-6">

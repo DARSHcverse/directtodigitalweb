@@ -26,7 +26,7 @@ export async function signIn(
     return { error: "Those details were not recognised." };
   }
 
-  redirect(adminPath("leads"));
+  redirect(adminPath("dashboard"));
 }
 
 export async function signOut() {
