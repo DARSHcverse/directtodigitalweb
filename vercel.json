@@ -1,0 +1,21 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+
+  "//": [
+    "Functions run in Sydney because the Supabase project is in ap-southeast-2.",
+    "Co-locating them removes roughly a second of cross-Pacific latency per",
+    "page, which was the main cause of admin pages taking 5-10 seconds.",
+    "",
+    "This is not the long-term answer. The database belongs in London",
+    "(eu-west-2) for UK clients and UK data residency, but Supabase's free",
+    "tier allows two active projects per user and both slots are in use, one",
+    "of them by a live product with real users. Move the database to London",
+    "and delete this file once a slot frees up or the account is upgraded.",
+    "",
+    "The public marketing pages are statically prerendered and served from",
+    "Vercel's edge regardless of this setting, so UK visitors are unaffected.",
+    "Only the admin, portal and lead API run in Sydney."
+  ],
+
+  "regions": ["syd1"]
+}
