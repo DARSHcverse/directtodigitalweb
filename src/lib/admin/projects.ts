@@ -1,6 +1,12 @@
 import "server-only";
 import { serviceClient } from "@/lib/db/server";
-import type { Client, Project, ProjectStage } from "@/lib/db/types";
+import type {
+  Client,
+  Message,
+  Project,
+  ProjectBrief,
+  ProjectStage,
+} from "@/lib/db/types";
 
 export const STAGES: ProjectStage[] = [
   "brief",
@@ -83,6 +89,53 @@ export async function getProject(id: string) {
 
   const { client, ...project } = data as Project & { client: Client | null };
   return { project: project as Project, client };
+}
+
+/**
+ * Everything the project detail page shows, in one round trip set.
+ *
+ * The brief and messages were previously never read by the admin at all —
+ * clients could fill in their brief and send messages that nobody could see.
+ */
+export async function getProjectDetail(id: string) {
+  const db = serviceClient();
+
+  const [project, brief, messages, clients] = await Promise.all([
+    db
+      .from("projects")
+      .select("*, client:clients(*)")
+      .eq("id", id)
+      .is("deleted_at", null)
+      .maybeSingle(),
+    db.from("project_brief").select("*").eq("project_id", id).maybeSingle(),
+    db
+      .from("messages")
+      .select("*")
+      .eq("project_id", id)
+      .order("created_at"),
+    db
+      .from("clients")
+      .select("id, business_name, contact_name")
+      .is("deleted_at", null)
+      .order("business_name"),
+  ]);
+
+  if (!project.data) return null;
+
+  const { client, ...rest } = project.data as Project & {
+    client: Client | null;
+  };
+
+  return {
+    project: rest as Project,
+    client,
+    brief: (brief.data as ProjectBrief) ?? null,
+    messages: (messages.data ?? []) as Message[],
+    clients: (clients.data ?? []) as Pick<
+      Client,
+      "id" | "business_name" | "contact_name"
+    >[],
+  };
 }
 
 /** Clients available when creating a project. */

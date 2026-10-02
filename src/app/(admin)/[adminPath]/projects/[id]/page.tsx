@@ -3,8 +3,7 @@ import { notFound } from "next/navigation";
 import { requireOwner } from "@/lib/admin/auth";
 import { adminPath } from "@/lib/admin/paths";
 import {
-  getProject,
-  clientOptions,
+  getProjectDetail,
   STAGES,
   STAGE_LABEL,
 } from "@/lib/admin/projects";
@@ -15,6 +14,8 @@ import {
 } from "@/app/(admin)/[adminPath]/projects/actions";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { ProjectForm } from "@/components/admin/ProjectForm";
+import { AdminThread } from "@/components/admin/AdminThread";
+import { BriefView } from "@/components/admin/BriefView";
 import { cn } from "@/lib/cn";
 
 export default async function ProjectDetailPage({
@@ -25,11 +26,12 @@ export default async function ProjectDetailPage({
   const owner = await requireOwner();
   const { id } = await params;
 
-  const result = await getProject(id);
+  // One call, all queries in parallel. The brief and messages were not read
+  // at all before, so client submissions had nowhere to appear.
+  const result = await getProjectDetail(id);
   if (!result) notFound();
 
-  const { project, client } = result;
-  const clients = await clientOptions();
+  const { project, client, brief, messages, clients } = result;
   const locked = Boolean(project.brief_locked_at);
 
   return (
@@ -83,6 +85,11 @@ export default async function ProjectDetailPage({
             ))}
           </div>
         </section>
+
+        <div className="mb-6 grid gap-6 lg:grid-cols-2">
+          <BriefView brief={brief} />
+          <AdminThread projectId={project.id} messages={messages} />
+        </div>
 
         <div className="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
           <section className="border-2 border-edge bg-surface p-6">

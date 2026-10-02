@@ -1,4 +1,5 @@
 import "server-only";
+import { cache } from "react";
 import { redirect } from "next/navigation";
 import { sessionClient } from "@/lib/db/session";
 import { serviceClient } from "@/lib/db/server";
@@ -14,7 +15,8 @@ import type { Client } from "@/lib/db/types";
  * true, so revoking access takes effect immediately even for a session that
  * is still valid.
  */
-export async function getPortalClient(): Promise<Client | null> {
+// Cached per request: portal pages resolve the client more than once.
+export const getPortalClient = cache(async (): Promise<Client | null> => {
   let userId: string;
 
   try {
@@ -48,7 +50,7 @@ export async function getPortalClient(): Promise<Client | null> {
     );
     return null;
   }
-}
+});
 
 /** Guard for portal pages. */
 export async function requirePortalClient(): Promise<Client> {

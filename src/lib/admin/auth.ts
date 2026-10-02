@@ -1,4 +1,5 @@
 import "server-only";
+import { cache } from "react";
 import { redirect } from "next/navigation";
 import { sessionClient } from "@/lib/db/session";
 import { serviceClient } from "@/lib/db/server";
@@ -16,7 +17,7 @@ export type Owner = { id: string; email: string };
  * Owner status is then confirmed against owner_accounts, because a valid
  * session only proves someone signed in — not that they are the owner.
  */
-export async function getOwner(): Promise<Owner | null> {
+export const getOwner = cache(async (): Promise<Owner | null> => {
   let userId: string | null = null;
   let email: string | null = null;
 
@@ -62,7 +63,7 @@ export async function getOwner(): Promise<Owner | null> {
     );
     return null;
   }
-}
+});
 
 /** Guard for admin PAGES. Redirects to login when there is no owner. */
 export async function requireOwner(): Promise<Owner> {

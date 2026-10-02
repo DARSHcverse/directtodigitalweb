@@ -162,6 +162,36 @@ export async function toggleBriefLock(formData: FormData) {
   revalidatePath(adminPath(`projects/${id}`));
 }
 
+/**
+ * Reply to a client in the project thread.
+ *
+ * author is forced to 'owner' here rather than read from the form, so a
+ * client cannot post a message that appears to come from Shan.
+ */
+export async function replyToClient(formData: FormData) {
+  const owner = await requireOwner();
+
+  const projectId = String(formData.get("project_id") ?? "");
+  const body = String(formData.get("body") ?? "").trim().slice(0, 5000);
+  if (!projectId || !body) return;
+
+  const db = serviceClient();
+  await db.from("messages").insert({
+    project_id: projectId,
+    author: "owner",
+    body,
+  });
+
+  await db.from("audit_log").insert({
+    actor: owner.email,
+    action: "project.replied",
+    entity: "projects",
+    entity_id: projectId,
+  });
+
+  revalidatePath(adminPath(`projects/${projectId}`));
+}
+
 export async function archiveProject(formData: FormData) {
   const owner = await requireOwner();
   const id = String(formData.get("id") ?? "");
