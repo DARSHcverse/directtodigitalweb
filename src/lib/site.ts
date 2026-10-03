@@ -100,6 +100,29 @@ export const projectTypes = [
   "Other",
 ] as const;
 
+/**
+ * Quote form choices.
+ *
+ * Budget bands mirror the published packages (£800 / £1,800 / £3,000) so the
+ * answer someone gives here lines up with what they saw on the pricing page.
+ * "Not sure yet" is deliberate and listed last: without it, anyone unsure
+ * either guesses low and feels committed, or abandons the form.
+ */
+export const budgetBands = [
+  { value: "Around £800", label: "Around £800", note: "Starter site" },
+  { value: "£800–£1,800", label: "£800–£1,800", note: "Most common" },
+  { value: "£1,800–£3,000", label: "£1,800–£3,000", note: "Full site" },
+  { value: "£3,000+", label: "£3,000+", note: "Online shop" },
+  { value: "Not sure yet", label: "Not sure yet", note: "I'll advise" },
+] as const;
+
+/** Timelines in the words people use, not dates. */
+export const timelineOptions = [
+  { value: "As soon as possible", label: "As soon as possible" },
+  { value: "Within 1–2 months", label: "Within 1–2 months" },
+  { value: "Just planning ahead", label: "Just planning ahead" },
+] as const;
+
 export type Service = (typeof services)[number];
 export type ProjectType = (typeof projectTypes)[number];
 

@@ -16,6 +16,11 @@ export function useLeadForm<T extends Record<string, string>>(initial: T) {
   const [form, setForm] = useState<T>(initial);
   const [status, setStatus] = useState<Status>(IDLE);
 
+  /** Set one field directly, for controls that are not DOM inputs. */
+  function setField(name: string, value: string) {
+    setForm((prev) => ({ ...prev, [name]: value }));
+  }
+
   function handleChange(
     event: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -61,5 +66,5 @@ export function useLeadForm<T extends Record<string, string>>(initial: T) {
     }
   }
 
-  return { form, setForm, status, handleChange, submit };
+  return { form, setForm, status, handleChange, submit, setField};
 }
