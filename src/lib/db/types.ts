@@ -106,6 +106,10 @@ export type Invoice = {
   notes: string | null;
   payment_ref: string | null;
   credit_note_for: string | null;
+  /** When the invoice was last emailed. Null means it has never been sent. */
+  sent_at: string | null;
+  /** Address it was last sent to, which may differ from the client's current one. */
+  sent_to: string | null;
   deleted_at: string | null;
 };
 

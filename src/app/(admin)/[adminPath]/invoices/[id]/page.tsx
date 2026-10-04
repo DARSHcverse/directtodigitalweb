@@ -6,11 +6,13 @@ import {
   getInvoice,
   invoiceTargets,
   displayStatus,
+  formatDate,
   STATUS_LABEL,
 } from "@/lib/admin/invoices";
 import { getSettings, missingForInvoicing } from "@/lib/admin/settings";
 import {
   issueInvoice,
+  sendInvoice,
   markPaid,
   cancelInvoice,
 } from "@/app/(admin)/[adminPath]/invoices/actions";
@@ -21,11 +23,14 @@ import { PrintButton } from "@/components/admin/PrintButton";
 
 export default async function InvoiceDetailPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ send?: string }>;
 }) {
   const owner = await requireOwner();
   const { id } = await params;
+  const { send } = await searchParams;
 
   const result = await getInvoice(id);
   if (!result) notFound();
@@ -100,9 +105,52 @@ export default async function InvoiceDetailPage({
                 </form>
               ) : null}
 
+              {/* Sending is what the client actually needs; the PDF is for
+                  records. Issuing already emails it, so after that this reads
+                  as a resend. */}
+              {!isDraft && invoice.status !== "cancelled" ? (
+                <form action={sendInvoice}>
+                  <input type="hidden" name="id" value={invoice.id} />
+                  <button
+                    type="submit"
+                    className="rounded-md border-2 border-navy px-5 py-2.5 text-sm font-bold text-navy-text transition hover:bg-navy hover:text-white"
+                  >
+                    {invoice.sent_at ? "Send again" : "Send to client"}
+                  </button>
+                </form>
+              ) : null}
+
               {!isDraft ? <PrintButton /> : null}
             </div>
           </div>
+
+          {send === "ok" ? (
+            <p
+              role="status"
+              className="mb-6 rounded-lg border-l-4 border-success bg-surface px-5 py-3 font-semibold text-success"
+            >
+              Invoice emailed to the client.
+            </p>
+          ) : null}
+
+          {send === "failed" ? (
+            <p
+              role="alert"
+              className="mb-6 rounded-lg border-l-4 border-danger bg-surface px-5 py-3 text-danger"
+            >
+              <span className="font-bold">Could not send.</span> Check the
+              client has an email address and that Resend is configured, then
+              try again.
+            </p>
+          ) : null}
+
+          {!isDraft ? (
+            <p className="mb-6 text-sm text-muted">
+              {invoice.sent_at
+                ? `Emailed to ${invoice.sent_to ?? "the client"} on ${formatDate(invoice.sent_at)}.`
+                : "Not emailed yet."}
+            </p>
+          ) : null}
 
           {isDraft && missing.length > 0 ? (
             <div className="mb-6 border-l-4 border-amber bg-surface p-5">

@@ -7,7 +7,7 @@ import { ownerForAction, requireOwner } from "@/lib/admin/auth";
 import { serviceClient } from "@/lib/db/server";
 import { adminPath } from "@/lib/admin/paths";
 import { getSettings } from "@/lib/admin/settings";
-import { sendEmail } from "@/lib/email/send";
+import { isEmailConfigured, sendEmail } from "@/lib/email/send";
 import { invoiceEmail } from "@/lib/email/templates";
 import { formatMoney, formatDate } from "@/lib/admin/invoices";
 
@@ -243,6 +243,26 @@ export async function issueInvoice(formData: FormData) {
 
   // Email it to the client. Best-effort: the invoice is issued and numbered
   // either way, and it is also visible in their portal.
+  await emailInvoice(id, owner.email);
+
+  revalidatePath(adminPath(`invoices/${id}`));
+  revalidatePath(adminPath("invoices"));
+}
+
+/**
+ * Emails an issued invoice to its client and records that it went.
+ *
+ * Shared by issuing and by the Send button, so there is one code path and a
+ * resend is identical to the original. Returns a reason on failure rather
+ * than throwing: issuing must not roll back because an email bounced, and the
+ * caller decides whether the failure is worth surfacing.
+ */
+async function emailInvoice(
+  id: string,
+  actor: string,
+): Promise<{ ok: true; to: string } | { ok: false; reason: string }> {
+  const db = serviceClient();
+
   const { data: issued } = await db
     .from("invoices")
     .select(
@@ -251,36 +271,85 @@ export async function issueInvoice(formData: FormData) {
     .eq("id", id)
     .maybeSingle();
 
-  const settings = await getSettings();
   const client = issued?.client as
     | { contact_name: string; email: string }
     | null
     | undefined;
 
-  if (issued?.invoice_number && client?.email) {
-    const mail = invoiceEmail({
-      contactName: client.contact_name,
-      invoiceNumber: issued.invoice_number as string,
-      total: formatMoney(issued.total as number),
-      dueOn: formatDate(issued.due_on as string | null),
-      paymentRef: (issued.payment_ref as string | null) ?? null,
-      bank: {
-        accountName: settings?.bank_account_name ?? null,
-        sortCode: settings?.bank_sort_code ?? null,
-        accountNo: settings?.bank_account_no ?? null,
-      },
-    });
-
-    await sendEmail({
-      to: client.email,
-      subject: mail.subject,
-      html: mail.html,
-      text: mail.text,
-    });
+  if (!issued?.invoice_number) {
+    return { ok: false, reason: "A draft has no number yet — issue it first." };
+  }
+  if (!client?.email) {
+    return { ok: false, reason: "This client has no email address." };
+  }
+  if (!isEmailConfigured()) {
+    return { ok: false, reason: "Email is not configured on the server." };
   }
 
+  const settings = await getSettings();
+  const mail = invoiceEmail({
+    contactName: client.contact_name,
+    invoiceNumber: issued.invoice_number as string,
+    total: formatMoney(issued.total as number),
+    dueOn: formatDate(issued.due_on as string | null),
+    paymentRef: (issued.payment_ref as string | null) ?? null,
+    bank: {
+      accountName: settings?.bank_account_name ?? null,
+      sortCode: settings?.bank_sort_code ?? null,
+      accountNo: settings?.bank_account_no ?? null,
+    },
+  });
+
+  const sent = await sendEmail({
+    to: client.email,
+    subject: mail.subject,
+    html: mail.html,
+    text: mail.text,
+  });
+
+  if (!sent.ok) {
+    return {
+      ok: false,
+      reason: `The email provider rejected it: ${sent.error}`,
+    };
+  }
+
+  await db
+    .from("invoices")
+    .update({ sent_at: new Date().toISOString(), sent_to: client.email })
+    .eq("id", id);
+
+  await db.from("audit_log").insert({
+    actor,
+    action: "invoice.sent",
+    entity: "invoices",
+    entity_id: id,
+    detail: { to: client.email },
+  });
+
+  return { ok: true, to: client.email };
+}
+
+/**
+ * Sends, or re-sends, an issued invoice.
+ *
+ * Issuing already emails it, but silently and only once. A client who deleted
+ * the email, or whose address was wrong at the time, previously had no route
+ * to a copy — and re-issuing is impossible once a number is assigned.
+ */
+export async function sendInvoice(formData: FormData) {
+  const owner = await requireOwner();
+  const id = String(formData.get("id") ?? "");
+  if (!id) return;
+
+  const result = await emailInvoice(id, owner.email);
+
   revalidatePath(adminPath(`invoices/${id}`));
-  revalidatePath(adminPath("invoices"));
+
+  if (!result.ok) {
+    redirect(`${adminPath(`invoices/${id}`)}?send=failed`);
+  }
+  redirect(`${adminPath(`invoices/${id}`)}?send=ok`);
 }
 
 export async function markPaid(formData: FormData) {
