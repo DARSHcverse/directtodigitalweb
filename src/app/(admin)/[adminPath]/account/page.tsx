@@ -1,15 +1,12 @@
 import { requireOwner } from "@/lib/admin/auth";
-import { AdminHeader } from "@/components/admin/AdminHeader";
+import { AdminShell } from "@/components/admin/AdminShell";
 import { PasswordForm } from "@/components/admin/PasswordForm";
 
 export default async function AccountPage() {
   const owner = await requireOwner();
 
   return (
-    <div className="min-h-screen">
-      <AdminHeader email={owner.email} current="account" />
-
-      <main className="mx-auto w-[94%] max-w-[1100px] py-8">
+    <AdminShell email={owner.email} current="account">
         <h1 className="mb-1 text-3xl font-bold tracking-display text-navy-text">
           Account
         </h1>
@@ -36,7 +33,6 @@ export default async function AccountPage() {
             node --env-file=.env.local scripts/create-owner.mjs &lt;email&gt; &lt;new-password&gt;
           </code>
         </section>
-      </main>
-    </div>
+</AdminShell>
   );
 }

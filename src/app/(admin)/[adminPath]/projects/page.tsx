@@ -7,7 +7,7 @@ import {
   STAGES,
   STAGE_LABEL,
 } from "@/lib/admin/projects";
-import { AdminHeader } from "@/components/admin/AdminHeader";
+import { AdminShell } from "@/components/admin/AdminShell";
 import { cn } from "@/lib/cn";
 import type { ProjectStage } from "@/lib/db/types";
 
@@ -47,10 +47,7 @@ export default async function ProjectsPage({
   ];
 
   return (
-    <div className="min-h-screen">
-      <AdminHeader email={owner.email} current="projects" />
-
-      <main className="mx-auto w-[94%] max-w-[1100px] py-8">
+    <AdminShell email={owner.email} current="projects">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
           <div>
             <h1 className="text-3xl font-bold tracking-display text-navy-text">
@@ -150,7 +147,6 @@ export default async function ProjectsPage({
             ))}
           </div>
         )}
-      </main>
-    </div>
+</AdminShell>
   );
 }

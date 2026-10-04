@@ -1,6 +1,6 @@
 import { requireOwner } from "@/lib/admin/auth";
 import { adminPath } from "@/lib/admin/paths";
-import { AdminHeader } from "@/components/admin/AdminHeader";
+import { AdminShell } from "@/components/admin/AdminShell";
 import { LeadForm } from "@/components/admin/LeadForm";
 import { PageHeader, Panel } from "@/components/admin/ui";
 
@@ -10,10 +10,7 @@ export default async function NewLeadPage() {
   const owner = await requireOwner();
 
   return (
-    <div className="min-h-screen">
-      <AdminHeader email={owner.email} current="leads" />
-
-      <main className="mx-auto w-[94%] max-w-[900px] py-8">
+    <AdminShell email={owner.email} current="leads">
         <PageHeader
           title="Add a lead"
           subtitle="For enquiries that came by phone, in person or word of mouth."
@@ -22,7 +19,6 @@ export default async function NewLeadPage() {
         <Panel>
           <LeadForm />
         </Panel>
-      </main>
-    </div>
+</AdminShell>
   );
 }

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { requireOwner } from "@/lib/admin/auth";
 import { adminPath } from "@/lib/admin/paths";
 import { clientOptions } from "@/lib/admin/projects";
-import { AdminHeader } from "@/components/admin/AdminHeader";
+import { AdminShell } from "@/components/admin/AdminShell";
 import { ProjectForm } from "@/components/admin/ProjectForm";
 
 export default async function NewProjectPage({
@@ -15,10 +15,7 @@ export default async function NewProjectPage({
   const clients = await clientOptions();
 
   return (
-    <div className="min-h-screen">
-      <AdminHeader email={owner.email} current="projects" />
-
-      <main className="mx-auto w-[94%] max-w-[900px] py-8">
+    <AdminShell email={owner.email} current="projects">
         <Link
           href={adminPath("projects")}
           className="text-sm font-semibold text-muted no-underline hover:text-navy-text"
@@ -52,7 +49,6 @@ export default async function NewProjectPage({
             <ProjectForm clients={clients} presetClientId={client} />
           </div>
         )}
-      </main>
-    </div>
+</AdminShell>
   );
 }

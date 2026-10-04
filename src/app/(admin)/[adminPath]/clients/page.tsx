@@ -2,7 +2,7 @@ import Link from "next/link";
 import { requireOwner } from "@/lib/admin/auth";
 import { adminPath } from "@/lib/admin/paths";
 import { listClients } from "@/lib/admin/clients";
-import { AdminHeader } from "@/components/admin/AdminHeader";
+import { AdminShell } from "@/components/admin/AdminShell";
 import { SearchBox } from "@/components/admin/SearchBox";
 import { PageHeader, EmptyState } from "@/components/admin/ui";
 
@@ -16,10 +16,7 @@ export default async function ClientsPage({
   const clients = await listClients(q);
 
   return (
-    <div className="min-h-screen">
-      <AdminHeader email={owner.email} current="clients" />
-
-      <main className="mx-auto w-[94%] max-w-[1100px] py-8">
+    <AdminShell email={owner.email} current="clients">
         <PageHeader
           title="Clients"
           subtitle={`${clients.length} ${clients.length === 1 ? "client" : "clients"}`}
@@ -86,7 +83,6 @@ export default async function ClientsPage({
             ))}
           </div>
         )}
-      </main>
-    </div>
+</AdminShell>
   );
 }

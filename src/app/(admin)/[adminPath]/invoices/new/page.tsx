@@ -2,7 +2,7 @@ import Link from "next/link";
 import { requireOwner } from "@/lib/admin/auth";
 import { adminPath } from "@/lib/admin/paths";
 import { invoiceTargets } from "@/lib/admin/invoices";
-import { AdminHeader } from "@/components/admin/AdminHeader";
+import { AdminShell } from "@/components/admin/AdminShell";
 import { InvoiceForm } from "@/components/admin/InvoiceForm";
 
 export default async function NewInvoicePage({
@@ -15,10 +15,7 @@ export default async function NewInvoicePage({
   const { clients, projects } = await invoiceTargets();
 
   return (
-    <div className="min-h-screen">
-      <AdminHeader email={owner.email} current="invoices" />
-
-      <main className="mx-auto w-[94%] max-w-[900px] py-8">
+    <AdminShell email={owner.email} current="invoices">
         <Link
           href={adminPath("invoices")}
           className="text-sm font-semibold text-muted no-underline hover:text-navy-text"
@@ -53,7 +50,6 @@ export default async function NewInvoicePage({
             />
           </div>
         )}
-      </main>
-    </div>
+</AdminShell>
   );
 }

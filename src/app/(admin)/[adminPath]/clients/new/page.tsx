@@ -3,7 +3,7 @@ import { requireOwner } from "@/lib/admin/auth";
 import { adminPath } from "@/lib/admin/paths";
 import { unconvertedLeads } from "@/lib/admin/clients";
 import { serviceClient } from "@/lib/db/server";
-import { AdminHeader } from "@/components/admin/AdminHeader";
+import { AdminShell } from "@/components/admin/AdminShell";
 import { ClientForm } from "@/components/admin/ClientForm";
 import type { Lead } from "@/lib/db/types";
 
@@ -28,10 +28,7 @@ export default async function NewClientPage({
   const leads = fromLead ? [] : await unconvertedLeads();
 
   return (
-    <div className="min-h-screen">
-      <AdminHeader email={owner.email} current="clients" />
-
-      <main className="mx-auto w-[94%] max-w-[900px] py-8">
+    <AdminShell email={owner.email} current="clients">
         <Link
           href={adminPath("clients")}
           className="text-sm font-semibold text-muted no-underline hover:text-navy-text"
@@ -70,7 +67,6 @@ export default async function NewClientPage({
         <div className="border-2 border-edge rounded-lg bg-surface p-6">
           <ClientForm fromLead={fromLead} />
         </div>
-      </main>
-    </div>
+</AdminShell>
   );
 }

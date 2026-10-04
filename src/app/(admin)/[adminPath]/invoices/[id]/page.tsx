@@ -14,7 +14,7 @@ import {
   markPaid,
   cancelInvoice,
 } from "@/app/(admin)/[adminPath]/invoices/actions";
-import { AdminHeader } from "@/components/admin/AdminHeader";
+import { AdminShell } from "@/components/admin/AdminShell";
 import { InvoiceForm } from "@/components/admin/InvoiceForm";
 import { InvoiceDocument } from "@/components/admin/InvoiceDocument";
 import { PrintButton } from "@/components/admin/PrintButton";
@@ -41,12 +41,8 @@ export default async function InvoiceDetailPage({
   const shown = displayStatus(invoice);
 
   return (
-    <div className="min-h-screen">
-      <div className="print:hidden">
-        <AdminHeader email={owner.email} current="invoices" />
-      </div>
-
-      <main className="mx-auto w-[94%] max-w-[900px] py-8 print:w-full print:max-w-none print:py-0">
+    <AdminShell email={owner.email} current="invoices">
+<div className="mx-auto max-w-[900px] print:max-w-none">
         <div className="print:hidden">
           <Link
             href={adminPath("invoices")}
@@ -166,7 +162,7 @@ export default async function InvoiceDetailPage({
             </button>
           </form>
         </section>
-      </main>
-    </div>
+      </div>
+</AdminShell>
   );
 }

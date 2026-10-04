@@ -11,7 +11,7 @@ import {
   STATUS_LABEL,
 } from "@/lib/admin/invoices";
 import { getSettings, missingForInvoicing } from "@/lib/admin/settings";
-import { AdminHeader } from "@/components/admin/AdminHeader";
+import { AdminShell } from "@/components/admin/AdminShell";
 import { cn } from "@/lib/cn";
 import type { InvoiceStatus } from "@/lib/db/types";
 
@@ -46,10 +46,7 @@ export default async function InvoicesPage({
   const missing = missingForInvoicing(settings);
 
   return (
-    <div className="min-h-screen">
-      <AdminHeader email={owner.email} current="invoices" />
-
-      <main className="mx-auto w-[94%] max-w-[1100px] py-8">
+    <AdminShell email={owner.email} current="invoices">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
           <div>
             <h1 className="text-3xl font-bold tracking-display text-navy-text">
@@ -186,7 +183,6 @@ export default async function InvoicesPage({
             })}
           </div>
         )}
-      </main>
-    </div>
+</AdminShell>
   );
 }

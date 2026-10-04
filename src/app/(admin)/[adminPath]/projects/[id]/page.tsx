@@ -12,7 +12,7 @@ import {
   archiveProject,
   toggleBriefLock,
 } from "@/app/(admin)/[adminPath]/projects/actions";
-import { AdminHeader } from "@/components/admin/AdminHeader";
+import { AdminShell } from "@/components/admin/AdminShell";
 import { ProjectForm } from "@/components/admin/ProjectForm";
 import { AdminThread } from "@/components/admin/AdminThread";
 import { BriefView } from "@/components/admin/BriefView";
@@ -35,10 +35,7 @@ export default async function ProjectDetailPage({
   const locked = Boolean(project.brief_locked_at);
 
   return (
-    <div className="min-h-screen">
-      <AdminHeader email={owner.email} current="projects" />
-
-      <main className="mx-auto w-[94%] max-w-[1100px] py-8">
+    <AdminShell email={owner.email} current="projects">
         <Link
           href={adminPath("projects")}
           className="text-sm font-semibold text-muted no-underline hover:text-navy-text"
@@ -153,7 +150,6 @@ export default async function ProjectDetailPage({
             </section>
           </div>
         </div>
-      </main>
-    </div>
+</AdminShell>
   );
 }

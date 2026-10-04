@@ -1,6 +1,6 @@
 import { requireOwner } from "@/lib/admin/auth";
 import { getSettings, missingForInvoicing } from "@/lib/admin/settings";
-import { AdminHeader } from "@/components/admin/AdminHeader";
+import { AdminShell } from "@/components/admin/AdminShell";
 import { SettingsForm } from "@/components/admin/SettingsForm";
 
 export default async function SettingsPage() {
@@ -9,10 +9,7 @@ export default async function SettingsPage() {
   const missing = missingForInvoicing(settings);
 
   return (
-    <div className="min-h-screen">
-      <AdminHeader email={owner.email} current="settings" />
-
-      <main className="mx-auto w-[94%] max-w-[900px] py-8">
+    <AdminShell email={owner.email} current="settings">
         <h1 className="mb-1 text-3xl font-bold tracking-display text-navy-text">
           Business settings
         </h1>
@@ -42,7 +39,6 @@ export default async function SettingsPage() {
             </p>
           </div>
         )}
-      </main>
-    </div>
+</AdminShell>
   );
 }

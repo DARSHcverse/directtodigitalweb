@@ -4,7 +4,7 @@ import { adminPath } from "@/lib/admin/paths";
 import { getDashboard } from "@/lib/admin/dashboard";
 import { formatMoney } from "@/lib/admin/invoices";
 import { STAGE_LABEL } from "@/lib/admin/projects";
-import { AdminHeader } from "@/components/admin/AdminHeader";
+import { AdminShell } from "@/components/admin/AdminShell";
 import {
   PageHeader,
   Pill,
@@ -24,10 +24,7 @@ export default async function DashboardPage() {
     d.newLeads.length + d.unreadMessages.length + d.waitingOnClient.length;
 
   return (
-    <div className="min-h-screen">
-      <AdminHeader email={owner.email} current="dashboard" />
-
-      <main className="mx-auto w-[94%] max-w-[1100px] py-8">
+    <AdminShell email={owner.email} current="dashboard">
         <PageHeader
           title="Today"
           subtitle={
@@ -173,7 +170,6 @@ export default async function DashboardPage() {
             )}
           </section>
         </div>
-      </main>
-    </div>
+</AdminShell>
   );
 }
