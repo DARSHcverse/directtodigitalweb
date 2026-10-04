@@ -146,3 +146,44 @@ export async function updateLeadNotes(formData: FormData) {
 
   revalidatePath(adminPath("leads"));
 }
+
+/**
+ * Permanently deletes a lead.
+ *
+ * Archiving is the right default for real enquiries — business records are
+ * expected to survive — but it leaves test rows in the table forever, and
+ * there was no way to clear them.
+ *
+ * A lead is safe to delete outright: nothing depends on it. The one reference
+ * is projects.lead_id, which is `on delete set null`, so a project that came
+ * from this lead keeps working and simply forgets where it came from.
+ *
+ * The audit entry is written before the row goes, and records the name and
+ * email, because after this there is nothing left to look up.
+ */
+export async function deleteLead(formData: FormData) {
+  const owner = await requireOwner();
+  const id = String(formData.get("id") ?? "");
+  if (!id) return;
+
+  const db = serviceClient();
+
+  const { data: lead } = await db
+    .from("leads")
+    .select("name, email")
+    .eq("id", id)
+    .maybeSingle();
+
+  await db.from("audit_log").insert({
+    actor: owner.email,
+    action: "lead.deleted",
+    entity: "leads",
+    entity_id: id,
+    detail: lead ?? null,
+  });
+
+  const { error } = await db.from("leads").delete().eq("id", id);
+  if (error) throw new Error(`Could not delete lead: ${error.message}`);
+
+  revalidatePath(adminPath("leads"));
+}

@@ -6,6 +6,7 @@ import { z } from "zod";
 import { requireOwner, ownerForAction } from "@/lib/admin/auth";
 import { serviceClient } from "@/lib/db/server";
 import { adminPath } from "@/lib/admin/paths";
+import { BUCKET } from "@/lib/attachments";
 
 const clientSchema = z.object({
   business_name: z.string().trim().min(1, "Business name is required").max(200),
@@ -170,6 +171,102 @@ export async function archiveClient(formData: FormData) {
     entity: "clients",
     entity_id: id,
   });
+
+  redirect(adminPath("clients"));
+}
+
+/**
+ * Permanently deletes a client and everything belonging to them.
+ *
+ * Archiving keeps business records for the six years HMRC expects, which is
+ * right for real clients but leaves test data in place forever.
+ *
+ * projects.client_id and invoices.client_id are both `on delete restrict`, so
+ * the database refuses to remove a client while either exists. That guard is
+ * deliberate and stays; this walks the tree in dependency order instead, so
+ * the delete is explicit about what it destroys rather than relying on
+ * cascades nobody can see from the UI.
+ *
+ * Attachments are removed from the storage bucket first. Deleting only the
+ * rows would orphan the files, which keeps consuming the storage quota this
+ * is meant to free.
+ */
+export async function deleteClient(formData: FormData) {
+  const owner = await requireOwner();
+  const id = String(formData.get("id") ?? "");
+  if (!id) return;
+
+  const db = serviceClient();
+
+  const { data: client } = await db
+    .from("clients")
+    .select("business_name, contact_name, email")
+    .eq("id", id)
+    .maybeSingle();
+
+  const { data: projects } = await db
+    .from("projects")
+    .select("id")
+    .eq("client_id", id);
+
+  const projectIds = (projects ?? []).map((p) => p.id);
+
+  // Storage first: once the rows go, the paths are unrecoverable.
+  if (projectIds.length > 0) {
+    const { data: files } = await db
+      .from("attachments")
+      .select("storage_path")
+      .in("project_id", projectIds);
+
+    const paths = (files ?? []).map((f) => f.storage_path);
+    if (paths.length > 0) {
+      await db.storage.from(BUCKET).remove(paths);
+    }
+  }
+
+  // Invoice lines are `on delete cascade` from invoices, and messages,
+  // briefs and attachments cascade from projects — so those go with their
+  // parent. Invoices and projects are restricted, so they are removed here.
+  //
+  // invoices.credit_note_for is a self-reference with no delete rule. Nothing
+  // sets it yet, but a credit note belonging to another client would block
+  // this delete, so the link is cleared first rather than failing later.
+  await db
+    .from("invoices")
+    .update({ credit_note_for: null })
+    .eq("client_id", id);
+
+  const { error: invoiceError } = await db
+    .from("invoices")
+    .delete()
+    .eq("client_id", id);
+  if (invoiceError) {
+    throw new Error(`Could not delete invoices: ${invoiceError.message}`);
+  }
+
+  if (projectIds.length > 0) {
+    const { error: projectError } = await db
+      .from("projects")
+      .delete()
+      .in("id", projectIds);
+    if (projectError) {
+      throw new Error(`Could not delete projects: ${projectError.message}`);
+    }
+  }
+
+  await db.from("audit_log").insert({
+    actor: owner.email,
+    action: "client.deleted",
+    entity: "clients",
+    entity_id: id,
+    detail: {
+      ...(client ?? {}),
+      projects_deleted: projectIds.length,
+    },
+  });
+
+  const { error } = await db.from("clients").delete().eq("id", id);
+  if (error) throw new Error(`Could not delete client: ${error.message}`);
 
   redirect(adminPath("clients"));
 }

@@ -3,7 +3,11 @@ import { notFound } from "next/navigation";
 import { requireOwner } from "@/lib/admin/auth";
 import { adminPath } from "@/lib/admin/paths";
 import { getClient } from "@/lib/admin/clients";
-import { archiveClient } from "@/app/(admin)/[adminPath]/clients/actions";
+import {
+  archiveClient,
+  deleteClient,
+} from "@/app/(admin)/[adminPath]/clients/actions";
+import { DeleteButton } from "@/components/admin/DeleteButton";
 import {
   enablePortal,
   disablePortal,
@@ -209,11 +213,33 @@ export default async function ClientDetailPage({
                 <input type="hidden" name="id" value={client.id} />
                 <button
                   type="submit"
-                  className="border-2 border-danger px-4 py-2 text-sm font-bold text-danger transition hover:bg-danger hover:text-white"
+                  className="rounded-md border-2 border-danger px-4 py-2 text-sm font-bold text-danger transition hover:bg-danger hover:text-white"
                 >
                   Archive client
                 </button>
               </form>
+            </section>
+
+            {/* Permanent delete, for test data. Archiving is the right default
+                for a real client; this exists so the table can be cleared. */}
+            <section className="rounded-lg border-l-4 border-danger bg-surface p-6">
+              <h2 className="mb-2 text-lg font-bold text-navy-text">Delete</h2>
+              <p className="mb-4 text-sm leading-relaxed text-muted">
+                Removes this client from the database entirely, along with
+                their projects, invoices, messages and uploaded files. Use this
+                for test data; archive real clients instead.
+              </p>
+              <DeleteButton
+                action={deleteClient}
+                id={client.id}
+                what={client.business_name}
+                consequence={
+                  projects.length > 0
+                    ? `${projects.length} ${projects.length === 1 ? "project" : "projects"}, and any invoices, messages and files, will be deleted too.`
+                    : "Any invoices for this client will be deleted too."
+                }
+                label="Delete client"
+              />
             </section>
           </div>
         </div>

@@ -6,6 +6,8 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/admin/DataTable";
 import { Pill, relativeDate } from "@/components/admin/ui";
 import { useAdminPath } from "@/components/admin/AdminPathProvider";
+import { DeleteButton } from "@/components/admin/DeleteButton";
+import { deleteLead } from "@/app/(admin)/[adminPath]/leads/actions";
 import type { Lead, LeadStatus } from "@/lib/db/types";
 
 const STATUS_TONE: Record<LeadStatus, "neutral" | "navy" | "amber" | "success" | "danger"> = {
@@ -106,16 +108,24 @@ export function LeadsTable({ leads }: { leads: Lead[] }) {
         header: "",
         enableSorting: false,
         cell: ({ row }) => (
-          <Link
-            href={
-              row.original.client_id
-                ? adminPath(`clients/${row.original.client_id}`)
-                : `${adminPath("clients/new")}?lead=${row.original.id}`
-            }
-            className="whitespace-nowrap text-sm font-bold text-navy-text no-underline hover:text-amber-deep"
-          >
-            {row.original.client_id ? "View client" : "Convert"} →
-          </Link>
+          <div className="flex items-center justify-end gap-3 whitespace-nowrap">
+            <Link
+              href={
+                row.original.client_id
+                  ? adminPath(`clients/${row.original.client_id}`)
+                  : `${adminPath("clients/new")}?lead=${row.original.id}`
+              }
+              className="text-sm font-bold text-navy-text no-underline hover:text-amber-deep"
+            >
+              {row.original.client_id ? "View client" : "Convert"} →
+            </Link>
+            <DeleteButton
+              action={deleteLead}
+              id={row.original.id}
+              what={row.original.name}
+              compact
+            />
+          </div>
         ),
       },
     ],
@@ -200,6 +210,12 @@ export function LeadsTable({ leads }: { leads: Lead[] }) {
             >
               {l.client_id ? "View client" : "Convert"} →
             </Link>
+            <DeleteButton
+              action={deleteLead}
+              id={l.id}
+              what={l.name}
+              compact
+            />
           </div>
         </div>
       )}
