@@ -83,7 +83,7 @@ export default async function LandingPage({
             </div>
 
             <div className="lg:col-span-5">
-              <div className="mx-auto max-w-sm border-2 border-navy rounded-lg bg-surface">
+              <div className="mx-auto max-w-sm overflow-hidden rounded-lg border-2 border-navy bg-surface">
                 <div className="flex items-center justify-between border-b-2 border-navy bg-navy px-5 py-3">
                   <span className="text-xs font-bold tracking-[0.2em] text-white/70 uppercase">
                     What you get

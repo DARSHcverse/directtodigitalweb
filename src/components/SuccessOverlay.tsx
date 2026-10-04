@@ -66,7 +66,7 @@ export function SuccessOverlay({
         className="animate-overlay-in absolute inset-0 bg-navy-deep/70 backdrop-blur-sm"
       />
 
-      <div className="animate-card-in relative w-full max-w-md border-2 border-navy rounded-lg bg-surface">
+      <div className="animate-card-in relative w-full max-w-md overflow-hidden rounded-lg border-2 border-navy bg-surface">
         <div className="h-1.5 w-full bg-amber" />
 
         <div className="px-8 pt-10 pb-8 text-center">
