@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ADMIN_SEGMENT } from "@/lib/admin/paths";
+import { AdminPathProvider } from "@/components/admin/AdminPathProvider";
 
 export const metadata: Metadata = {
   title: "Admin",
@@ -24,5 +25,11 @@ export default async function AdminLayout({
   const { adminPath: segment } = await params;
   if (segment !== ADMIN_SEGMENT) notFound();
 
-  return <div className="min-h-screen bg-bg">{children}</div>;
+  // The segment is handed to client components here; process.env is not
+  // available to them, so without this their links fall back to "office".
+  return (
+    <AdminPathProvider segment={segment}>
+      <div className="min-h-screen bg-bg">{children}</div>
+    </AdminPathProvider>
+  );
 }

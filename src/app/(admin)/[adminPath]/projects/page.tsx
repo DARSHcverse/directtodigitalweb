@@ -8,6 +8,7 @@ import {
   STAGE_LABEL,
 } from "@/lib/admin/projects";
 import { AdminShell } from "@/components/admin/AdminShell";
+import { ProjectsTable } from "@/components/admin/ProjectsTable";
 import { cn } from "@/lib/cn";
 import type { ProjectStage } from "@/lib/db/types";
 
@@ -89,64 +90,8 @@ export default async function ProjectsPage({
           })}
         </nav>
 
-        {projects.length === 0 ? (
-          <div className="border-2 border-edge rounded-lg bg-surface p-10 text-center">
-            <p className="text-lg font-bold text-navy-text">No projects here</p>
-            <p className="mt-2 text-muted">
-              Create one against a client to start tracking a build.
-            </p>
-          </div>
-        ) : (
-          <div className="grid gap-3">
-            {projects.map((p) => (
-              <Link
-                key={p.id}
-                href={adminPath(`projects/${p.id}`)}
-                className="flex flex-wrap items-start justify-between gap-4 border-2 border-edge rounded-lg bg-surface p-5 no-underline transition hover:border-navy"
-              >
-                <div className="min-w-0">
-                  <div className="flex flex-wrap items-center gap-3">
-                    <h2 className="text-lg font-bold text-navy-text">{p.title}</h2>
-                    <span
-                      className={cn(
-                        "px-2 py-0.5 text-xs font-bold tracking-wide uppercase",
-                        STAGE_STYLE[p.stage],
-                      )}
-                    >
-                      {STAGE_LABEL[p.stage]}
-                    </span>
-                  </div>
-                  <p className="mt-1 text-sm text-muted">
-                    {p.client?.business_name ?? "Unknown client"}
-                    {p.tier ? ` · ${p.tier}` : ""}
-                  </p>
-                  {p.awaiting_client ? (
-                    <p className="mt-2 border-l-4 border-amber pl-3 text-sm text-muted">
-                      Waiting on client: {p.awaiting_client}
-                    </p>
-                  ) : null}
-                </div>
+        <ProjectsTable projects={projects} />
 
-                <div className="text-right text-sm">
-                  {p.agreed_price != null ? (
-                    <p className="font-bold text-navy-text">
-                      £{Number(p.agreed_price).toLocaleString("en-GB")}
-                    </p>
-                  ) : null}
-                  {p.target_date ? (
-                    <p className="text-muted">
-                      Target{" "}
-                      {new Date(p.target_date).toLocaleDateString("en-GB", {
-                        day: "numeric",
-                        month: "short",
-                      })}
-                    </p>
-                  ) : null}
-                </div>
-              </Link>
-            ))}
-          </div>
-        )}
-</AdminShell>
+      </AdminShell>
   );
 }

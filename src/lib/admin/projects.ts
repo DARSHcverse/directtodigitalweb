@@ -1,4 +1,14 @@
 import "server-only";
+
+// Pure values live in shared.ts so client components can use them too.
+import { OPEN_STAGES, type ProjectWithClient } from "@/lib/admin/shared";
+
+export {
+  OPEN_STAGES,
+  STAGES,
+  STAGE_LABEL,
+  type ProjectWithClient,
+} from "@/lib/admin/shared";
 import { serviceClient } from "@/lib/db/server";
 import type { Attachment } from "@/lib/attachments";
 import type {
@@ -9,33 +19,7 @@ import type {
   ProjectStage,
 } from "@/lib/db/types";
 
-export const STAGES: ProjectStage[] = [
-  "brief",
-  "design",
-  "build",
-  "review",
-  "live",
-  "on_hold",
-  "cancelled",
-];
-
-export const STAGE_LABEL: Record<ProjectStage, string> = {
-  brief: "Brief",
-  design: "Design",
-  build: "Build",
-  review: "Review",
-  live: "Live",
-  on_hold: "On hold",
-  cancelled: "Cancelled",
-};
-
 /** Stages that still need work. Drives the "active" counts. */
-export const OPEN_STAGES: ProjectStage[] = ["brief", "design", "build", "review"];
-
-export type ProjectWithClient = Project & {
-  client: Pick<Client, "id" | "business_name" | "contact_name" | "email"> | null;
-};
-
 export async function listProjects(
   stage?: ProjectStage | "all" | "open",
 ): Promise<ProjectWithClient[]> {

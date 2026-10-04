@@ -12,6 +12,7 @@ import {
 } from "@/lib/admin/invoices";
 import { getSettings, missingForInvoicing } from "@/lib/admin/settings";
 import { AdminShell } from "@/components/admin/AdminShell";
+import { InvoicesTable } from "@/components/admin/InvoicesTable";
 import { cn } from "@/lib/cn";
 import type { InvoiceStatus } from "@/lib/db/types";
 
@@ -129,60 +130,8 @@ export default async function InvoicesPage({
           )}
         </nav>
 
-        {invoices.length === 0 ? (
-          <div className="border-2 border-edge rounded-lg bg-surface p-10 text-center">
-            <p className="text-lg font-bold text-navy-text">No invoices here</p>
-            <p className="mt-2 text-muted">
-              Create a draft, then issue it when you are ready to send.
-            </p>
-          </div>
-        ) : (
-          <div className="grid gap-3">
-            {invoices.map((inv) => {
-              const shown = displayStatus(inv);
-              return (
-                <Link
-                  key={inv.id}
-                  href={adminPath(`invoices/${inv.id}`)}
-                  className="flex flex-wrap items-center justify-between gap-4 border-2 border-edge rounded-lg bg-surface p-5 no-underline transition hover:border-navy"
-                >
-                  <div className="min-w-0">
-                    <div className="flex flex-wrap items-center gap-3">
-                      <h2 className="text-lg font-bold text-navy-text">
-                        {inv.invoice_number ?? "Draft"}
-                      </h2>
-                      <span
-                        className={cn(
-                          "px-2 py-0.5 text-xs font-bold tracking-wide uppercase",
-                          STATUS_STYLE[shown],
-                        )}
-                      >
-                        {STATUS_LABEL[shown]}
-                      </span>
-                    </div>
-                    <p className="mt-1 text-sm text-muted">
-                      {inv.client?.business_name ?? "Unknown client"}
-                      {inv.project?.title ? ` · ${inv.project.title}` : ""}
-                    </p>
-                  </div>
+        <InvoicesTable invoices={invoices} />
 
-                  <div className="text-right">
-                    <p className="text-lg font-bold text-navy-text">
-                      {formatMoney(inv.total)}
-                    </p>
-                    <p className="text-sm text-muted">
-                      {inv.status === "paid"
-                        ? `Paid ${formatDate(inv.paid_on)}`
-                        : inv.due_on
-                          ? `Due ${formatDate(inv.due_on)}`
-                          : "Not issued"}
-                    </p>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        )}
-</AdminShell>
+      </AdminShell>
   );
 }

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { NAV, type NavKey } from "@/lib/admin/nav";
-import { adminPath } from "@/lib/admin/paths";
+import { useAdminPath } from "@/components/admin/AdminPathProvider";
 import { cn } from "@/lib/cn";
 
 function Icon({ d }: { d: string }) {
@@ -41,6 +41,8 @@ export function SidebarNav({
   counts?: Partial<Record<NavKey, number>>;
   onNavigate?: () => void;
 }) {
+  const adminPath = useAdminPath();
+
   return (
     <nav aria-label="Admin" className="grid gap-5 px-3 py-4">
       {NAV.map((group) => (
@@ -91,6 +93,8 @@ export function SidebarNav({
 }
 
 export function Brand({ onNavigate }: { onNavigate?: () => void }) {
+  const adminPath = useAdminPath();
+
   return (
     <Link
       href={adminPath("dashboard")}

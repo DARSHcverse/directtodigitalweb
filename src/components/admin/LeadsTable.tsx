@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/admin/DataTable";
 import { Pill, relativeDate } from "@/components/admin/ui";
-import { adminPath } from "@/lib/admin/paths";
+import { useAdminPath } from "@/components/admin/AdminPathProvider";
 import type { Lead, LeadStatus } from "@/lib/db/types";
 
 const STATUS_TONE: Record<LeadStatus, "neutral" | "navy" | "amber" | "success" | "danger"> = {
@@ -36,6 +36,8 @@ const STATUS_TEXT: Record<LeadStatus, string> = {
  * on a narrow screen.
  */
 export function LeadsTable({ leads }: { leads: Lead[] }) {
+  const adminPath = useAdminPath();
+
   const columns = useMemo<ColumnDef<Lead, unknown>[]>(
     () => [
       {
@@ -117,7 +119,7 @@ export function LeadsTable({ leads }: { leads: Lead[] }) {
         ),
       },
     ],
-    [],
+    [adminPath],
   );
 
   return (

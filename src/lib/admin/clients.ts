@@ -1,11 +1,10 @@
 import "server-only";
+
+import type { ClientWithCounts } from "@/lib/admin/shared";
+
+export type { ClientWithCounts } from "@/lib/admin/shared";
 import { serviceClient } from "@/lib/db/server";
 import type { Client, Project, Lead } from "@/lib/db/types";
-
-export type ClientWithCounts = Client & {
-  project_count: number;
-  active_project: string | null;
-};
 
 export async function listClients(
   search?: string,

@@ -1,4 +1,22 @@
 import "server-only";
+
+// Pure helpers live in shared.ts so client components can use them too;
+// re-exported here so existing server imports keep working.
+import {
+  displayStatus,
+  isOverdue,
+  type InvoiceRow,
+} from "@/lib/admin/shared";
+
+export {
+  INVOICE_STATUSES,
+  STATUS_LABEL,
+  displayStatus,
+  formatDate,
+  formatMoney,
+  isOverdue,
+  type InvoiceRow,
+} from "@/lib/admin/shared";
 import { serviceClient } from "@/lib/db/server";
 import type {
   Client,
@@ -7,42 +25,6 @@ import type {
   InvoiceStatus,
   Project,
 } from "@/lib/db/types";
-
-export const INVOICE_STATUSES: InvoiceStatus[] = [
-  "draft",
-  "issued",
-  "paid",
-  "overdue",
-  "cancelled",
-];
-
-export const STATUS_LABEL: Record<InvoiceStatus, string> = {
-  draft: "Draft",
-  issued: "Issued",
-  paid: "Paid",
-  overdue: "Overdue",
-  cancelled: "Cancelled",
-};
-
-export type InvoiceRow = Invoice & {
-  client: Pick<Client, "id" | "business_name"> | null;
-  project: Pick<Project, "id" | "title"> | null;
-};
-
-/**
- * An issued invoice past its due date is overdue.
- *
- * Derived rather than stored, so it is always correct without a scheduled job
- * having to write the state into the row each night.
- */
-export function isOverdue(inv: Pick<Invoice, "status" | "due_on">): boolean {
-  if (inv.status !== "issued" || !inv.due_on) return false;
-  return new Date(inv.due_on) < new Date(new Date().toDateString());
-}
-
-export function displayStatus(inv: Invoice): InvoiceStatus {
-  return isOverdue(inv) ? "overdue" : inv.status;
-}
 
 export async function listInvoices(
   status?: InvoiceStatus | "all",
@@ -161,18 +143,3 @@ export async function invoiceTargets() {
   };
 }
 
-export function formatMoney(amount: number | string): string {
-  return new Intl.NumberFormat("en-GB", {
-    style: "currency",
-    currency: "GBP",
-  }).format(Number(amount));
-}
-
-export function formatDate(iso: string | null): string {
-  if (!iso) return "—";
-  return new Date(iso).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-}
