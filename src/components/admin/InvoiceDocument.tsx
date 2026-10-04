@@ -1,4 +1,5 @@
-import { formatMoney, formatDate } from "@/lib/admin/invoices";
+import Image from "next/image";
+import { formatMoney, formatDate } from "@/lib/admin/shared";
 import type {
   BusinessSettings,
   Client,
@@ -31,12 +32,26 @@ export function InvoiceDocument({
   const isDraft = invoice.status === "draft";
 
   return (
-    <article className="border-2 border-navy rounded-lg bg-surface p-8 print:border-0 print:p-0">
+    <article className="invoice-print rounded-lg border-2 border-navy bg-surface p-8 print:border-0 print:p-0">
       {isDraft ? (
         <p className="mb-6 border-l-4 border-amber bg-bg px-4 py-2 text-sm font-bold text-navy-text print:hidden">
           DRAFT — not yet issued, and has no invoice number.
         </p>
       ) : null}
+
+      {/* Centred mark at the top, which is where an invoice is expected to
+          carry it. Always the navy original, never the dark-mode variant:
+          this prints onto white paper regardless of the screen theme. */}
+      <div className="mb-8 flex justify-center">
+        <Image
+          src="/TradeHorizontal.png"
+          alt={settings?.trading_name ?? "Trade Web Co"}
+          width={1080}
+          height={431}
+          priority
+          className="h-14 w-auto"
+        />
+      </div>
 
       <header className="mb-8 flex flex-wrap items-start justify-between gap-6">
         <div>

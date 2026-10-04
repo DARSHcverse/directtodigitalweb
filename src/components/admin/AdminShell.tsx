@@ -32,7 +32,7 @@ export function AdminShell({
         Skip to content
       </a>
 
-      <aside className="hidden w-60 shrink-0 flex-col bg-navy-deep md:flex">
+      <aside className="hidden w-60 shrink-0 flex-col bg-navy-deep md:flex print:hidden">
         <div className="flex h-14 shrink-0 items-center border-b border-white/10 px-4">
           <Brand />
         </div>
@@ -42,7 +42,7 @@ export function AdminShell({
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-30 flex h-14 shrink-0 items-center gap-3 border-b-2 border-edge bg-surface px-4 md:px-6">
+        <header className="sticky top-0 z-30 flex h-14 shrink-0 items-center gap-3 border-b-2 border-edge bg-surface px-4 md:px-6 print:hidden">
           <MobileNav current={current} counts={counts} />
 
           <div className="ml-auto flex items-center gap-2">
@@ -59,7 +59,7 @@ export function AdminShell({
           </div>
         </header>
 
-        <main id="admin-main" className="flex-1 px-4 py-6 md:px-6">
+        <main id="admin-main" className="flex-1 px-4 py-6 md:px-6 print:p-0">
           <div className="mx-auto max-w-[1200px]">{children}</div>
         </main>
       </div>

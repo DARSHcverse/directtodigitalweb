@@ -257,3 +257,29 @@
       linear-gradient(to bottom, rgb(255 255 255 / 0.04) 1px, transparent 1px);
   }
 }
+
+/**
+ * Print rules for the invoice.
+ *
+ * An invoice is a document that leaves the building, so it must come out the
+ * same whatever the screen is set to. In dark mode the admin renders light
+ * text on a dark surface, which prints as near-white text on white paper —
+ * illegible, or a full page of toner. These pin the printed document to black
+ * on white regardless of the active theme.
+ */
+@media print {
+  .invoice-print,
+  .invoice-print * {
+    background: #fff !important;
+    color: #000 !important;
+    border-color: #000 !important;
+  }
+
+  /* The mark is navy on transparent, so it survives on white. Printing
+     backgrounds is off by default in most browsers; this asks for it so the
+     logo and any filled cell still appear. */
+  .invoice-print img {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
