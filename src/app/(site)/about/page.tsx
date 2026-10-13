@@ -99,11 +99,12 @@ export default function AboutPage() {
                 not portfolio exercises.
               </p>
               <p className="leading-relaxed">
-                I run booking-led businesses of my own: The Shan Booth and Photo
-                Booth Hire Swansea, both taking enquiries and bookings through
-                sites I built. I also built DoBook, a booking and invoicing
-                platform for service businesses. So I know what a missed
-                enquiry costs, because it costs me too.
+                For clients I&apos;ve built a local accountancy site in Watford,
+                a car dealership and workshop site, and DoBook, a booking and
+                invoicing platform for service businesses. I also run
+                booking-led businesses of my own — The Shan Booth and Photo
+                Booth Hire Swansea — so I know what a missed enquiry costs,
+                because it costs me too.
               </p>
               <p className="leading-relaxed">
                 I studied in Australia and built up a client base there, and I

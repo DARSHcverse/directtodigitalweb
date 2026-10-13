@@ -93,9 +93,9 @@ export const landings: Landing[] = [
         body: "Urgent callouts and planned bathroom work are different customers with different questions. The site answers both without making either wade through the other.",
       },
     ],
-    proofSlugs: ["crown-auto-trading"],
+    proofSlugs: ["accounts-assists", "crown-auto-trading"],
     proofIntro:
-      "A local service site with enquiries built in. It's a car workshop rather than a plumber, but it works the same way.",
+      "Local service sites built for clients: an accountant in Watford and a car workshop. Neither is a plumber, but both do the same job — get found locally and get the phone ringing.",
     faqs: [
       {
         question: "Do I need a website if I already get work by word of mouth?",
@@ -158,9 +158,9 @@ export const landings: Landing[] = [
         body: "A sole trader with a well-built site reads as more credible than a larger firm with a neglected one. That gap is where commercial enquiries are won.",
       },
     ],
-    proofSlugs: ["crown-auto-trading"],
+    proofSlugs: ["accounts-assists", "crown-auto-trading"],
     proofIntro:
-      "A local service site with enquiries built in. It's a car workshop rather than an electrician, but it works the same way.",
+      "Local service sites built for clients: an accountant in Watford and a car workshop. Neither is an electrician, but both do the same job — get found locally and get the phone ringing.",
     faqs: [
       {
         question: "Will a website help me win commercial work?",
@@ -223,9 +223,9 @@ export const landings: Landing[] = [
         body: "Presentation is what separates a two-van firm that wins extensions from one that only gets small repairs. The site closes that gap.",
       },
     ],
-    proofSlugs: ["crown-auto-trading"],
+    proofSlugs: ["accounts-assists", "crown-auto-trading"],
     proofIntro:
-      "A local service site that shows the work and takes enquiries. It's a car workshop rather than a builder, but it works the same way.",
+      "Local service sites built for clients: an accountant in Watford and a car workshop. Neither is a builder, but both do the same job — get found locally and get the phone ringing.",
     faqs: [
       {
         question: "I have hundreds of photos. Can you use them?",
@@ -288,9 +288,9 @@ export const landings: Landing[] = [
         body: "The call button stays visible while they scroll, because someone with water coming through the ceiling won't hunt for it.",
       },
     ],
-    proofSlugs: ["crown-auto-trading"],
+    proofSlugs: ["accounts-assists", "crown-auto-trading"],
     proofIntro:
-      "A local service site that shows the work and takes enquiries. It's a car workshop rather than a roofer, but it works the same way.",
+      "Local service sites built for clients: an accountant in Watford and a car workshop. Neither is a roofer, but both do the same job — get found locally and get the phone ringing.",
     faqs: [
       {
         question: "Do you work with roofers in my area?",
@@ -352,9 +352,9 @@ export const landings: Landing[] = [
         body: "No monthly retainer and no lock-in. Hosting typically costs a few pounds a month, billed to you directly and never marked up.",
       },
     ],
-    proofSlugs: ["crown-auto-trading", "photo-booth-hire-swansea"],
+    proofSlugs: ["accounts-assists", "crown-auto-trading"],
     proofIntro:
-      "Sites for local businesses: one for a client, and one I run myself.",
+      "Sites built for local businesses: an accountant in Watford and a car workshop.",
     faqs: [
       {
         question: "I only need a few pages. Is that too small a job?",
@@ -416,9 +416,9 @@ export const landings: Landing[] = [
         body: "Bookings land in one place, so the diary, the inbox and the website cannot disagree with each other.",
       },
     ],
-    proofSlugs: ["photo-booth-hire-swansea", "the-shan-booth", "do-book"],
+    proofSlugs: ["do-book", "photo-booth-hire-swansea", "the-shan-booth"],
     proofIntro:
-      "I run two booking-led businesses on this setup, and built DoBook, a booking platform for service businesses.",
+      "DoBook, a booking platform I built for a client, and two booking-led businesses I run myself on the same kind of setup.",
     faqs: [
       {
         question: "Can it handle multiple staff or resources?",
@@ -480,7 +480,7 @@ export const landings: Landing[] = [
         body: "Technical problems holding the old site back — missing meta tags, broken links, no sitemap — get fixed as part of the rebuild.",
       },
     ],
-    proofSlugs: ["crown-auto-trading", "mymathshero"],
+    proofSlugs: ["accounts-assists", "mymathshero"],
     proofIntro:
       "Recent builds: one for a client, and one for a business I co-run.",
     faqs: [

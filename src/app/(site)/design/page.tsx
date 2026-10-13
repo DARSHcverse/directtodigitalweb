@@ -11,7 +11,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = pageMetadata({
   title: "Website Examples",
   description:
-    "Websites and booking systems I've built that are running real businesses: a dealership and workshop site for a client, and booking sites for businesses I run myself.",
+    "Websites I've built for clients — a Watford accountant, a car dealership and a booking platform — plus booking sites for businesses I run myself.",
   path: "/design",
   noIndex: projectsArePlaceholder,
 });

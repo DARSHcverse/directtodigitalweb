@@ -13,7 +13,7 @@ export function FeaturedWork() {
         Work I&apos;ve built
       </h2>
       <p className="mb-8 text-muted">
-        Running real businesses — a client&apos;s, and some of my own.
+        Sites built for clients, running real businesses.
       </p>
 
       <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6">

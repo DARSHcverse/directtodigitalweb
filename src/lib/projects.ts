@@ -34,9 +34,9 @@ export type Project = {
 };
 
 /**
- * Work built and running. Only Crown Auto is a client; the rest are Shan's
- * own businesses and products, labelled as such. Ordered with client work and
- * the most trade-like builds first.
+ * Work built and running. Crown Auto, Accounts Assists and DoBook are client
+ * work; the booth sites are Shan's own businesses and MyMathsHero is one he
+ * co-runs, each labelled as such. Client work comes first.
  *
  * Screenshots were captured from the live sites; retake them if a site is
  * redesigned, since a stale screenshot is worse than none. Where a real
@@ -57,6 +57,32 @@ export const projects: Project[] = [
     imageWidth: 1200,
     imageHeight: 750,
     tags: ["Website", "Local business", "Enquiries"],
+  },
+  {
+    slug: "accounts-assists",
+    title: "Accounts Assists",
+    client: "Accountant, Watford",
+    ownership: "client",
+    summary:
+      "A local accountancy site for a Watford practice: self assessment, bookkeeping, VAT and payroll, with the surrounding towns it serves and free consultations bookable online.",
+    url: "https://www.accountsassists.com",
+    image: "/images/work/accountsassists.jpg",
+    imageWidth: 1200,
+    imageHeight: 750,
+    tags: ["Website", "Local SEO", "Bookings", "UK"],
+  },
+  {
+    slug: "do-book",
+    title: "DoBook",
+    client: "Booking & scheduling SaaS",
+    ownership: "client",
+    summary:
+      "An all-in-one online booking and appointment platform for service businesses. Handles appointments, clients, invoices, reminders and payments, with free and Pro plans.",
+    url: "https://www.do-book.com/",
+    image: "/images/work/dobook.jpg",
+    imageWidth: 1200,
+    imageHeight: 750,
+    tags: ["Web app", "Booking system", "Payments", "SaaS"],
   },
   {
     slug: "photo-booth-hire-swansea",
@@ -96,19 +122,6 @@ export const projects: Project[] = [
     imageWidth: 1200,
     imageHeight: 750,
     tags: ["Web app", "EdTech", "Subscriptions", "AI"],
-  },
-  {
-    slug: "do-book",
-    title: "DoBook",
-    client: "Booking & scheduling SaaS",
-    ownership: "own-product",
-    summary:
-      "An all-in-one online booking and appointment platform for service businesses. Handles appointments, clients, invoices, reminders and payments, with free and Pro plans.",
-    url: "https://www.do-book.com/",
-    image: "/images/work/dobook.jpg",
-    imageWidth: 1200,
-    imageHeight: 750,
-    tags: ["Web app", "Booking system", "Payments", "SaaS"],
   },
 ];
 
