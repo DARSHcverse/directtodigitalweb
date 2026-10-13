@@ -40,6 +40,9 @@ export default async function LandingPage({
   if (!landing) notFound();
 
   const proof = proofFor(landing);
+  const quoteHref = landing.tradeParam
+    ? `/quote?trade=${landing.tradeParam}`
+    : "/quote";
 
   return (
     <>
@@ -74,7 +77,7 @@ export default async function LandingPage({
                 {landing.intro}
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <ButtonLink href="/quote" variant="primary">
+                <ButtonLink href={quoteHref} variant="primary">
                   Get a fixed quote
                 </ButtonLink>
                 <ButtonLink href="/pricing" variant="secondary">
@@ -237,7 +240,7 @@ export default async function LandingPage({
               within one working day.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <ButtonLink href="/quote" variant="primary">
+              <ButtonLink href={quoteHref} variant="primary">
                 Get a fixed quote
               </ButtonLink>
               <ButtonLink href="/contact">Ask a question</ButtonLink>

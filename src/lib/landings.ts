@@ -24,6 +24,8 @@ export type Landing = {
    * reader could check and find false.
    */
   proofIntro: string;
+  /** Pre-selects the trade on /quote, e.g. "plumber". Trade pages only. */
+  tradeParam?: string;
   /** Page-specific FAQs, kept distinct from the homepage set. */
   faqs: { question: string; answer: string }[];
   /**
@@ -49,6 +51,7 @@ export type Landing = {
 export const landings: Landing[] = [
   {
     slug: "plumbers",
+    tradeParam: "plumber",
     card: {
       title: "Ready for the 2am call",
       body: "When a boiler goes, they scan for a number and proof you are legitimate. Both sit at the top.",
@@ -113,6 +116,7 @@ export const landings: Landing[] = [
   },
   {
     slug: "electricians",
+    tradeParam: "electrician",
     card: {
       title: "Registered, and visibly so",
       body: "Electrical work is bought on certification. The scheme logos and numbers do the selling before you speak.",
@@ -177,6 +181,7 @@ export const landings: Landing[] = [
   },
   {
     slug: "builders",
+    tradeParam: "builder",
     card: {
       title: "Proof you finish the job",
       body: "Nobody signs off an extension from a Facebook page. Finished work, shown properly, is what wins it.",

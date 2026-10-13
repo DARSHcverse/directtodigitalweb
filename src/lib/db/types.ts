@@ -27,6 +27,19 @@ export type Lead = {
   timeline: string | null;
   message: string | null;
   source_path: string | null;
+  /**
+   * Added by migration 0009. Optional in the type because rows read before
+   * it is applied do not have these keys at all.
+   */
+  trade?: string | null;
+  town?: string | null;
+  current_website?: string | null;
+  ref?: string | null;
+  utm_source?: string | null;
+  utm_medium?: string | null;
+  utm_campaign?: string | null;
+  landing_page?: string | null;
+  referrer?: string | null;
   ip_hash: string | null;
   notes: string | null;
   client_id: string | null;

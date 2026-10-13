@@ -3,6 +3,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { organisationSchema, webSiteSchema } from "@/lib/schema";
 import { Footer } from "@/components/Footer";
 import { ContactBar } from "@/components/ContactBar";
+import { AttributionCapture } from "@/components/AttributionCapture";
 
 export default function SiteLayout({
   children,
@@ -22,6 +23,7 @@ export default function SiteLayout({
         {children}
       </main>
       <ContactBar />
+      <AttributionCapture />
       <Footer />
     </div>
   );

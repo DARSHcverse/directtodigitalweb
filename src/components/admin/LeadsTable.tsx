@@ -26,6 +26,23 @@ const STATUS_TEXT: Record<LeadStatus, string> = {
   lost: "Lost",
 };
 
+/** Where an enquiry came from: ref, then utm, then referrer, then the page. */
+function sourceOf(l: Lead): string {
+  return (
+    l.ref || l.utm_source || hostOf(l.referrer) || l.source_path || "direct"
+  );
+}
+
+/** A malformed stored referrer must not take the whole list down. */
+function hostOf(url: string | null | undefined): string {
+  if (!url) return "";
+  try {
+    return new URL(url).hostname;
+  } catch {
+    return url;
+  }
+}
+
 /**
  * Leads as a sortable table.
  *
@@ -61,6 +78,27 @@ export function LeadsTable({ leads }: { leads: Lead[] }) {
           <Pill tone={STATUS_TONE[row.original.status]}>
             {STATUS_TEXT[row.original.status]}
           </Pill>
+        ),
+      },
+      {
+        id: "trade",
+        accessorFn: (l) => l.trade ?? "",
+        header: "Trade",
+        cell: ({ row }) => (
+          <div className="min-w-0">
+            <p className="truncate text-ink">{row.original.trade ?? "—"}</p>
+            {row.original.town ? (
+              <p className="truncate text-xs text-muted">{row.original.town}</p>
+            ) : null}
+          </div>
+        ),
+      },
+      {
+        id: "source",
+        accessorFn: (l) => sourceOf(l),
+        header: "Source",
+        cell: ({ row }) => (
+          <span className="text-xs text-muted">{sourceOf(row.original)}</span>
         ),
       },
       {
@@ -146,6 +184,11 @@ export function LeadsTable({ leads }: { leads: Lead[] }) {
           { key: "name", header: "Name" },
           { key: "email", header: "Email" },
           { key: "phone", header: "Phone" },
+          { key: "trade", header: "Trade" },
+          { key: "town", header: "Town" },
+          { key: "website", header: "Current website" },
+          { key: "source", header: "Source" },
+          { key: "landing", header: "First page" },
           { key: "status", header: "Status" },
           { key: "topic", header: "Wants" },
           { key: "budget", header: "Budget" },
@@ -157,6 +200,11 @@ export function LeadsTable({ leads }: { leads: Lead[] }) {
           name: l.name,
           email: l.email,
           phone: l.phone ?? "",
+          trade: l.trade ?? "",
+          town: l.town ?? "",
+          website: l.current_website ?? "",
+          source: sourceOf(l),
+          landing: l.landing_page ?? l.source_path ?? "",
           status: STATUS_TEXT[l.status],
           topic: l.topic ?? "",
           budget: l.budget ?? "",
@@ -177,6 +225,8 @@ export function LeadsTable({ leads }: { leads: Lead[] }) {
 
           <p className="mt-2 text-sm text-muted">
             {relativeDate(l.created_at)}
+            {l.trade ? ` · ${l.trade}` : ""}
+            {l.town ? ` · ${l.town}` : ""}
             {l.topic ? ` · ${l.topic}` : ""}
             {l.budget ? ` · ${l.budget}` : ""}
           </p>

@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
-import { leadSchema } from "@/lib/lead";
+import { leadSchemaChecked, type LeadInput } from "@/lib/lead";
 import { site } from "@/lib/site";
 import { isDbConfigured, serviceClient } from "@/lib/db/server";
 import { isEmailConfigured, sendEmail } from "@/lib/email/send";
@@ -52,7 +52,7 @@ export async function POST(request: Request) {
     }
   }
 
-  const parsed = leadSchema.safeParse(payload);
+  const parsed = leadSchemaChecked.safeParse(payload);
   if (!parsed.success) {
     return NextResponse.json(
       { error: parsed.error.issues[0]?.message ?? "Please check your details." },
@@ -75,7 +75,13 @@ export async function POST(request: Request) {
   let stored = false;
   if (isDbConfigured()) {
     try {
-      const { error } = await serviceClient().from("leads").insert({
+      const ipHash =
+        ip === "unknown"
+          ? null
+          : // Hashed, not raw: enough to correlate abuse, not a stored identifier.
+            createHash("sha256").update(ip).digest("hex").slice(0, 32);
+
+      const base = {
         kind: lead.kind,
         name: lead.name,
         email: lead.email,
@@ -85,12 +91,25 @@ export async function POST(request: Request) {
         timeline: lead.timeline || null,
         message: lead.message || null,
         source_path: sourcePath,
-        // Hashed, not raw: enough to correlate abuse, not a stored identifier.
-        ip_hash:
-          ip === "unknown"
-            ? null
-            : createHash("sha256").update(ip).digest("hex").slice(0, 32),
-      });
+        ip_hash: ipHash,
+      };
+
+      let { error } = await serviceClient()
+        .from("leads")
+        .insert({ ...base, ...qualifyingColumns(lead) });
+
+      // Migration 0009 adds the trade, town and source columns. Until it is
+      // applied, PostgREST rejects the insert for naming unknown columns —
+      // and a lost enquiry is far worse than a missing field. Retry with the
+      // original columns, folding the extra details into the message so
+      // nothing the visitor typed is dropped.
+      if (error?.code === "PGRST204") {
+        console.warn("[lead] 0009 not applied; storing details in message");
+        ({ error } = await serviceClient()
+          .from("leads")
+          .insert({ ...base, message: withDetails(lead) }));
+      }
+
       if (error) {
         console.error("Lead insert failed:", error.message);
       } else {
@@ -141,4 +160,35 @@ export async function POST(request: Request) {
   });
 
   return NextResponse.json({ ok: true });
+}
+
+/** The 0009 columns, null where the visitor left them blank. */
+function qualifyingColumns(lead: LeadInput) {
+  return {
+    trade: lead.trade || null,
+    town: lead.town || null,
+    current_website: lead.website || null,
+    ref: lead.ref || null,
+    utm_source: lead.utmSource || null,
+    utm_medium: lead.utmMedium || null,
+    utm_campaign: lead.utmCampaign || null,
+    landing_page: lead.landingPage || null,
+    referrer: lead.referrer || null,
+  };
+}
+
+/** The message with those details appended, for a database without 0009. */
+function withDetails(lead: LeadInput): string | null {
+  const extra = Object.entries({
+    Trade: lead.trade,
+    Town: lead.town,
+    "Current website": lead.website,
+    Source: lead.ref || lead.utmSource,
+    "Landing page": lead.landingPage,
+  })
+    .filter(([, v]) => v)
+    .map(([k, v]) => `${k}: ${v}`)
+    .join("\n");
+  if (!extra) return lead.message || null;
+  return [lead.message, extra].filter(Boolean).join("\n\n");
 }

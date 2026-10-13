@@ -24,7 +24,8 @@ export const privacySections = [
     heading: "What is collected, and when",
     body: [
       "Nothing is collected unless you send it. Browsing the site does not require you to give any personal details.",
-      "When you submit the contact, quote or booking form, the following is collected: your name, your email address, and — if you choose to give them — your phone number, the type of work you are enquiring about, your budget, your timeline, and whatever you write in the message field.",
+      "When you submit the contact, quote or booking form, the following is collected: your name, your email address, and — if you choose to give them — your phone number, the type of work you are enquiring about, your budget, your timeline, and whatever you write in the message field. The quote form also asks for your trade and your town or area, and optionally your current website.",
+      "Each enquiry also records how you found the site: the first page you visited, the website that linked to it if there was one, and any campaign tag in the link you followed (for example from a printed leaflet). This is held in your browser's session storage for the current tab only — not a cookie — and is discarded when the tab closes. It is used only to understand which ways of reaching people work.",
       "Enquiries are stored in a database as well as emailed, so that nothing is lost if an email fails to arrive, and so there is a record of what was discussed.",
       "If you go on to become a client, records of your project are also kept: your business details, the brief you provide, project status, invoices, and any messages sent through the client portal.",
       "Your IP address is briefly held in memory to limit how many submissions can be made in a short period. This is a spam protection measure. It is not stored, not logged to a database, and is discarded when the server instance recycles.",

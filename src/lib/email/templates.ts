@@ -97,14 +97,21 @@ export function ownerLeadAlert(
     ),
     detailTable(
       detailRow("Name", lead.name) +
+        detailRow("Trade", lead.trade) +
+        detailRow("Town", lead.town) +
         detailRow("Email", lead.email) +
         detailRow("Phone", lead.phone) +
+        detailRow("Current site", lead.website) +
         detailRow(
           lead.kind === "booking" ? "Service" : "Project type",
           lead.topic,
         ) +
         detailRow("Budget", lead.budget) +
-        detailRow("Timeline", lead.timeline),
+        detailRow("Timeline", lead.timeline) +
+        // Which channel produced this, so a flyer or referral test can be
+        // judged from the inbox without opening the database.
+        detailRow("Source", sourceLabel(lead)) +
+        detailRow("First page", lead.landingPage),
     ),
     lead.message
       ? `<p style="margin:24px 0 8px;font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:${BRAND.muted};">Their message</p>` +
@@ -137,15 +144,25 @@ export function ownerLeadAlert(
   const text = `New ${leadKindLabel[lead.kind].toLowerCase()}${sourcePath ? ` from ${sourcePath}` : ""}
 
 Name:     ${lead.name}
-Email:    ${lead.email}
-${lead.phone ? `Phone:    ${lead.phone}\n` : ""}${lead.topic ? `Type:     ${lead.topic}\n` : ""}${lead.budget ? `Budget:   ${lead.budget}\n` : ""}${lead.timeline ? `Timeline: ${lead.timeline}\n` : ""}
+${lead.trade ? `Trade:    ${lead.trade}\n` : ""}${lead.town ? `Town:     ${lead.town}\n` : ""}Email:    ${lead.email}
+${lead.phone ? `Phone:    ${lead.phone}\n` : ""}${lead.topic ? `Type:     ${lead.topic}\n` : ""}${lead.budget ? `Budget:   ${lead.budget}\n` : ""}${lead.timeline ? `Timeline: ${lead.timeline}\n` : ""}${lead.website ? `Site:     ${lead.website}\n` : ""}${sourceLabel(lead) ? `Source:   ${sourceLabel(lead)}\n` : ""}
 ${lead.message ? `\nMessage:\n${lead.message}\n` : ""}`;
 
   return {
-    subject: `${leadKindLabel[lead.kind]} — ${lead.name}${lead.budget ? ` (${lead.budget})` : ""}`,
+    subject: `${leadKindLabel[lead.kind]} — ${lead.name}${lead.trade ? `, ${lead.trade}` : ""}${lead.town ? `, ${lead.town}` : ""}${lead.budget ? ` (${lead.budget})` : ""}`,
     html,
     text,
   };
+}
+
+/** ref, or utm source/medium/campaign, or the external referrer. */
+function sourceLabel(lead: LeadInput): string | null {
+  if (lead.ref) return `ref=${lead.ref}`;
+  const utm = [lead.utmSource, lead.utmMedium, lead.utmCampaign]
+    .filter(Boolean)
+    .join(" / ");
+  if (utm) return utm;
+  return lead.referrer || null;
 }
 
 /* ────────────────────────────────────────────────────────────

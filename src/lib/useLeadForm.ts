@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { LeadInput } from "@/lib/lead";
+import { readAttribution } from "@/lib/attribution";
 
 type Status = {
   loading: boolean;
@@ -40,7 +41,13 @@ export function useLeadForm<T extends Record<string, string>>(initial: T) {
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...lead, companyWebsite: honeypot }),
+        // Source travels with every form, so contact and booking enquiries
+        // are attributed as well as quotes.
+        body: JSON.stringify({
+          ...readAttribution(),
+          ...lead,
+          companyWebsite: honeypot,
+        }),
       });
 
       const data: unknown = await res.json().catch(() => null);

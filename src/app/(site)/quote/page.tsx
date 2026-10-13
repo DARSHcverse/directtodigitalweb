@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Container, SectionLabel } from "@/components/Container";
 import { QuoteForm } from "@/components/QuoteForm";
 import { JsonLd } from "@/components/JsonLd";
@@ -36,7 +37,7 @@ export default function QuotePage() {
           <ul className="flex flex-wrap gap-x-6 gap-y-2">
             {[
               "Takes about a minute",
-              "Two questions are required",
+              "Four things are required",
               "No obligation",
             ].map((point) => (
               <li
@@ -53,7 +54,11 @@ export default function QuotePage() {
 
       <section className="py-14">
         <Container>
-          <QuoteForm />
+          {/* QuoteForm reads ?trade= to pre-select the trade. Without a
+              boundary that would opt the whole page out of static rendering. */}
+          <Suspense>
+            <QuoteForm />
+          </Suspense>
         </Container>
       </section>
     </>

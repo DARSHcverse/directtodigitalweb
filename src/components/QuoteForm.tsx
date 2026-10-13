@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/Button";
 import {
   ChoiceGroup,
@@ -16,8 +17,26 @@ import {
 import { useLeadForm } from "@/lib/useLeadForm";
 import { SuccessOverlay } from "@/components/SuccessOverlay";
 import { budgetBands, projectTypes, timelineOptions } from "@/lib/site";
+import { TRADES } from "@/lib/lead";
 
 const projectOptions = projectTypes.map((t) => ({ value: t, label: t }));
+const tradeOptions = TRADES.map((t) => ({ value: t, label: t }));
+
+/**
+ * Trade pages link here with ?trade=plumber and so on. Pre-selecting it
+ * saves a tap and, more usefully, means the enquiry records which trade page
+ * actually produced it.
+ */
+const TRADE_FROM_PARAM: Record<string, (typeof TRADES)[number]> = {
+  plumber: "Plumber / heating",
+  plumbers: "Plumber / heating",
+  electrician: "Electrician",
+  electricians: "Electrician",
+  builder: "Builder",
+  builders: "Builder",
+  roofer: "Roofer",
+  roofers: "Roofer",
+};
 
 /**
  * The quote form.
@@ -39,7 +58,11 @@ const projectOptions = projectTypes.map((t) => ({ value: t, label: t }));
 export function QuoteForm() {
   const formRef = useRef<HTMLDivElement>(null);
   const [showSuccess, setShowSuccess] = useState(false);
+  const preset = TRADE_FROM_PARAM[useSearchParams().get("trade") ?? ""] ?? "";
   const { form, status, handleChange, setField, submit } = useLeadForm({
+    trade: preset as string,
+    town: "",
+    website: "",
     name: "",
     email: "",
     phone: "",
@@ -58,6 +81,9 @@ export function QuoteForm() {
     const ok = await submit(
       {
         kind: "quote",
+        trade: form.trade,
+        town: form.town,
+        website: form.website,
         name: form.name,
         email: form.email,
         phone: form.phone,
@@ -88,7 +114,52 @@ export function QuoteForm() {
         <FormShell onSubmit={handleSubmit}>
           <Honeypot />
 
-          <FormSection step={1} title="What you need">
+          <FormSection step={1} title="Your business">
+            <ChoiceGroup
+              label="What's your trade?"
+              name="trade"
+              value={form.trade}
+              options={tradeOptions}
+              onChange={setField}
+              columns={3}
+            />
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Field
+                label="Town or area"
+                htmlFor="town"
+                hint="Where most of your jobs are."
+              >
+                <Input
+                  id="town"
+                  name="town"
+                  autoComplete="address-level2"
+                  value={form.town}
+                  onChange={handleChange}
+                  placeholder="e.g. Swansea"
+                  required
+                />
+              </Field>
+              <Field
+                label="Do you have a website now?"
+                htmlFor="website"
+                optional
+                hint="Paste the address, or leave blank."
+              >
+                <Input
+                  id="website"
+                  name="website"
+                  type="url"
+                  inputMode="url"
+                  autoComplete="url"
+                  value={form.website}
+                  onChange={handleChange}
+                  placeholder="e.g. smithplumbing.co.uk"
+                />
+              </Field>
+            </div>
+          </FormSection>
+
+          <FormSection step={2} title="What you need">
             <ChoiceGroup
               label="What kind of project is it?"
               name="projectType"
@@ -99,7 +170,7 @@ export function QuoteForm() {
             />
           </FormSection>
 
-          <FormSection step={2} title="Budget and timing">
+          <FormSection step={3} title="Budget and timing">
             <ChoiceGroup
               label="Rough budget"
               name="budget"
@@ -121,7 +192,7 @@ export function QuoteForm() {
             />
           </FormSection>
 
-          <FormSection step={3} title="How to reach you">
+          <FormSection step={4} title="How to reach you">
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label="Your name" htmlFor="name">
                 <Input
@@ -163,7 +234,7 @@ export function QuoteForm() {
               label="Anything else"
               htmlFor="details"
               optional
-              hint="Your trade and the area you cover are the most useful things to know."
+              hint="The kind of jobs you want more of is the most useful thing to know."
             >
               <Textarea
                 id="details"
@@ -171,7 +242,7 @@ export function QuoteForm() {
                 rows={4}
                 value={form.details}
                 onChange={handleChange}
-                placeholder="e.g. Plumber in Leeds, mainly boiler work. I have no website yet."
+                placeholder="e.g. Mainly boiler installs and servicing, and I'd like fewer small call-outs."
               />
             </Field>
           </FormSection>
