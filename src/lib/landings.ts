@@ -245,6 +245,71 @@ export const landings: Landing[] = [
     ],
   },
   {
+    slug: "roofers",
+    tradeParam: "roofer",
+    card: {
+      title: "Ready when the storm hits",
+      body: "After a storm they want a roofer who answers and looks legitimate. The number and the proof sit at the top.",
+      rows: [
+        ["Guarantees", "Stated up front"],
+        ["Memberships", "Shown if you have them"],
+        ["Photos", "Before and after"],
+      ],
+    },
+    heading: "Websites for roofers",
+    title: "Roofer Website Design",
+    metaDescription:
+      "Roofer website design for UK roofing contractors. Storm and leak callouts, guarantees and insurance up front, before-and-after photos. Fixed price from £800.",
+    intro:
+      "Homeowners have been warned about doorstep roofers for years, so the first thing they do with a name is check it. A site that shows your guarantees, your insurance and roofs you have finished is how you pass that check before you've said a word.",
+    audience: "Roofers, roofing contractors and flat-roof specialists",
+    painPoints: [
+      "Cold-callers posing as roofers, so homeowners distrust everyone",
+      "Storm and leak callouts going to whoever answers first",
+      "Big re-roof quotes with nothing online to show past work",
+      "No clear place to show guarantees, insurance or memberships",
+      "Photos of finished roofs that never leave your phone",
+    ],
+    solutions: [
+      {
+        title: "Proof before the first phone call",
+        body: "Your guarantee terms, public liability insurance and any memberships — NFRC, CompetentRoofer, TrustMark — sit where a cautious homeowner looks first. Only what you actually hold is shown.",
+      },
+      {
+        title: "Urgent and planned work kept apart",
+        body: "A leaking ceiling and a planned re-roof are different customers. One wants a number now; the other wants to see your work and compare quotes. Each gets its own clear route.",
+      },
+      {
+        title: "Your finished roofs, properly shown",
+        body: "Before-and-after photos, and drone shots if you take them, organised by job type so a homeowner can find work like theirs. That does more for a large quote than any amount of wording.",
+      },
+      {
+        title: "A number that's always one tap away",
+        body: "The call button stays visible while they scroll, because someone with water coming through the ceiling won't hunt for it.",
+      },
+    ],
+    proofSlugs: ["crown-auto-trading"],
+    proofIntro:
+      "A local service site that shows the work and takes enquiries. It's a car workshop rather than a roofer, but it works the same way.",
+    faqs: [
+      {
+        question: "Do you work with roofers in my area?",
+        answer:
+          "Yes. I'm based in Swansea and also cover Watford and London in person. Anywhere else in the UK works just as well remotely, by phone, WhatsApp and email.",
+      },
+      {
+        question: "Can I add photos of jobs myself?",
+        answer:
+          "On the Business package, yes: you can add before-and-after photos from your phone through the site's admin area. On any package you can send them to me and I'll add them. Recent work on the site is one of the strongest signals for a homeowner.",
+      },
+      {
+        question: "Should I put prices on a roofing site?",
+        answer:
+          "Rarely a full price list, since every roof is different. A clear note on how you quote, and that quotes are free, removes the main reason people hesitate to get in touch.",
+      },
+    ],
+  },
+  {
     slug: "small-business-websites",
     card: {
       title: "Yours, with no strings",

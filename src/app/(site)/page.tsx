@@ -21,6 +21,10 @@ export const metadata: Metadata = pageMetadata({
   path: "/",
 });
 
+/** Trade pages lead; the rest are kept live for search but not featured. */
+const tradeLandings = landings.filter((l) => l.tradeParam);
+const otherLandings = landings.filter((l) => !l.tradeParam);
+
 const steps = [
   {
     title: "Tell me about the business",
@@ -157,7 +161,9 @@ export default function HomePage() {
 
       <ProofBand />
 
-      {/* Trades index: the niche pages, surfaced as a directory row. */}
+      {/* Trades first, as large cards; the other landing pages follow as a
+          quiet row of links. A plumber scanning this used to see salons and
+          tutors beside his trade and wonder if this was a generalist. */}
       <section aria-labelledby="trades" className="border-b border-edge py-16">
         <Container>
           <SectionLabel>Who I build for</SectionLabel>
@@ -165,17 +171,17 @@ export default function HomePage() {
             id="trades"
             className="mb-8 max-w-[30rem] text-3xl font-bold tracking-display text-navy-text lg:text-4xl"
           >
-            Built around your trade, not a template
+            Built for the trades
           </h2>
-          <div className="grid border-t-2 border-navy sm:grid-cols-2 lg:grid-cols-3">
-            {landings.map((landing) => (
+          <div className="grid border-t-2 border-navy sm:grid-cols-2 lg:grid-cols-4">
+            {tradeLandings.map((landing) => (
               <Link
                 key={landing.slug}
                 href={`/for/${landing.slug}`}
                 className="group border-b border-edge p-6 no-underline transition hover:bg-navy sm:border-r"
               >
                 <p className="text-lg font-bold text-navy-text transition group-hover:text-white">
-                  {landing.heading}
+                  {landing.heading.replace("Websites for ", "").replace(/^./, (c) => c.toUpperCase())}
                 </p>
                 <p className="mt-1 text-sm text-muted transition group-hover:text-white/70">
                   {landing.audience}
@@ -186,6 +192,20 @@ export default function HomePage() {
               </Link>
             ))}
           </div>
+          <p className="mt-6 text-sm text-muted">
+            Also:{" "}
+            {otherLandings.map((landing, i) => (
+              <span key={landing.slug}>
+                {i > 0 ? " · " : ""}
+                <Link
+                  href={`/for/${landing.slug}`}
+                  className="font-semibold text-navy-text hover:text-amber-deep"
+                >
+                  {landing.heading.toLowerCase()}
+                </Link>
+              </span>
+            ))}
+          </p>
         </Container>
       </section>
 
@@ -196,7 +216,7 @@ export default function HomePage() {
             id="services-heading"
             className="mb-10 max-w-[32rem] text-3xl font-bold tracking-display text-navy-text lg:text-4xl"
           >
-            Trades are what I know best. Any local business, really.
+            A new site, a rebuild, or a shop
           </h2>
           <div className="grid gap-px bg-edge sm:grid-cols-3">
             {serviceCatalogue.map((service, i) => (

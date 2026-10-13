@@ -9,6 +9,7 @@ import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/metadata";
 import { landings, getLanding, proofFor } from "@/lib/landings";
 import { ProjectCard } from "@/components/ProjectCard";
+import { whatsappHref } from "@/lib/site";
 
 export function generateStaticParams() {
   return landings.map((landing) => ({ slug: landing.slug }));
@@ -176,6 +177,34 @@ export default async function LandingPage({
                   <p className="leading-relaxed text-muted">{solution.body}</p>
                 </article>
               ))}
+            </div>
+
+            {/* Mid-page next step. The page persuades in the middle, and the
+                only buttons were at the top and the bottom. */}
+            <div className="mt-10 flex flex-col gap-4 rounded-lg border-2 border-navy bg-surface p-6 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-lg font-bold text-navy-text">
+                {landing.tradeParam
+                  ? `${/^[aeiou]/i.test(landing.tradeParam) ? "An" : "A"} ${landing.tradeParam} site like this`
+                  : "A site like this"}
+                : from £800, live in 2–4 weeks.
+              </p>
+              <div className="flex shrink-0 flex-wrap gap-3">
+                <ButtonLink href={quoteHref} variant="primary">
+                  Get a fixed quote
+                </ButtonLink>
+                <a
+                  href={whatsappHref(
+                    landing.tradeParam
+                      ? `Hi Shan, I'm ${/^[aeiou]/i.test(landing.tradeParam) ? "an" : "a"} ${landing.tradeParam} and I'd like a price for a website.`
+                      : undefined,
+                  )}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="inline-flex items-center justify-center rounded-md border-2 border-navy px-6 py-3.5 text-sm font-bold tracking-wide text-navy-text no-underline transition hover:bg-navy hover:text-white"
+                >
+                  WhatsApp me
+                </a>
+              </div>
             </div>
           </section>
 
