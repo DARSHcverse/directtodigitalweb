@@ -30,20 +30,25 @@ export function customerWelcome(lead: LeadInput): {
   text: string;
 } {
   const name = firstName(lead.name);
+  const isCall = lead.kind === "booking";
 
   // What happens next matters more than thanking them: the common worry
   // after sending an enquiry is not knowing whether it arrived.
   const body = [
     p(`Thanks for getting in touch — your ${esc(leadKindLabel[lead.kind].toLowerCase())} has arrived safely.`),
     p(
-      `I read every enquiry myself, and I'll come back to you <strong>within one working day</strong> with a straight answer. If it's urgent, just reply to this email and it comes directly to me.`,
+      isCall
+        ? `I'll email you <strong>within one working day</strong> to confirm an exact time${
+            lead.topic === "Zoom video call" ? ", with the Zoom link" : ""
+          }. If it's urgent, just reply to this email and it comes directly to me.`
+        : `I read every enquiry myself, and I'll come back to you <strong>within one working day</strong> with a straight answer. If it's urgent, just reply to this email and it comes directly to me.`,
     ),
     lead.topic || lead.budget || lead.timeline
       ? `<p style="margin:24px 0 8px;font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:${BRAND.muted};">What you sent</p>` +
         detailTable(
-          detailRow("Looking for", lead.topic) +
+          detailRow(isCall ? "Call by" : "Looking for", lead.topic) +
             detailRow("Budget", lead.budget) +
-            detailRow("Timeline", lead.timeline),
+            detailRow(isCall ? "When suits" : "Timeline", lead.timeline),
         )
       : "",
     callout(
@@ -103,11 +108,14 @@ export function ownerLeadAlert(
         detailRow("Phone", lead.phone) +
         detailRow("Current site", lead.website) +
         detailRow(
-          lead.kind === "booking" ? "Service" : "Project type",
+          lead.kind === "booking" ? "Call by" : "Project type",
           lead.topic,
         ) +
         detailRow("Budget", lead.budget) +
-        detailRow("Timeline", lead.timeline) +
+        detailRow(
+          lead.kind === "booking" ? "When suits" : "Timeline",
+          lead.timeline,
+        ) +
         // Which channel produced this, so a flyer or referral test can be
         // judged from the inbox without opening the database.
         detailRow("Source", sourceLabel(lead)) +
@@ -306,6 +314,91 @@ Any questions, just reply.${plainTextFooter()}`;
 
   return {
     subject: `Invoice ${invoiceNumber} — ${total}`,
+    html,
+    text,
+  };
+}
+
+/* ────────────────────────────────────────────────────────────
+   To the enquirer: a call confirmed
+   ──────────────────────────────────────────────────────────── */
+
+/**
+ * Confirms an arranged call. Sent from the lead page in the admin with a
+ * calendar file attached, so the time is in their diary without retyping.
+ *
+ * Says plainly who calls whom: a phone or WhatsApp call is outgoing from
+ * Shan, so they only need to answer; a Zoom call needs them to click the
+ * link, which is the one thing they have to do.
+ */
+export function callConfirmation({
+  name,
+  method,
+  when,
+  minutes,
+  zoomLink,
+  phone,
+  note,
+  calendarHref,
+}: {
+  name: string;
+  method: string;
+  when: string;
+  minutes: number;
+  zoomLink: string | null;
+  phone: string | null;
+  note: string | null;
+  calendarHref: string;
+}): { subject: string; html: string; text: string } {
+  const first = firstName(name);
+  const isZoom = method === "Zoom video call";
+  const isWhatsApp = method === "WhatsApp call";
+
+  const how = isZoom
+    ? "Join with the link below. It opens in your browser; you don't need a Zoom account."
+    : isWhatsApp
+      ? `I'll call you on WhatsApp${phone ? ` at ${phone}` : ""}. Nothing to set up — just answer.`
+      : `I'll ring you${phone ? ` on ${phone}` : ""}. Nothing to set up — just answer.`;
+
+  const body = [
+    p(`Hi ${esc(first)},`),
+    p(`Thanks for asking for a call. Here's when we'll talk:`),
+    detailTable(
+      detailRow("When", `${when} (UK time)`) +
+        detailRow("How", method) +
+        detailRow("Length", `About ${minutes} minutes`),
+    ),
+    p(esc(how)),
+    isZoom && zoomLink ? button(zoomLink, "Join the Zoom call") : "",
+    note ? callout(escMultiline(note)) : "",
+    p(
+      `It's in the attached calendar file, or you can <a href="${esc(calendarHref)}" style="color:${BRAND.navy};">add it to Google Calendar</a>. If the time no longer works, just reply to this email and we'll move it.`,
+    ),
+  ].join("");
+
+  const html = emailLayout({
+    heading: "Your call is booked",
+    preheader: `${method}, ${when} UK time.`,
+    body,
+  });
+
+  const text = `Hi ${first},
+
+Thanks for asking for a call. Here's when we'll talk:
+
+When:   ${when} (UK time)
+How:    ${method}
+Length: About ${minutes} minutes
+
+${how}
+${isZoom && zoomLink ? `\nJoin: ${zoomLink}\n` : ""}${note ? `\n${note}\n` : ""}
+It's in the attached calendar file, or add it to Google Calendar:
+${calendarHref}
+
+If the time no longer works, just reply to this email and we'll move it.${plainTextFooter()}`;
+
+  return {
+    subject: `Your call with Shan: ${when}`,
     html,
     text,
   };

@@ -60,3 +60,15 @@ export async function countByStatus(): Promise<Record<string, number>> {
   }
   return counts;
 }
+
+/** One lead, for its detail page. Null if missing or archived. */
+export async function getLead(id: string): Promise<Lead | null> {
+  const { data, error } = await serviceClient()
+    .from("leads")
+    .select("*")
+    .eq("id", id)
+    .is("deleted_at", null)
+    .maybeSingle();
+  if (error) throw new Error(`Could not load lead: ${error.message}`);
+  return (data as Lead | null) ?? null;
+}

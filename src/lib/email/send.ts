@@ -22,12 +22,18 @@ export async function sendEmail({
   html,
   text,
   replyTo,
+  bcc,
+  attachments,
 }: {
   to: string;
   subject: string;
   html: string;
   text: string;
   replyTo?: string;
+  /** A copy for Shan, e.g. so a confirmed call lands in his calendar too. */
+  bcc?: string;
+  /** Small files such as a calendar invite. */
+  attachments?: { filename: string; content: string; contentType?: string }[];
 }): Promise<SendResult> {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.RESEND_FROM_EMAIL;
@@ -52,6 +58,16 @@ export async function sendEmail({
       // domain is verified for sending only, so without this a client hitting
       // reply would write to an address with no inbox behind it.
       replyTo: replyTo ?? site.contactEmail,
+      ...(bcc ? { bcc: [bcc] } : {}),
+      ...(attachments?.length
+        ? {
+            attachments: attachments.map((a) => ({
+              filename: a.filename,
+              content: Buffer.from(a.content, "utf8"),
+              ...(a.contentType ? { contentType: a.contentType } : {}),
+            })),
+          }
+        : {}),
     });
 
     if (error) {

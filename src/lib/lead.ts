@@ -44,6 +44,15 @@ export const leadSchema = z.object({
  * enforced here as well as in the browser so the rule cannot drift.
  */
 export const leadSchemaChecked = leadSchema.superRefine((lead, ctx) => {
+  // A call back needs a number to call. Zoom needs only the email the link
+  // is sent to.
+  if (lead.kind === "booking" && lead.topic !== CALL_METHODS[1].value && !lead.phone) {
+    ctx.addIssue({
+      code: "custom",
+      path: ["phone"],
+      message: "Please add a phone number so I can call you",
+    });
+  }
   if (lead.kind !== "quote") return;
   if (!lead.trade) {
     ctx.addIssue({ code: "custom", path: ["trade"], message: "Please choose your trade" });
@@ -68,5 +77,28 @@ export const TRADES = [
 export const leadKindLabel: Record<LeadInput["kind"], string> = {
   contact: "Contact enquiry",
   quote: "Quote request",
-  booking: "Booking request",
+  booking: "Call request",
 };
+
+/**
+ * How someone would like to talk. Stored in `topic` on booking leads, and the
+ * values double as the human wording in emails and the admin.
+ */
+export const CALL_METHODS = [
+  { value: "Phone call", label: "Phone call", note: "I'll ring you" },
+  { value: "Zoom video call", label: "Zoom video call", note: "I'll email a link" },
+  { value: "WhatsApp call", label: "WhatsApp call", note: "Voice or video" },
+] as const;
+
+/** Rough windows inside the hours the phone is answered, 7am to 11pm. */
+export const CALL_DAYS = [
+  { value: "As soon as possible", label: "As soon as possible" },
+  { value: "A weekday", label: "A weekday" },
+  { value: "A weekend", label: "A weekend" },
+] as const;
+
+export const CALL_TIMES = [
+  { value: "Morning (7am to 12pm)", label: "Morning", note: "7am to 12pm" },
+  { value: "Afternoon (12pm to 5pm)", label: "Afternoon", note: "12pm to 5pm" },
+  { value: "Evening (5pm to 11pm)", label: "Evening", note: "5pm to 11pm" },
+] as const;

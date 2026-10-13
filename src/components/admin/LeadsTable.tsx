@@ -64,9 +64,12 @@ export function LeadsTable({ leads }: { leads: Lead[] }) {
         header: "Name",
         cell: ({ row }) => (
           <div className="min-w-0">
-            <p className="truncate font-semibold text-navy-text">
+            <Link
+              href={adminPath(`leads/${row.original.id}`)}
+              className="block truncate font-semibold text-navy-text no-underline hover:text-amber-deep"
+            >
               {row.original.name}
-            </p>
+            </Link>
             <p className="truncate text-xs text-muted">{row.original.email}</p>
           </div>
         ),
@@ -75,9 +78,12 @@ export function LeadsTable({ leads }: { leads: Lead[] }) {
         accessorKey: "status",
         header: "Status",
         cell: ({ row }) => (
-          <Pill tone={STATUS_TONE[row.original.status]}>
-            {STATUS_TEXT[row.original.status]}
-          </Pill>
+          <span className="flex flex-wrap gap-1">
+            <Pill tone={STATUS_TONE[row.original.status]}>
+              {STATUS_TEXT[row.original.status]}
+            </Pill>
+            {row.original.kind === "booking" ? <Pill tone="navy">Call</Pill> : null}
+          </span>
         ),
       },
       {
@@ -217,7 +223,12 @@ export function LeadsTable({ leads }: { leads: Lead[] }) {
         <div className="rounded-lg border-2 border-edge bg-surface p-4">
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
-              <p className="truncate font-bold text-navy-text">{l.name}</p>
+              <Link
+                href={adminPath(`leads/${l.id}`)}
+                className="block truncate font-bold text-navy-text no-underline"
+              >
+                {l.name}
+              </Link>
               <p className="truncate text-sm text-muted">{l.email}</p>
             </div>
             <Pill tone={STATUS_TONE[l.status]}>{STATUS_TEXT[l.status]}</Pill>

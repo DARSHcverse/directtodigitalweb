@@ -18,7 +18,7 @@ const explore = [
 
 const getStarted = [
   { href: "/quote", label: "Get a quote" },
-  { href: "/booking", label: "Book a call" },
+  { href: "/booking", label: "Request a call" },
   { href: "/contact", label: "Contact" },
 ] as const;
 
