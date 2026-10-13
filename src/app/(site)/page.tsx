@@ -65,7 +65,7 @@ export default function HomePage() {
                 </span>
               </h1>
               <p className="mt-7 max-w-[34rem] text-lg leading-relaxed text-muted">
-                Two thirds of customers check you online before they ring. If
+                Most customers check you online before they ring. If
                 there&apos;s nothing to find, they call the next name on the
                 list. I build websites for plumbers, electricians, builders and
                 roofers — written and set up for you.
@@ -107,8 +107,8 @@ export default function HomePage() {
                   <Image
                     src="/TradeIcon.png"
                     alt=""
-                    width={1080}
-                    height={1080}
+                    width={56}
+                    height={56}
                     priority
                     className="logo-light h-14 w-14"
                   />
@@ -116,9 +116,8 @@ export default function HomePage() {
                     src="/TradeIcon-dark.png"
                     alt=""
                     aria-hidden="true"
-                    width={1080}
-                    height={1080}
-                    priority
+                    width={56}
+                    height={56}
                     className="logo-dark h-14 w-14"
                   />
                   </span>
@@ -131,9 +130,9 @@ export default function HomePage() {
                   </p>
                   <dl className="mt-6 divide-y divide-edge border-t border-edge">
                     {[
-                      ["Loads in", "Under 1s"],
+                      ["Price", "Fixed, from £800"],
                       ["Built for", "Phones first"],
-                      ["You manage", "Nothing"],
+                      ["You manage", "Only if you want to"],
                     ].map(([k, v]) => (
                       <div key={k} className="flex justify-between py-2.5">
                         <dt className="text-sm text-muted">{k}</dt>

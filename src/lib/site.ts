@@ -51,7 +51,7 @@ export const site = {
   url: resolveSiteUrl(),
   tagline: "Web Design for Tradespeople",
   description:
-    "I build websites for UK tradespeople — plumbers, electricians, builders and roofers. Written, built and set up for you, so you never have to log in. Fixed quotes from £800.",
+    "Websites for UK plumbers, electricians, builders and roofers. Written and set up for you, with optional editing. Fixed price from £800, no monthly fee.",
   locale: "en_GB",
   currency: "GBP",
   /**

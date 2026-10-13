@@ -16,9 +16,9 @@ import { generateJoinCode } from "@/lib/portal/join-code";
  * clients.auth_user_id, so a client can only ever read their own records —
  * the check lives in the database rather than in page code.
  *
- * Sign-in is by emailed link. No password is set, stored or reset, which
- * removes a whole class of support and security problems for accounts that
- * are used occasionally.
+ * Sign-in is by a join code emailed to the client. Only its bcrypt hash is
+ * stored, failed attempts are rate-limited per IP, and the code can be
+ * reissued below if it is lost or shared.
  */
 export async function enablePortal(formData: FormData) {
   const owner = await requireOwner();

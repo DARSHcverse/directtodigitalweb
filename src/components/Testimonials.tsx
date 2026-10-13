@@ -28,8 +28,23 @@ export function Testimonials() {
                 {item.initials}
               </span>
               <span>
-                <span className="block font-semibold">{item.author}</span>
-                <span className="block text-sm text-muted">{item.role}</span>
+                <span className="block font-semibold">
+                  {item.url ? (
+                    <a href={item.url} target="_blank" rel="noreferrer noopener">
+                      {item.author}
+                    </a>
+                  ) : (
+                    item.author
+                  )}
+                </span>
+                <span className="block text-sm text-muted">
+                  {item.role}, {item.town}
+                </span>
+                {item.incentive ? (
+                  <span className="block text-xs text-muted">
+                    {item.incentive}
+                  </span>
+                ) : null}
               </span>
             </figcaption>
           </figure>

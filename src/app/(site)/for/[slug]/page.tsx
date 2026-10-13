@@ -8,6 +8,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/metadata";
 import { landings, getLanding, proofFor } from "@/lib/landings";
+import { ProjectCard } from "@/components/ProjectCard";
 
 export function generateStaticParams() {
   return landings.map((landing) => ({ slug: landing.slug }));
@@ -95,8 +96,8 @@ export default async function LandingPage({
                   <Image
                     src="/TradeIcon.png"
                     alt=""
-                    width={1080}
-                    height={1080}
+                    width={48}
+                    height={48}
                     priority
                     className="logo-light h-12 w-12"
                   />
@@ -104,9 +105,8 @@ export default async function LandingPage({
                     src="/TradeIcon-dark.png"
                     alt=""
                     aria-hidden="true"
-                    width={1080}
-                    height={1080}
-                    priority
+                    width={48}
+                    height={48}
                     className="logo-dark h-12 w-12"
                   />
                   </span>
@@ -179,39 +179,12 @@ export default async function LandingPage({
           {proof.length > 0 ? (
             <section aria-labelledby="proof" className="border-t border-edge py-16">
               <h2 id="proof" className="mb-2 text-3xl font-bold tracking-display text-navy-text">
-                I&apos;ve built this before
+                Similar builds
               </h2>
-              <p className="mb-8 text-muted">
-                Live sites doing exactly this, in use today.
-              </p>
+              <p className="mb-8 text-muted">{landing.proofIntro}</p>
               <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6">
                 {proof.map((project) => (
-                  <article
-                    key={project.slug}
-                    className="group overflow-hidden border-2 border-edge rounded-lg bg-surface transition duration-300 hover:-translate-y-0.5 hover:border-navy"
-                  >
-                    <a
-                      href={project.url}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      className="block overflow-hidden border-b border-edge"
-                    >
-                      <Image
-                        src={project.image}
-                        alt={`Screenshot of the ${project.title} website`}
-                        width={project.imageWidth}
-                        height={project.imageHeight}
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        className="aspect-[16/10] w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]"
-                      />
-                    </a>
-                    <div className="p-6">
-                      <h3 className="text-lg font-semibold">{project.title}</h3>
-                      <p className="mt-1 text-sm text-muted">
-                        {project.client}
-                      </p>
-                    </div>
-                  </article>
+                  <ProjectCard key={project.slug} project={project} />
                 ))}
               </div>
               <div className="mt-8">

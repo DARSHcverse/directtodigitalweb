@@ -32,8 +32,8 @@ export function NavBar() {
           <Image
             src="/TradeHorizontal.png"
             alt={site.name}
-            width={1080}
-            height={431}
+            width={110}
+            height={44}
             priority
             className="logo-light h-10 w-auto sm:h-11"
           />
@@ -41,9 +41,8 @@ export function NavBar() {
             src="/TradeHorizontal-dark.png"
             alt=""
             aria-hidden="true"
-            width={1080}
-            height={431}
-            priority
+            width={110}
+            height={44}
             className="logo-dark h-10 w-auto sm:h-11"
           />
         </Link>

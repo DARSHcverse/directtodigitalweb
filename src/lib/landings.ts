@@ -18,6 +18,12 @@ export type Landing = {
   solutions: { title: string; body: string }[];
   /** Slugs from projects.ts used as proof on this page. */
   proofSlugs: string[];
+  /**
+   * One true sentence above those examples. It used to say "live sites doing
+   * exactly this" over a car dealer and a photo booth, which a sceptical
+   * reader could check and find false.
+   */
+  proofIntro: string;
   /** Page-specific FAQs, kept distinct from the homepage set. */
   faqs: { question: string; answer: string }[];
   /**
@@ -84,7 +90,9 @@ export const landings: Landing[] = [
         body: "Urgent callouts and planned bathroom work are different customers with different questions. The site answers both without making either wade through the other.",
       },
     ],
-    proofSlugs: ["crown-auto-trading", "the-shan-booth"],
+    proofSlugs: ["crown-auto-trading"],
+    proofIntro:
+      "A local service site with enquiries built in. It's a car workshop rather than a plumber, but it works the same way.",
     faqs: [
       {
         question: "Do I need a website if I already get work by word of mouth?",
@@ -146,7 +154,9 @@ export const landings: Landing[] = [
         body: "A sole trader with a well-built site reads as more credible than a larger firm with a neglected one. That gap is where commercial enquiries are won.",
       },
     ],
-    proofSlugs: ["do-book", "crown-auto-trading"],
+    proofSlugs: ["crown-auto-trading"],
+    proofIntro:
+      "A local service site with enquiries built in. It's a car workshop rather than an electrician, but it works the same way.",
     faqs: [
       {
         question: "Will a website help me win commercial work?",
@@ -208,7 +218,9 @@ export const landings: Landing[] = [
         body: "Presentation is what separates a two-van firm that wins extensions from one that only gets small repairs. The site closes that gap.",
       },
     ],
-    proofSlugs: ["crown-auto-trading", "mymathshero"],
+    proofSlugs: ["crown-auto-trading"],
+    proofIntro:
+      "A local service site that shows the work and takes enquiries. It's a car workshop rather than a builder, but it works the same way.",
     faqs: [
       {
         question: "I have hundreds of photos. Can you use them?",
@@ -235,7 +247,7 @@ export const landings: Landing[] = [
       rows: [
         ["Monthly fee", "None"],
         ["Hosting", "A few pounds"],
-        ["You manage", "Nothing"],
+        ["You manage", "Only if you want to"],
       ],
     },
     heading: "Websites for small businesses",
@@ -270,7 +282,9 @@ export const landings: Landing[] = [
         body: "No monthly retainer and no lock-in. Hosting typically costs a few pounds a month, billed to you directly and never marked up.",
       },
     ],
-    proofSlugs: ["crown-auto-trading", "the-shan-booth"],
+    proofSlugs: ["crown-auto-trading", "photo-booth-hire-swansea"],
+    proofIntro:
+      "Sites for local businesses: one for a client, and one I run myself.",
     faqs: [
       {
         question: "I only need a few pages. Is that too small a job?",
@@ -332,7 +346,9 @@ export const landings: Landing[] = [
         body: "Bookings land in one place, so the diary, the inbox and the website cannot disagree with each other.",
       },
     ],
-    proofSlugs: ["do-book", "the-shan-booth", "photo-booth-hire-swansea"],
+    proofSlugs: ["photo-booth-hire-swansea", "the-shan-booth", "do-book"],
+    proofIntro:
+      "I run two booking-led businesses on this setup, and built DoBook, a booking platform for service businesses.",
     faqs: [
       {
         question: "Can it handle multiple staff or resources?",
@@ -359,7 +375,7 @@ export const landings: Landing[] = [
       rows: [
         ["Existing URLs", "Redirected"],
         ["Your content", "Kept"],
-        ["Load time", "Cut sharply"],
+        ["Load time", "Built to load fast"],
       ],
     },
     heading: "Website redesign",
@@ -394,7 +410,9 @@ export const landings: Landing[] = [
         body: "Technical problems holding the old site back — missing meta tags, broken links, no sitemap — get fixed as part of the rebuild.",
       },
     ],
-    proofSlugs: ["mymathshero", "crown-auto-trading"],
+    proofSlugs: ["crown-auto-trading", "mymathshero"],
+    proofIntro:
+      "Recent builds: one for a client, and one for a business I co-run.",
     faqs: [
       {
         question: "Will I lose my Google rankings?",

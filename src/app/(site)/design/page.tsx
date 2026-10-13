@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Container, SectionLabel } from "@/components/Container";
 import { ButtonLink } from "@/components/Button";
+import { ProjectCard } from "@/components/ProjectCard";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/metadata";
@@ -9,9 +9,9 @@ import { projects, projectsArePlaceholder } from "@/lib/projects";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Tradesman Website Examples",
+  title: "Website Examples",
   description:
-    "Real websites built for UK trades and small businesses — booking platforms, local business sites and e-commerce. See the work and the results.",
+    "Websites and booking systems I've built that are running real businesses: a dealership and workshop site for a client, and booking sites for businesses I run myself.",
   path: "/design",
   noIndex: projectsArePlaceholder,
 });
@@ -26,7 +26,7 @@ function workListSchema() {
       "@type": "ListItem",
       position: index + 1,
       name: project.title,
-      url: project.url,
+      ...(project.url ? { url: project.url } : {}),
     })),
   };
 }
@@ -45,12 +45,12 @@ export default function DesignPage() {
       />
       <section className="bg-blueprint border-b-2 border-navy py-14">
         <Container>
-          <SectionLabel>Live client work</SectionLabel>
-          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy-text">Trade websites I&apos;ve built</h1>
+          <SectionLabel>Built and running</SectionLabel>
+          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy-text">Work I&apos;ve built</h1>
           <p className="mb-10 max-w-[640px] text-lg text-muted">
-            Live sites and web apps built for real businesses — from booking
-            platforms to local business websites. Every one of these is online
-            and in use.
+            Sites and booking systems running real businesses. Some are for
+            clients and some are businesses I run myself; each one is labelled.
+            Running my own means I know what a missed enquiry costs.
           </p>
         </Container>
       </section>
@@ -78,57 +78,13 @@ export default function DesignPage() {
           ) : (
             <div className="grid grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-8">
               {projects.map((project, index) => (
-                <article
+                <ProjectCard
                   key={project.slug}
-                  className="group relative flex flex-col overflow-hidden border-2 border-edge rounded-lg bg-surface transition duration-300 hover:-translate-y-0.5 hover:border-navy hover:shadow-none"
-                >
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className="block overflow-hidden border-b border-edge"
-                  >
-                    <Image
-                      src={project.image}
-                      alt={`Screenshot of the ${project.title} website`}
-                      width={project.imageWidth}
-                      height={project.imageHeight}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      // First two are likely above the fold.
-                      priority={index < 2}
-                      className="aspect-[16/10] w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]"
-                    />
-                  </a>
-
-                  <div className="flex flex-1 flex-col p-6">
-                    <h2 className="text-xl font-semibold">{project.title}</h2>
-                    <p className="mt-1 text-sm text-muted">{project.client}</p>
-                    <p className="mt-3 flex-1 leading-relaxed text-muted">
-                      {project.summary}
-                    </p>
-
-                    <ul className="mt-5 flex flex-wrap gap-2">
-                      {project.tags.map((tag) => (
-                        <li
-                          key={tag}
-                          className="border border-edge rounded-lg px-2.5 py-1 text-xs text-muted"
-                        >
-                          {tag}
-                        </li>
-                      ))}
-                    </ul>
-
-                    <a
-                      href={project.url}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-amber-deep no-underline hover:underline"
-                    >
-                      Visit live site
-                      <span aria-hidden="true">↗</span>
-                    </a>
-                  </div>
-                </article>
+                  project={project}
+                  detailed
+                  // First two are likely above the fold.
+                  priority={index < 2}
+                />
               ))}
             </div>
           )}
@@ -139,7 +95,6 @@ export default function DesignPage() {
             </h2>
             <p className="mx-auto mb-8 max-w-[520px] text-muted">
               Tell me what your business needs and I&apos;ll send a fixed quote.
-              Happy to put you in touch with past clients too.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <ButtonLink href="/quote" variant="primary">
