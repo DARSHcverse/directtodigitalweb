@@ -68,12 +68,40 @@ export const site = {
     process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim() ||
     "tradewebco@gmail.com",
   /**
-   * Remote-first, serving the whole UK. No street address or phone is published:
-   * inventing NAP data is an active local-SEO liability, so this stays empty
-   * until there are real details to publish.
+   * The business identity. The Electronic Commerce Regulations 2002 (reg. 6)
+   * require the provider's name, a geographic address and an email to be
+   * easily and permanently accessible, so these appear in the footer, the
+   * contact page and the legal pages.
+   *
+   * Sole trader, so the legal entity is Darshan himself, trading as Trade Web
+   * Co. `locality` is a town rather than a street address; regulation 6 asks
+   * for a full geographic address, so replace it with a business address
+   * service before relying on this for compliance.
    */
+  founder: "Darshan Subramaniam",
+  tradingStatus: "sole trader",
+  locality: "Swansea",
+  region: "Wales",
+  /**
+   * Where work is offered. Swansea is the base; Watford and London are areas
+   * Shan also covers in person. The rest of the UK is served remotely.
+   */
+  areasServed: ["Swansea", "Watford", "London"] as string[],
   areaServed: "United Kingdom",
-  founder: "Darshan Subramaniyam",
+  /**
+   * One number for calls and WhatsApp. Trades phone and message rather than
+   * fill in forms, and a site that sells tap-to-call to plumbers has to
+   * offer it itself.
+   */
+  phone: {
+    display: "07544 193175",
+    e164: "+447544193175",
+    /** wa.me wants the number with country code and no plus sign. */
+    whatsapp: "447544193175",
+    hours: "Every day, 7am to 11pm",
+    /** For schema.org openingHours. */
+    openingHours: "Mo-Su 07:00-23:00",
+  },
   /**
    * Profile URLs. These feed schema sameAs, which is how Google ties this
    * site to a real, verifiable person rather than an anonymous brand.
@@ -174,3 +202,13 @@ export const serviceCatalogue = [
     ],
   },
 ] as const;
+
+/** One sentence naming who is behind the site, used wherever identity is shown. */
+export const identityLine = `${site.name} is a trading name of ${site.founder}, a ${site.tradingStatus} based in ${site.locality}, ${site.region}.`;
+
+/** Pre-filled WhatsApp link. The opening line saves them typing on a phone. */
+export function whatsappHref(message = "Hi Shan, I'd like a price for a website for my business.") {
+  return `https://wa.me/${site.phone.whatsapp}?text=${encodeURIComponent(message)}`;
+}
+
+export const telHref = `tel:${site.phone.e164}`;

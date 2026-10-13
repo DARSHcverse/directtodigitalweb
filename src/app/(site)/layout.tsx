@@ -2,13 +2,13 @@ import { NavBar } from "@/components/NavBar";
 import { JsonLd } from "@/components/JsonLd";
 import { organisationSchema, webSiteSchema } from "@/lib/schema";
 import { Footer } from "@/components/Footer";
-import { BookNowButton } from "@/components/BookNowButton";
+import { ContactBar } from "@/components/ContactBar";
 
 export default function SiteLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col pb-[calc(3.5rem+env(safe-area-inset-bottom))] lg:pb-0">
       {/* Marketing pages only. Admin routes must not carry site schema. */}
       <JsonLd data={[organisationSchema(), webSiteSchema()]} />
       <a
@@ -21,7 +21,7 @@ export default function SiteLayout({
       <main id="main" className="flex-1">
         {children}
       </main>
-      <BookNowButton />
+      <ContactBar />
       <Footer />
     </div>
   );

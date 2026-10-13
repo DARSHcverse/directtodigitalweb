@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { cn } from "@/lib/cn";
-import { site } from "@/lib/site";
+import { site, telHref, whatsappHref } from "@/lib/site";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const links = [
@@ -79,9 +79,17 @@ export function NavBar() {
           >
             Client login
           </Link>
+          {/* The number itself, only from xl: below that there is no room
+              beside five links, the theme switch and two buttons. */}
+          <a
+            href={telHref}
+            className="ml-2 hidden px-1 py-2 text-sm font-bold whitespace-nowrap text-navy-text no-underline transition hover:text-amber-deep xl:inline"
+          >
+            {site.phone.display}
+          </a>
           <Link
             href="/quote"
-            className="ml-1 bg-navy rounded-md px-5 py-2.5 text-sm font-bold text-white no-underline transition hover:bg-navy-deep"
+            className="ml-2 rounded-md bg-navy px-5 py-2.5 text-sm font-bold text-white no-underline transition hover:bg-navy-deep"
           >
             Get a quote
           </Link>
@@ -145,6 +153,25 @@ export function NavBar() {
             >
               Get a quote
             </Link>
+            <div className="mt-3 grid grid-cols-2 gap-2">
+              <a
+                href={telHref}
+                className="block rounded-md border-2 border-navy py-3 text-center font-bold text-navy-text no-underline"
+              >
+                Call
+              </a>
+              <a
+                href={whatsappHref()}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="block rounded-md border-2 border-navy py-3 text-center font-bold text-navy-text no-underline"
+              >
+                WhatsApp
+              </a>
+            </div>
+            <p className="mt-2 text-center text-xs text-muted">
+              {site.phone.display} · {site.phone.hours}
+            </p>
             <div className="mt-3 mb-3 flex items-center justify-between border-t border-edge pt-3">
               <span className="text-sm font-semibold text-muted">Theme</span>
               <ThemeToggle />

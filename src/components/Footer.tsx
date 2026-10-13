@@ -1,12 +1,18 @@
 import Link from "next/link";
 import { Container } from "@/components/Container";
-import { site, serviceCatalogue } from "@/lib/site";
+import {
+  identityLine,
+  serviceCatalogue,
+  site,
+  telHref,
+  whatsappHref,
+} from "@/lib/site";
 import { landings } from "@/lib/landings";
 
 const explore = [
   { href: "/services", label: "Services" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/design", label: "Recent work" },
+  { href: "/design", label: "Work" },
   { href: "/about", label: "About" },
 ] as const;
 
@@ -30,6 +36,27 @@ export function Footer() {
             <p className="text-sm leading-relaxed text-white/70">
               Websites for UK tradespeople — written, built and set up for you.
             </p>
+            <ul className="mt-5 grid gap-1.5 text-sm">
+              <li>
+                <a
+                  href={telHref}
+                  className="font-bold text-white no-underline transition hover:text-amber"
+                >
+                  {site.phone.display}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={whatsappHref()}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="text-white/70 no-underline transition hover:text-amber"
+                >
+                  WhatsApp me
+                </a>
+              </li>
+              <li className="text-white/60">{site.phone.hours}</li>
+            </ul>
           </div>
 
           <nav aria-labelledby="footer-services">
@@ -114,9 +141,22 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col items-center justify-between gap-3 border-t border-white/15 py-6 text-sm text-white/60 sm:flex-row">
-          <p>
-            © {year} {site.name}. All rights reserved.
-          </p>
+          <div className="text-center sm:text-left">
+            <p>
+              © {year} {site.name}. All rights reserved.
+            </p>
+            {/* Electronic Commerce Regulations 2002, reg. 6: who provides the
+                service, where, and how to reach them, on every page. */}
+            <p className="mt-1 text-xs text-white/50">
+              {identityLine}{" "}
+              <a
+                href={`mailto:${site.contactEmail}`}
+                className="text-white/50 underline-offset-2 hover:text-amber hover:underline"
+              >
+                {site.contactEmail}
+              </a>
+            </p>
+          </div>
           <nav aria-label="Legal" className="flex gap-5">
             <Link
               href="/privacy"

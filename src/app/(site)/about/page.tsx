@@ -1,26 +1,40 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { ButtonLink } from "@/components/Button";
 import { Container, SectionLabel } from "@/components/Container";
 import { JsonLd } from "@/components/JsonLd";
 import { Testimonials } from "@/components/Testimonials";
 import { breadcrumbSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/metadata";
-import { site } from "@/lib/site";
+import { identityLine, site, telHref, whatsappHref } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "About the Developer",
   description:
-    "Trade Web Co is Shan, a developer building websites for UK tradespeople. Real sites running real businesses, not portfolio pieces. One person, start to finish.",
+    "Trade Web Co is Shan (Darshan Subramaniam), a developer in Swansea building websites for UK tradespeople. One person, start to finish, and you own everything.",
   path: "/about",
 });
 
 const facts = [
-  { label: "Degree", value: "BSc Information Technology (Distinction)" },
-  { label: "Focus", value: "Application development" },
+  {
+    label: "Degree",
+    value: "Bachelor of Information Technology, majoring in Application Development, with Distinction",
+  },
   { label: "Works with", value: "Trades and small businesses" },
-  { label: "Based", value: "UK, working remotely" },
-  { label: "Also serving", value: "Long-standing clients in Australia" },
+  { label: "Based", value: `${site.locality}, ${site.region}` },
+  { label: "Covers", value: "Swansea, Watford and London in person; the rest of the UK remotely" },
+  { label: "Also", value: "Clients in Australia, where I studied" },
 ] as const;
+
+/**
+ * The question behind every sole-trader purchase: what happens if this one
+ * person disappears? Answered plainly rather than left to worry about.
+ */
+const handover = [
+  "You own the domain, registered in your name.",
+  "You own the code and the hosting account, with the logins handed over at launch.",
+  "Nothing is locked to me, so any developer can pick it up if you ever need one.",
+];
 
 export default function AboutPage() {
   return (
@@ -33,12 +47,43 @@ export default function AboutPage() {
       />
       <section className="bg-blueprint border-b-2 border-navy py-14">
         <Container>
-          <SectionLabel>Who you&apos;re dealing with</SectionLabel>
-          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy-text">The person building your site</h1>
-          <p className="mb-10 max-w-[640px] text-lg text-muted">
-            {site.name} is run by {site.founder} — one developer, working
-            directly with you.
-          </p>
+          <div className="flex flex-col-reverse gap-8 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <SectionLabel>Who you&apos;re dealing with</SectionLabel>
+              <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy-text">
+                I&apos;m Shan. I build every site myself.
+              </h1>
+              <p className="mb-6 max-w-[600px] text-lg text-muted">
+                {site.name} is me — {site.founder}. I build your site, I answer
+                the phone, and you own what I build.
+              </p>
+              <div className="mb-10 flex flex-wrap gap-3">
+                <a
+                  href={telHref}
+                  className="rounded-md border-2 border-navy bg-navy px-5 py-3 text-sm font-bold text-white no-underline transition hover:bg-navy-deep"
+                >
+                  Call {site.phone.display}
+                </a>
+                <a
+                  href={whatsappHref()}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="rounded-md border-2 border-navy px-5 py-3 text-sm font-bold text-navy-text no-underline transition hover:bg-navy hover:text-white"
+                >
+                  WhatsApp
+                </a>
+              </div>
+            </div>
+            {/* Tradespeople buy from a face. */}
+            <Image
+              src="/shan.webp"
+              alt={`${site.founder}, who runs ${site.name}`}
+              width={240}
+              height={300}
+              priority
+              className="h-auto w-40 shrink-0 rounded-lg border-2 border-navy object-cover sm:w-52"
+            />
+          </div>
         </Container>
       </section>
 
@@ -46,17 +91,19 @@ export default function AboutPage() {
         <Container>
 
           <div className="grid gap-8 md:grid-cols-[1.4fr_1fr]">
-            <div className="grid gap-4 text-muted">
+            <div className="grid content-start gap-4 text-muted">
               <p className="leading-relaxed">
-                I&apos;m a developer with a distinction-grade degree in
-                Information Technology. More usefully for you: I build things
-                businesses actually run on, not portfolio exercises.
+                I&apos;m a developer with a Bachelor of Information Technology,
+                majoring in application development, with distinction. More
+                usefully for you: I build things businesses actually run on,
+                not portfolio exercises.
               </p>
               <p className="leading-relaxed">
-                That includes a 24/7 booking and CRM platform handling staff
-                scheduling, invoicing and payments, and an event booking site
-                with Stripe checkout that started taking bookings in its first
-                week live. Both are still running and still maintained.
+                I run booking-led businesses of my own: The Shan Booth and Photo
+                Booth Hire Swansea, both taking enquiries and bookings through
+                sites I built. I also built DoBook, a booking and invoicing
+                platform for service businesses. So I know what a missed
+                enquiry costs, because it costs me too.
               </p>
               <p className="leading-relaxed">
                 I studied in Australia and built up a client base there, and I
@@ -96,6 +143,19 @@ export default function AboutPage() {
               </dl>
               <div className="mt-6 border-t border-edge pt-6">
                 <p className="mb-3 text-xs font-bold tracking-[0.2em] text-navy-text uppercase">
+                  If I&apos;m ever unavailable
+                </p>
+                <ul className="grid gap-2 text-sm text-muted">
+                  {handover.map((line) => (
+                    <li key={line} className="flex gap-2">
+                      <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 bg-amber" />
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="mt-6 border-t border-edge pt-6">
+                <p className="mb-3 text-xs font-bold tracking-[0.2em] text-navy-text uppercase">
                   Check me out
                 </p>
                 <ul className="grid gap-2">
@@ -107,7 +167,10 @@ export default function AboutPage() {
                         rel="noreferrer noopener"
                         className="text-sm font-semibold text-navy-text no-underline hover:text-amber-deep"
                       >
-                        {url.includes("linkedin") ? "LinkedIn" : "GitHub"} ↗
+                        {url.includes("linkedin")
+                          ? "LinkedIn"
+                          : "GitHub (for the technically curious)"}{" "}
+                        ↗
                       </a>
                     </li>
                   ))}

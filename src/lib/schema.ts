@@ -4,9 +4,21 @@ import { site, serviceCatalogue } from "@/lib/site";
  * JSON-LD builders.
  *
  * Deliberately modelled as ProfessionalService rather than LocalBusiness:
- * this is a remote, UK-wide operation with no public premises, and
- * LocalBusiness without a real postal address is a weak (and risky) signal.
+ * there are no public premises, and LocalBusiness implies a place customers
+ * visit. The address is locality-only for the same reason.
  */
+
+/**
+ * Towns covered, then the whole country. Listing the towns lets search
+ * engines connect the business to Swansea, Watford and London searches
+ * without pretending to an office in each.
+ */
+function areas() {
+  return [
+    ...site.areasServed.map((name) => ({ "@type": "City", name })),
+    { "@type": "Country", name: site.areaServed },
+  ];
+}
 
 const ORG_ID = `${site.url}/#organisation`;
 const SITE_ID = `${site.url}/#website`;
@@ -21,15 +33,30 @@ export function organisationSchema() {
     url: site.url,
     description: site.description,
     email: site.contactEmail,
-    image: `${site.url}/images/d2d-logo.png`,
+    telephone: site.phone.e164,
+    openingHours: site.phone.openingHours,
+    // Pointed at the old brand's /images/d2d-logo.png, which no longer exists,
+    // so every crawl of this schema found a broken image.
+    image: `${site.url}/TradeIcon.png`,
     logo: {
       "@type": "ImageObject",
-      url: `${site.url}/images/d2d-logo.png`,
-      width: 1024,
-      height: 1024,
+      url: `${site.url}/TradeIcon.png`,
+      width: 1080,
+      height: 1080,
     },
-    founder: { "@type": "Person", name: site.founder },
-    areaServed: { "@type": "Country", name: site.areaServed },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: site.locality,
+      addressRegion: site.region,
+      addressCountry: "GB",
+    },
+    founder: {
+      "@type": "Person",
+      name: site.founder,
+      image: `${site.url}/shan.webp`,
+      ...(site.sameAs.length > 0 ? { sameAs: site.sameAs } : {}),
+    },
+    areaServed: areas(),
     priceRange: "££",
     currenciesAccepted: site.currency,
     ...(site.sameAs.length > 0 ? { sameAs: site.sameAs } : {}),
@@ -43,7 +70,7 @@ export function organisationSchema() {
           name: service.name,
           description: service.description,
           provider: { "@id": ORG_ID },
-          areaServed: { "@type": "Country", name: site.areaServed },
+          areaServed: areas(),
         },
       })),
     },
@@ -117,7 +144,7 @@ export function serviceSchema({
     serviceType: name,
     url: `${site.url}${path}`,
     provider: { "@id": ORG_ID },
-    areaServed: { "@type": "Country", name: site.areaServed },
+    areaServed: areas(),
     // "from £800" rather than a fixed figure: every project is quoted, and
     // a precise price here would be a claim we cannot honour.
     offers: {

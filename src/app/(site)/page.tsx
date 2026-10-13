@@ -6,12 +6,13 @@ import { Container, SectionLabel } from "@/components/Container";
 import { FaqSection } from "@/components/FaqSection";
 import { FeaturedWork } from "@/components/FeaturedWork";
 import { ProofBand } from "@/components/ProofBand";
+import { MeetShan } from "@/components/MeetShan";
 import { Testimonials } from "@/components/Testimonials";
 import { JsonLd } from "@/components/JsonLd";
 import { faqSchema } from "@/lib/schema";
 import { faqs } from "@/lib/faqs";
 import { pageMetadata } from "@/lib/metadata";
-import { serviceCatalogue, site } from "@/lib/site";
+import { serviceCatalogue, site, telHref } from "@/lib/site";
 import { landings } from "@/lib/landings";
 
 export const metadata: Metadata = pageMetadata({
@@ -74,9 +75,14 @@ export default function HomePage() {
                 <ButtonLink href="/quote" variant="primary">
                   Get a fixed quote
                 </ButtonLink>
-                <ButtonLink href="/design" variant="secondary">
-                  See recent work
-                </ButtonLink>
+                {/* Call sits beside the quote button: many trades would
+                    rather ring than fill in a form. */}
+                <a
+                  href={telHref}
+                  className="inline-flex items-center justify-center rounded-md border-2 border-navy px-6 py-3.5 text-sm font-bold tracking-wide text-navy-text no-underline transition hover:bg-navy hover:text-white"
+                >
+                  Call {site.phone.display}
+                </a>
               </div>
               <ul className="mt-8 flex flex-wrap gap-x-7 gap-y-2 text-sm text-muted">
                 {[
@@ -146,6 +152,8 @@ export default function HomePage() {
           </div>
         </Container>
       </section>
+
+      <MeetShan />
 
       <ProofBand />
 

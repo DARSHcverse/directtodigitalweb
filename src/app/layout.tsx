@@ -61,7 +61,7 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  formatDetection: { telephone: false, address: false, email: false },
+  formatDetection: { address: false, email: false },
 };
 
 export const viewport: Viewport = {

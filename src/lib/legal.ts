@@ -7,7 +7,7 @@
  * than none, because it is a statement to the regulator as well as to the
  * visitor. If the forms or processors change, change this too.
  */
-import { site } from "@/lib/site";
+import { identityLine, site } from "@/lib/site";
 
 /** Last substantive review of the legal pages. Update when the content changes. */
 export const legalUpdated = "13 October 2026";
@@ -16,7 +16,8 @@ export const privacySections = [
   {
     heading: "Who is responsible for your data",
     body: [
-      `${site.legalName} is the data controller for information collected through this website. If you have any question about how your data is handled, or you want it deleted, email ${site.contactEmail} and it will be dealt with.`,
+      `${identityLine} As a sole trader, ${site.founder} is the data controller for information collected through this website.`,
+      `If you have any question about how your data is handled, or you want it deleted, email ${site.contactEmail} or call ${site.phone.display}, and it will be dealt with.`,
     ],
   },
   {
@@ -86,6 +87,7 @@ export const termsSections = [
   {
     heading: "About these terms",
     body: [
+      identityLine,
       `These terms cover the use of this website. The terms covering a project are set out separately in the written quote you receive before any work begins, and that quote is what governs the work itself.`,
     ],
   },
