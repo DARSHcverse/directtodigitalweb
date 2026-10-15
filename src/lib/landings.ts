@@ -118,7 +118,7 @@ export const landings: Landing[] = [
           "**A callout rate or “from” prices**, if you’re happy to share them. It saves you the calls that were never going to book.",
           "**Photos of your own work**: bathrooms, boiler installs, the van. Real jobs beat stock photos every time.",
           "**Your Google reviews**, linked to your Google listing.",
-          "**Memberships if you have them**, such as WaterSafe, CIPHE or APHC.",
+          "**Memberships if you have them**, such as WaterSafe, CIPHE, APHC or, in Scotland and Northern Ireland, SNIPEF.",
         ],
       },
       {
@@ -196,21 +196,21 @@ export const landings: Landing[] = [
       title: "Registered, and visibly so",
       body: "Electrical work is bought on certification. The scheme logos and numbers do the selling before you speak.",
       rows: [
-        ["NICEIC / NAPIT", "Front and centre"],
+        ["Registration scheme", "Front and centre"],
         ["EICR enquiries", "Own page"],
-        ["Part P", "Stated clearly"],
+        ["Certification", "Stated clearly"],
       ],
     },
     heading: "Websites for electricians",
     title: "Electrician Website Design UK, from £800",
     metaDescription:
-      "Websites for UK electricians: NICEIC or NAPIT and Part P shown clearly, EICR and rewire pages, found locally. Fixed price from £800.",
+      "Websites for UK electricians: NICEIC, NAPIT or SELECT registration shown clearly, EICR and rewire pages, found locally. Fixed price from £800.",
     intro:
       "Electrical work is bought on trust and paperwork. Customers want to know you are registered, insured and certified before they let you near a consumer unit — and most of them want to check that without ringing you.",
     audience: "Electricians, EICR testers and electrical contractors",
     painPoints: [
       "Competing with unregistered traders who quote lower",
-      "No clear way to display NICEIC, NAPIT or Part P credentials",
+      "No clear way to show your registration and certification",
       "Landlords needing EICR certificates cannot find you",
       "Commercial enquiries going to firms that simply look bigger",
       "Explaining the same certification questions on every call",
@@ -218,7 +218,7 @@ export const landings: Landing[] = [
     solutions: [
       {
         title: "Credentials that do the selling",
-        body: "Registration bodies, Part P compliance and insurance are shown clearly rather than buried in an about page. This is the single strongest differentiator against an unregistered competitor.",
+        body: "Your registration scheme, how your work is certified and your insurance are shown clearly rather than buried in an about page. This is the single strongest differentiator against an unregistered competitor.",
       },
       {
         title: "Pages for the work you want",
@@ -231,6 +231,39 @@ export const landings: Landing[] = [
       {
         title: "Looks established",
         body: "A sole trader with a well-built site reads as more credible than a larger firm with a neglected one. That gap is where commercial enquiries are won.",
+      },
+    ],
+    sections: [
+      {
+        id: "what-it-needs",
+        heading: "What an electrician’s website needs on it",
+        paragraphs: [
+          "Electrical work is bought on paperwork. Before they ring, customers look for proof you’re qualified, and plenty want to check it themselves. I make sure everything they look for is on your site.",
+        ],
+        bullets: [
+          "**Your registration scheme**, such as NICEIC, NAPIT, ELECSA, Stroma or SELECT, with your number and a link to where customers can check it: the scheme’s own register, or the [Electrical Competent Person register](https://www.electricalcompetentperson.co.uk) in England and Wales.",
+          "**How your work is certified**, in plain words for where you work: Part P self-certification in England and Wales, building standards in Scotland, and the BS 7671 certificate every customer receives.",
+          "**A page for each job you want more of**: EICRs, rewires, consumer unit upgrades, EV chargers, fault finding.",
+          "**The areas you cover**, by town and postcode.",
+          "**Your insurance**, with public liability shown clearly.",
+          "**Photos of your own work**: tidy consumer units and finished installs, not stock pictures.",
+          "**Your Google reviews**, linked to your Google listing.",
+        ],
+      },
+      {
+        id: "landlords",
+        heading: "Landlords are steady work",
+        paragraphs: [
+          "Private landlords across the UK need an electrical inspection (an EICR) at least every five years. In Scotland they also need one before a property is first let, plus testing of the appliances they supply. They’re repeat customers who book ahead and pay on time.",
+          "I give landlords their own page, with what an inspection covers, how long it takes and how to book, so a letting agent can send you a whole portfolio without ringing round.",
+        ],
+      },
+      {
+        id: "what-it-costs",
+        heading: "What it costs",
+        paragraphs: [
+          "Most electrical sites suit Starter, from £800, or Business, from £1,800, if you want to add services and change prices yourself. The price is fixed and agreed before I start. No monthly fee, and hosting is billed to you at cost, typically a few pounds a month. [See full pricing](/pricing) or read [how much a tradesperson’s website costs](/guides/tradesperson-website-cost-uk).",
+        ],
       },
     ],
     proofSlugs: ["accounts-assists", "crown-auto-trading"],
@@ -251,6 +284,36 @@ export const landings: Landing[] = [
         question: "Do I need separate pages for each service?",
         answer:
           "For the services you actively want more of, yes. Someone searching \"EICR certificate\" and someone searching \"full house rewire\" are different customers, and a single services page serves neither well.",
+      },
+      {
+        question: "How much does an electrician website cost?",
+        answer:
+          "Starter sites are from £800 and Business sites from £1,800. You get a fixed price in writing before any work starts, and there’s no monthly fee. Hosting is a few pounds a month, billed to you directly.",
+      },
+      {
+        question: "How long does it take?",
+        answer:
+          "Usually two to four weeks from our first chat. Most of that depends on how quickly I get your photos, registration details and list of services.",
+      },
+      {
+        question: "Will it get me on Google?",
+        answer:
+          "It gives Google what it needs: fast pages, clear titles, a page for each service and the areas you cover. Ranking for busy searches like “electrician near me” also takes good reviews, a Google Business Profile and time. I’ll be straight with you about what’s realistic where you work.",
+      },
+      {
+        question: "I’m already on Checkatrade or MyBuilder. Do I still need my own site?",
+        answer:
+          "Plenty of electricians keep both. On your own site, customers who find you, or who were recommended to you, see your business, not a list of other electricians next to yours. Over time it helps you rely less on paid leads.",
+      },
+      {
+        question: "Do I own the website?",
+        answer:
+          "Yes. The domain is registered in your name, and the code and hosting account are handed over at launch. Nothing is locked to me.",
+      },
+      {
+        question: "Do I have to update it myself?",
+        answer:
+          "No. Send me the change and I’ll do it. On the Business plan you can also edit any page yourself, if you’d rather.",
       },
     ],
   },
