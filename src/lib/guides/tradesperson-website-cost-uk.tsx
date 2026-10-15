@@ -195,10 +195,10 @@ export const tradespersonWebsiteCost: Guide = {
   shortAnswer:
     "For most sole traders and small trade firms, somewhere between about £150 and £3,000, depending on who builds it and how you pay. Agencies can charge a lot more, but most plumbers, electricians and builders don't need one.",
   relatedTrade: "none",
-  publishedAt: "2026-10-26",
-  updatedAt: "2026-10-26",
+  publishedAt: "2026-10-15",
+  updatedAt: "2026-10-15",
   readMinutes: 6,
-  // Waiting for Shan's approval of the copy (pack Part H).
-  status: "draft",
+  // Approved by Shan on 15 Oct 2026.
+  status: "published",
   Body,
 };

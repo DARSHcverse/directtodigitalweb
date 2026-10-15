@@ -29,6 +29,17 @@ export type Landing = {
   /** Page-specific FAQs, kept distinct from the homepage set. */
   faqs: { question: string; answer: string }[];
   /**
+   * Longer sections between "How I fix it" and "Similar builds" (content
+   * pack Part G). Text may use **bold** and [link text](/path).
+   */
+  sections?: {
+    id: string;
+    heading: string;
+    paragraphs?: string[];
+    bullets?: string[];
+    after?: string[];
+  }[];
+  /**
    * Hero spec card. Mirrors the homepage device so the pages read as one
    * site, but the rows are written per trade — a generic card here would
    * undo the point of having separate pages.
@@ -93,6 +104,40 @@ export const landings: Landing[] = [
         body: "Urgent callouts and planned bathroom work are different customers with different questions. The site answers both without making either wade through the other.",
       },
     ],
+    sections: [
+      {
+        id: "what-it-needs",
+        heading: "What a plumber’s website needs on it",
+        paragraphs: [
+          "People ringing a plumber are usually in a hurry, or about to let a stranger into their home. They look for the same handful of things before they ring. I make sure every one of them is on your site.",
+        ],
+        bullets: [
+          "**Your Gas Safe registration number**, with a link to the Gas Safe Register so customers can check it themselves. If you don’t do gas work, the site says clearly what you do cover.",
+          "**The areas you cover**, by town and postcode, so they know you’ll actually come out.",
+          "**Whether you take emergency callouts**, and when.",
+          "**A callout rate or “from” prices**, if you’re happy to share them. It saves you the calls that were never going to book.",
+          "**Photos of your own work**: bathrooms, boiler installs, the van. Real jobs beat stock photos every time.",
+          "**Your Google reviews**, linked to your Google listing.",
+          "**Memberships if you have them**, such as WaterSafe, CIPHE or APHC.",
+        ],
+      },
+      {
+        id: "google-listing",
+        heading: "Your website and your Google listing work together",
+        paragraphs: [
+          "When someone searches for a plumber near them, Google usually shows the map and business listings first. Your website backs that listing up. Customers tap through to it before they ring, and Google reads it to understand what you do and where. I make sure your business name, phone number and areas match your Google listing exactly, and link the two. If you haven’t got a listing yet, I’ll show you how to set one up.",
+        ],
+      },
+      {
+        id: "what-it-costs",
+        heading: "What it costs",
+        paragraphs: [
+          // "Most … sites I build" in the pack: no plumbing site has been
+          // built yet, so it says what suits rather than what has happened.
+          "Most plumbing and heating sites suit Starter, from £800, or Business, from £1,800, if you want to change your prices and services yourself. The price is fixed and agreed before I start. No monthly fee, and hosting is billed to you at cost, typically a few pounds a month. [See full pricing](/pricing) or read [how much a tradesperson’s website costs](/guides/tradesperson-website-cost-uk).",
+        ],
+      },
+    ],
     proofSlugs: ["accounts-assists", "crown-auto-trading"],
     proofIntro:
       "Local service sites built for clients: an accountant in Watford and a car workshop. Neither is a plumber, but both do the same job — get found locally and get the phone ringing.",
@@ -111,6 +156,36 @@ export const landings: Landing[] = [
         question: "Can customers book jobs online?",
         answer:
           "Yes, if that suits how you work. Some plumbers want enquiries only so they can judge urgency themselves. Others want a calendar for planned work. Both are straightforward to build.",
+      },
+      {
+        question: "How much does a plumber website cost?",
+        answer:
+          "Starter sites are from £800 and Business sites from £1,800. Most plumbers need one or the other. You get a fixed price in writing before any work starts, and there’s no monthly fee. Hosting is a few pounds a month, billed to you directly.",
+      },
+      {
+        question: "How long does it take?",
+        answer:
+          "Usually two to four weeks from our first chat. Most of that depends on how quickly I get your photos and details.",
+      },
+      {
+        question: "Will it get me on Google?",
+        answer:
+          "It gives Google everything it needs: fast pages, clear titles, your services and the areas you cover. Ranking for busy searches like “emergency plumber” in your town also takes good reviews, a Google Business Profile and time. I’ll be straight with you about what’s realistic where you work.",
+      },
+      {
+        question: "I’m already on Checkatrade or MyBuilder. Do I still need my own site?",
+        answer:
+          "Plenty of plumbers keep both. On your own site, customers who find you, or who were recommended to you, see your business, not a list of other plumbers next to yours. Over time it helps you rely less on paid leads.",
+      },
+      {
+        question: "Do I own the website?",
+        answer:
+          "Yes. The domain is registered in your name, and the code and hosting account are handed over at launch. Nothing is locked to me.",
+      },
+      {
+        question: "Do I have to update it myself?",
+        answer:
+          "No. Send me the change and I’ll do it. On the Business plan you can also edit any page yourself, if you’d rather.",
       },
     ],
   },

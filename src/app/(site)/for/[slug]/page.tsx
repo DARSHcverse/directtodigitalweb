@@ -9,6 +9,7 @@ import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/metadata";
 import { landings, getLanding, proofFor } from "@/lib/landings";
 import { ProjectCard } from "@/components/ProjectCard";
+import { RichText } from "@/components/RichText";
 import { whatsappHref } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -210,6 +211,42 @@ export default async function LandingPage({
               </div>
             </div>
           </section>
+
+          {landing.sections?.map((section) => (
+            <section
+              key={section.id}
+              aria-labelledby={section.id}
+              className="border-t border-edge py-14"
+            >
+              <div className="max-w-[46rem]">
+                <h2
+                  id={section.id}
+                  className="mb-4 text-3xl font-bold tracking-display text-navy-text"
+                >
+                  {section.heading}
+                </h2>
+                {section.paragraphs?.map((para) => (
+                  <p key={para.slice(0, 40)} className="mb-4 text-lg leading-relaxed text-ink">
+                    <RichText text={para} />
+                  </p>
+                ))}
+                {section.bullets ? (
+                  <ul className="mb-4 grid list-disc gap-2 pl-6 text-lg leading-relaxed text-ink marker:text-amber-deep">
+                    {section.bullets.map((b) => (
+                      <li key={b.slice(0, 40)}>
+                        <RichText text={b} />
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+                {section.after?.map((para) => (
+                  <p key={para.slice(0, 40)} className="mb-4 text-lg leading-relaxed text-ink">
+                    <RichText text={para} />
+                  </p>
+                ))}
+              </div>
+            </section>
+          ))}
 
           {proof.length > 0 ? (
             <section aria-labelledby="proof" className="border-t border-edge py-16">
