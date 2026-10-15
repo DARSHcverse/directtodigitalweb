@@ -44,7 +44,7 @@ export function ProofBand() {
                 href={stat.href}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="mt-3 inline-block text-xs text-white/55 underline-offset-2 hover:text-white hover:underline"
+                className="mt-3 inline-block text-xs text-white/75 underline-offset-2 hover:text-white hover:underline"
               >
                 Source: {stat.source} ↗
               </a>

@@ -34,7 +34,7 @@ export function Footer() {
       <Container>
         <div className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <p className="mb-3 text-lg font-bold text-white">
+            <p className="mb-3 text-xl font-bold text-white">
               Trade Web <span className="text-amber">Co.</span>
             </p>
             <p className="text-sm leading-relaxed text-white/70">
@@ -59,7 +59,7 @@ export function Footer() {
                   WhatsApp me
                 </a>
               </li>
-              <li className="text-white/60">{site.phone.hours}</li>
+              <li className="text-white/75">{site.phone.hours}</li>
             </ul>
           </div>
 
@@ -154,18 +154,18 @@ export function Footer() {
           </nav>
         </div>
 
-        <div className="flex flex-col items-center justify-between gap-3 border-t border-white/15 py-6 text-sm text-white/60 sm:flex-row">
+        <div className="flex flex-col items-center justify-between gap-3 border-t border-white/15 py-6 text-sm text-white/75 sm:flex-row">
           <div className="text-center sm:text-left">
             <p>
               © {year} {site.name}. All rights reserved.
             </p>
             {/* Electronic Commerce Regulations 2002, reg. 6: who provides the
                 service, where, and how to reach them, on every page. */}
-            <p className="mt-1 text-xs text-white/50">
+            <p className="mt-1 text-xs text-white/75">
               {identityLine}{" "}
               <a
                 href={`mailto:${site.contactEmail}`}
-                className="text-white/50 underline-offset-2 hover:text-amber hover:underline"
+                className="text-white/75 underline-offset-2 hover:text-amber hover:underline"
               >
                 {site.contactEmail}
               </a>
@@ -174,13 +174,13 @@ export function Footer() {
           <nav aria-label="Legal" className="flex gap-5">
             <Link
               href="/privacy"
-              className="text-white/60 no-underline transition hover:text-amber"
+              className="text-white/75 no-underline transition hover:text-amber"
             >
               Privacy
             </Link>
             <Link
               href="/terms"
-              className="text-white/60 no-underline transition hover:text-amber"
+              className="text-white/75 no-underline transition hover:text-amber"
             >
               Terms
             </Link>

@@ -222,9 +222,11 @@ export default function HomePage() {
           <div className="grid gap-px bg-edge sm:grid-cols-3">
             {serviceCatalogue.map((service, i) => (
               <article key={service.name} className="bg-bg p-7">
-                <span className="block text-5xl font-bold tracking-display text-edge">
-                  0{i + 1}
-                </span>
+                <span
+                  aria-hidden="true"
+                  data-num={`0${i + 1}`}
+                  className="block text-5xl font-bold tracking-display text-edge before:content-[attr(data-num)]"
+                />
                 <h3 className="mt-4 text-xl font-bold text-navy-text">
                   {service.name}
                 </h3>

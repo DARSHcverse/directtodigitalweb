@@ -10,6 +10,7 @@ import { pageMetadata } from "@/lib/metadata";
 import { landings, getLanding, proofFor } from "@/lib/landings";
 import { ProjectCard } from "@/components/ProjectCard";
 import { RichText } from "@/components/RichText";
+import { guideForTrade } from "@/lib/guides";
 import { whatsappHref } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -29,6 +30,7 @@ export async function generateMetadata({
     title: landing.title,
     description: landing.metaDescription,
     path: `/for/${landing.slug}`,
+    image: `/for/${landing.slug}/og`,
   });
 }
 
@@ -42,6 +44,7 @@ export default async function LandingPage({
   if (!landing) notFound();
 
   const proof = proofFor(landing);
+  const guide = guideForTrade(landing.slug);
   const quoteHref = landing.tradeParam
     ? `/quote?trade=${landing.tradeParam}`
     : "/quote";
@@ -210,6 +213,18 @@ export default async function LandingPage({
                 </a>
               </div>
             </div>
+
+            {guide ? (
+              <p className="mt-5 text-muted">
+                Comparing prices first? Read:{" "}
+                <Link
+                  href={`/guides/${guide.slug}`}
+                  className="font-semibold text-navy-text underline underline-offset-2 hover:text-amber-deep"
+                >
+                  {guide.title}
+                </Link>
+              </p>
+            ) : null}
           </section>
 
           {landing.sections?.map((section) => (

@@ -32,3 +32,18 @@ export function relatedGuides(guide: Guide, count = 2): Guide[] {
   );
   return [...sameTrade, ...others.filter((g) => !sameTrade.includes(g))].slice(0, count);
 }
+
+/**
+ * The guide to point a trade page at: one written for that trade if it
+ * exists, otherwise the newest general guide. Published guides only, since
+ * trade pages are always public.
+ */
+export function guideForTrade(tradeSlug: string): Guide | undefined {
+  const published = all
+    .filter((g) => g.status === "published")
+    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+  return (
+    published.find((g) => g.relatedTrade === tradeSlug) ??
+    published.find((g) => g.relatedTrade === "none")
+  );
+}

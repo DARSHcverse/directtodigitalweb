@@ -12,6 +12,7 @@ export function pageMetadata({
   path,
   noIndex = false,
   absoluteTitle = false,
+  image = "/opengraph-image",
 }: {
   title: string;
   description: string;
@@ -22,6 +23,8 @@ export function pageMetadata({
    * pass 60 characters with the suffix, where Google would cut them off.
    */
   absoluteTitle?: boolean;
+  /** Share image path. Defaults to the site-wide card. */
+  image?: string;
 }): Metadata {
   const url = `${site.url}${path}`;
   const full = absoluteTitle ? title : `${title} | ${site.name}`;
@@ -37,14 +40,14 @@ export function pageMetadata({
       description,
       url,
       images: [
-        { url: "/opengraph-image", width: 1200, height: 630, alt: title },
+        { url: image, width: 1200, height: 630, alt: title },
       ],
     },
     twitter: {
       card: "summary_large_image",
       title: full,
       description,
-      images: ["/opengraph-image"],
+      images: [image],
     },
     ...(noIndex ? { robots: { index: false, follow: true } } : {}),
   };

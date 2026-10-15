@@ -34,6 +34,7 @@ export async function generateMetadata({
     // Keep the suffix unless it would push the title past 60 characters.
     absoluteTitle: `${guide.metaTitle} | ${site.name}`.length > 60,
     noIndex: guide.status === "draft",
+    image: `/guides/${guide.slug}/og`,
   });
   // Article rather than website, with the guide's own share image.
   return {
@@ -44,18 +45,6 @@ export async function generateMetadata({
       publishedTime: guide.publishedAt,
       modifiedTime: guide.updatedAt,
       authors: [site.founder],
-      images: [
-        {
-          url: `/guides/${guide.slug}/og`,
-          width: 1200,
-          height: 630,
-          alt: guide.title,
-        },
-      ],
-    },
-    twitter: {
-      ...base.twitter,
-      images: [`/guides/${guide.slug}/og`],
     },
   };
 }

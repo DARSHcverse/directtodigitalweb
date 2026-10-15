@@ -102,7 +102,7 @@
 
     /* Navy lifts so it still reads as a filled control on a dark page, and
        the deep/soft pair swaps direction so hover still moves toward light. */
-    --color-navy: #2f5c90;
+    --color-navy: #284f7c;
     --color-navy-deep: #3d6ea6;
     --color-navy-soft: #24476f;
 
@@ -127,7 +127,7 @@
   --color-rule: #3c4a5c;
   --color-ink: #e8edf3;
   --color-muted: #9aa8b8;
-  --color-navy: #2f5c90;
+  --color-navy: #284f7c;
   --color-navy-deep: #3d6ea6;
   --color-navy-soft: #24476f;
   --color-navy-text: #9dbce3;
