@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
 import { projectsArePlaceholder } from "@/lib/projects";
 import { landings } from "@/lib/landings";
+import { listGuides } from "@/lib/guides";
 
 /**
  * Every public page, with the date its content last genuinely changed.
@@ -47,5 +48,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(landingUpdated[landing.slug] ?? LANDINGS_UPDATED),
   }));
 
-  return [...core, ...landingPages];
+  // Published only: drafts never reach a production build.
+  const guides = listGuides().filter((g) => g.status === "published");
+  const guidePages =
+    guides.length === 0
+      ? []
+      : [
+          {
+            url: `${site.url}/guides`,
+            lastModified: new Date(
+              guides.map((g) => g.updatedAt).sort().at(-1)!,
+            ),
+          },
+          ...guides.map((g) => ({
+            url: `${site.url}/guides/${g.slug}`,
+            lastModified: new Date(g.updatedAt),
+          })),
+        ];
+
+  return [...core, ...landingPages, ...guidePages];
 }

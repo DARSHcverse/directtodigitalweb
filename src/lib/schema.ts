@@ -177,3 +177,35 @@ export function contactPageSchema() {
     mainEntity: { "@id": ORG_ID },
   };
 }
+
+/**
+ * A guide, as an article Google can attribute to a named author. Dates come
+ * from the guide record, so dateModified moves only when facts change.
+ */
+export function blogPostingSchema(guide: {
+  slug: string;
+  title: string;
+  metaDescription: string;
+  publishedAt: string;
+  updatedAt: string;
+}) {
+  const url = `${site.url}/guides/${guide.slug}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: guide.title,
+    description: guide.metaDescription,
+    url,
+    mainEntityOfPage: url,
+    datePublished: guide.publishedAt,
+    dateModified: guide.updatedAt,
+    image: `${url}/og`,
+    inLanguage: "en-GB",
+    author: {
+      "@type": "Person",
+      name: site.founder,
+      url: `${site.url}/about`,
+    },
+    publisher: { "@id": ORG_ID },
+  };
+}

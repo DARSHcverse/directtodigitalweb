@@ -7,6 +7,7 @@ import { FaqSection } from "@/components/FaqSection";
 import { FeaturedWork } from "@/components/FeaturedWork";
 import { ProofBand } from "@/components/ProofBand";
 import { MeetShan } from "@/components/MeetShan";
+import { GuidesTeaser } from "@/components/GuidesTeaser";
 import { Testimonials } from "@/components/Testimonials";
 import { JsonLd } from "@/components/JsonLd";
 import { faqSchema } from "@/lib/schema";
@@ -271,6 +272,7 @@ export default function HomePage() {
 
       <Container>
         <Testimonials />
+        <GuidesTeaser />
         <FaqSection />
       </Container>
 

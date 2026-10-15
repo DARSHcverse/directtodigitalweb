@@ -8,6 +8,7 @@ import {
   whatsappHref,
 } from "@/lib/site";
 import { landings } from "@/lib/landings";
+import { listGuides } from "@/lib/guides";
 
 const explore = [
   { href: "/services", label: "Services" },
@@ -15,6 +16,9 @@ const explore = [
   { href: "/work", label: "Work" },
   { href: "/about", label: "About" },
 ] as const;
+
+/** Linked only once there is a guide to read. */
+const hasGuides = listGuides().length > 0;
 
 const getStarted = [
   { href: "/quote", label: "Get a quote" },
@@ -92,6 +96,16 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+              {hasGuides ? (
+                <li>
+                  <Link
+                    href="/guides"
+                    className="text-sm text-white/70 no-underline transition hover:text-amber"
+                  >
+                    Guides for tradespeople
+                  </Link>
+                </li>
+              ) : null}
               {explore.map((item) => (
                 <li key={item.href}>
                   <Link
