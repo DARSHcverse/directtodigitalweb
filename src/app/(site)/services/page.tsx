@@ -11,7 +11,7 @@ import Link from "next/link";
 export const metadata: Metadata = pageMetadata({
   title: "Website Design for Trades",
   description:
-    "Website design, redesign and e-commerce for UK tradespeople. Built to be found on Google and to turn visitors into enquiries. Fixed quotes from £800.",
+    "New websites, redesigns and online shops for UK tradespeople and local businesses. Built to be found on Google and to bring in enquiries.",
   path: "/services",
 });
 

@@ -16,7 +16,7 @@ import { serviceCatalogue, site, telHref } from "@/lib/site";
 import { landings } from "@/lib/landings";
 
 export const metadata: Metadata = pageMetadata({
-  title: site.tagline,
+  title: "Websites for Tradespeople UK, Fixed Price",
   description: site.description,
   path: "/",
 });

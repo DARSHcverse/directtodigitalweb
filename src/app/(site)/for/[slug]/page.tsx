@@ -55,9 +55,12 @@ export default async function LandingPage({
           ]),
           faqSchema(landing.faqs),
           serviceSchema({
-            name: landing.title,
+            // The plain service, not the title tag: "Websites for plumbers"
+            // rather than "Plumber Website Design UK, from £800".
+            name: landing.heading,
             description: landing.metaDescription,
             path: `/for/${landing.slug}`,
+            audience: landing.audience,
           }),
         ]}
       />
@@ -221,7 +224,7 @@ export default async function LandingPage({
               </div>
               <div className="mt-8">
                 <Link
-                  href="/design"
+                  href="/work"
                   className="text-sm font-semibold text-amber-deep no-underline hover:underline"
                 >
                   See all work →

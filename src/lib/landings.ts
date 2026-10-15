@@ -62,9 +62,9 @@ export const landings: Landing[] = [
       ],
     },
     heading: "Websites for plumbers",
-    title: "Plumber Website Design",
+    title: "Plumber Website Design UK, from £800",
     metaDescription:
-      "Plumber website design for UK heating engineers. Tap-to-call, Gas Safe shown up front, loads fast on a van signal. Fixed price from £800, live in 2-4 weeks.",
+      "Websites for UK plumbers and heating engineers: tap-to-call, Gas Safe number up front, fast on a phone. Fixed price from £800, live in 2–4 weeks.",
     intro:
       "When someone's boiler fails on a Sunday, they search, they scan, and they ring the first plumber who looks reliable and shows a number. Your website has about ten seconds to be that plumber.",
     audience: "Plumbers, heating engineers and boiler specialists",
@@ -127,9 +127,9 @@ export const landings: Landing[] = [
       ],
     },
     heading: "Websites for electricians",
-    title: "Electrician Website Design",
+    title: "Electrician Website Design UK, from £800",
     metaDescription:
-      "Electrician website design for UK contractors. Show NICEIC and Part P, win EICR and rewire enquiries, get found locally. Fixed price from £800.",
+      "Websites for UK electricians: NICEIC or NAPIT and Part P shown clearly, EICR and rewire pages, found locally. Fixed price from £800.",
     intro:
       "Electrical work is bought on trust and paperwork. Customers want to know you are registered, insured and certified before they let you near a consumer unit — and most of them want to check that without ringing you.",
     audience: "Electricians, EICR testers and electrical contractors",
@@ -192,9 +192,9 @@ export const landings: Landing[] = [
       ],
     },
     heading: "Websites for builders",
-    title: "Builder Website Design",
+    title: "Builder Website Design UK, from £800",
     metaDescription:
-      "Builder website design for UK extension and renovation firms. Show finished work properly, filter out time-wasters, win bigger jobs. Fixed price from £800.",
+      "Websites for UK builders: project galleries, before and after photos, fewer time-wasting quotes. Fixed price from £800, no monthly fee.",
     intro:
       "Nobody commits fifty thousand pounds to an extension from a Facebook page. For work at that value, people want to see what you have finished, who you did it for, and what it cost them in disruption.",
     audience: "Builders, extension and renovation specialists",
@@ -257,9 +257,9 @@ export const landings: Landing[] = [
       ],
     },
     heading: "Websites for roofers",
-    title: "Roofer Website Design",
+    title: "Roofer Website Design UK, from £800",
     metaDescription:
-      "Roofer website design for UK roofing contractors. Storm and leak callouts, guarantees and insurance up front, before-and-after photos. Fixed price from £800.",
+      "Websites for UK roofers: emergency and planned work kept apart, guarantees and insurance up front, finished roofs shown. Fixed price from £800.",
     intro:
       "Homeowners have been warned about doorstep roofers for years, so the first thing they do with a name is check it. A site that shows your guarantees, your insurance and roofs you have finished is how you pass that check before you've said a word.",
     audience: "Roofers, roofing contractors and flat-roof specialists",
@@ -321,9 +321,9 @@ export const landings: Landing[] = [
       ],
     },
     heading: "Websites for small businesses",
-    title: "Small Business Web Design UK",
+    title: "Small Business Website Design UK",
     metaDescription:
-      "Small business web design in the UK. Fixed price from £800, no monthly fees, built to be found on Google and turn visitors into enquiries.",
+      "Websites for UK sole traders and small local businesses. Fast, clear, works on a phone. Fixed price from £800, no monthly retainer.",
     intro:
       "Most small businesses do not need a complicated website. They need one that loads quickly, explains what they do, works on a phone, and makes it easy to get in touch. That is what I build.",
     audience: "Sole traders, trades, salons, consultants and local services",
@@ -385,9 +385,9 @@ export const landings: Landing[] = [
       ],
     },
     heading: "Websites with online booking",
-    title: "Website With Online Booking",
+    title: "Websites with Online Booking",
     metaDescription:
-      "Websites with online booking built in. Take appointments and deposits 24/7, cut no-shows with automatic reminders, stop losing bookings to voicemail.",
+      "Websites that take bookings and deposits 24/7, with automatic reminders. For salons, clinics, tutors and event hire. Fixed price quotes.",
     intro:
       "If customers have to phone you to book, you are only open when you answer the phone. A booking system takes enquiries at midnight on a Sunday and puts them straight into your calendar.",
     audience: "Salons, clinics, event hire, tutors and appointment-based services",
@@ -449,9 +449,9 @@ export const landings: Landing[] = [
       ],
     },
     heading: "Website redesign",
-    title: "Website Redesign UK",
+    title: "Website Redesign Without Losing Rankings",
     metaDescription:
-      "Website redesign without losing your Google rankings. Faster, mobile-ready rebuild with every URL redirected properly at launch. Fixed price from £800.",
+      "Redesign your website without losing your Google rankings. Built to load fast, works on phones, every old URL redirected at launch.",
     intro:
       "A redesign should not undo years of search visibility. The aim is to keep everything that is working — your content, your rankings, your URLs — and rebuild the rest on foundations that are actually fast.",
     audience: "Businesses with a site that is dated, slow or hard to use on a phone",

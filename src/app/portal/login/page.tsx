@@ -9,6 +9,8 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Client sign in",
+  description:
+    "Sign in to your Trade Web Co client portal with the code from your welcome email.",
   robots: { index: false, follow: false },
 };
 

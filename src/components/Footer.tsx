@@ -12,7 +12,7 @@ import { landings } from "@/lib/landings";
 const explore = [
   { href: "/services", label: "Services" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/design", label: "Work" },
+  { href: "/work", label: "Work" },
   { href: "/about", label: "About" },
 ] as const;
 

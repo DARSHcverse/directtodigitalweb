@@ -9,10 +9,10 @@ import { projects, projectsArePlaceholder } from "@/lib/projects";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Website Examples",
+  title: "Website Examples and Recent Work",
   description:
-    "Websites I've built for clients — a Watford accountant, a car dealership and a booking platform — plus booking sites for businesses I run myself.",
-  path: "/design",
+    "Websites and booking systems running real businesses, each labelled as client work or my own. See what a Trade Web Co site looks like.",
+  path: "/work",
   noIndex: projectsArePlaceholder,
 });
 
@@ -31,14 +31,14 @@ function workListSchema() {
   };
 }
 
-export default function DesignPage() {
+export default function WorkPage() {
   return (
     <>
       <JsonLd
         data={[
           breadcrumbSchema([
             { name: "Home", path: "/" },
-            { name: "Work", path: "/design" },
+            { name: "Work", path: "/work" },
           ]),
           ...(projects.length > 0 ? [workListSchema()] : []),
         ]}

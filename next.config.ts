@@ -6,6 +6,11 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
+  // /design was renamed /work. Permanent, so search engines move the page's
+  // standing across rather than treating /work as new.
+  async redirects() {
+    return [{ source: "/design", destination: "/work", permanent: true }];
+  },
   async headers() {
     return [
       {

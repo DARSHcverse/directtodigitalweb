@@ -9,9 +9,9 @@ import { pageMetadata } from "@/lib/metadata";
 import { identityLine, site, telHref, whatsappHref } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
-  title: "About the Developer",
+  title: "About Shan, Web Designer in Swansea",
   description:
-    "Trade Web Co is Shan (Darshan Subramaniam), a developer in Swansea building websites for UK tradespeople. One person, start to finish, and you own everything.",
+    "I'm Shan. I build every Trade Web Co site myself, answer the phone myself, and you own everything I build. Based in Swansea.",
   path: "/about",
 });
 

@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/metadata";
 export const metadata: Metadata = pageMetadata({
   title: "Request a Call About Your Website",
   description:
-    "Request a free call about your trade website, by phone, Zoom or WhatsApp. Talk it through with the person who builds it. No sales pitch, no obligation.",
+    "Talk through your website by phone, Zoom or WhatsApp, at a time that suits you, with the person who builds it. Free, and no sales pitch.",
   path: "/booking",
 });
 

@@ -23,7 +23,7 @@ export function FeaturedWork() {
       </div>
 
       <div className="mt-8 text-center">
-        <ButtonLink href="/design">See all work</ButtonLink>
+        <ButtonLink href="/work">See all work</ButtonLink>
       </div>
     </section>
   );

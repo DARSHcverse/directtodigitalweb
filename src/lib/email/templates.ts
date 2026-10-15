@@ -55,7 +55,7 @@ export function customerWelcome(lead: LeadInput): {
       `<strong style="color:${BRAND.navy};">While you wait</strong><br>
        Have a think about three things: what you want people to do when they land on your site, any sites you like the look of, and whether you have photos of recent jobs. That's most of the groundwork done.`,
     ),
-    button(`${site.url}/design`, "See recent work"),
+    button(`${site.url}/work`, "See recent work"),
   ].join("");
 
   const html = emailLayout({

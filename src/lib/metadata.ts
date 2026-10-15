@@ -11,22 +11,29 @@ export function pageMetadata({
   description,
   path,
   noIndex = false,
+  absoluteTitle = false,
 }: {
   title: string;
   description: string;
   path: string;
   noIndex?: boolean;
+  /**
+   * Use the title exactly, without " | Trade Web Co". For titles that would
+   * pass 60 characters with the suffix, where Google would cut them off.
+   */
+  absoluteTitle?: boolean;
 }): Metadata {
   const url = `${site.url}${path}`;
+  const full = absoluteTitle ? title : `${title} | ${site.name}`;
   return {
-    title,
+    title: absoluteTitle ? { absolute: title } : title,
     description,
     alternates: { canonical: url },
     openGraph: {
       type: "website",
       locale: site.locale,
       siteName: site.name,
-      title: `${title} | ${site.name}`,
+      title: full,
       description,
       url,
       images: [
@@ -35,7 +42,7 @@ export function pageMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | ${site.name}`,
+      title: full,
       description,
       images: ["/opengraph-image"],
     },

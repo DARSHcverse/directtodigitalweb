@@ -3,52 +3,48 @@ import { site } from "@/lib/site";
 import { projectsArePlaceholder } from "@/lib/projects";
 import { landings } from "@/lib/landings";
 
-/** Keep in step with the routes under app/(site). */
-const routes = [
-  { path: "/", changeFrequency: "monthly", priority: 1.0 },
-  // Pricing earns disproportionate traffic: "how much does a tradesman
-  // website cost" is one of the highest-intent queries in this market.
-  { path: "/pricing", changeFrequency: "monthly", priority: 0.9 },
-  { path: "/services", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/design", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/quote", changeFrequency: "yearly", priority: 0.8 },
-  { path: "/about", changeFrequency: "yearly", priority: 0.6 },
-  { path: "/booking", changeFrequency: "yearly", priority: 0.6 },
-  { path: "/contact", changeFrequency: "yearly", priority: 0.6 },
-  { path: "/privacy", changeFrequency: "yearly", priority: 0.3 },
-  { path: "/terms", changeFrequency: "yearly", priority: 0.3 },
-] as const;
-
 /**
- * When the content was last genuinely edited.
+ * Every public page, with the date its content last genuinely changed.
  *
- * Using new Date() would claim every page changed on every deploy. Google
- * learns to distrust a sitemap whose dates always say "just now", so this is
- * a real date, bumped by hand when the copy actually changes.
+ * Bump a page's date when its copy or offer changes, not on every deploy:
+ * new Date() would claim everything changed every time, and Google learns to
+ * ignore a sitemap whose dates always say "just now". The previous version
+ * stamped every page with one date.
+ *
+ * changeFrequency and priority are left out on purpose; Google ignores both.
  */
-const CONTENT_UPDATED = new Date("2026-10-02");
+const pages: { path: string; updated: string }[] = [
+  { path: "/", updated: "2026-10-15" },
+  { path: "/pricing", updated: "2026-10-15" },
+  { path: "/services", updated: "2026-10-15" },
+  { path: "/work", updated: "2026-10-15" },
+  { path: "/quote", updated: "2026-10-15" },
+  { path: "/about", updated: "2026-10-15" },
+  { path: "/booking", updated: "2026-10-15" },
+  { path: "/contact", updated: "2026-10-15" },
+  { path: "/privacy", updated: "2026-10-13" },
+  { path: "/terms", updated: "2026-10-13" },
+];
+
+/** Trade and service pages, by slug. Defaults to LANDINGS_UPDATED. */
+const landingUpdated: Record<string, string> = {};
+const LANDINGS_UPDATED = "2026-10-15";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = CONTENT_UPDATED;
-  const core = routes
-    // /design is noindex while the portfolio is placeholder content, and a
-    // sitemap entry for a noindexed URL is a contradictory signal.
-    .filter((route) => !(route.path === "/design" && projectsArePlaceholder))
-    .map((route) => ({
-      url: `${site.url}${route.path}`,
-      lastModified,
-      changeFrequency: route.changeFrequency,
-      priority: route.priority,
+  const core = pages
+    // /work is noindex while the portfolio is empty, and a sitemap entry for
+    // a noindexed URL is a contradictory signal.
+    .filter((page) => !(page.path === "/work" && projectsArePlaceholder))
+    .map((page) => ({
+      // Must match each page's canonical exactly, including the homepage's
+      // trailing slash.
+      url: `${site.url}${page.path}`,
+      lastModified: new Date(page.updated),
     }));
 
   const landingPages = landings.map((landing) => ({
     url: `${site.url}/for/${landing.slug}`,
-    lastModified,
-    changeFrequency: "monthly" as const,
-    // Equal to the homepage: these target the specific queries this site can
-    // realistically win, where the homepage competes with every agency in
-    // the country.
-    priority: 0.9,
+    lastModified: new Date(landingUpdated[landing.slug] ?? LANDINGS_UPDATED),
   }));
 
   return [...core, ...landingPages];

@@ -126,7 +126,7 @@ export function SuccessOverlay({
 
           <div className="flex flex-col gap-3 sm:flex-row">
             <Link
-              href="/design"
+              href="/work"
               className="flex-1 bg-navy rounded-md px-5 py-3.5 text-sm font-bold text-white no-underline transition hover:bg-navy-deep"
             >
               See recent work

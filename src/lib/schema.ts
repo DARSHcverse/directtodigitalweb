@@ -130,10 +130,13 @@ export function serviceSchema({
   name,
   description,
   path,
+  audience,
 }: {
   name: string;
   description: string;
   path: string;
+  /** Who the service is for, e.g. "Plumbers, heating engineers…". */
+  audience?: string;
 }) {
   return {
     "@context": "https://schema.org",
@@ -141,7 +144,10 @@ export function serviceSchema({
     "@id": `${site.url}${path}#service`,
     name,
     description,
-    serviceType: name,
+    serviceType: "Website design",
+    ...(audience
+      ? { audience: { "@type": "BusinessAudience", name: audience } }
+      : {}),
     url: `${site.url}${path}`,
     provider: { "@id": ORG_ID },
     areaServed: areas(),

@@ -8,9 +8,10 @@ import { tiers, formatFrom, adminExplainer } from "@/lib/pricing";
 import { cn } from "@/lib/cn";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Tradesman Website Cost",
+  title: "Tradesman Website Cost UK: Fixed Price from £800",
   description:
-    "What a tradesman website costs in the UK: fixed prices from £800, no monthly fees and no retainer. See exactly what each package includes.",
+    "What a trade website costs: Starter from £800, Business from £1,800, E-commerce from £3,000. Fixed price agreed up front, no monthly fee.",
+  absoluteTitle: true,
   path: "/pricing",
 });
 
