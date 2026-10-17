@@ -90,15 +90,15 @@ export const CALL_METHODS = [
   { value: "WhatsApp call", label: "WhatsApp call", note: "Voice or video" },
 ] as const;
 
-/** Rough windows inside the hours the phone is answered, 7am to 11pm. */
+/** Rough windows inside the hours the phone is answered: Monday to Saturday, 8am to 6pm. */
 export const CALL_DAYS = [
   { value: "As soon as possible", label: "As soon as possible" },
   { value: "A weekday", label: "A weekday" },
-  { value: "A weekend", label: "A weekend" },
+  { value: "A Saturday", label: "A Saturday" },
 ] as const;
 
 export const CALL_TIMES = [
-  { value: "Morning (7am to 12pm)", label: "Morning", note: "7am to 12pm" },
-  { value: "Afternoon (12pm to 5pm)", label: "Afternoon", note: "12pm to 5pm" },
-  { value: "Evening (5pm to 11pm)", label: "Evening", note: "5pm to 11pm" },
+  { value: "Morning (8am to 12pm)", label: "Morning", note: "8am to 12pm" },
+  { value: "Afternoon (12pm to 3pm)", label: "Afternoon", note: "12pm to 3pm" },
+  { value: "Late afternoon (3pm to 6pm)", label: "Late afternoon", note: "3pm to 6pm" },
 ] as const;

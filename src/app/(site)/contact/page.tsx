@@ -9,7 +9,7 @@ import { identityLine, site, telHref, whatsappHref } from "@/lib/site";
 export const metadata: Metadata = pageMetadata({
   title: "Contact Shan",
   description:
-    "Call or WhatsApp 07544 193175, every day 7am to 11pm, or send a message. You deal with the person who builds your site.",
+    "Call or WhatsApp, Monday to Saturday 8am to 6pm, or send a message. You deal with the person who builds your site.",
   path: "/contact",
 });
 

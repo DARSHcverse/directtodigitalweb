@@ -98,9 +98,9 @@ export const site = {
     e164: "+447544193175",
     /** wa.me wants the number with country code and no plus sign. */
     whatsapp: "447544193175",
-    hours: "Every day, 7am to 11pm",
+    hours: "Monday to Saturday, 8am to 6pm",
     /** For schema.org openingHours. */
-    openingHours: "Mo-Su 07:00-23:00",
+    openingHours: "Mo-Sa 08:00-18:00",
   },
   /**
    * Profile URLs. These feed schema sameAs, which is how Google ties this

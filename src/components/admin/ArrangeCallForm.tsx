@@ -77,8 +77,8 @@ export function ArrangeCallForm({
             id="time"
             name="time"
             type="time"
-            min="07:00"
-            max="23:00"
+            min="08:00"
+            max="17:45"
             step={900}
             required
             className={input}

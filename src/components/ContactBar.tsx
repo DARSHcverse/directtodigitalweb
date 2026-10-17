@@ -63,7 +63,7 @@ export function ContactBar() {
           Get a quote
         </Link>
       )}
-      <span className="sr-only">Phone answered {site.phone.hours.toLowerCase()}.</span>
+      <span className="sr-only">Phone answered {site.phone.hours}.</span>
     </nav>
   );
 }
