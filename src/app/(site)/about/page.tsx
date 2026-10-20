@@ -6,7 +6,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { Testimonials } from "@/components/Testimonials";
 import { breadcrumbSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/metadata";
-import { identityLine, site, telHref, whatsappHref } from "@/lib/site";
+import { identityLine, site, telHref } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "About Shan, Web Designer in Swansea",
@@ -63,14 +63,6 @@ export default function AboutPage() {
                   className="rounded-md border-2 border-navy bg-navy px-5 py-3 text-sm font-bold text-white no-underline transition hover:bg-navy-deep"
                 >
                   Call {site.phone.display}
-                </a>
-                <a
-                  href={whatsappHref()}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="rounded-md border-2 border-navy px-5 py-3 text-sm font-bold text-navy-text no-underline transition hover:bg-navy hover:text-white"
-                >
-                  WhatsApp
                 </a>
               </div>
             </div>

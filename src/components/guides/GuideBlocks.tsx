@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import type { RelatedTrade } from "@/lib/guides/types";
-import { site, telHref, whatsappHref } from "@/lib/site";
+import { site, telHref } from "@/lib/site";
 
 /**
  * The pieces a guide is written with. Kept small and plain so guides read
@@ -197,14 +197,6 @@ export function FinalCta({ slug, trade }: { slug: string; trade: RelatedTrade })
           className="rounded-md border-2 border-white/60 px-5 py-3 text-sm font-bold text-white no-underline transition hover:bg-white/10"
         >
           Call {site.phone.display}
-        </a>
-        <a
-          href={whatsappHref()}
-          target="_blank"
-          rel="noreferrer noopener"
-          className="rounded-md border-2 border-white/60 px-5 py-3 text-sm font-bold text-white no-underline transition hover:bg-white/10"
-        >
-          WhatsApp
         </a>
       </div>
     </section>

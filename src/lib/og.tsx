@@ -5,7 +5,7 @@ export const OG_SIZE = { width: 1200, height: 630 };
 /**
  * The branded share card: a small amber label, a large title, and the name
  * underneath. Used for guides and trade pages, so a link shared in a
- * WhatsApp or Facebook group says what it is.
+ * Facebook group or text message says what it is.
  *
  * Satori, which renders these, needs every element with more than one child
  * to be display:flex, and text passed as a single string.

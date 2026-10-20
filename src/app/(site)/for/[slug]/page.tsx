@@ -11,7 +11,7 @@ import { landings, getLanding, proofFor } from "@/lib/landings";
 import { ProjectCard } from "@/components/ProjectCard";
 import { RichText } from "@/components/RichText";
 import { guideForTrade } from "@/lib/guides";
-import { whatsappHref } from "@/lib/site";
+import { site, telHref } from "@/lib/site";
 
 export function generateStaticParams() {
   return landings.map((landing) => ({ slug: landing.slug }));
@@ -200,16 +200,10 @@ export default async function LandingPage({
                   Get a fixed quote
                 </ButtonLink>
                 <a
-                  href={whatsappHref(
-                    landing.tradeParam
-                      ? `Hi Shan, I'm ${/^[aeiou]/i.test(landing.tradeParam) ? "an" : "a"} ${landing.tradeParam} and I'd like a price for a website.`
-                      : undefined,
-                  )}
-                  target="_blank"
-                  rel="noreferrer noopener"
+                  href={telHref}
                   className="inline-flex items-center justify-center rounded-md border-2 border-navy px-6 py-3.5 text-sm font-bold tracking-wide text-navy-text no-underline transition hover:bg-navy hover:text-white"
                 >
-                  WhatsApp me
+                  Call {site.phone.display}
                 </a>
               </div>
             </div>

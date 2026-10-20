@@ -19,7 +19,7 @@ import { CALL_DAYS, CALL_METHODS, CALL_TIMES } from "@/lib/lead";
 import { site } from "@/lib/site";
 
 /**
- * Request a call: by phone, Zoom or WhatsApp, at a rough time that suits.
+ * Request a call: by phone or Zoom, at a rough time that suits.
  *
  * This page used to be called "Book a call" but was a plain form, so it set
  * up an expectation of picking a slot and then made people wait for an
@@ -96,7 +96,7 @@ export function BookingForm() {
               value={form.method}
               options={CALL_METHODS}
               onChange={setField}
-              columns={3}
+              columns={2}
               hint={
                 isZoom
                   ? "Good for going through ideas on screen. You don't need a Zoom account; the link opens in your browser."

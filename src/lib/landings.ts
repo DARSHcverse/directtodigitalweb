@@ -433,7 +433,7 @@ export const landings: Landing[] = [
       {
         question: "Do you work with roofers in my area?",
         answer:
-          "Yes. I'm based in Swansea and also cover Watford and London in person. Anywhere else in the UK works just as well remotely, by phone, WhatsApp and email.",
+          "Yes. I'm based in Swansea and also cover Watford and London in person. Anywhere else in the UK works just as well remotely, by phone, Zoom and email.",
       },
       {
         question: "Can I add photos of jobs myself?",

@@ -89,15 +89,13 @@ export const site = {
   areasServed: ["Swansea", "Watford", "London"] as string[],
   areaServed: "United Kingdom",
   /**
-   * One number for calls and WhatsApp. Trades phone and message rather than
-   * fill in forms, and a site that sells tap-to-call to plumbers has to
-   * offer it itself.
+   * The business line: a Swansea number, answered in working hours. Trades
+   * phone rather than fill in forms, and a site that sells tap-to-call to
+   * plumbers has to offer it itself.
    */
   phone: {
-    display: "07544 193175",
-    e164: "+447544193175",
-    /** wa.me wants the number with country code and no plus sign. */
-    whatsapp: "447544193175",
+    display: "01792 959054",
+    e164: "+441792959054",
     hours: "Monday to Saturday, 8am to 6pm",
     /** For schema.org openingHours. */
     openingHours: "Mo-Sa 08:00-18:00",
@@ -206,9 +204,5 @@ export const serviceCatalogue = [
 /** One sentence naming who is behind the site, used wherever identity is shown. */
 export const identityLine = `${site.name} is a trading name of ${site.founder}, a ${site.tradingStatus} based in ${site.locality}, ${site.region}.`;
 
-/** Pre-filled WhatsApp link. The opening line saves them typing on a phone. */
-export function whatsappHref(message = "Hi Shan, I'd like a price for a website for my business.") {
-  return `https://wa.me/${site.phone.whatsapp}?text=${encodeURIComponent(message)}`;
-}
 
 export const telHref = `tel:${site.phone.e164}`;

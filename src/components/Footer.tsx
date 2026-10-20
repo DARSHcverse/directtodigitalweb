@@ -5,7 +5,6 @@ import {
   serviceCatalogue,
   site,
   telHref,
-  whatsappHref,
 } from "@/lib/site";
 import { landings } from "@/lib/landings";
 import { listGuides } from "@/lib/guides";
@@ -47,16 +46,6 @@ export function Footer() {
                   className="font-bold text-white no-underline transition hover:text-amber"
                 >
                   {site.phone.display}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={whatsappHref()}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="text-white/70 no-underline transition hover:text-amber"
-                >
-                  WhatsApp me
                 </a>
               </li>
               <li className="text-white/75">{site.phone.hours}</li>

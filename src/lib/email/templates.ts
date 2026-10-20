@@ -327,7 +327,7 @@ Any questions, just reply.${plainTextFooter()}`;
  * Confirms an arranged call. Sent from the lead page in the admin with a
  * calendar file attached, so the time is in their diary without retyping.
  *
- * Says plainly who calls whom: a phone or WhatsApp call is outgoing from
+ * Says plainly who calls whom: a phone call is outgoing from
  * Shan, so they only need to answer; a Zoom call needs them to click the
  * link, which is the one thing they have to do.
  */
@@ -352,13 +352,10 @@ export function callConfirmation({
 }): { subject: string; html: string; text: string } {
   const first = firstName(name);
   const isZoom = method === "Zoom video call";
-  const isWhatsApp = method === "WhatsApp call";
 
   const how = isZoom
     ? "Join with the link below. It opens in your browser; you don't need a Zoom account."
-    : isWhatsApp
-      ? `I'll call you on WhatsApp${phone ? ` at ${phone}` : ""}. Nothing to set up — just answer.`
-      : `I'll ring you${phone ? ` on ${phone}` : ""}. Nothing to set up — just answer.`;
+    : `I'll ring you${phone ? ` on ${phone}` : ""}. Nothing to set up — just answer.`;
 
   const body = [
     p(`Hi ${esc(first)},`),

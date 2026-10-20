@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/metadata";
 export const metadata: Metadata = pageMetadata({
   title: "Request a Call About Your Website",
   description:
-    "Talk through your website by phone, Zoom or WhatsApp, at a time that suits you, with the person who builds it. Free, and no sales pitch.",
+    "Talk through your website by phone or on Zoom, at a time that suits you, with the person who builds it. Free, and no sales pitch.",
   path: "/booking",
 });
 
@@ -28,7 +28,7 @@ export default function BookingPage() {
             Request a call
           </h1>
           <p className="mb-6 max-w-[640px] text-lg text-muted">
-            Talk it through with me by phone, on Zoom, or over WhatsApp. Tell
+            Talk it through with me by phone or on Zoom. Tell
             me how and roughly when suits you, and I&apos;ll confirm an exact
             time — with a link if it&apos;s a video call.
           </p>

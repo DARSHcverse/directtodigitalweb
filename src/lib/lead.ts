@@ -87,7 +87,6 @@ export const leadKindLabel: Record<LeadInput["kind"], string> = {
 export const CALL_METHODS = [
   { value: "Phone call", label: "Phone call", note: "I'll ring you" },
   { value: "Zoom video call", label: "Zoom video call", note: "I'll email a link" },
-  { value: "WhatsApp call", label: "WhatsApp call", note: "Voice or video" },
 ] as const;
 
 /** Rough windows inside the hours the phone is answered: Monday to Saturday, 8am to 6pm. */

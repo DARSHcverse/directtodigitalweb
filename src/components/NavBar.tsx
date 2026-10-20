@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { cn } from "@/lib/cn";
-import { site, telHref, whatsappHref } from "@/lib/site";
+import { site, telHref } from "@/lib/site";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const links = [
@@ -153,20 +153,12 @@ export function NavBar() {
             >
               Get a quote
             </Link>
-            <div className="mt-3 grid grid-cols-2 gap-2">
+            <div className="mt-3">
               <a
                 href={telHref}
                 className="block rounded-md border-2 border-navy py-3 text-center font-bold text-navy-text no-underline"
               >
-                Call
-              </a>
-              <a
-                href={whatsappHref()}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="block rounded-md border-2 border-navy py-3 text-center font-bold text-navy-text no-underline"
-              >
-                WhatsApp
+                Call {site.phone.display}
               </a>
             </div>
             <p className="mt-2 text-center text-xs text-muted">

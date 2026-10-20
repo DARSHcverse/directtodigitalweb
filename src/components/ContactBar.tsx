@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { site, telHref, whatsappHref } from "@/lib/site";
+import { site, telHref } from "@/lib/site";
 import { cn } from "@/lib/cn";
 
 /**
- * Call, WhatsApp and Quote, pinned to the bottom of the screen on phones.
+ * Call and Quote, pinned to the bottom of the screen on phones.
  *
  * The trade pages tell plumbers to keep a tap-to-call button visible while
  * customers scroll; this is the same advice applied to this site. It replaces
@@ -38,22 +38,6 @@ export function ContactBar() {
           />
         </svg>
         Call
-      </a>
-      <a
-        href={whatsappHref()}
-        target="_blank"
-        rel="noreferrer noopener"
-        className={cn(item, "border-l border-edge text-navy-text hover:bg-bg")}
-      >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path
-            d="M4 20l1.3-4A8 8 0 1 1 8 18.7L4 20Z"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinejoin="round"
-          />
-        </svg>
-        WhatsApp
       </a>
       {onQuote ? null : (
         <Link href="/quote" className={cn(item, "bg-amber text-on-amber hover:bg-amber-deep")}>
