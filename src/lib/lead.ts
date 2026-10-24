@@ -1,14 +1,43 @@
 import { z } from "zod";
 
 /**
+ * A UK number (07700 900123, +44 7700 900123, 01792 959054) or a full
+ * international one. Spaces, dashes, dots and brackets are ignored. Catches
+ * placeholders like "4400000" that are too short to ring.
+ */
+export function isPlausiblePhone(value: string): boolean {
+  const v = value.replace(/[\s().-]/g, "");
+  if (/^0\d{9,10}$/.test(v)) return true;
+  if (/^(\+|00)?44\d{9,10}$/.test(v)) return true;
+  return /^(\+|00)[1-9]\d{7,14}$/.test(v);
+}
+
+/**
  * One schema for all three lead forms (contact, quote, booking).
  * Shared by the client and the /api/lead route so validation cannot drift.
  */
 export const leadSchema = z.object({
   kind: z.enum(["contact", "quote", "booking"]),
-  name: z.string().trim().min(2, "Please enter your name").max(100),
+  name: z
+    .string()
+    .trim()
+    .min(2, "Please enter your name")
+    .max(100)
+    // Typing the email address into the name box is common on a phone and
+    // leaves nothing to address a reply to.
+    .refine((v) => !v.includes("@"), "Please enter your name, not your email address"),
   email: z.email("Please enter a valid email address").max(200),
-  phone: z.string().trim().max(40).optional().or(z.literal("")),
+  phone: z
+    .string()
+    .trim()
+    .max(40)
+    // Checked inside the refine rather than with .or(""), so a bad number
+    // reports this message instead of a generic union error.
+    .refine(
+      (v) => v === "" || isPlausiblePhone(v),
+      "Please enter a full phone number, e.g. 07700 900123",
+    )
+    .optional(),
   /** Quote: project type. Booking: service. Unused for contact. */
   topic: z.string().trim().max(80).optional().or(z.literal("")),
   /** Quote only, in GBP. */
