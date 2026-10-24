@@ -35,6 +35,7 @@ export function LegalPage({
             {sections.map((section, i) => (
               <section
                 key={section.heading}
+                id={section.heading.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}
                 className={i > 0 ? "mt-10 border-t border-edge pt-10" : ""}
               >
                 <h2 className="mb-4 text-xl font-bold text-navy-text">

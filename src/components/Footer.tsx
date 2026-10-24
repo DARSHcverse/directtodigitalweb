@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/Container";
+import { CookieSettingsButton } from "@/components/CookieBanner";
 import {
   identityLine,
   serviceCatalogue,
@@ -173,6 +174,7 @@ export function Footer() {
             >
               Terms
             </Link>
+            <CookieSettingsButton className="cursor-pointer text-white/75 transition hover:text-amber" />
           </nav>
         </div>
       </Container>

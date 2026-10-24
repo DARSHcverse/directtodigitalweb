@@ -4,6 +4,8 @@ import { organisationSchema, webSiteSchema } from "@/lib/schema";
 import { Footer } from "@/components/Footer";
 import { ContactBar } from "@/components/ContactBar";
 import { AttributionCapture } from "@/components/AttributionCapture";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+import { CookieBanner } from "@/components/CookieBanner";
 
 export default function SiteLayout({
   children,
@@ -24,6 +26,8 @@ export default function SiteLayout({
       </main>
       <ContactBar />
       <AttributionCapture />
+      <GoogleAnalytics />
+      <CookieBanner />
       <Footer />
     </div>
   );

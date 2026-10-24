@@ -6,7 +6,7 @@ import { privacySections } from "@/lib/legal";
 export const metadata: Metadata = pageMetadata({
   title: "Privacy Policy",
   description:
-    "How Trade Web Co handles the personal data you submit through this website, under UK GDPR. No cookies, no tracking, no marketing lists.",
+    "How Trade Web Co handles the personal data you submit through this website, under UK GDPR. Analytics only with your consent, and no marketing lists.",
   path: "/privacy",
 });
 

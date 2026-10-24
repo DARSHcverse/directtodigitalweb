@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { LeadInput } from "@/lib/lead";
 import { readAttribution } from "@/lib/attribution";
+import { track } from "@/lib/analytics";
 
 type Status = {
   loading: boolean;
@@ -61,6 +62,11 @@ export function useLeadForm<T extends Record<string, string>>(initial: T) {
       }
 
       setStatus({ loading: false, success: successMessage, error: null });
+      // Recorded only if the visitor accepted analytics. No personal data.
+      track("generate_lead", {
+        form: lead.kind,
+        ...(lead.trade ? { trade: lead.trade } : {}),
+      });
       setForm(initial);
       return true;
     } catch (err) {
