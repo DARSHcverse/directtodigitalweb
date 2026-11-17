@@ -4,14 +4,15 @@ import { Container, SectionLabel } from "@/components/Container";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/metadata";
+import { formatFrom } from "@/lib/pricing";
 import { serviceCatalogue } from "@/lib/site";
 import { landings } from "@/lib/landings";
 import Link from "next/link";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Website Design for Trades",
+  title: "Websites, Online Booking and App Development",
   description:
-    "New websites, redesigns and online shops for UK tradespeople and local businesses. Built to be found on Google and to bring in enquiries.",
+    "Websites, online booking systems, web apps and mobile apps for UK garages, trades and small businesses. Fixed price agreed up front, no monthly fee.",
   path: "/services",
 });
 
@@ -27,11 +28,11 @@ export default function ServicesPage() {
       <section className="bg-blueprint border-b-2 border-navy py-14">
         <Container>
           <SectionLabel>What I build</SectionLabel>
-          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy-text">Website design for trades</h1>
+          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy-text">Websites, booking and apps</h1>
           <p className="mb-12 max-w-[640px] text-lg text-muted">
-            Three ways I help small businesses get online properly. Not sure
-            which you need? Describe your situation and I&apos;ll point you to
-            the right one.
+            From a first website to an app in the App Store. Not sure which
+            you need? Describe your situation and I&apos;ll point you to the
+            right one.
           </p>
         </Container>
       </section>
@@ -48,9 +49,12 @@ export default function ServicesPage() {
               >
                 <div className="grid gap-8 md:grid-cols-[1.2fr_1fr]">
                   <div>
-                    <h2 className="mb-3 text-2xl font-semibold">
-                      {service.name}
-                    </h2>
+                    <h2 className="text-2xl font-semibold">{service.name}</h2>
+                    <p className="mt-1 mb-3 text-sm font-bold text-amber-deep">
+                      {"from" in service
+                        ? `From ${formatFrom(service.from)}`
+                        : "Fixed quote"}
+                    </p>
                     <p className="mb-4 leading-relaxed text-muted">
                       {service.detail}
                     </p>

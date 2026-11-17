@@ -131,12 +131,18 @@ export function serviceSchema({
   description,
   path,
   audience,
+  serviceType = "Website design",
+  from = 800,
 }: {
   name: string;
   description: string;
   path: string;
   /** Who the service is for, e.g. "Plumbers, heating engineers…". */
   audience?: string;
+  /** e.g. "Mobile app development". */
+  serviceType?: string;
+  /** Starting price in GBP, matching what the page says. */
+  from?: number;
 }) {
   return {
     "@context": "https://schema.org",
@@ -144,22 +150,22 @@ export function serviceSchema({
     "@id": `${site.url}${path}#service`,
     name,
     description,
-    serviceType: "Website design",
+    serviceType,
     ...(audience
       ? { audience: { "@type": "BusinessAudience", name: audience } }
       : {}),
     url: `${site.url}${path}`,
     provider: { "@id": ORG_ID },
     areaServed: areas(),
-    // "from £800" rather than a fixed figure: every project is quoted, and
-    // a precise price here would be a claim we cannot honour.
+    // A starting price rather than a fixed figure: every project is quoted,
+    // and a precise price here would be a claim we cannot honour.
     offers: {
       "@type": "Offer",
       priceCurrency: site.currency,
-      price: "800",
+      price: String(from),
       priceSpecification: {
         "@type": "PriceSpecification",
-        minPrice: "800",
+        minPrice: String(from),
         priceCurrency: site.currency,
         valueAddedTaxIncluded: false,
       },

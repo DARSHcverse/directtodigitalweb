@@ -99,6 +99,10 @@ export const TRADES = [
   "Electrician",
   "Builder",
   "Roofer",
+  "Garage / MOT centre",
+  "Car detailing / valeting",
+  "Mobile mechanic",
+  "Car dealer",
   "Other trade",
   "Not a trade business",
 ] as const;

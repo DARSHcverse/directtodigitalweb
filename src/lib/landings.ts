@@ -41,6 +41,13 @@ export type Landing = {
   proofIntro: string;
   /** Pre-selects the trade on /quote, e.g. "plumber". Trade pages only. */
   tradeParam?: string;
+  /**
+   * Starting price and build time for the mid-page call to action. Default
+   * £800 and 2–4 weeks; booking-led pages start higher, and saying £800 on
+   * them would set a price the quote then has to walk back.
+   */
+  from?: number;
+  weeks?: string;
   /** Page-specific FAQs, kept distinct from the homepage set. */
   faqs: { question: string; answer: string }[];
   /**
@@ -75,6 +82,305 @@ export type Landing = {
  * rather than a templated paragraph with the noun swapped.
  */
 export const landings: Landing[] = [
+  {
+    slug: "garages",
+    group: "automotive",
+    card: {
+      title: "Booked while you work",
+      body: "Drivers book their MOT, service or repair online, any time, and you get the booking by email.",
+      rows: [
+        ["Bookings", "Day and night"],
+        ["Reminders", "Automatic"],
+        ["Price", "From £2,500"],
+      ],
+    },
+    heading: "A garage website that takes MOT bookings",
+    title: "Garage Websites with Online MOT Booking",
+    metaDescription:
+      "Websites for independent garages and MOT centres, with online booking for MOTs, servicing and repairs. Fixed price from £2,500, no monthly fee.",
+    intro:
+      "Drivers pick a slot for their MOT, service or repair, and you get the booking by email. Fixed price from £2,500, no monthly fee, and the site is yours.",
+    audience: "Independent garages, MOT centres and service and repair workshops",
+    painPoints: [
+      "The phone rings with MOT bookings while you are under a car",
+      "Drivers book wherever they find a slot first, often through a comparison site",
+      "No-shows leave a bay empty and a technician waiting",
+      "Your MOT and service prices are hard to find, so people ring to ask",
+      "A Facebook page, or an old site that does not work on a phone",
+    ],
+    solutions: [
+      {
+        title: "MOT, service and repair booking",
+        body: "Drivers choose the job, enter their car and pick a slot. You set your opening times and how many jobs each slot takes, so the diary never overfills.",
+      },
+      {
+        title: "Confirmations and reminders",
+        body: "Every booking gets a confirmation email and a reminder the day before. If no-shows cost you, take a deposit by card when they book.",
+      },
+      {
+        title: "Prices on show",
+        body: "Your MOT, interim and full service prices on the page, so the drivers who do ring are ready to book rather than shopping around.",
+      },
+      {
+        title: "Found for your town",
+        body: "Pages written around what drivers search for, MOTs and servicing in your town, with your address and opening hours set out the way Google reads them.",
+      },
+    ],
+    sections: [
+      {
+        id: "what-drivers-can-book",
+        heading: "What drivers can book",
+        paragraphs: [
+          "You decide what goes on the booking page and what stays a phone call. A typical setup:",
+        ],
+        bullets: [
+          "**MOT tests**, with your price and the slots you offer each day",
+          "**Interim and full services**, priced by engine size if you like",
+          "**Diagnostics**, booked as a fixed first-hour job",
+          "**Repairs** such as brakes, clutches and tyres, as a request you price after a look",
+          "**MOT plus service** together, in one booking",
+        ],
+        after: [
+          "The booking system does not connect to the DVSA MOT testing service. Your testers record each test there exactly as they do now; the website handles the booking.",
+        ],
+      },
+      {
+        id: "own-booking-or-comparison-site",
+        heading: "Your own booking, or a comparison site?",
+        paragraphs: [
+          "Comparison sites can bring drivers who have never heard of you, and plenty of garages use them. The difference with booking on your own site is that the customer books **with you**: they see your name, your prices and your reviews, not a list of the garages around you.",
+          "Many garages do both: the comparison site for new drivers, their own site for the regulars and everyone who searches for them by name. Next year's MOT reminder then comes from you.",
+        ],
+      },
+    ],
+    proofSlugs: ["crown-auto-trading", "do-book"],
+    proofIntro:
+      "I haven't built a garage site yet. These are the closest: a car dealer's website, and a booking system with payments, both built for clients.",
+    tradeParam: "garage",
+    from: 2500,
+    weeks: "3–5 weeks",
+    faqs: [
+      {
+        question: "Does it connect to the DVSA MOT system?",
+        answer:
+          "No. Your testers record each MOT on the DVSA's MOT testing service exactly as they do now. The website takes the booking; it does not touch the test record.",
+      },
+      {
+        question: "Can I set how many MOTs I take a day?",
+        answer:
+          "Yes. You set your opening times, how long each job takes and how many can run at once, and the booking page only offers slots that are genuinely free.",
+      },
+      {
+        question: "I already use garage management software. Will it work with that?",
+        answer:
+          "Tell me which one before I quote. Some can take bookings from a website and some cannot, and I would rather check than promise a link that does not exist.",
+      },
+      {
+        question: "Can I start with a website and add booking later?",
+        answer:
+          "Yes. A website on its own starts from £800, and booking can be added later without rebuilding it.",
+      },
+    ],
+  },
+  {
+    slug: "car-detailing",
+    group: "automotive",
+    card: {
+      title: "Book the detail, pay the deposit",
+      body: "Customers pick a package, see the price, choose a slot and pay a deposit, without a single DM.",
+      rows: [
+        ["Packages", "Priced and clear"],
+        ["Deposits", "Taken at booking"],
+        ["Price", "From £2,500"],
+      ],
+    },
+    heading: "Websites with online booking for car detailers",
+    title: "Car Detailing and Valeting Websites with Booking",
+    metaDescription:
+      "Websites for car detailers and valeters: your packages and prices, photos of your work, and online booking with deposits. Fixed price, no monthly fee.",
+    intro:
+      "Detailing sells on photos and on being easy to book. A website that shows your before-and-afters, lists your packages with prices, and lets people book a slot and pay a deposit does both.",
+    audience: "Car detailers, valeters, and ceramic coating and PPF specialists, mobile or from a unit",
+    painPoints: [
+      "Messages asking \"how much?\" that never turn into a booking",
+      "Your best work buried in a social media feed",
+      "No-shows on a full-day detail you turned other work away for",
+      "Hard to find on Google beyond the people who already follow you",
+    ],
+    solutions: [
+      {
+        title: "Packages with prices",
+        body: "Mini valet to full correction and coating, each with what is included and a starting price, so people arrive knowing what they want.",
+      },
+      {
+        title: "Your work, shown properly",
+        body: "A gallery of before-and-afters that loads fast on a phone and stays put, rather than scrolling away in a feed.",
+      },
+      {
+        title: "Book and pay a deposit",
+        body: "Customers choose a package and a slot and pay a deposit by card. If they cancel late, the deposit covers the day.",
+      },
+      {
+        title: "Found locally",
+        body: "Pages for detailing and valeting in the towns you cover, so people searching nearby can find you, not just your followers.",
+      },
+    ],
+    proofSlugs: ["do-book", "crown-auto-trading"],
+    proofIntro:
+      "No detailing site to show yet. These are the closest: a booking system with deposits and payments, and a car dealer's website, both built for clients.",
+    tradeParam: "car detailing",
+    from: 2500,
+    weeks: "3–5 weeks",
+    faqs: [
+      {
+        question: "I'm mobile. Can it handle the areas I cover?",
+        answer:
+          "Yes. The page lists the areas you cover, and the booking asks for the address so you can check it before confirming.",
+      },
+      {
+        question: "Can different packages take different amounts of time?",
+        answer:
+          "Yes. A mini valet might take an hour and a correction two days; the booking page only offers slots long enough for the package chosen.",
+      },
+      {
+        question: "Can I start without online booking?",
+        answer:
+          "Yes. A website with your packages, gallery and an enquiry form starts from £800, and booking can be added later.",
+      },
+    ],
+  },
+  {
+    slug: "mobile-mechanics",
+    group: "automotive",
+    card: {
+      title: "Booked from the driveway",
+      body: "Where you cover, what you fix, and a simple way to book you, before anyone picks up the phone.",
+      rows: [
+        ["Area", "Shown clearly"],
+        ["Requests", "Car, fault, address"],
+        ["Price", "From £800"],
+      ],
+    },
+    heading: "Websites for mobile mechanics",
+    title: "Mobile Mechanic Websites",
+    metaDescription:
+      "Websites for mobile mechanics: the areas you cover, what you fix, and a booking or call-out request form. Fixed price from £800, no monthly fee.",
+    intro:
+      "Your workshop is the customer's driveway, so people need to know where you cover, what you fix and how to book you. A website answers all three before they ring.",
+    audience: "Mobile mechanics, mobile tyre fitters and mobile diagnostics",
+    painPoints: [
+      "Calls from well outside the area you cover",
+      "Answering the phone while you are working on someone's drive",
+      "Customers who cannot tell whether you do their kind of job",
+      "Relying on a social media page that Google barely shows",
+    ],
+    solutions: [
+      {
+        title: "Your area, clearly",
+        body: "The towns and postcodes you cover, set out plainly, so the calls you get are from people you can reach.",
+      },
+      {
+        title: "What you fix",
+        body: "Servicing, brakes, diagnostics, batteries, whatever you do, with a rough price where you are happy to give one.",
+      },
+      {
+        title: "A request with the details",
+        body: "Customers send the car, the fault, the address and a time that suits. You call back ready to quote, not to ask twenty questions.",
+      },
+      {
+        title: "Found when they search nearby",
+        body: "Built so Google understands where you work and what you do, with your number one tap away on a phone.",
+      },
+    ],
+    proofSlugs: ["crown-auto-trading", "do-book"],
+    proofIntro:
+      "No mobile mechanic site to show yet. These are the closest: a car dealer's website and a booking system, both built for clients.",
+    tradeParam: "mobile mechanic",
+    faqs: [
+      {
+        question: "Can customers book a time, or just send a request?",
+        answer:
+          "Either. Most mobile mechanics start with a request form, because you need to see the job before you commit to a time. Full online booking can be added later.",
+      },
+      {
+        question: "Can I have a page for each town I cover?",
+        answer:
+          "Yes, where each one has something real to say. A dozen near-identical town pages can do more harm than good with Google, so I will advise on which are worth it.",
+      },
+      {
+        question: "Do I need photos?",
+        answer:
+          "They help. Photos of you, your van and jobs you have done build trust faster than anything I can write. Phone photos are fine.",
+      },
+    ],
+  },
+  {
+    slug: "car-dealers",
+    group: "automotive",
+    card: {
+      title: "Your stock, on your site",
+      body: "Every car with its photos, price and mileage, and a quick way to ask about it or book a test drive.",
+      rows: [
+        ["Stock", "You update it"],
+        ["Enquiries", "Per car"],
+        ["Price", "From £1,800"],
+      ],
+    },
+    heading: "Websites for independent car dealers",
+    title: "Car Dealer Websites for Independent Dealers",
+    metaDescription:
+      "Websites for independent car dealers: stock you update yourself, enquiries about each car, and test drive bookings. Fixed price from £1,800.",
+    intro:
+      "Buyers look at your stock online before they visit. A site where your cars are easy to browse, with clear photos and prices and a quick way to ask about one, turns that browsing into visits.",
+    audience: "Independent used car dealers and specialist sellers",
+    painPoints: [
+      "Stock only on listing sites, where buyers compare you with every dealer nearby",
+      "Sold cars still showing as available",
+      "Enquiries that say \"is it still available?\" and nothing else",
+      "A site that is slow and awkward on a phone",
+    ],
+    solutions: [
+      {
+        title: "Stock you update yourself",
+        body: "Add a car with its photos, price and mileage, and mark it sold, from your phone. No waiting for anyone to change the site.",
+      },
+      {
+        title: "Enquiries about a specific car",
+        body: "Every enquiry says which car it is about and asks the useful questions, such as part-exchange and finance, so you can reply properly first time.",
+      },
+      {
+        title: "Test drive bookings",
+        body: "Buyers pick a time to come and see a car, and you get the booking with the car and their details attached.",
+      },
+      {
+        title: "Built for phones",
+        body: "Big photos, fast pages and your number one tap away, because most buyers are browsing on a phone.",
+      },
+    ],
+    proofSlugs: ["crown-auto-trading", "do-book"],
+    proofIntro:
+      "Crown Auto Trading, a used car dealer I built a website for, and DoBook, a booking system I built for a client.",
+    tradeParam: "car dealer",
+    from: 1800,
+    weeks: "3–5 weeks",
+    faqs: [
+      {
+        question: "Can it pull my stock from AutoTrader?",
+        answer:
+          "Possibly. It depends on your AutoTrader package and the data access that comes with it. I will check before quoting rather than promise a feed that turns out not to be available.",
+      },
+      {
+        question: "How many cars can I list?",
+        answer:
+          "As many as you have. The site is built so a big stock list stays quick to browse and filter.",
+      },
+      {
+        question: "Can buyers apply for finance on the site?",
+        answer:
+          "A finance enquiry form, yes. Regulated finance applications need a lender or broker's own system, so the site links to yours rather than taking applications itself.",
+      },
+    ],
+  },
   {
     slug: "plumbers",
     group: "trades",

@@ -4,13 +4,13 @@ import { Container, SectionLabel } from "@/components/Container";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/metadata";
-import { tiers, formatFrom, adminExplainer } from "@/lib/pricing";
+import { tiers, tierGroups, formatFrom, adminExplainer } from "@/lib/pricing";
 import { cn } from "@/lib/cn";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Tradesman Website Cost UK: Fixed Price from £800",
+  title: "Website and App Prices UK: Fixed Price from £800",
   description:
-    "What a trade website costs: Starter from £800, Business from £1,800, E-commerce from £3,000. Fixed price agreed up front, no monthly fee.",
+    "Websites from £800, booking websites from £2,500, web apps from £5,000 and mobile apps from £8,000. Fixed price agreed up front, no monthly fee.",
   absoluteTitle: true,
   path: "/pricing",
 });
@@ -28,7 +28,7 @@ export default function PricingPage() {
         <Container>
           <SectionLabel>Fixed prices, agreed up front</SectionLabel>
           <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy-text">
-            What a trade website costs
+            What a website or app costs
           </h1>
           <p className="mb-10 max-w-[640px] text-lg text-muted">
             Every project is quoted as a fixed price agreed before work starts.
@@ -40,65 +40,87 @@ export default function PricingPage() {
 
       <section className="py-14">
         <Container>
-
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start gap-6">
-            {tiers.map((tier) => (
-              <article
-                key={tier.name}
-                className={cn(
-                  "relative flex h-full flex-col border-2 bg-surface p-8 transition duration-300",
-                  tier.featured
-                    ? "border-amber shadow-none"
-                    : "border-edge hover:border-navy",
-                )}
-              >
-                {tier.featured ? (
-                  <span className="absolute -top-3 left-8 bg-amber rounded-md px-3 py-1 text-xs font-bold tracking-wide text-on-amber uppercase">
-                    Most popular
-                  </span>
-                ) : null}
-
-                <h2 className="text-xl font-semibold">{tier.name}</h2>
-                <p className="mt-1 text-sm text-muted">{tier.tagline}</p>
-
-                <p className="mt-6 flex items-baseline gap-2">
-                  <span className="text-sm text-muted">from</span>
-                  <span className="text-4xl font-bold">
-                    {formatFrom(tier.from)}
-                  </span>
-                </p>
-                <p className="mt-2 text-sm text-muted">{tier.bestFor}</p>
-
-                <div className="mt-5 border-l-4 border-amber bg-bg py-3 pl-4">
-                  <p className="text-sm font-bold text-navy-text">
-                    {tier.admin.label}
-                  </p>
-                  <p className="mt-1 text-sm leading-relaxed text-muted">
-                    {tier.admin.summary}
-                  </p>
-                </div>
-
-                <ul className="mt-6 grid flex-1 gap-3 text-sm">
-                  {tier.features.map((feature) => (
-                    <li key={feature} className="flex gap-3">
-                      <span aria-hidden="true" className="text-amber-deep">
-                        ✓
-                      </span>
-                      <span className="text-muted">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <ButtonLink
-                  href="/quote"
-                  variant={tier.featured ? "primary" : "secondary"}
-                  className="mt-8 w-full"
+          {tierGroups.map((group) => (
+            <section
+              key={group.id}
+              id={group.id}
+              aria-labelledby={`${group.id}-heading`}
+              className="mb-14 scroll-mt-24"
+            >
+              <div className="mb-8">
+                <h2
+                  id={`${group.id}-heading`}
+                  className="text-2xl font-bold tracking-display text-navy-text lg:text-3xl"
                 >
-                  Get a quote
-                </ButtonLink>
-              </article>
-            ))}
-          </div>
+                  {group.label}
+                </h2>
+                <p className="mt-1 text-muted">{group.intro}</p>
+              </div>
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start gap-6">
+                {tiers
+                  .filter((tier) => tier.group === group.id)
+                  .map((tier) => (
+                    <article
+                      key={tier.name}
+                      className={cn(
+                        "relative flex h-full flex-col border-2 bg-surface p-8 transition duration-300",
+                        tier.featured
+                          ? "border-amber shadow-none"
+                          : "border-edge hover:border-navy",
+                      )}
+                    >
+                      {tier.featured ? (
+                        <span className="absolute -top-3 left-8 bg-amber rounded-md px-3 py-1 text-xs font-bold tracking-wide text-on-amber uppercase">
+                          Most popular
+                        </span>
+                      ) : null}
+
+                      <h3 className="text-xl font-semibold">{tier.name}</h3>
+                      <p className="mt-1 text-sm text-muted">{tier.tagline}</p>
+
+                      <p className="mt-6 flex items-baseline gap-2">
+                        <span className="text-sm text-muted">from</span>
+                        <span className="text-4xl font-bold">
+                          {formatFrom(tier.from)}
+                        </span>
+                      </p>
+                      <p className="mt-2 text-sm text-muted">{tier.bestFor}</p>
+
+                      <div className="mt-5 border-l-4 border-amber bg-bg py-3 pl-4">
+                        <p className="text-sm font-bold text-navy-text">
+                          {tier.admin.label}
+                        </p>
+                        <p className="mt-1 text-sm leading-relaxed text-muted">
+                          {tier.admin.summary}
+                        </p>
+                      </div>
+
+                      <ul className="mt-6 grid flex-1 gap-3 text-sm">
+                        {tier.features.map((feature) => (
+                          <li key={feature} className="flex gap-3">
+                            <span
+                              aria-hidden="true"
+                              className="text-amber-deep"
+                            >
+                              ✓
+                            </span>
+                            <span className="text-muted">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      <ButtonLink
+                        href="/quote"
+                        variant={tier.featured ? "primary" : "secondary"}
+                        className="mt-8 w-full"
+                      >
+                        Get a quote
+                      </ButtonLink>
+                    </article>
+                  ))}
+              </div>
+            </section>
+          ))}
 
           <section
             aria-labelledby="admin-explainer"
@@ -135,7 +157,9 @@ export default function PricingPage() {
                   <p className="text-xs font-bold tracking-[0.2em] text-muted uppercase">
                     {row.tier}
                   </p>
-                  <p className="mt-2 text-xl font-bold text-navy-text">{row.has}</p>
+                  <p className="mt-2 text-xl font-bold text-navy-text">
+                    {row.has}
+                  </p>
                   <p className="mt-3 leading-relaxed text-muted">
                     {row.detail}
                   </p>

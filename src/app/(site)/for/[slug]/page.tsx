@@ -11,6 +11,7 @@ import { landings, getLanding, proofFor } from "@/lib/landings";
 import { ProjectCard } from "@/components/ProjectCard";
 import { RichText } from "@/components/RichText";
 import { guideForTrade } from "@/lib/guides";
+import { formatFrom } from "@/lib/pricing";
 import { site, telHref } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -46,7 +47,7 @@ export default async function LandingPage({
   const proof = proofFor(landing);
   const guide = guideForTrade(landing.slug);
   const quoteHref = landing.tradeParam
-    ? `/quote?trade=${landing.tradeParam}`
+    ? `/quote?trade=${encodeURIComponent(landing.tradeParam)}`
     : "/quote";
 
   return (
@@ -65,6 +66,7 @@ export default async function LandingPage({
             description: landing.metaDescription,
             path: `/for/${landing.slug}`,
             audience: landing.audience,
+            from: landing.from,
           }),
         ]}
       />
@@ -193,7 +195,7 @@ export default async function LandingPage({
                 {landing.tradeParam
                   ? `${/^[aeiou]/i.test(landing.tradeParam) ? "An" : "A"} ${landing.tradeParam} site like this`
                   : "A site like this"}
-                : from £800, live in 2–4 weeks.
+                : from {formatFrom(landing.from ?? 800)}, live in {landing.weeks ?? "2–4 weeks"}.
               </p>
               <div className="flex shrink-0 flex-wrap gap-3">
                 <ButtonLink href={quoteHref} variant="primary">

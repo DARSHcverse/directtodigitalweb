@@ -15,9 +15,11 @@ import { listGuides } from "@/lib/guides";
  * changeFrequency and priority are left out on purpose; Google ignores both.
  */
 const pages: { path: string; updated: string }[] = [
-  { path: "/", updated: "2026-10-15" },
-  { path: "/pricing", updated: "2026-10-15" },
-  { path: "/services", updated: "2026-10-15" },
+  { path: "/", updated: "2026-11-17" },
+  { path: "/pricing", updated: "2026-11-17" },
+  { path: "/services", updated: "2026-11-17" },
+  { path: "/apps", updated: "2026-11-17" },
+  { path: "/for", updated: "2026-11-17" },
   { path: "/work", updated: "2026-10-15" },
   { path: "/quote", updated: "2026-10-15" },
   { path: "/about", updated: "2026-10-15" },
@@ -28,7 +30,12 @@ const pages: { path: string; updated: string }[] = [
 ];
 
 /** Trade and service pages, by slug. Defaults to LANDINGS_UPDATED. */
-const landingUpdated: Record<string, string> = {};
+const landingUpdated: Record<string, string> = {
+  garages: "2026-11-17",
+  "car-detailing": "2026-11-17",
+  "mobile-mechanics": "2026-11-17",
+  "car-dealers": "2026-11-17",
+};
 const LANDINGS_UPDATED = "2026-10-15";
 
 export default function sitemap(): MetadataRoute.Sitemap {

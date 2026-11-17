@@ -36,6 +36,10 @@ const TRADE_FROM_PARAM: Record<string, (typeof TRADES)[number]> = {
   builders: "Builder",
   roofer: "Roofer",
   roofers: "Roofer",
+  garage: "Garage / MOT centre",
+  "car detailing": "Car detailing / valeting",
+  "mobile mechanic": "Mobile mechanic",
+  "car dealer": "Car dealer",
 };
 
 /**
