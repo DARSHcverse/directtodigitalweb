@@ -1,35 +1,76 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { ButtonLink } from "@/components/Button";
 import { Container, SectionLabel } from "@/components/Container";
 import { FaqSection } from "@/components/FaqSection";
 import { FeaturedWork } from "@/components/FeaturedWork";
+import { HeroDevices } from "@/components/HeroDevices";
 import { ProofBand } from "@/components/ProofBand";
 import { MeetShan } from "@/components/MeetShan";
 import { GuidesTeaser } from "@/components/GuidesTeaser";
 import { Testimonials } from "@/components/Testimonials";
 import { JsonLd } from "@/components/JsonLd";
+import { cn } from "@/lib/cn";
 import { faqSchema } from "@/lib/schema";
 import { faqs } from "@/lib/faqs";
 import { pageMetadata } from "@/lib/metadata";
+import { formatFrom } from "@/lib/pricing";
 import { serviceCatalogue, site, telHref } from "@/lib/site";
-import { landings } from "@/lib/landings";
+import { landings, type LandingGroup } from "@/lib/landings";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Websites for Tradespeople UK, Fixed Price",
+  title: "Websites, Booking & Apps for Trades and Garages",
   description: site.description,
   path: "/",
 });
 
-/** Trade pages lead; the rest are kept live for search but not featured. */
-const tradeLandings = landings.filter((l) => l.tradeParam);
-const otherLandings = landings.filter((l) => !l.tradeParam);
+function landingLinks(group: LandingGroup) {
+  return landings
+    .filter((l) => l.group === group)
+    .map((l) => ({ href: `/for/${l.slug}`, label: l.heading }));
+}
+
+/**
+ * The three ways in. Garages lead: online booking is where they feel the
+ * pain most, and the hero picture is already a garage. Trades keep their
+ * own door so the pages that already rank are still found. Apps are the
+ * step up, open to anyone with an idea.
+ */
+const paths = [
+  {
+    label: "Garages & automotive",
+    title: "Let drivers book their MOT online.",
+    body: "Websites with booking for MOTs, servicing and repairs, for garages, detailers and mobile mechanics.",
+    href: "/for/garages",
+    cta: "Garage websites",
+    links: landingLinks("automotive"),
+  },
+  {
+    label: "Trades",
+    title: "More of the jobs you want, fewer time-wasters.",
+    body: "Websites for plumbers, electricians, builders and roofers, written and set up for you, from £800.",
+    href: "/for#trades",
+    cta: "Trade websites",
+    links: landingLinks("trades"),
+  },
+  {
+    label: "Booking systems & apps",
+    title: "Got an app idea? I'll build it.",
+    body: "Web and mobile apps, from booking systems to subscriptions, like DoBook and MyMathsHero.",
+    href: "/apps",
+    cta: "Apps",
+    links: [
+      { href: "/apps#web-apps", label: "Web apps" },
+      { href: "/apps#mobile-apps", label: "Mobile apps for iPhone and Android" },
+      { href: "/services#booking-systems", label: "Online booking systems" },
+    ],
+  },
+] as const;
 
 const steps = [
   {
-    title: "Tell me about the business",
-    body: "A short call, or a few emails if you are on site. I learn what you do, who calls you, and what the site needs to bring in.",
+    title: "Tell me what you need",
+    body: "A short call, or a few emails if you are on site. A website, online booking or an app idea: I learn how the business works and what it has to do.",
   },
   {
     title: "You get a fixed price",
@@ -37,11 +78,11 @@ const steps = [
   },
   {
     title: "I build it",
-    body: "You see it early and say what you think. I write the words too, so you are not staring at a blank page wondering what to send me.",
+    body: "You see it early and say what you think. I write the words for websites, and with apps you try each part as it is built.",
   },
   {
     title: "It goes live",
-    body: "Set up, tested and handed over. Ongoing support if you want it, and nothing you have to log into if you don't.",
+    body: "Tested and handed over: the site online, the app in the stores. Support afterwards if you want it, and you own all of it.",
   },
 ] as const;
 
@@ -50,38 +91,30 @@ export default function HomePage() {
     <>
       <JsonLd data={faqSchema(faqs)} />
 
-      {/* Asymmetric hero: content sits left of centre against a blueprint
-          field, rather than the centred stack every template produces. */}
       <section className="bg-blueprint border-b-2 border-navy">
         <Container>
           <div className="grid items-center gap-12 py-16 lg:grid-cols-12 lg:py-24">
             <div className="lg:col-span-7">
-              <SectionLabel>Websites for UK tradespeople</SectionLabel>
-              {/* max-w forces a natural two-line break; a hard <br> orphaned
-                  "up" at some widths. The highlight sits on the baseline
-                  rather than under the descenders. */}
-              <h1 className="max-w-[15ch] text-[clamp(2.4rem,5.4vw,3.9rem)] leading-[1.07] font-bold tracking-display text-navy-text">
-                They&apos;re looking you up{" "}
+              <SectionLabel>Web &amp; app developer · Swansea · UK-wide</SectionLabel>
+              <h1 className="max-w-[17ch] text-[clamp(2.4rem,5.4vw,3.9rem)] leading-[1.07] font-bold tracking-display text-navy-text">
+                Websites, booking and apps for{" "}
                 <span className="relative inline-block whitespace-nowrap">
                   <span
                     aria-hidden="true"
                     className="absolute inset-x-0 bottom-[0.16em] h-[0.4em] dark-highlight"
                   />
-                  <span className="relative">right now.</span>
+                  <span className="relative">trades and garages.</span>
                 </span>
               </h1>
               <p className="mt-7 max-w-[34rem] text-lg leading-relaxed text-muted">
-                Most customers check you online before they ring. If
-                there&apos;s nothing to find, they call the next name on the
-                list. I build websites for plumbers, electricians, builders and
-                roofers — written and set up for you.
+                I&apos;m Shan, a developer in Swansea. I build your website,
+                online booking and app. Fixed price, no monthly fee, and
+                it&apos;s yours.
               </p>
               <div className="mt-9 flex flex-wrap gap-3">
                 <ButtonLink href="/quote" variant="primary">
                   Get a fixed quote
                 </ButtonLink>
-                {/* Call sits beside the quote button: many trades would
-                    rather ring than fill in a form. */}
                 <a
                   href={telHref}
                   className="inline-flex items-center justify-center rounded-md border-2 border-navy px-6 py-3.5 text-sm font-bold tracking-wide text-navy-text no-underline transition hover:bg-navy hover:text-white"
@@ -93,6 +126,7 @@ export default function HomePage() {
                 {[
                   "Fixed price up front",
                   "No monthly fees",
+                  "You own the code",
                   "Reply within one working day",
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-2">
@@ -103,56 +137,8 @@ export default function HomePage() {
               </ul>
             </div>
 
-            {/* Trade-card device: the credibility artefact a tradesperson
-                already recognises, rather than a generic hero illustration. */}
             <div className="lg:col-span-5">
-              <div className="mx-auto max-w-sm overflow-hidden rounded-lg border-2 border-navy bg-surface">
-                <div className="flex items-center justify-between border-b-2 border-navy bg-navy px-5 py-3">
-                  <span className="text-xs font-bold tracking-[0.2em] text-white/70 uppercase">
-                    Your business
-                  </span>
-                  <span className="h-2 w-2 bg-amber" />
-                </div>
-                <div className="p-6">
-                  <span className="logo-swap inline-grid">
-                  <Image
-                    src="/TradeIcon.png"
-                    alt=""
-                    width={56}
-                    height={56}
-                    priority
-                    className="logo-light h-14 w-14"
-                  />
-                  <Image
-                    src="/TradeIcon-dark.png"
-                    alt=""
-                    aria-hidden="true"
-                    width={56}
-                    height={56}
-                    className="logo-dark h-14 w-14"
-                  />
-                  </span>
-                  <p className="mt-5 text-xl font-bold text-navy-text">
-                    Found in seconds
-                  </p>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">
-                    Name, trade, area covered, and a number they can tap. That
-                    is what wins the job.
-                  </p>
-                  <dl className="mt-6 divide-y divide-edge border-t border-edge">
-                    {[
-                      ["Price", "Fixed, from £800"],
-                      ["Built for", "Phones first"],
-                      ["You manage", "Only if you want to"],
-                    ].map(([k, v]) => (
-                      <div key={k} className="flex justify-between py-2.5">
-                        <dt className="text-sm text-muted">{k}</dt>
-                        <dd className="text-sm font-semibold text-navy-text">{v}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                </div>
-              </div>
+              <HeroDevices />
             </div>
           </div>
         </Container>
@@ -160,91 +146,141 @@ export default function HomePage() {
 
       <MeetShan />
 
-      <ProofBand />
-
-      {/* Trades first, as large cards; the other landing pages follow as a
-          quiet row of links. A plumber scanning this used to see salons and
-          tutors beside his trade and wonder if this was a generalist. */}
-      <section aria-labelledby="trades" className="border-b border-edge py-16">
+      <section aria-labelledby="paths-heading" className="border-b border-edge py-16 lg:py-20">
         <Container>
           <SectionLabel>Who I build for</SectionLabel>
           <h2
-            id="trades"
-            className="mb-8 max-w-[30rem] text-3xl font-bold tracking-display text-navy-text lg:text-4xl"
+            id="paths-heading"
+            className="mb-10 max-w-[40rem] text-3xl font-bold tracking-display text-navy-text lg:text-4xl"
           >
-            Built for the trades
+            Pick the one that sounds like you
           </h2>
-          <div className="grid border-t-2 border-navy sm:grid-cols-2 lg:grid-cols-4">
-            {tradeLandings.map((landing) => (
-              <Link
-                key={landing.slug}
-                href={`/for/${landing.slug}`}
-                className="group border-b border-edge p-6 no-underline transition hover:bg-navy sm:border-r"
-              >
-                <p className="text-lg font-bold text-navy-text transition group-hover:text-white">
-                  {landing.heading.replace("Websites for ", "").replace(/^./, (c) => c.toUpperCase())}
-                </p>
-                <p className="mt-1 text-sm text-muted transition group-hover:text-white/70">
-                  {landing.audience}
-                </p>
-                <span className="mt-4 inline-block text-sm font-bold text-amber">
-                  View →
-                </span>
-              </Link>
-            ))}
-          </div>
-          <p className="mt-6 text-sm text-muted">
-            Also:{" "}
-            {otherLandings.map((landing, i) => (
-              <span key={landing.slug}>
-                {i > 0 ? " · " : ""}
-                <Link
-                  href={`/for/${landing.slug}`}
-                  className="font-semibold text-navy-text hover:text-amber-deep"
+          <div className="grid gap-5 lg:grid-cols-3">
+            {paths.map((path, i) => {
+              const lead = i === 0;
+              return (
+                <article
+                  key={path.label}
+                  className={cn(
+                    "flex flex-col rounded-lg border-2 p-7",
+                    lead ? "border-navy bg-navy text-white" : "border-edge bg-surface",
+                  )}
                 >
-                  {landing.heading.toLowerCase()}
-                </Link>
-              </span>
-            ))}
-          </p>
+                  <p
+                    className={cn(
+                      "text-xs font-bold tracking-[0.2em] uppercase",
+                      lead ? "text-amber" : "text-amber-deep",
+                    )}
+                  >
+                    {String(i + 1).padStart(2, "0")} · {path.label}
+                  </p>
+                  <h3
+                    className={cn(
+                      "mt-4 text-2xl leading-tight font-bold tracking-display",
+                      lead ? "text-white" : "text-navy-text",
+                    )}
+                  >
+                    {path.title}
+                  </h3>
+                  <p className={cn("mt-3 leading-relaxed", lead ? "text-white/80" : "text-muted")}>
+                    {path.body}
+                  </p>
+                  {path.links.length > 0 ? (
+                    <ul
+                      className={cn(
+                        "mt-6 divide-y border-y text-sm",
+                        lead ? "divide-white/15 border-white/15" : "divide-edge border-edge",
+                      )}
+                    >
+                      {path.links.map((link) => (
+                        <li key={link.href}>
+                          <Link
+                            href={link.href}
+                            className={cn(
+                              "flex items-center justify-between py-2.5 font-semibold no-underline transition",
+                              lead ? "text-white hover:text-amber" : "text-navy-text hover:text-amber-deep",
+                            )}
+                          >
+                            {link.label}
+                            <span aria-hidden="true">→</span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                  <div className="mt-auto pt-7">
+                    <Link
+                      href={path.href}
+                      className={cn(
+                        "inline-flex rounded-md px-5 py-3 text-sm font-bold no-underline transition",
+                        lead
+                          ? "bg-amber text-on-amber hover:bg-white"
+                          : "border-2 border-navy text-navy-text hover:bg-navy hover:text-white",
+                      )}
+                    >
+                      {path.cta} →
+                    </Link>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         </Container>
       </section>
 
-      <section aria-labelledby="services-heading" className="border-b border-edge py-16">
+      <section aria-labelledby="services-heading" className="border-b border-edge py-16 lg:py-20">
         <Container>
-          <SectionLabel>What I build</SectionLabel>
-          <h2
-            id="services-heading"
-            className="mb-10 max-w-[32rem] text-3xl font-bold tracking-display text-navy-text lg:text-4xl"
-          >
-            A new site, a rebuild, or a shop
-          </h2>
-          <div className="grid gap-px bg-edge sm:grid-cols-3">
-            {serviceCatalogue.map((service, i) => (
-              <article key={service.name} className="bg-bg p-7">
-                <span
-                  aria-hidden="true"
-                  data-num={`0${i + 1}`}
-                  className="block text-5xl font-bold tracking-display text-edge before:content-[attr(data-num)]"
-                />
-                <h3 className="mt-4 text-xl font-bold text-navy-text">
-                  {service.name}
-                </h3>
-                <p className="mt-3 leading-relaxed text-muted">
+          <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <SectionLabel>What I build</SectionLabel>
+              <h2
+                id="services-heading"
+                className="max-w-[40rem] text-3xl font-bold tracking-display text-navy-text lg:text-4xl"
+              >
+                From a first website to a full app
+              </h2>
+            </div>
+            <Link
+              href="/pricing"
+              className="text-sm font-bold text-navy-text hover:text-amber-deep"
+            >
+              See all prices →
+            </Link>
+          </div>
+          <div className="grid gap-px overflow-hidden rounded-lg border-2 border-edge bg-edge sm:grid-cols-2 lg:grid-cols-3">
+            {serviceCatalogue.map((service) => (
+              <Link
+                key={service.slug}
+                href={`/services#${service.slug}`}
+                className="group flex flex-col bg-bg p-7 no-underline transition hover:bg-surface"
+              >
+                <h3 className="text-xl font-bold text-navy-text">{service.name}</h3>
+                <p className="mt-3 flex-1 leading-relaxed text-muted">
                   {service.description}
                 </p>
-              </article>
+                <p className="mt-5 flex items-center justify-between text-sm">
+                  <span className="font-bold text-navy-text">
+                    {"from" in service ? `From ${formatFrom(service.from)}` : "Fixed quote"}
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="text-amber-deep transition group-hover:translate-x-1"
+                  >
+                    →
+                  </span>
+                </p>
+              </Link>
             ))}
           </div>
         </Container>
       </section>
+
+      <ProofBand />
 
       <Container>
         <FeaturedWork />
       </Container>
 
-      {/* Process on navy: breaks the page rhythm so it doesn't read as an
-          endless scroll of white cards. */}
       <section aria-labelledby="process-heading" className="border-y-2 border-navy bg-navy py-16 text-white">
         <Container>
           <p className="rule-label mb-4 text-xs font-bold tracking-[0.2em] text-white uppercase">
@@ -263,7 +299,7 @@ export default function HomePage() {
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <h3 className="mt-3 text-lg font-bold">{step.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/70">
+                <p className="mt-2 text-sm leading-relaxed text-white/75">
                   {step.body}
                 </p>
               </li>
@@ -286,16 +322,17 @@ export default function HomePage() {
                 Find out what it would cost
               </h2>
               <p className="mt-3 max-w-[30rem] text-muted">
-                Tell me what you do and I&apos;ll send a fixed price, usually
-                within one working day. No obligation, no sales call.
+                Tell me what you need, a website, booking or an app, and
+                I&apos;ll send a fixed price, usually within one working day.
+                No obligation.
               </p>
             </div>
             <div className="flex shrink-0 flex-wrap gap-3">
               <ButtonLink href="/quote" variant="primary">
                 Get a fixed quote
               </ButtonLink>
-              <ButtonLink href="/contact" variant="secondary">
-                Ask a question
+              <ButtonLink href="/booking" variant="secondary">
+                Request a call
               </ButtonLink>
             </div>
           </div>

@@ -1,8 +1,23 @@
 import type { Project } from "@/lib/projects";
 import { projects } from "@/lib/projects";
 
+export type LandingGroup = "automotive" | "trades" | "general";
+
+/** Display names for each group, in the order they are shown. */
+export const landingGroups: { id: LandingGroup; label: string }[] = [
+  { id: "automotive", label: "Garages & automotive" },
+  { id: "trades", label: "Trades" },
+  { id: "general", label: "Any small business" },
+];
+
 export type Landing = {
   slug: string;
+  /**
+   * Which audience the page belongs to. The homepage, /for and the footer
+   * group pages by this, so a garage owner and a plumber each find their
+   * own pages first.
+   */
+  group: LandingGroup;
   /** Page <h1>. */
   heading: string;
   /** Title tag — lead with the search term. */
@@ -62,6 +77,7 @@ export type Landing = {
 export const landings: Landing[] = [
   {
     slug: "plumbers",
+    group: "trades",
     tradeParam: "plumber",
     card: {
       title: "Ready for the 2am call",
@@ -191,6 +207,7 @@ export const landings: Landing[] = [
   },
   {
     slug: "electricians",
+    group: "trades",
     tradeParam: "electrician",
     card: {
       title: "Registered, and visibly so",
@@ -319,6 +336,7 @@ export const landings: Landing[] = [
   },
   {
     slug: "builders",
+    group: "trades",
     tradeParam: "builder",
     card: {
       title: "Proof you finish the job",
@@ -384,6 +402,7 @@ export const landings: Landing[] = [
   },
   {
     slug: "roofers",
+    group: "trades",
     tradeParam: "roofer",
     card: {
       title: "Ready when the storm hits",
@@ -449,6 +468,7 @@ export const landings: Landing[] = [
   },
   {
     slug: "small-business-websites",
+    group: "general",
     card: {
       title: "Yours, with no strings",
       body: "A sharp site that loads fast, says what you do, and sends enquiries straight to your inbox.",
@@ -513,6 +533,7 @@ export const landings: Landing[] = [
   },
   {
     slug: "booking-websites",
+    group: "general",
     card: {
       title: "Open while you sleep",
       body: "Customers book a slot themselves and pay a deposit, so the diary fills without a single phone call.",
@@ -577,6 +598,7 @@ export const landings: Landing[] = [
   },
   {
     slug: "website-redesign",
+    group: "general",
     card: {
       title: "Rebuilt, rankings intact",
       body: "The risk in a redesign is losing the search visibility you already have. Redirects are mapped before launch.",

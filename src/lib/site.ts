@@ -49,9 +49,9 @@ export const site = {
   legalName: "Trade Web Co",
   /** Canonical origin, no trailing slash. Set NEXT_PUBLIC_SITE_URL to override. */
   url: resolveSiteUrl(),
-  tagline: "Web Design for Tradespeople",
+  tagline: "Websites, booking and apps for trades and garages",
   description:
-    "Websites for UK plumbers, electricians, builders and roofers. Written and set up for you. Fixed price from £800, no monthly fee, you own it.",
+    "Websites, online booking and apps for UK trades and garages, built by one developer in Swansea. Fixed price from £800, no monthly fee, you own it.",
   locale: "en_GB",
   currency: "GBP",
   /**
@@ -152,11 +152,18 @@ export const timelineOptions = [
 export type Service = (typeof services)[number];
 export type ProjectType = (typeof projectTypes)[number];
 
-/** Service offerings, used for schema, the homepage and the services page. */
+/**
+ * Service offerings, used for schema, the homepage and the services page.
+ *
+ * `from` is the published starting price, agreed with Darshan on 2026-11-17
+ * and matched in pricing.ts. Every figure is shown with "from": the fixed
+ * quote is the real commitment.
+ */
 export const serviceCatalogue = [
   {
     slug: "website-design",
     name: "Website Design",
+    from: 800,
     description:
       "A new website designed and built from scratch, tailored to your business and built to convert visitors into enquiries.",
     detail:
@@ -167,6 +174,54 @@ export const serviceCatalogue = [
       "Works properly on phones, where most visitors arrive",
       "Contact or enquiry forms that reach your inbox",
       "Fast loading, which affects both ranking and conversions",
+    ],
+  },
+  {
+    slug: "booking-systems",
+    name: "Websites with Online Booking",
+    from: 2500,
+    description:
+      "Your website with real online booking: customers pick a slot, you get the booking, and they get a confirmation and a reminder.",
+    detail:
+      "For garages, detailers, mobile mechanics and any business that sells time. Customers book an MOT, a service or a job without ringing you, day or night, and the booking comes straight to you rather than through a comparison site.",
+    includes: [
+      "Your own booking page, on your own website",
+      "Your services, prices and opening times, set by you",
+      "Confirmation and reminder emails, so fewer no-shows",
+      "Optional deposits taken by card through Stripe",
+      "A simple diary view of what is booked",
+    ],
+  },
+  {
+    slug: "web-apps",
+    name: "Web Apps",
+    from: 5000,
+    description:
+      "Booking systems, customer portals and subscription apps that run in the browser, built to fit how your business works.",
+    detail:
+      "When a website is not enough: customers who log in, staff who manage jobs, or a product people pay for monthly. I built DoBook, a booking system with payments, and MyMathsHero, a subscription learning app, and I build yours the same way.",
+    includes: [
+      "Logins, accounts and roles for customers and staff",
+      "Payments and subscriptions through Stripe",
+      "An admin area to run it day to day",
+      "Built on current, well-supported technology",
+      "A fixed quote for the first version, agreed before work starts",
+    ],
+  },
+  {
+    slug: "mobile-apps",
+    name: "Mobile Apps",
+    from: 8000,
+    description:
+      "One app for iPhone and Android, built, tested and published to the App Store and Google Play.",
+    detail:
+      "For an idea that belongs on people's phones: bookings, loyalty, a service your customers use every week. One codebase covers both iPhone and Android, which keeps the cost down, and I handle getting it through the app store reviews.",
+    includes: [
+      "One app for both iPhone and Android",
+      "Push notifications and sign-in",
+      "Connected to your website or web app where it helps",
+      "Submitted to the App Store and Google Play for you",
+      "Store developer accounts are in your name, so the app is yours",
     ],
   },
   {
@@ -187,6 +242,7 @@ export const serviceCatalogue = [
   {
     slug: "e-commerce",
     name: "E-commerce",
+    from: 3000,
     description:
       "Online stores built for speed and conversion, with secure checkout and straightforward product management.",
     detail:

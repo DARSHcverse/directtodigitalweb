@@ -7,10 +7,16 @@ import {
   site,
   telHref,
 } from "@/lib/site";
-import { landings } from "@/lib/landings";
 import { listGuides } from "@/lib/guides";
 
+/**
+ * The audience hubs rather than every industry page: with garages added the
+ * full list ran past fifteen links. The homepage and /for link each page.
+ */
 const explore = [
+  { href: "/for/garages", label: "Garages & automotive" },
+  { href: "/for", label: "Trades and other industries" },
+  { href: "/apps", label: "Web and mobile apps" },
   { href: "/services", label: "Services" },
   { href: "/pricing", label: "Pricing" },
   { href: "/work", label: "Work" },
@@ -19,6 +25,9 @@ const explore = [
 
 /** Linked only once there is a guide to read. */
 const hasGuides = listGuides().length > 0;
+const exploreLinks = hasGuides
+  ? [...explore, { href: "/guides", label: "Guides" }]
+  : explore;
 
 const getStarted = [
   { href: "/quote", label: "Get a quote" },
@@ -38,7 +47,8 @@ export function Footer() {
               Trade Web <span className="text-amber">Co.</span>
             </p>
             <p className="text-sm leading-relaxed text-white/70">
-              Websites for UK tradespeople — written, built and set up for you.
+              Websites, online booking and apps for UK trades and garages,
+              built by one developer.
             </p>
             <ul className="mt-5 grid gap-1.5 text-sm">
               <li>
@@ -76,27 +86,7 @@ export function Footer() {
               Explore
             </p>
             <ul className="grid gap-2 text-sm">
-              {landings.map((landing) => (
-                <li key={landing.slug}>
-                  <Link
-                    href={`/for/${landing.slug}`}
-                    className="text-sm text-white/70 no-underline transition hover:text-amber"
-                  >
-                    {landing.heading}
-                  </Link>
-                </li>
-              ))}
-              {hasGuides ? (
-                <li>
-                  <Link
-                    href="/guides"
-                    className="text-sm text-white/70 no-underline transition hover:text-amber"
-                  >
-                    Guides for tradespeople
-                  </Link>
-                </li>
-              ) : null}
-              {explore.map((item) => (
+              {exploreLinks.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}

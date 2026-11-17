@@ -8,11 +8,34 @@ import { cn } from "@/lib/cn";
 import { site, telHref } from "@/lib/site";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
-const links = [
+/** Industry pages for the automotive side, so "Garages" lights up on them. */
+const AUTOMOTIVE = ["/for/garages", "/for/car-detailing", "/for/mobile-mechanics", "/for/car-dealers"];
+
+/**
+ * Audiences first, then the pages every buyer checks. Services and Contact
+ * are one tap away in the footer and the mobile menu; the quote button and
+ * the phone number cover "get in touch".
+ */
+const links: { href: string; label: string; active: (path: string) => boolean }[] = [
+  {
+    href: "/for/garages",
+    label: "Garages",
+    active: (p) => AUTOMOTIVE.some((a) => p.startsWith(a)),
+  },
+  {
+    href: "/for",
+    label: "Trades",
+    active: (p) => p.startsWith("/for") && !AUTOMOTIVE.some((a) => p.startsWith(a)),
+  },
+  { href: "/apps", label: "Apps", active: (p) => p.startsWith("/apps") },
+  { href: "/pricing", label: "Pricing", active: (p) => p.startsWith("/pricing") },
+  { href: "/work", label: "Work", active: (p) => p.startsWith("/work") },
+  { href: "/about", label: "About", active: (p) => p.startsWith("/about") },
+];
+
+/** Extra links only the mobile menu has room for. */
+const mobileExtras = [
   { href: "/services", label: "Services" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/work", label: "Work" },
-  { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ] as const;
 
@@ -48,8 +71,8 @@ export function NavBar() {
         </Link>
 
         <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
-          {links.map(({ href, label }) => {
-            const active = pathname.startsWith(href);
+          {links.map(({ href, label, active: isActive }) => {
+            const active = isActive(pathname);
             return (
               <Link
                 key={href}
@@ -120,8 +143,8 @@ export function NavBar() {
           className="border-t border-edge bg-surface lg:hidden"
         >
           <div className="mx-auto w-[92%] max-w-[1200px] py-2">
-            {links.map(({ href, label }) => {
-              const active = pathname.startsWith(href);
+            {links.map(({ href, label, active: isActive }) => {
+              const active = isActive(pathname);
               return (
                 <Link
                   key={href}
@@ -139,6 +162,17 @@ export function NavBar() {
                 </Link>
               );
             })}
+            {mobileExtras.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setOpen(false)}
+                aria-current={pathname.startsWith(href) ? "page" : undefined}
+                className="block border-l-4 border-transparent py-3 pl-4 font-semibold text-muted no-underline transition hover:border-edge hover:text-navy-text"
+              >
+                {label}
+              </Link>
+            ))}
             <Link
               href="/portal"
               onClick={() => setOpen(false)}
