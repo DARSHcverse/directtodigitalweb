@@ -84,7 +84,7 @@ export const leadSchemaChecked = leadSchema.superRefine((lead, ctx) => {
   }
   if (lead.kind !== "quote") return;
   if (!lead.trade) {
-    ctx.addIssue({ code: "custom", path: ["trade"], message: "Please choose your trade" });
+    ctx.addIssue({ code: "custom", path: ["trade"], message: "Please choose what kind of business" });
   }
   if (!lead.town || lead.town.length < 2) {
     ctx.addIssue({ code: "custom", path: ["town"], message: "Please enter your town or area" });
@@ -93,7 +93,10 @@ export const leadSchemaChecked = leadSchema.superRefine((lead, ctx) => {
 
 export type LeadInput = z.infer<typeof leadSchema>;
 
-/** Choices for the quote form's trade question. */
+/**
+ * Choices for the quote form's "what kind of business" question. Stored in
+ * the lead's trade column; older leads may hold "Not a trade business".
+ */
 export const TRADES = [
   "Plumber / heating",
   "Electrician",
@@ -104,7 +107,8 @@ export const TRADES = [
   "Mobile mechanic",
   "Car dealer",
   "Other trade",
-  "Not a trade business",
+  "Other business",
+  "Just an idea for now",
 ] as const;
 
 export const leadKindLabel: Record<LeadInput["kind"], string> = {

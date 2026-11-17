@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/admin/DataTable";
 import { Pill, relativeDate } from "@/components/admin/ui";
@@ -25,6 +25,42 @@ const STATUS_TEXT: Record<LeadStatus, string> = {
   won: "Won",
   lost: "Lost",
 };
+
+/**
+ * Which part of the business a lead belongs to, from the quote form's
+ * answers. Lets Shan see whether garages, trades or apps are bringing in
+ * enquiries, which is the test the November 2026 repositioning set.
+ */
+type Segment = "automotive" | "trades" | "apps" | "other";
+
+const SEGMENT_LABEL: Record<Segment, string> = {
+  automotive: "Garages & automotive",
+  trades: "Trades",
+  apps: "Apps",
+  other: "Other",
+};
+
+const AUTOMOTIVE = new Set([
+  "Garage / MOT centre",
+  "Car detailing / valeting",
+  "Mobile mechanic",
+  "Car dealer",
+]);
+const TRADES = new Set([
+  "Plumber / heating",
+  "Electrician",
+  "Builder",
+  "Roofer",
+  "Other trade",
+]);
+
+function segmentOf(l: Lead): Segment {
+  if (l.topic === "Web app" || l.topic === "Mobile app") return "apps";
+  if (l.trade && AUTOMOTIVE.has(l.trade)) return "automotive";
+  if (l.trade && TRADES.has(l.trade)) return "trades";
+  if (l.trade === "Just an idea for now") return "apps";
+  return "other";
+}
 
 /** Where an enquiry came from: ref, then utm, then referrer, then the page. */
 function sourceOf(l: Lead): string {
@@ -56,6 +92,11 @@ function hostOf(url: string | null | undefined): string {
  */
 export function LeadsTable({ leads }: { leads: Lead[] }) {
   const adminPath = useAdminPath();
+  const [segment, setSegment] = useState<Segment | "all">("all");
+  const shown = useMemo(
+    () => (segment === "all" ? leads : leads.filter((l) => segmentOf(l) === segment)),
+    [leads, segment],
+  );
 
   const columns = useMemo<ColumnDef<Lead, unknown>[]>(
     () => [
@@ -89,7 +130,7 @@ export function LeadsTable({ leads }: { leads: Lead[] }) {
       {
         id: "trade",
         accessorFn: (l) => l.trade ?? "",
-        header: "Trade",
+        header: "Business",
         cell: ({ row }) => (
           <div className="min-w-0">
             <p className="truncate text-ink">{row.original.trade ?? "—"}</p>
@@ -179,8 +220,23 @@ export function LeadsTable({ leads }: { leads: Lead[] }) {
   return (
     <DataTable
       columns={columns}
-      data={leads}
+      data={shown}
       getRowId={(l) => l.id}
+      toolbar={
+        <select
+          value={segment}
+          onChange={(e) => setSegment(e.target.value as Segment | "all")}
+          aria-label="Filter by segment"
+          className="rounded-md border-2 border-edge bg-surface px-3 py-2 text-sm font-semibold text-ink outline-none transition focus:border-navy"
+        >
+          <option value="all">All segments</option>
+          {(Object.keys(SEGMENT_LABEL) as Segment[]).map((key) => (
+            <option key={key} value={key}>
+              {SEGMENT_LABEL[key]} ({leads.filter((l) => segmentOf(l) === key).length})
+            </option>
+          ))}
+        </select>
+      }
       searchPlaceholder="Search name, email, message…"
       emptyTitle="No leads here"
       emptyBody="Enquiries from the website arrive here. You can also add one by hand."
@@ -190,7 +246,8 @@ export function LeadsTable({ leads }: { leads: Lead[] }) {
           { key: "name", header: "Name" },
           { key: "email", header: "Email" },
           { key: "phone", header: "Phone" },
-          { key: "trade", header: "Trade" },
+          { key: "segment", header: "Segment" },
+          { key: "trade", header: "Business" },
           { key: "town", header: "Town" },
           { key: "website", header: "Current website" },
           { key: "source", header: "Source" },
@@ -206,6 +263,7 @@ export function LeadsTable({ leads }: { leads: Lead[] }) {
           name: l.name,
           email: l.email,
           phone: l.phone ?? "",
+          segment: SEGMENT_LABEL[segmentOf(l)],
           trade: l.trade ?? "",
           town: l.town ?? "",
           website: l.current_website ?? "",

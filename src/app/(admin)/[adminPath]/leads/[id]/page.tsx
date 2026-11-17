@@ -39,7 +39,7 @@ export default async function LeadPage({
   const details: [string, React.ReactNode][] = [
     ["Email", <a key="e" href={`mailto:${lead.email}`} className="font-semibold text-navy-text">{lead.email}</a>],
     ["Phone", lead.phone ? <a key="p" href={`tel:${lead.phone.replace(/\s/g, "")}`} className="font-semibold text-navy-text">{lead.phone}</a> : null],
-    ["Trade", lead.trade],
+    ["Business", lead.trade],
     ["Town", lead.town],
     ["Current website", lead.current_website ? (
       <a key="w" href={/^https?:\/\//.test(lead.current_website) ? lead.current_website : `https://${lead.current_website}`} target="_blank" rel="noreferrer noopener" className="font-semibold text-navy-text">

@@ -125,7 +125,7 @@ export default function AppsPage() {
             any work.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <ButtonLink href="/quote" variant="primary">
+            <ButtonLink href="/quote?need=app" variant="primary">
               Get a fixed quote
             </ButtonLink>
             <ButtonLink href="/booking" variant="secondary">
@@ -250,7 +250,7 @@ export default function AppsPage() {
               Got an idea? A first call costs nothing.
             </p>
             <div className="flex shrink-0 flex-wrap gap-3">
-              <ButtonLink href="/quote" variant="primary">
+              <ButtonLink href="/quote?need=app" variant="primary">
                 Get a fixed quote
               </ButtonLink>
               <a

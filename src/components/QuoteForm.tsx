@@ -43,10 +43,21 @@ const TRADE_FROM_PARAM: Record<string, (typeof TRADES)[number]> = {
 };
 
 /**
+ * /apps links here with ?need=app, and booking-led industry pages preset
+ * online booking, so the first answer is usually already picked.
+ */
+const NEED_FROM_PARAM: Record<string, (typeof projectTypes)[number]> = {
+  app: "Web app",
+  "mobile-app": "Mobile app",
+  booking: "Website with online booking",
+};
+const BOOKING_LED = new Set(["garage", "car detailing"]);
+
+/**
  * The quote form.
  *
- * Built around who fills it in: a tradesperson on a phone, probably between
- * jobs. Three things follow from that.
+ * Built around who fills it in: a business owner on a phone, probably
+ * between jobs. Three things follow from that.
  *
  * Budget and timeline are tappable bands rather than text boxes. They are the
  * two questions people are least certain about, and asking them as open text
@@ -62,7 +73,12 @@ const TRADE_FROM_PARAM: Record<string, (typeof TRADES)[number]> = {
 export function QuoteForm() {
   const formRef = useRef<HTMLDivElement>(null);
   const [showSuccess, setShowSuccess] = useState(false);
-  const preset = TRADE_FROM_PARAM[useSearchParams().get("trade") ?? ""] ?? "";
+  const params = useSearchParams();
+  const tradeParam = params.get("trade") ?? "";
+  const preset = TRADE_FROM_PARAM[tradeParam] ?? "";
+  const needPreset =
+    NEED_FROM_PARAM[params.get("need") ?? ""] ??
+    (BOOKING_LED.has(tradeParam) ? "Website with online booking" : projectTypes[0]);
   const { form, status, handleChange, setField, submit } = useLeadForm({
     trade: preset as string,
     town: "",
@@ -70,7 +86,7 @@ export function QuoteForm() {
     name: "",
     email: "",
     phone: "",
-    projectType: projectTypes[0],
+    projectType: needPreset as string,
     budget: "",
     timeline: "",
     details: "",
@@ -118,20 +134,31 @@ export function QuoteForm() {
         <FormShell onSubmit={handleSubmit}>
           <Honeypot />
 
-          <FormSection step={1} title="Your business">
+          <FormSection step={1} title="What you need">
             <ChoiceGroup
-              label="What's your trade?"
+              label="What would you like built?"
+              name="projectType"
+              value={form.projectType}
+              options={projectOptions}
+              onChange={setField}
+              columns={2}
+            />
+          </FormSection>
+          <FormSection step={2} title="About you">
+            <ChoiceGroup
+              label="What kind of business?"
               name="trade"
               value={form.trade}
               options={tradeOptions}
               onChange={setField}
               columns={3}
+              twoUpOnPhone
             />
             <div className="grid gap-4 sm:grid-cols-2">
               <Field
                 label="Town or area"
                 htmlFor="town"
-                hint="Where most of your jobs are."
+                hint="Where you're based, or where most of your work is."
               >
                 <Input
                   id="town"
@@ -163,16 +190,6 @@ export function QuoteForm() {
             </div>
           </FormSection>
 
-          <FormSection step={2} title="What you need">
-            <ChoiceGroup
-              label="What kind of project is it?"
-              name="projectType"
-              value={form.projectType}
-              options={projectOptions}
-              onChange={setField}
-              columns={2}
-            />
-          </FormSection>
 
           <FormSection step={3} title="Budget and timing">
             <ChoiceGroup

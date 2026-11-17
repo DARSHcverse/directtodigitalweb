@@ -102,7 +102,7 @@ export function ownerLeadAlert(
     ),
     detailTable(
       detailRow("Name", lead.name) +
-        detailRow("Trade", lead.trade) +
+        detailRow("Business", lead.trade) +
         detailRow("Town", lead.town) +
         detailRow("Email", lead.email) +
         detailRow("Phone", lead.phone) +
@@ -152,7 +152,7 @@ export function ownerLeadAlert(
   const text = `New ${leadKindLabel[lead.kind].toLowerCase()}${sourcePath ? ` from ${sourcePath}` : ""}
 
 Name:     ${lead.name}
-${lead.trade ? `Trade:    ${lead.trade}\n` : ""}${lead.town ? `Town:     ${lead.town}\n` : ""}Email:    ${lead.email}
+${lead.trade ? `Business: ${lead.trade}\n` : ""}${lead.town ? `Town:     ${lead.town}\n` : ""}Email:    ${lead.email}
 ${lead.phone ? `Phone:    ${lead.phone}\n` : ""}${lead.topic ? `Type:     ${lead.topic}\n` : ""}${lead.budget ? `Budget:   ${lead.budget}\n` : ""}${lead.timeline ? `Timeline: ${lead.timeline}\n` : ""}${lead.website ? `Site:     ${lead.website}\n` : ""}${sourceLabel(lead) ? `Source:   ${sourceLabel(lead)}\n` : ""}
 ${lead.message ? `\nMessage:\n${lead.message}\n` : ""}`;
 

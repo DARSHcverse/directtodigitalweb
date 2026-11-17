@@ -142,6 +142,7 @@ export function ChoiceGroup({
   hint,
   optional,
   columns = 2,
+  twoUpOnPhone = false,
 }: {
   label: string;
   name: string;
@@ -151,6 +152,8 @@ export function ChoiceGroup({
   hint?: string;
   optional?: boolean;
   columns?: 2 | 3;
+  /** Two per row even on a phone, for long lists of short labels. */
+  twoUpOnPhone?: boolean;
 }) {
   // An odd option count in an even grid leaves a hole on the last row, so the
   // final card stretches to fill it.
@@ -167,6 +170,7 @@ export function ChoiceGroup({
       <div
         className={cn(
           "grid gap-2",
+          twoUpOnPhone && "grid-cols-2",
           columns === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2",
         )}
       >
@@ -179,6 +183,8 @@ export function ChoiceGroup({
               className={cn(
                 "flex cursor-pointer flex-col justify-center rounded-lg border-2 px-4 py-3 transition",
                 fillsLastRow && last && "sm:col-span-2",
+                twoUpOnPhone && options.length % 2 === 1 && last && "col-span-2",
+                twoUpOnPhone && columns === 3 && options.length % 3 === 2 && last && "sm:col-span-2",
                 "has-[:focus-visible]:outline has-[:focus-visible]:outline-2",
                 "has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-navy",
                 active
