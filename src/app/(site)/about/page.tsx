@@ -9,9 +9,9 @@ import { pageMetadata } from "@/lib/metadata";
 import { identityLine, site, telHref } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
-  title: "About Shan, Web Designer in Swansea",
+  title: "About Shan, Web and App Developer in Swansea",
   description:
-    "I'm Shan. I build every Trade Web Co site myself, answer the phone myself, and you own everything I build. Based in Swansea.",
+    "I'm Shan, a web and app developer in Swansea. I build every website and app myself, answer the phone myself, and you own what I build.",
   path: "/about",
 });
 
@@ -20,7 +20,11 @@ const facts = [
     label: "Degree",
     value: "Bachelor of Information Technology, majoring in Application Development, with Distinction",
   },
-  { label: "Works with", value: "Trades and small businesses" },
+  {
+    label: "Builds",
+    value: "Websites, booking systems, web apps, and iPhone and Android apps",
+  },
+  { label: "Works with", value: "Garages, trades, small businesses and anyone with an app idea" },
   { label: "Based", value: `${site.locality}, ${site.region}` },
   { label: "Covers", value: "Swansea, Watford and London in person; the rest of the UK remotely" },
   { label: "Also", value: "Clients in Australia, where I studied" },
@@ -33,6 +37,7 @@ const facts = [
 const handover = [
   "You own the domain, registered in your name.",
   "You own the code and the hosting account, with the logins handed over at launch.",
+  "For apps, the App Store and Google Play accounts are in your name too.",
   "Nothing is locked to me, so any developer can pick it up if you ever need one.",
 ];
 
@@ -51,10 +56,11 @@ export default function AboutPage() {
             <div>
               <SectionLabel>Who you&apos;re dealing with</SectionLabel>
               <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy-text">
-                I&apos;m Shan. I build every site myself.
+                I&apos;m Shan. I build every site and app myself.
               </h1>
               <p className="mb-6 max-w-[600px] text-lg text-muted">
-                {site.name} is me — {site.founder}. I build your site, I answer
+                {site.name} is me — {site.founder}. I build your website or
+                app, I answer
                 the phone, and you own what I build.
               </p>
               <div className="mb-10 flex flex-wrap gap-3">
@@ -93,7 +99,9 @@ export default function AboutPage() {
               <p className="leading-relaxed">
                 For clients I&apos;ve built a local accountancy site in Watford,
                 a car dealership and workshop site, and DoBook, a booking and
-                invoicing platform for service businesses. I also run
+                invoicing platform for service businesses. I also built
+                MyMathsHero, an AI maths tutoring app I run with a business
+                partner. And I run
                 booking-led businesses of my own — The Shan Booth and Photo
                 Booth Hire Swansea — so I know what a missed enquiry costs,
                 because it costs me too.

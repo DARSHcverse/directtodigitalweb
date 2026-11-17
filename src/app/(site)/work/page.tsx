@@ -9,12 +9,29 @@ import { projects, projectsArePlaceholder } from "@/lib/projects";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Website Examples and Recent Work",
+  title: "Website and App Examples",
   description:
-    "Websites and booking systems running real businesses, each labelled as client work or my own. See what a Trade Web Co site looks like.",
+    "Websites, booking systems and apps running real businesses, each labelled as client work or my own. See what Trade Web Co builds.",
   path: "/work",
   noIndex: projectsArePlaceholder,
 });
+
+/**
+ * Apps first, then websites. Grouped by the tags each project already
+ * carries, so adding a project needs no extra field.
+ */
+const groups = [
+  {
+    id: "apps",
+    label: "Apps",
+    items: projects.filter((p) => p.tags.includes("Web app")),
+  },
+  {
+    id: "websites",
+    label: "Websites",
+    items: projects.filter((p) => !p.tags.includes("Web app")),
+  },
+].filter((g) => g.items.length > 0);
 
 /** Lists the portfolio for search engines. */
 function workListSchema() {
@@ -46,11 +63,11 @@ export default function WorkPage() {
       <section className="bg-blueprint border-b-2 border-navy py-14">
         <Container>
           <SectionLabel>Built and running</SectionLabel>
-          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy-text">Work I&apos;ve built</h1>
+          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy-text">Websites and apps I&apos;ve built</h1>
           <p className="mb-10 max-w-[640px] text-lg text-muted">
-            Sites and booking systems running real businesses. Some are for
-            clients and some are businesses I run myself; each one is labelled.
-            Running my own means I know what a missed enquiry costs.
+            Websites, booking systems and apps running real businesses. Some
+            are for clients and some are businesses I run myself; each one is
+            labelled. Running my own means I know what a missed enquiry costs.
           </p>
         </Container>
       </section>
@@ -76,17 +93,32 @@ export default function WorkPage() {
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-8">
-              {projects.map((project, index) => (
-                <ProjectCard
-                  key={project.slug}
-                  project={project}
-                  detailed
-                  // First two are likely above the fold.
-                  priority={index < 2}
-                />
-              ))}
-            </div>
+            groups.map((group, g) => (
+              <section
+                key={group.id}
+                id={group.id}
+                aria-labelledby={`${group.id}-heading`}
+                className="mb-14 scroll-mt-24"
+              >
+                <h2
+                  id={`${group.id}-heading`}
+                  className="mb-6 text-2xl font-bold tracking-display text-navy-text lg:text-3xl"
+                >
+                  {group.label}
+                </h2>
+                <div className="grid grid-cols-[repeat(auto-fill,minmax(min(340px,100%),1fr))] gap-8">
+                  {group.items.map((project, index) => (
+                    <ProjectCard
+                      key={project.slug}
+                      project={project}
+                      detailed
+                      // First two are likely above the fold.
+                      priority={g === 0 && index < 2}
+                    />
+                  ))}
+                </div>
+              </section>
+            ))
           )}
 
           <div className="mt-16 border-t border-edge pt-12 text-center">
