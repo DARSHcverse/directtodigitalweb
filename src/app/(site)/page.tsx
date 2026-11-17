@@ -169,7 +169,8 @@ export default function HomePage() {
                   <p
                     className={cn(
                       "text-xs font-bold tracking-[0.2em] uppercase",
-                      lead ? "text-amber" : "text-amber-deep",
+                      // Amber on dark-mode navy fails contrast at this size.
+                      lead ? "text-white" : "text-amber-deep",
                     )}
                   >
                     {String(i + 1).padStart(2, "0")} · {path.label}

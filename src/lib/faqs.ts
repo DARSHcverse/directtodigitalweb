@@ -5,14 +5,19 @@
  */
 export const faqs = [
   {
-    question: "How much does a website cost?",
+    question: "How much does a website or app cost?",
     answer:
-      "Most small-business sites fall between £800 and £3,000 depending on the number of pages and features. E-commerce builds start higher. Every quote is fixed and agreed up front, so there are no surprise invoices.",
+      "Websites start from £800, and most small-business sites fall between £800 and £3,000. Websites with online booking start from £2,500, web apps from £5,000, and mobile apps for iPhone and Android from £8,000. Every quote is fixed and agreed up front, so there are no surprise invoices.",
+  },
+  {
+    question: "Do you build apps as well as websites?",
+    answer:
+      "Yes. Web apps that run in the browser, such as booking systems, customer portals and subscription products, and mobile apps for iPhone and Android, built once for both. I built MyMathsHero, a subscription learning app, and DoBook, a booking system with payments.",
   },
   {
     question: "How long does a website take to build?",
     answer:
-      "A typical brochure site takes two to four weeks from kick-off to launch. Larger or e-commerce projects usually run four to eight weeks. Timelines depend mostly on how quickly content and feedback come back.",
+      "A typical brochure site takes two to four weeks from kick-off to launch. Booking sites usually take three to five weeks, and online shops four to eight. Apps depend on what the first version has to do, so the quote includes a date agreed before work starts.",
   },
   {
     question: "Do you work with businesses outside your area?",

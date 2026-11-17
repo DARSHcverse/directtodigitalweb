@@ -57,12 +57,20 @@ export function organisationSchema() {
       ...(site.sameAs.length > 0 ? { sameAs: site.sameAs } : {}),
     },
     areaServed: areas(),
+    knowsAbout: [
+      "Website design",
+      "Online booking systems",
+      "Web app development",
+      "Mobile app development",
+      "iOS and Android apps",
+      "Local SEO",
+    ],
     priceRange: "££",
     currenciesAccepted: site.currency,
     ...(site.sameAs.length > 0 ? { sameAs: site.sameAs } : {}),
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Web design services",
+      name: "Websites, booking systems and apps",
       itemListElement: serviceCatalogue.map((service) => ({
         "@type": "Offer",
         itemOffered: {
