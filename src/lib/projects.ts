@@ -46,7 +46,7 @@ export const projects: Project[] = [
   {
     slug: "crown-auto-trading",
     title: "Crown Auto Trading",
-    client: "Used car dealership",
+    client: "Car sales and repair workshop",
     ownership: "client",
     summary:
       "A dealership site for a used car and auto repair business, presenting stock, trade-ins and workshop services with viewing enquiries built in.",

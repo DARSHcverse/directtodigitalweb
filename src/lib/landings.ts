@@ -155,7 +155,7 @@ export const landings: Landing[] = [
     ],
     proofSlugs: ["crown-auto-trading", "do-book"],
     proofIntro:
-      "I haven't built a garage site yet. These are the closest: a car dealer's website, and a booking system with payments, both built for clients.",
+      "Crown Auto Trading, a car sales and repair workshop in Melbourne whose website I built, and DoBook, a booking system with payments I built for a client.",
     tradeParam: "garage",
     from: 2500,
     weeks: "3–5 weeks",
@@ -227,7 +227,7 @@ export const landings: Landing[] = [
     ],
     proofSlugs: ["do-book", "crown-auto-trading"],
     proofIntro:
-      "No detailing site to show yet. These are the closest: a booking system with deposits and payments, and a car dealer's website, both built for clients.",
+      "The closest work to a detailing site: DoBook, a booking system with payments, and the website for Crown Auto Trading, a car sales and repair workshop. Both built for clients.",
     tradeParam: "car detailing",
     from: 2500,
     weeks: "3–5 weeks",
@@ -294,7 +294,7 @@ export const landings: Landing[] = [
     ],
     proofSlugs: ["crown-auto-trading", "do-book"],
     proofIntro:
-      "No mobile mechanic site to show yet. These are the closest: a car dealer's website and a booking system, both built for clients.",
+      "The closest work to a mobile mechanic site: the website for Crown Auto Trading, a car sales and repair workshop, and DoBook, a booking system. Both built for clients.",
     tradeParam: "mobile mechanic",
     faqs: [
       {
@@ -359,7 +359,7 @@ export const landings: Landing[] = [
     ],
     proofSlugs: ["crown-auto-trading", "do-book"],
     proofIntro:
-      "Crown Auto Trading, a used car dealer I built a website for, and DoBook, a booking system I built for a client.",
+      "Crown Auto Trading, a car sales and repair business in Melbourne whose website I built, and DoBook, a booking system I built for a client.",
     tradeParam: "car dealer",
     from: 1800,
     weeks: "3–5 weeks",
