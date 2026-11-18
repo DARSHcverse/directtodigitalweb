@@ -195,7 +195,7 @@ export const landings: Landing[] = [
       ],
     },
     heading: "Websites with online booking for car detailers",
-    title: "Car Detailing and Valeting Websites with Booking",
+    title: "Car Detailing Websites with Online Booking",
     metaDescription:
       "Websites for car detailers and valeters: your packages and prices, photos of your work, and online booking with deposits. Fixed price, no monthly fee.",
     intro:
@@ -884,6 +884,8 @@ export const landings: Landing[] = [
     proofSlugs: ["do-book", "photo-booth-hire-swansea", "the-shan-booth"],
     proofIntro:
       "DoBook, a booking platform I built for a client, and two booking-led businesses I run myself on the same kind of setup.",
+    from: 2500,
+    weeks: "3–5 weeks",
     faqs: [
       {
         question: "Can it handle multiple staff or resources?",

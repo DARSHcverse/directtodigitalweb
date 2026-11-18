@@ -19,22 +19,23 @@ const pages: { path: string; updated: string }[] = [
   { path: "/pricing", updated: "2026-11-17" },
   { path: "/services", updated: "2026-11-17" },
   { path: "/apps", updated: "2026-11-17" },
-  { path: "/for", updated: "2026-11-17" },
-  { path: "/work", updated: "2026-10-15" },
-  { path: "/quote", updated: "2026-10-15" },
-  { path: "/about", updated: "2026-10-15" },
+  { path: "/for", updated: "2026-11-18" },
+  { path: "/work", updated: "2026-11-18" },
+  { path: "/quote", updated: "2026-11-17" },
+  { path: "/about", updated: "2026-11-17" },
   { path: "/booking", updated: "2026-10-15" },
   { path: "/contact", updated: "2026-10-15" },
-  { path: "/privacy", updated: "2026-10-13" },
-  { path: "/terms", updated: "2026-10-13" },
+  { path: "/privacy", updated: "2026-11-18" },
+  { path: "/terms", updated: "2026-11-18" },
 ];
 
 /** Trade and service pages, by slug. Defaults to LANDINGS_UPDATED. */
 const landingUpdated: Record<string, string> = {
-  garages: "2026-11-17",
-  "car-detailing": "2026-11-17",
-  "mobile-mechanics": "2026-11-17",
-  "car-dealers": "2026-11-17",
+  garages: "2026-11-18",
+  "booking-websites": "2026-11-18",
+  "car-detailing": "2026-11-18",
+  "mobile-mechanics": "2026-11-18",
+  "car-dealers": "2026-11-18",
 };
 const LANDINGS_UPDATED = "2026-10-15";
 

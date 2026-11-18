@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/metadata";
 import { landingGroups, landings } from "@/lib/landings";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Websites for Garages, Trades and Small Businesses",
+  title: "Websites for Garages and Trades",
   description:
     "Websites and online booking for UK garages, detailers, mobile mechanics, car dealers, plumbers, electricians, builders and roofers. Fixed price, no monthly fee.",
   path: "/for",

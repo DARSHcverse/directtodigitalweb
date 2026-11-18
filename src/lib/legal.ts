@@ -10,7 +10,7 @@
 import { identityLine, site } from "@/lib/site";
 
 /** Last substantive review of the legal pages. Update when the content changes. */
-export const legalUpdated = "24 October 2026";
+export const legalUpdated = "18 November 2026";
 
 export const privacySections = [
   {
@@ -113,7 +113,7 @@ export const termsSections = [
   {
     heading: "Ownership",
     body: [
-      "On final payment, the website and its content are yours. There is no licence to buy back, no lock-in, and no hostage-taking of your domain or hosting.",
+      "On final payment, the website or app and its content are yours. There is no licence to buy back, no lock-in, and no hostage-taking of your domain or hosting.",
       "Third-party components used in the build stay under their own licences, and the right to show the finished work as a portfolio example is retained unless you ask otherwise.",
     ],
   },

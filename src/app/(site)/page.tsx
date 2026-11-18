@@ -18,7 +18,7 @@ import { serviceCatalogue, site, telHref } from "@/lib/site";
 import { landings, type LandingGroup } from "@/lib/landings";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Websites, Booking & Apps for Trades and Garages",
+  title: "Websites, Booking & Apps for Trades & Garages",
   description: site.description,
   path: "/",
 });
@@ -93,11 +93,13 @@ export default function HomePage() {
       <section className="surface-navy overflow-hidden pb-16">
         <Container>
           <div className="pt-12 lg:pt-16">
-            <p className="mb-5 font-mono text-sm text-amber">
-              Websites, booking and apps for trades and garages
-            </p>
-            <h1 className="max-w-[12ch] text-[clamp(3.5rem,9vw,8.25rem)] leading-[0.92] font-extrabold tracking-display lg:max-w-none">
-              Pick a business.
+            {/* The small line is part of the h1 so the page's main heading
+                says what the business does, not only the invitation. */}
+            <h1 className="text-[clamp(3.5rem,9vw,8.25rem)] leading-[0.92] font-extrabold tracking-display">
+              <span className="mb-5 block font-mono text-sm leading-normal font-medium tracking-normal text-amber">
+                Websites, booking and apps for trades and garages
+              </span>{" "}
+              <span className="block">Pick a business.</span>{" "}
               <span className="block text-amber">Watch me build it.</span>
             </h1>
             <div className="mt-8 flex flex-wrap items-end justify-between gap-x-12 gap-y-6">
