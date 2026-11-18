@@ -15,7 +15,7 @@ import { listGuides } from "@/lib/guides";
  * changeFrequency and priority are left out on purpose; Google ignores both.
  */
 const pages: { path: string; updated: string }[] = [
-  { path: "/", updated: "2026-11-17" },
+  { path: "/", updated: "2026-11-18" },
   { path: "/pricing", updated: "2026-11-17" },
   { path: "/services", updated: "2026-11-17" },
   { path: "/apps", updated: "2026-11-17" },

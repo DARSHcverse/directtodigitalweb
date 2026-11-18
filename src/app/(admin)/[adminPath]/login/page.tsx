@@ -8,7 +8,7 @@ export default async function LoginPage() {
   if (await getOwner()) redirect(adminPath("dashboard"));
 
   return (
-    <main className="bg-blueprint flex min-h-screen items-center justify-center px-6">
+    <main className="surface-navy flex min-h-screen items-center justify-center px-6">
       <div className="w-full max-w-sm border-2 border-navy rounded-lg bg-surface p-8">
         <p className="rule-label mb-3 text-xs font-bold tracking-[0.2em] text-navy-text uppercase">
           Trade Web Co

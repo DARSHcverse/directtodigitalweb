@@ -28,10 +28,10 @@ export default function GuidesIndex() {
           { name: "Guides", path: "/guides" },
         ])}
       />
-      <section className="bg-blueprint border-b-2 border-navy py-14">
+      <section className="surface-navy border-b-2 border-navy py-14">
         <Container>
           <SectionLabel>Plain English, no jargon</SectionLabel>
-          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy-text">
+          <h1 className="mb-3 text-[clamp(2.9rem,6.6vw,5.75rem)] leading-[0.96] font-extrabold tracking-display text-navy-text">
             Guides for tradespeople
           </h1>
           <p className="max-w-[640px] text-lg text-muted">

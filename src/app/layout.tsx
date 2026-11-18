@@ -1,15 +1,32 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { DM_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { site } from "@/lib/site";
 import { ThemeScript } from "@/components/ThemeScript";
 
-const inter = Inter({
-  subsets: ["latin"],
+/**
+ * Self-hosted and cut down to Latin text, 400 to 800 weight, one optical size.
+ * The Google version was 77 KB and arrived late enough to delay the largest
+ * paint on every page. SIL Open Font License.
+ */
+const display = localFont({
+  src: "./fonts/bricolage-grotesque-latin.woff2",
+  weight: "400 800",
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-display",
+  adjustFontFallback: "Arial",
+});
+
+// Small build-log and label text only, so it is not worth a preload.
+const mono = DM_Mono({
+  subsets: ["latin"],
+  weight: "500",
+  display: "swap",
+  preload: false,
+  variable: "--font-code",
 });
 
 const defaultTitle = `${site.name} — ${site.tagline}`;
@@ -79,7 +96,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-GB" className={inter.variable} suppressHydrationWarning>
+    <html lang="en-GB" className={`${display.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
         <ThemeScript />
       </head>

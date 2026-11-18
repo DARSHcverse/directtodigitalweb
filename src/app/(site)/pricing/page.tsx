@@ -24,10 +24,10 @@ export default function PricingPage() {
           { name: "Pricing", path: "/pricing" },
         ])}
       />
-      <section className="bg-blueprint border-b-2 border-navy py-14">
+      <section className="surface-navy border-b-2 border-navy py-14">
         <Container>
           <SectionLabel>Fixed prices, agreed up front</SectionLabel>
-          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy-text">
+          <h1 className="mb-3 text-[clamp(2.9rem,6.6vw,5.75rem)] leading-[0.96] font-extrabold tracking-display text-navy-text">
             What a website or app costs
           </h1>
           <p className="mb-10 max-w-[640px] text-lg text-muted">
@@ -129,7 +129,7 @@ export default function PricingPage() {
             <SectionLabel>Updating your own site</SectionLabel>
             <h2
               id="admin-explainer"
-              className="mb-3 text-3xl font-bold tracking-display text-navy-text"
+              className="mb-3 text-4xl leading-none font-extrabold tracking-display text-navy-text"
             >
               {adminExplainer.heading}
             </h2>
@@ -183,7 +183,7 @@ export default function PricingPage() {
           </div>
 
           <div className="mt-12 border-t border-edge pt-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-display text-navy-text">
+            <h2 className="mb-4 text-4xl leading-none font-extrabold tracking-display text-navy-text">
               Not sure which fits?
             </h2>
             <p className="mx-auto mb-8 max-w-[520px] text-muted">

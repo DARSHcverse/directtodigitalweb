@@ -34,7 +34,7 @@ export function PageHeader({
 
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-display text-navy-text">
+          <h1 className="text-4xl leading-none font-extrabold tracking-display text-navy-text">
             {title}
           </h1>
           {subtitle ? <p className="mt-1 text-muted">{subtitle}</p> : null}

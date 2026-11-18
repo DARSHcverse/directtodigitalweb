@@ -26,7 +26,7 @@ const stats = [
 
 export function ProofBand() {
   return (
-    <section aria-labelledby="proof-band" className="border-y-2 border-navy bg-navy">
+    <section aria-labelledby="proof-band" className="surface-navy">
       <h2 id="proof-band" className="sr-only">
         Why a website matters
       </h2>

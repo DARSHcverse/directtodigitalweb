@@ -77,7 +77,7 @@ export default async function GuidePage({
       />
 
       <article>
-        <header className="bg-blueprint border-b-2 border-navy py-12">
+        <header className="surface-navy border-b-2 border-navy py-12">
           <Container>
             <div className="mx-auto max-w-[46rem]">
               <nav aria-label="Breadcrumb" className="mb-5 text-sm text-muted">
@@ -94,7 +94,7 @@ export default async function GuidePage({
                   DRAFT — not published, visible only in development
                 </p>
               ) : null}
-              <h1 className="text-[clamp(2rem,4.6vw,3rem)] leading-[1.1] font-bold tracking-display text-navy-text">
+              <h1 className="text-[clamp(2.5rem,5vw,4.25rem)] leading-none font-extrabold tracking-display text-navy-text">
                 {guide.title}
               </h1>
               <p className="mt-4 text-sm text-muted">

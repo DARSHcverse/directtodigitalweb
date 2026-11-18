@@ -60,10 +60,10 @@ export default function WorkPage() {
           ...(projects.length > 0 ? [workListSchema()] : []),
         ]}
       />
-      <section className="bg-blueprint border-b-2 border-navy py-14">
+      <section className="surface-navy border-b-2 border-navy py-14">
         <Container>
           <SectionLabel>Built and running</SectionLabel>
-          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy-text">Websites and apps I&apos;ve built</h1>
+          <h1 className="mb-3 text-[clamp(2.9rem,6.6vw,5.75rem)] leading-[0.96] font-extrabold tracking-display text-navy-text">Websites and apps I&apos;ve built</h1>
           <p className="mb-10 max-w-[640px] text-lg text-muted">
             Websites, booking systems and apps running real businesses. Some
             are for clients and some are businesses I run myself; each one is
@@ -122,7 +122,7 @@ export default function WorkPage() {
           )}
 
           <div className="mt-16 border-t border-edge pt-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-display text-navy-text">
+            <h2 className="mb-4 text-4xl leading-none font-extrabold tracking-display text-navy-text">
               Want something like this?
             </h2>
             <p className="mx-auto mb-8 max-w-[520px] text-muted">

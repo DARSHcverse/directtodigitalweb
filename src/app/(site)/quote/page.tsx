@@ -22,10 +22,10 @@ export default function QuotePage() {
           { name: "Quote", path: "/quote" },
         ])}
       />
-      <section className="bg-blueprint border-b-2 border-navy py-14">
+      <section className="surface-navy border-b-2 border-navy py-14">
         <Container>
           <SectionLabel>No obligation</SectionLabel>
-          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy-text">Get a fixed quote</h1>
+          <h1 className="mb-3 text-[clamp(2.9rem,6.6vw,5.75rem)] leading-[0.96] font-extrabold tracking-display text-navy-text">Get a fixed quote</h1>
           <p className="mb-6 max-w-[640px] text-lg text-muted">
             Tell me what you need and I&apos;ll send a fixed price and timeline —
             usually within one working day. No obligation, and no sales pitch.

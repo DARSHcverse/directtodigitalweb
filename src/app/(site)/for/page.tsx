@@ -28,10 +28,10 @@ export default function ForIndexPage() {
           { name: "Who I build for", path: "/for" },
         ])}
       />
-      <section className="bg-blueprint border-b-2 border-navy py-14">
+      <section className="surface-navy border-b-2 border-navy py-14">
         <Container>
           <SectionLabel>Who I build for</SectionLabel>
-          <h1 className="max-w-[20ch] text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy-text">
+          <h1 className="max-w-[20ch] text-[clamp(2.9rem,6.6vw,5.75rem)] leading-[0.96] font-extrabold tracking-display text-navy-text">
             Websites for garages, trades and small businesses
           </h1>
           <p className="mt-4 max-w-[640px] text-lg text-muted">

@@ -44,7 +44,7 @@ export function NavBar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-30 border-b-2 border-navy bg-surface">
+    <header className="surface-navy sticky top-0 z-30 border-b border-edge">
       <div className="mx-auto flex w-[92%] max-w-[1200px] items-center justify-between gap-6 py-4">
         <Link
           href="/"
@@ -98,7 +98,7 @@ export function NavBar() {
           <ThemeToggle className="ml-2" />
           <Link
             href="/portal"
-            className="ml-2 rounded-md border-2 border-edge px-4 py-2 text-sm font-semibold text-navy-text no-underline transition hover:border-navy hover:bg-navy hover:text-white"
+            className="lift ml-2 rounded-full border border-edge px-4 py-2 text-sm font-semibold text-navy-text no-underline hover:border-white"
           >
             Client login
           </Link>
@@ -112,7 +112,7 @@ export function NavBar() {
           </a>
           <Link
             href="/quote"
-            className="ml-2 rounded-md bg-navy px-5 py-2.5 text-sm font-bold text-white no-underline transition hover:bg-navy-deep"
+            className="lift ml-2 rounded-full bg-amber px-5 py-2.5 text-sm font-extrabold text-on-amber no-underline"
           >
             Get a quote
           </Link>
@@ -123,7 +123,7 @@ export function NavBar() {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="mobile-nav"
-          className="border-2 border-navy rounded-lg p-2 text-navy-text lg:hidden"
+          className="rounded-lg border border-edge p-2.5 text-navy-text lg:hidden"
         >
           <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -176,21 +176,21 @@ export function NavBar() {
             <Link
               href="/portal"
               onClick={() => setOpen(false)}
-              className="mt-3 block rounded-md border-2 border-edge py-3 text-center font-semibold text-navy-text no-underline transition hover:border-navy"
+              className="mt-3 block rounded-full border border-edge py-3 text-center font-semibold text-navy-text no-underline transition hover:border-white"
             >
               Client login
             </Link>
             <Link
               href="/quote"
               onClick={() => setOpen(false)}
-              className="mt-2 block rounded-md bg-navy py-3 text-center font-bold text-white no-underline"
+              className="mt-2 block rounded-full bg-amber py-3 text-center font-extrabold text-on-amber no-underline"
             >
               Get a quote
             </Link>
             <div className="mt-3">
               <a
                 href={telHref}
-                className="block rounded-md border-2 border-navy py-3 text-center font-bold text-navy-text no-underline"
+                className="block rounded-full border-2 border-white py-3 text-center font-bold text-navy-text no-underline"
               >
                 Call {site.phone.display}
               </a>

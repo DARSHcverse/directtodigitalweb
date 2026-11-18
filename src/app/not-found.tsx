@@ -8,11 +8,11 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <main className="bg-blueprint flex min-h-screen flex-col items-center justify-center px-6 text-center">
+    <main className="surface-navy flex min-h-screen flex-col items-center justify-center px-6 text-center">
       <p className="rule-label mb-4 text-xs font-bold tracking-[0.2em] text-navy-text uppercase">
         Error 404
       </p>
-      <h1 className="mb-4 text-[clamp(2rem,5vw,3rem)] leading-[1.07] font-bold tracking-display text-navy-text">
+      <h1 className="mb-4 text-[clamp(2.9rem,6.6vw,5.75rem)] leading-[0.96] font-extrabold tracking-display text-navy-text">
         That page doesn&apos;t exist
       </h1>
       <p className="mb-8 max-w-[440px] leading-relaxed text-muted">

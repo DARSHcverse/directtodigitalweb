@@ -36,7 +36,7 @@ export default async function PortalLoginPage() {
     <main className="min-h-screen">
       <div className="grid min-h-screen lg:grid-cols-2">
         {/* Sign-in side. First on mobile, because that is what they came for. */}
-        <div className="bg-blueprint flex items-center justify-center px-6 py-16">
+        <div className="surface-navy flex items-center justify-center px-6 py-16">
           <div className="w-full max-w-sm">
             <Link
               href="/"

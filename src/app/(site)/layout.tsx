@@ -1,4 +1,5 @@
 import { NavBar } from "@/components/NavBar";
+import { PageTransition } from "@/components/PageTransition";
 import { JsonLd } from "@/components/JsonLd";
 import { organisationSchema, webSiteSchema } from "@/lib/schema";
 import { Footer } from "@/components/Footer";
@@ -22,7 +23,7 @@ export default function SiteLayout({
       </a>
       <NavBar />
       <main id="main" className="flex-1">
-        {children}
+        <PageTransition>{children}</PageTransition>
       </main>
       <ContactBar />
       <AttributionCapture />

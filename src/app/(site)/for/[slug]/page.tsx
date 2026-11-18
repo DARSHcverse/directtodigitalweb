@@ -75,12 +75,12 @@ export default async function LandingPage({
           field, with a spec card carrying trade-specific detail. Previously
           the right half was empty, which made these pages look unfinished
           next to the homepage. */}
-      <section className="bg-blueprint border-b-2 border-navy">
+      <section className="surface-navy border-b-2 border-navy">
         <Container>
           <div className="grid items-center gap-12 py-14 lg:grid-cols-12 lg:py-20">
             <div className="lg:col-span-7">
               <SectionLabel>{landing.audience}</SectionLabel>
-              <h1 className="max-w-[16ch] text-[clamp(2.1rem,5vw,3.4rem)] leading-[1.07] font-bold tracking-display text-navy-text">
+              <h1 className="max-w-[16ch] text-[clamp(2.9rem,6.2vw,5.5rem)] leading-[0.96] font-extrabold tracking-display text-navy-text">
                 {landing.heading}
               </h1>
               <p className="mt-6 max-w-[34rem] text-lg leading-relaxed text-muted">
@@ -98,7 +98,7 @@ export default async function LandingPage({
 
             <div className="lg:col-span-5">
               <div className="mx-auto max-w-sm overflow-hidden rounded-lg border-2 border-navy bg-surface">
-                <div className="flex items-center justify-between border-b-2 border-navy bg-navy px-5 py-3">
+                <div className="flex items-center justify-between border-b border-edge bg-bg px-5 py-3">
                   <span className="text-xs font-bold tracking-[0.2em] text-white/70 uppercase">
                     What you get
                   </span>
@@ -149,7 +149,7 @@ export default async function LandingPage({
       <section className="py-14">
         <Container>
           <section aria-labelledby="problems" className="py-16">
-            <h2 id="problems" className="mb-6 text-3xl font-bold tracking-display text-navy-text">
+            <h2 id="problems" className="mb-6 text-4xl leading-none font-extrabold tracking-display text-navy-text">
               Sound familiar?
             </h2>
             <ul className="grid gap-3">
@@ -168,7 +168,7 @@ export default async function LandingPage({
           </section>
 
           <section aria-labelledby="solutions" className="py-4 pb-16">
-            <h2 id="solutions" className="mb-2 text-3xl font-bold tracking-display text-navy-text">
+            <h2 id="solutions" className="mb-2 text-4xl leading-none font-extrabold tracking-display text-navy-text">
               How I fix it
             </h2>
             <p className="mb-8 text-muted">
@@ -232,7 +232,7 @@ export default async function LandingPage({
               <div className="max-w-[46rem]">
                 <h2
                   id={section.id}
-                  className="mb-4 text-3xl font-bold tracking-display text-navy-text"
+                  className="mb-4 text-4xl leading-none font-extrabold tracking-display text-navy-text"
                 >
                   {section.heading}
                 </h2>
@@ -261,7 +261,7 @@ export default async function LandingPage({
 
           {proof.length > 0 ? (
             <section aria-labelledby="proof" className="border-t border-edge py-16">
-              <h2 id="proof" className="mb-2 text-3xl font-bold tracking-display text-navy-text">
+              <h2 id="proof" className="mb-2 text-4xl leading-none font-extrabold tracking-display text-navy-text">
                 Similar builds
               </h2>
               <p className="mb-8 text-muted">{landing.proofIntro}</p>
@@ -285,7 +285,7 @@ export default async function LandingPage({
             aria-labelledby="landing-faq"
             className="border-t border-edge py-16"
           >
-            <h2 id="landing-faq" className="mb-8 text-3xl font-bold tracking-display text-navy-text">
+            <h2 id="landing-faq" className="mb-8 text-4xl leading-none font-extrabold tracking-display text-navy-text">
               Common questions
             </h2>
             <div className="grid gap-4">
@@ -312,7 +312,7 @@ export default async function LandingPage({
           </section>
 
           <section className="border-t border-edge py-16 text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-display text-navy-text">
+            <h2 className="mb-4 text-4xl leading-none font-extrabold tracking-display text-navy-text">
               Let&apos;s talk about your project
             </h2>
             <p className="mx-auto mb-8 max-w-[520px] text-muted">

@@ -4,13 +4,12 @@ import { ButtonLink } from "@/components/Button";
 import { Container, SectionLabel } from "@/components/Container";
 import { FaqSection } from "@/components/FaqSection";
 import { FeaturedWork } from "@/components/FeaturedWork";
-import { HeroDevices } from "@/components/HeroDevices";
+import { LiveBuild } from "@/components/LiveBuild";
 import { ProofBand } from "@/components/ProofBand";
 import { MeetShan } from "@/components/MeetShan";
 import { GuidesTeaser } from "@/components/GuidesTeaser";
 import { Testimonials } from "@/components/Testimonials";
 import { JsonLd } from "@/components/JsonLd";
-import { cn } from "@/lib/cn";
 import { faqSchema } from "@/lib/schema";
 import { faqs } from "@/lib/faqs";
 import { pageMetadata } from "@/lib/metadata";
@@ -91,54 +90,38 @@ export default function HomePage() {
     <>
       <JsonLd data={faqSchema(faqs)} />
 
-      <section className="bg-blueprint border-b-2 border-navy">
+      <section className="surface-navy overflow-hidden pb-16">
         <Container>
-          <div className="grid items-center gap-12 py-16 lg:grid-cols-12 lg:py-24">
-            <div className="lg:col-span-7">
-              <SectionLabel>Web &amp; app developer · Swansea · UK-wide</SectionLabel>
-              <h1 className="max-w-[17ch] text-[clamp(2.4rem,5.4vw,3.9rem)] leading-[1.07] font-bold tracking-display text-navy-text">
-                Websites, booking and apps for{" "}
-                <span className="relative inline-block whitespace-nowrap">
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-x-0 bottom-[0.16em] h-[0.4em] dark-highlight"
-                  />
-                  <span className="relative">trades and garages.</span>
-                </span>
-              </h1>
-              <p className="mt-7 max-w-[34rem] text-lg leading-relaxed text-muted">
-                I&apos;m Shan, a developer in Swansea. I build your website,
-                online booking and app. Fixed price, no monthly fee, and
-                it&apos;s yours.
-              </p>
-              <div className="mt-9 flex flex-wrap gap-3">
-                <ButtonLink href="/quote" variant="primary">
-                  Get a fixed quote
-                </ButtonLink>
-                <a
-                  href={telHref}
-                  className="inline-flex items-center justify-center rounded-md border-2 border-navy px-6 py-3.5 text-sm font-bold tracking-wide text-navy-text no-underline transition hover:bg-navy hover:text-white"
-                >
-                  Call {site.phone.display}
-                </a>
+          <div className="pt-12 lg:pt-16">
+            <p className="mb-5 font-mono text-sm text-amber">
+              Websites, booking and apps for trades and garages
+            </p>
+            <h1 className="max-w-[12ch] text-[clamp(3.5rem,9vw,8.25rem)] leading-[0.92] font-extrabold tracking-display lg:max-w-none">
+              Pick a business.
+              <span className="block text-amber">Watch me build it.</span>
+            </h1>
+            <div className="mt-8 flex flex-wrap items-end justify-between gap-x-12 gap-y-6">
+              <div className="max-w-[38rem]">
+                <p className="text-xl leading-snug text-muted">
+                  I&apos;m Shan, a developer in Swansea. I build your website,
+                  online booking and app. Fixed price, no monthly fee, and
+                  it&apos;s yours.
+                </p>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <ButtonLink href="/quote" variant="primary">
+                    Get a fixed quote
+                  </ButtonLink>
+                  <a
+                    href={telHref}
+                    className="lift inline-flex min-h-12 items-center rounded-full border-2 border-white px-6 font-bold text-white no-underline hover:bg-white hover:text-navy-deep"
+                  >
+                    Call {site.phone.display}
+                  </a>
+                </div>
               </div>
-              <ul className="mt-8 flex flex-wrap gap-x-7 gap-y-2 text-sm text-muted">
-                {[
-                  "Fixed price up front",
-                  "No monthly fees",
-                  "You own the code",
-                  "Reply within one working day",
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-2">
-                    <span aria-hidden="true" className="h-1.5 w-1.5 bg-amber" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
             </div>
-
-            <div className="lg:col-span-5">
-              <HeroDevices />
+            <div className="mt-10">
+              <LiveBuild />
             </div>
           </div>
         </Container>
@@ -151,80 +134,48 @@ export default function HomePage() {
           <SectionLabel>Who I build for</SectionLabel>
           <h2
             id="paths-heading"
-            className="mb-10 max-w-[40rem] text-3xl font-bold tracking-display text-navy-text lg:text-4xl"
+            className="mb-10 max-w-[40rem] text-4xl leading-none font-extrabold tracking-display text-navy-text lg:text-6xl"
           >
             Pick the one that sounds like you
           </h2>
           <div className="grid gap-5 lg:grid-cols-3">
-            {paths.map((path, i) => {
-              const lead = i === 0;
-              return (
-                <article
-                  key={path.label}
-                  className={cn(
-                    "flex flex-col rounded-lg border-2 p-7",
-                    lead ? "border-navy bg-navy text-white" : "border-edge bg-surface",
-                  )}
-                >
-                  <p
-                    className={cn(
-                      "text-xs font-bold tracking-[0.2em] uppercase",
-                      // Amber on dark-mode navy fails contrast at this size.
-                      lead ? "text-white" : "text-amber-deep",
-                    )}
+            {paths.map((path, i) => (
+              <article
+                key={path.label}
+                className="sweep flex flex-col rounded-lg border-2 border-edge bg-surface p-7"
+              >
+                <p className="font-mono text-sm text-amber-deep">
+                  {String(i + 1).padStart(2, "0")} / {path.label}
+                </p>
+                <h3 className="mt-12 text-4xl leading-none font-extrabold tracking-display text-navy-text">
+                  {path.title}
+                </h3>
+                <p className="mt-4 leading-relaxed text-muted">{path.body}</p>
+                {path.links.length > 0 ? (
+                  <ul className="mt-6 divide-y divide-edge border-y border-edge text-sm">
+                    {path.links.map((link) => (
+                      <li key={link.href}>
+                        <Link
+                          href={link.href}
+                          className="flex items-center justify-between py-2.5 font-semibold text-navy-text no-underline"
+                        >
+                          {link.label}
+                          <span aria-hidden="true">→</span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+                <div className="mt-auto pt-7">
+                  <Link
+                    href={path.href}
+                    className="lift inline-flex min-h-12 items-center rounded-full border-2 border-navy-text px-5 font-bold text-navy-text no-underline"
                   >
-                    {String(i + 1).padStart(2, "0")} · {path.label}
-                  </p>
-                  <h3
-                    className={cn(
-                      "mt-4 text-2xl leading-tight font-bold tracking-display",
-                      lead ? "text-white" : "text-navy-text",
-                    )}
-                  >
-                    {path.title}
-                  </h3>
-                  <p className={cn("mt-3 leading-relaxed", lead ? "text-white/80" : "text-muted")}>
-                    {path.body}
-                  </p>
-                  {path.links.length > 0 ? (
-                    <ul
-                      className={cn(
-                        "mt-6 divide-y border-y text-sm",
-                        lead ? "divide-white/15 border-white/15" : "divide-edge border-edge",
-                      )}
-                    >
-                      {path.links.map((link) => (
-                        <li key={link.href}>
-                          <Link
-                            href={link.href}
-                            className={cn(
-                              "flex items-center justify-between py-2.5 font-semibold no-underline transition",
-                              lead ? "text-white hover:text-amber" : "text-navy-text hover:text-amber-deep",
-                            )}
-                          >
-                            {link.label}
-                            <span aria-hidden="true">→</span>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : null}
-                  <div className="mt-auto pt-7">
-                    <Link
-                      href={path.href}
-                      className={cn(
-                        "inline-flex rounded-md px-5 py-3 text-sm font-bold no-underline transition",
-                        lead
-                          ? "bg-amber text-on-amber hover:bg-white"
-                          : "border-2 border-navy text-navy-text hover:bg-navy hover:text-white",
-                      )}
-                    >
-                      {path.cta} →
-                    </Link>
-                  </div>
-                </article>
-              );
-            })}
+                    {path.cta} →
+                  </Link>
+                </div>
+              </article>
+            ))}
           </div>
         </Container>
       </section>
@@ -236,7 +187,7 @@ export default function HomePage() {
               <SectionLabel>What I build</SectionLabel>
               <h2
                 id="services-heading"
-                className="max-w-[40rem] text-3xl font-bold tracking-display text-navy-text lg:text-4xl"
+                className="max-w-[40rem] text-4xl leading-none font-extrabold tracking-display text-navy-text lg:text-6xl"
               >
                 From a first website to a full app
               </h2>
@@ -253,7 +204,7 @@ export default function HomePage() {
               <Link
                 key={service.slug}
                 href={`/services#${service.slug}`}
-                className="group flex flex-col bg-bg p-7 no-underline transition hover:bg-surface"
+                className="sweep group flex flex-col bg-bg p-7 no-underline"
               >
                 <h3 className="text-xl font-bold text-navy-text">{service.name}</h3>
                 <p className="mt-3 flex-1 leading-relaxed text-muted">
@@ -282,20 +233,20 @@ export default function HomePage() {
         <FeaturedWork />
       </Container>
 
-      <section aria-labelledby="process-heading" className="border-y-2 border-navy bg-navy py-16 text-white">
+      <section aria-labelledby="process-heading" className="surface-navy py-20">
         <Container>
           <p className="rule-label mb-4 text-xs font-bold tracking-[0.2em] text-white uppercase">
             How it works
           </p>
           <h2
             id="process-heading"
-            className="mb-10 max-w-[30rem] text-3xl font-bold tracking-display lg:text-4xl"
+            className="mb-10 max-w-[46rem] text-4xl leading-none font-extrabold tracking-display lg:text-6xl"
           >
             Four steps. No jargon.
           </h2>
           <ol className="grid gap-px bg-white/15 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((step, i) => (
-              <li key={step.title} className="bg-navy p-6">
+              <li key={step.title} className="bg-bg p-6">
                 <span className="block text-4xl font-bold tracking-display text-amber">
                   {String(i + 1).padStart(2, "0")}
                 </span>
@@ -315,11 +266,11 @@ export default function HomePage() {
         <FaqSection />
       </Container>
 
-      <section className="border-t-2 border-navy bg-blueprint py-16">
+      <section className="surface-navy py-20">
         <Container>
           <div className="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
             <div>
-              <h2 className="max-w-[26rem] text-3xl font-bold tracking-display text-navy-text lg:text-4xl">
+              <h2 className="max-w-[46rem] text-4xl leading-none font-extrabold tracking-display text-navy-text lg:text-6xl">
                 Find out what it would cost
               </h2>
               <p className="mt-3 max-w-[30rem] text-muted">

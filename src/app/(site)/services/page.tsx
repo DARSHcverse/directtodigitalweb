@@ -25,10 +25,10 @@ export default function ServicesPage() {
           { name: "Services", path: "/services" },
         ])}
       />
-      <section className="bg-blueprint border-b-2 border-navy py-14">
+      <section className="surface-navy border-b-2 border-navy py-14">
         <Container>
           <SectionLabel>What I build</SectionLabel>
-          <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy-text">Websites, booking and apps</h1>
+          <h1 className="mb-3 text-[clamp(2.9rem,6.6vw,5.75rem)] leading-[0.96] font-extrabold tracking-display text-navy-text">Websites, booking and apps</h1>
           <p className="mb-12 max-w-[640px] text-lg text-muted">
             From a first website to an app in the App Store. Not sure which
             you need? Describe your situation and I&apos;ll point you to the
@@ -87,7 +87,7 @@ export default function ServicesPage() {
             aria-labelledby="who-for"
             className="mt-16 border-t border-edge pt-12"
           >
-            <h2 id="who-for" className="mb-2 text-3xl font-bold tracking-display text-navy-text">
+            <h2 id="who-for" className="mb-2 text-4xl leading-none font-extrabold tracking-display text-navy-text">
               Looking for something specific?
             </h2>
             <p className="mb-8 text-muted">
@@ -113,7 +113,7 @@ export default function ServicesPage() {
           </section>
 
           <div className="mt-12 border-t border-edge pt-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-display text-navy-text">
+            <h2 className="mb-4 text-4xl leading-none font-extrabold tracking-display text-navy-text">
               Something else in mind?
             </h2>
             <p className="mx-auto mb-8 max-w-[520px] text-muted">

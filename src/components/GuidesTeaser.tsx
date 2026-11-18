@@ -10,7 +10,7 @@ export function GuidesTeaser() {
   return (
     <section aria-labelledby="guides-heading" className="py-16">
       <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
-        <h2 id="guides-heading" className="text-3xl font-bold tracking-display text-navy-text">
+        <h2 id="guides-heading" className="text-4xl leading-none font-extrabold tracking-display text-navy-text">
           Guides for tradespeople
         </h2>
         <Link href="/guides" className="text-sm font-bold text-navy-text no-underline hover:text-amber-deep">

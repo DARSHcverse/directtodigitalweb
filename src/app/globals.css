@@ -41,7 +41,8 @@
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-code), ui-monospace, monospace;
 
   /* Success overlay. The ring and tick draw themselves rather than fading
      in, which reads as "done" instead of "appeared". */
@@ -71,7 +72,7 @@
   }
 
   /* Tight, editorial display tracking for large headings. */
-  --tracking-display: -0.035em;
+  --tracking-display: -0.03em;
 }
 
 /**
@@ -169,13 +170,76 @@
 }
 
 @layer utilities {
-  /* Faint blueprint grid. Structural texture without imagery — it reads as
-     drawing paper rather than the usual gradient wash. */
-  .bg-blueprint {
-    background-image:
-      linear-gradient(to right, rgb(15 42 71 / 0.055) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(15 42 71 / 0.055) 1px, transparent 1px);
-    background-size: 28px 28px;
+  /**
+   * The brand's navy stage: header, page openers and footer, the same in
+   * light and dark. It re-points the theme tokens instead of restyling every
+   * child, so text, cards and buttons inside it adapt on their own.
+   */
+  .surface-navy {
+    --color-bg: #0f2a47;
+    --color-surface: #18385a;
+    --color-edge: #36516f;
+    --color-rule: #36516f;
+    --color-ink: #ffffff;
+    --color-muted: #d7e1ec;
+    --color-navy: #3f5f82;
+    --color-navy-deep: #4d6f95;
+    --color-navy-text: #ffffff;
+    --color-amber: #f5a623;
+    --color-amber-deep: #f5a623;
+    background-color: #0f2a47;
+    color: #ffffff;
+  }
+
+  .surface-navy :focus-visible {
+    outline-color: #ffffff;
+  }
+
+  .surface-navy .logo-light { display: none; }
+  .surface-navy .logo-dark { display: block; }
+
+  /* Buttons and cards answer the pointer with movement, not just colour. */
+  .lift {
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+      background-color 0.2s, border-color 0.2s, color 0.2s;
+  }
+
+  .lift:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Amber rises through a card on hover. Tokens flip with it, so everything
+     inside stays readable without its own hover rules. */
+  .sweep {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    transition: color 0.25s, border-color 0.25s;
+  }
+
+  .sweep::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: #f5a623;
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @media (hover: hover) {
+    .sweep:hover {
+      --color-navy-text: #081726;
+      --color-muted: #081726;
+      --color-amber-deep: #081726;
+      --color-edge: rgb(8 23 38 / 0.25);
+      border-color: #f5a623;
+    }
+
+    .sweep:hover::before {
+      transform: scaleY(1);
+    }
   }
 
   /* Measured-drawing underline for section labels. */
@@ -240,21 +304,50 @@
     bottom: 0.02em;
     height: 0.09em;
   }
+}
 
-  /* The blueprint grid is drawn in navy ink; on a dark field it needs to be
-     light, or the texture disappears entirely. */
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) .bg-blueprint {
-      background-image:
-        linear-gradient(to right, rgb(255 255 255 / 0.04) 1px, transparent 1px),
-        linear-gradient(to bottom, rgb(255 255 255 / 0.04) 1px, transparent 1px);
+/**
+ * Sections rise into place as they scroll in. Driven by the browser's scroll
+ * timeline, so it costs no JavaScript; browsers without it just show them.
+ * Anything already on screen at load is past the range and never hidden.
+ */
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    main > * + * > * {
+      animation: reveal-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0 entry 140px;
     }
   }
+}
 
-  :root[data-theme="dark"] .bg-blueprint {
-    background-image:
-      linear-gradient(to right, rgb(255 255 255 / 0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(255 255 255 / 0.04) 1px, transparent 1px);
+/* Page changes: the old page slips away and the new one rises in. */
+@keyframes page-out {
+  to { opacity: 0; transform: translateY(-10px); }
+}
+
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(18px); }
+}
+
+::view-transition-old(.page-out) {
+  animation: page-out 0.16s ease-in both;
+}
+
+::view-transition-new(.page-in) {
+  animation: page-in 0.34s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }
 

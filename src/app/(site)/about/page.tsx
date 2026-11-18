@@ -50,12 +50,12 @@ export default function AboutPage() {
           { name: "About", path: "/about" },
         ])}
       />
-      <section className="bg-blueprint border-b-2 border-navy py-14">
+      <section className="surface-navy border-b-2 border-navy py-14">
         <Container>
           <div className="flex flex-col-reverse gap-8 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <SectionLabel>Who you&apos;re dealing with</SectionLabel>
-              <h1 className="mb-3 text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.07] font-bold tracking-display text-navy-text">
+              <h1 className="mb-3 text-[clamp(2.9rem,6.6vw,5.75rem)] leading-[0.96] font-extrabold tracking-display text-navy-text">
                 I&apos;m Shan. I build every site and app myself.
               </h1>
               <p className="mb-6 max-w-[600px] text-lg text-muted">
@@ -183,7 +183,7 @@ export default function AboutPage() {
           <Testimonials />
 
           <div className="border-t border-edge pt-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-display text-navy-text">Let&apos;s talk</h2>
+            <h2 className="mb-4 text-4xl leading-none font-extrabold tracking-display text-navy-text">Let&apos;s talk</h2>
             <p className="mx-auto mb-8 max-w-[520px] text-muted">
               Tell me what your business needs and I&apos;ll tell you honestly
               whether I can help.

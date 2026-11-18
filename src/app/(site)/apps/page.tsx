@@ -113,10 +113,10 @@ export default function AppsPage() {
       />
       <JsonLd data={faqSchema(faqs)} />
 
-      <section className="bg-blueprint border-b-2 border-navy py-16 lg:py-20">
+      <section className="surface-navy border-b-2 border-navy py-16 lg:py-20">
         <Container>
           <SectionLabel>Web and mobile apps</SectionLabel>
-          <h1 className="max-w-[18ch] text-[clamp(2.3rem,5.2vw,3.6rem)] leading-[1.07] font-bold tracking-display text-navy-text">
+          <h1 className="max-w-[18ch] text-[clamp(2.9rem,6.6vw,5.75rem)] leading-[0.96] font-extrabold tracking-display text-navy-text">
             Your app, built by the developer you talk to.
           </h1>
           <p className="mt-6 max-w-[36rem] text-lg leading-relaxed text-muted">
@@ -175,7 +175,7 @@ export default function AppsPage() {
           <SectionLabel>Apps I&apos;ve built</SectionLabel>
           <h2
             id="apps-built"
-            className="mb-10 max-w-[36rem] text-3xl font-bold tracking-display text-navy-text lg:text-4xl"
+            className="mb-10 max-w-[46rem] text-4xl leading-none font-extrabold tracking-display text-navy-text lg:text-6xl"
           >
             Live and in use
           </h2>
@@ -192,7 +192,7 @@ export default function AppsPage() {
           <SectionLabel>Who it&apos;s for</SectionLabel>
           <h2
             id="who-for"
-            className="mb-10 max-w-[44rem] text-3xl font-bold tracking-display text-navy-text lg:text-4xl"
+            className="mb-10 max-w-[44rem] text-4xl leading-none font-extrabold tracking-display text-navy-text lg:text-6xl"
           >
             Any business, or anyone with an idea
           </h2>
@@ -207,17 +207,17 @@ export default function AppsPage() {
         </Container>
       </section>
 
-      <section aria-labelledby="app-process" className="border-b-2 border-navy bg-navy py-16 text-white">
+      <section aria-labelledby="app-process" className="surface-navy py-20">
         <Container>
           <p className="rule-label mb-4 text-xs font-bold tracking-[0.2em] text-white uppercase">
             How an app gets built
           </p>
-          <h2 id="app-process" className="mb-10 max-w-[40rem] text-3xl font-bold tracking-display lg:text-4xl">
+          <h2 id="app-process" className="mb-10 max-w-[40rem] text-4xl leading-none font-extrabold tracking-display lg:text-6xl">
             Small first version, then grow it
           </h2>
           <ol className="grid gap-px bg-white/15 sm:grid-cols-2 lg:grid-cols-5">
             {steps.map((step, i) => (
-              <li key={step.title} className="bg-navy p-6">
+              <li key={step.title} className="bg-bg p-6">
                 <span className="block text-4xl font-bold tracking-display text-amber">
                   {String(i + 1).padStart(2, "0")}
                 </span>
@@ -231,7 +231,7 @@ export default function AppsPage() {
 
       <section aria-labelledby="apps-faq" className="py-16">
         <Container>
-          <h2 id="apps-faq" className="mb-8 text-3xl font-bold tracking-display text-navy-text">
+          <h2 id="apps-faq" className="mb-8 text-4xl leading-none font-extrabold tracking-display text-navy-text">
             Questions about apps
           </h2>
           <div className="grid max-w-[48rem] gap-3">
