@@ -26,15 +26,15 @@ export function PageHeader({
       {back ? (
         <Link
           href={back.href}
-          className="mb-3 inline-block text-sm font-semibold text-muted no-underline hover:text-navy-text"
+          className="mb-1 inline-flex min-h-11 items-center text-sm font-semibold text-muted no-underline hover:text-navy-text"
         >
           ← {back.label}
         </Link>
       ) : null}
 
       <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h1 className="text-4xl leading-none font-extrabold tracking-display text-navy-text">
+        <div className="min-w-0 max-w-full">
+          <h1 className="text-[2.5rem] leading-none font-extrabold tracking-display wrap-anywhere text-navy-text md:text-5xl">
             {title}
           </h1>
           {subtitle ? <p className="mt-1 text-muted">{subtitle}</p> : null}
@@ -42,13 +42,23 @@ export function PageHeader({
         {action ? (
           <Link
             href={action.href}
-            className="bg-navy rounded-md px-5 py-3 text-sm font-bold text-white no-underline transition hover:bg-navy-deep"
+            className="lift hidden min-h-11 items-center rounded-full bg-navy px-5 text-sm font-bold text-white no-underline hover:bg-navy-deep sm:inline-flex"
           >
             {action.label}
           </Link>
         ) : null}
       </div>
     </div>
+  );
+}
+
+/** Thumb-sized action on a list card. */
+export function actionClass(primary = false): string {
+  return cn(
+    "inline-flex min-h-11 min-w-0 items-center justify-center rounded-lg px-2 text-sm font-bold no-underline transition",
+    primary
+      ? "bg-navy text-white hover:bg-navy-deep"
+      : "bg-bg text-navy-text hover:bg-edge",
   );
 }
 
@@ -67,10 +77,10 @@ export function Panel({
   return (
     <section
       className={cn(
-        "bg-surface p-6",
-        tone === "default" && "border-2 border-edge rounded-lg",
-        tone === "warning" && "border-l-4 border-amber",
-        tone === "danger" && "border-l-4 border-danger",
+        "rounded-xl bg-surface p-4 sm:p-6",
+        tone === "default" && "border border-edge",
+        tone === "warning" && "border border-amber",
+        tone === "danger" && "border border-danger",
       )}
     >
       {title ? (
@@ -96,7 +106,7 @@ export function EmptyState({
   action?: { href: string; label: string };
 }) {
   return (
-    <div className="border-2 border-edge rounded-lg bg-surface p-10 text-center">
+    <div className="rounded-xl border border-edge bg-surface p-8 text-center sm:p-10">
       <p className="text-lg font-bold text-navy-text">{title}</p>
       <p className="mx-auto mt-2 max-w-[420px] leading-relaxed text-muted">
         {body}
@@ -104,7 +114,7 @@ export function EmptyState({
       {action ? (
         <Link
           href={action.href}
-          className="mt-6 inline-block bg-amber rounded-md px-5 py-3 text-sm font-bold text-on-amber no-underline transition hover:bg-amber-deep"
+          className="lift mt-6 inline-flex min-h-11 items-center rounded-full bg-amber px-5 text-sm font-bold text-on-amber no-underline"
         >
           {action.label}
         </Link>
@@ -120,15 +130,20 @@ export function FilterTabs({
   current,
   tabs,
   counts,
+  label = "Filter",
 }: {
+  label?: string;
   basePath: string;
   param: string;
   current: string;
   tabs: { key: string; label: string }[];
-  counts: Record<string, number>;
+  counts?: Record<string, number>;
 }) {
   return (
-    <nav aria-label="Filter" className="mb-5 flex flex-wrap gap-2">
+    <nav
+      aria-label={label}
+      className="no-scrollbar -mx-4 mb-5 flex gap-2 overflow-x-auto px-4 md:mx-0 md:flex-wrap md:px-0"
+    >
       {tabs.map((tab) => {
         const active = current === tab.key;
         return (
@@ -137,16 +152,18 @@ export function FilterTabs({
             href={`${basePath}?${param}=${tab.key}`}
             aria-current={active ? "page" : undefined}
             className={cn(
-              "border-2 px-4 py-2 text-sm font-semibold no-underline transition",
+              "inline-flex min-h-11 shrink-0 items-center rounded-full border px-4 text-sm font-semibold whitespace-nowrap no-underline transition",
               active
                 ? "border-navy bg-navy text-white"
-                : "border-edge text-muted hover:border-navy hover:text-navy-text",
+                : "border-edge bg-surface text-muted hover:border-navy hover:text-navy-text",
             )}
           >
             {tab.label}
-            <span className={cn("ml-2", active ? "text-white/70" : "text-muted")}>
-              {counts[tab.key] ?? 0}
-            </span>
+            {counts ? (
+              <span className={cn("ml-2", active ? "text-white/75" : "text-muted")}>
+                {counts[tab.key] ?? 0}
+              </span>
+            ) : null}
           </Link>
         );
       })}
@@ -155,7 +172,7 @@ export function FilterTabs({
 }
 
 const PILL_TONES = {
-  neutral: "bg-edge text-muted",
+  neutral: "bg-edge text-ink",
   navy: "bg-navy text-white",
   amber: "bg-amber text-on-amber",
   success: "bg-success text-white",
@@ -172,7 +189,7 @@ export function Pill({
   return (
     <span
       className={cn(
-        "px-2 py-0.5 text-xs font-bold tracking-wide uppercase",
+        "inline-flex shrink-0 rounded-full px-2.5 py-0.5 text-xs font-bold",
         PILL_TONES[tone],
       )}
     >
@@ -192,7 +209,7 @@ export function RowLink({
   return (
     <Link
       href={href}
-      className="flex flex-wrap items-start justify-between gap-4 border-2 border-edge rounded-lg bg-surface p-5 no-underline transition hover:border-navy"
+      className="flex flex-wrap items-start justify-between gap-4 rounded-xl border border-edge bg-surface p-4 no-underline transition hover:border-navy sm:p-5"
     >
       {children}
     </Link>
@@ -209,13 +226,13 @@ export function StatTile({
   tone?: "navy" | "danger" | "success";
 }) {
   return (
-    <div className="bg-surface p-5">
-      <p className="text-xs font-bold tracking-[0.2em] text-muted uppercase">
+    <div className="min-w-36 flex-1 rounded-xl border border-edge bg-surface p-4">
+      <p className="text-sm text-muted">
         {label}
       </p>
       <p
         className={cn(
-          "mt-1 text-2xl font-bold",
+          "mt-1 text-[1.65rem] leading-tight font-extrabold tabular-nums",
           tone === "danger" && "text-danger",
           tone === "success" && "text-success",
           tone === "navy" && "text-navy-text",

@@ -377,6 +377,7 @@ export async function markPaid(formData: FormData) {
 
   revalidatePath(adminPath(`invoices/${id}`));
   revalidatePath(adminPath("invoices"));
+  revalidatePath(adminPath("dashboard"));
 }
 
 export async function cancelInvoice(formData: FormData) {

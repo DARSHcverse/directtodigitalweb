@@ -7,6 +7,7 @@ import {
   type ProjectFormState,
 } from "@/app/(admin)/[adminPath]/projects/actions";
 import type { Client, Project } from "@/lib/db/types";
+import { tiers } from "@/lib/pricing";
 
 const initial: ProjectFormState = { error: null };
 
@@ -78,9 +79,15 @@ export function ProjectForm({
             id="tier"
             name="tier"
             defaultValue={project?.tier ?? ""}
-            placeholder="Starter / Business"
+            list="package-options"
+            placeholder="Choose or type"
             className={field}
           />
+          <datalist id="package-options">
+            {tiers.map((t) => (
+              <option key={t.name} value={t.name} />
+            ))}
+          </datalist>
         </div>
         <div>
           <label htmlFor="agreed_price" className={label}>

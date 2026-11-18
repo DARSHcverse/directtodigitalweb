@@ -123,17 +123,23 @@ export function InvoiceDocument({
         <thead>
           <tr className="border-b-2 border-navy text-left">
             <th className="pb-2 font-bold text-navy-text">Description</th>
-            <th className="pb-2 text-right font-bold text-navy-text">Qty</th>
-            <th className="pb-2 text-right font-bold text-navy-text">Unit</th>
+            <th className="hidden pb-2 text-right font-bold text-navy-text sm:table-cell print:table-cell">Qty</th>
+            <th className="hidden pb-2 text-right font-bold text-navy-text sm:table-cell print:table-cell">Unit</th>
             <th className="pb-2 text-right font-bold text-navy-text">Amount</th>
           </tr>
         </thead>
         <tbody>
           {lines.map((line) => (
             <tr key={line.id} className="border-b border-edge">
-              <td className="py-3 text-ink">{line.description}</td>
-              <td className="py-3 text-right text-muted">{line.quantity}</td>
-              <td className="py-3 text-right text-muted">
+              <td className="py-3 pr-3 text-ink">
+                {line.description}
+                {/* Phones drop the two middle columns, so the sum moves here. */}
+                <span className="block text-xs text-muted sm:hidden print:hidden">
+                  {line.quantity} × {formatMoney(line.unit_price)}
+                </span>
+              </td>
+              <td className="hidden py-3 text-right text-muted sm:table-cell print:table-cell">{line.quantity}</td>
+              <td className="hidden py-3 text-right text-muted sm:table-cell print:table-cell">
                 {formatMoney(line.unit_price)}
               </td>
               <td className="py-3 text-right font-medium text-navy-text">
@@ -165,7 +171,7 @@ export function InvoiceDocument({
         </dl>
       </div>
 
-      <section className="border-2 border-navy rounded-lg p-5">
+      <section className="rounded-xl border-2 border-navy p-5">
         <p className="mb-3 text-xs font-bold tracking-[0.2em] text-navy-text uppercase">
           How to pay — bank transfer
         </p>

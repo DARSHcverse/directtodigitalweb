@@ -10,7 +10,7 @@ import { CALL_METHODS } from "@/lib/lead";
 const initial: ArrangeCallState = { error: null, sentTo: null };
 
 const input =
-  "w-full rounded-lg border-2 border-edge bg-surface px-3 py-2.5 text-ink outline-none transition focus:border-navy";
+  "w-full rounded-xl border border-edge bg-surface px-3 py-2.5 text-ink outline-none transition focus:border-navy";
 const label = "mb-1.5 block text-sm font-medium text-muted";
 
 /** Today in the UK, as YYYY-MM-DD, for the date picker's minimum. */

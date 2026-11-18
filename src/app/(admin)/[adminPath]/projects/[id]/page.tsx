@@ -83,7 +83,7 @@ export default async function ProjectDetailPage({
           </div>
         </section>
 
-        <div className="mb-6 grid gap-6 lg:grid-cols-2">
+        <div className="mb-6 grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-2">
           <BriefView brief={brief} />
           <AdminThread
             projectId={project.id}
@@ -92,7 +92,7 @@ export default async function ProjectDetailPage({
           />
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
+        <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
           <section className="border-2 border-edge rounded-lg bg-surface p-6">
             <h2 className="mb-6 text-xl font-bold text-navy-text">Details</h2>
             <ProjectForm project={project} clients={clients} />

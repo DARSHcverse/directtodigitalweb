@@ -9,7 +9,7 @@ function CompactSubmit() {
     <button
       type="submit"
       disabled={pending}
-      className="text-sm font-bold text-danger transition hover:underline disabled:opacity-60"
+      className="min-h-11 px-1 text-sm font-bold text-danger transition hover:underline disabled:opacity-60"
     >
       {pending ? "…" : "Yes"}
     </button>
@@ -68,7 +68,7 @@ export function DeleteButton({
         onClick={() => setConfirming(true)}
         className={
           compact
-            ? "text-sm font-bold text-danger transition hover:underline"
+            ? "min-h-11 px-1 text-sm font-bold text-danger transition hover:underline"
             : "rounded-md border-2 border-danger px-4 py-2 text-sm font-bold text-danger transition hover:bg-danger hover:text-white"
         }
       >
@@ -91,7 +91,7 @@ export function DeleteButton({
         <button
           type="button"
           onClick={() => setConfirming(false)}
-          className="text-sm font-bold text-muted transition hover:text-navy-text"
+          className="min-h-11 px-1 text-sm font-bold text-muted transition hover:text-navy-text"
         >
           No
         </button>

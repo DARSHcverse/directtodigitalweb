@@ -4,7 +4,10 @@ import Link from "next/link";
 import { useMemo } from "react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/admin/DataTable";
-import { Pill, formatDate } from "@/components/admin/ui";
+import { Pill, formatDate, actionClass } from "@/components/admin/ui";
+import { markPaid, sendInvoice } from "@/app/(admin)/[adminPath]/invoices/actions";
+import { ConfirmSubmit } from "@/components/admin/ConfirmSubmit";
+import { cn } from "@/lib/cn";
 import { useAdminPath } from "@/components/admin/AdminPathProvider";
 import {
   displayStatus,
@@ -143,33 +146,45 @@ export function InvoicesTable({ invoices }: { invoices: InvoiceRow[] }) {
       }}
       renderCard={(i) => {
         const s = displayStatus(i);
+        const unpaid = s === "issued" || s === "overdue";
         return (
-          <Link
-            href={adminPath(`invoices/${i.id}`)}
-            className="block rounded-lg border-2 border-edge bg-surface p-4 no-underline"
-          >
+          <div className="rounded-xl border border-edge bg-surface p-4">
             <div className="flex items-start justify-between gap-3">
-              <p className="font-mono font-bold text-navy-text">
+              <Link
+                href={adminPath(`invoices/${i.id}`)}
+                className="font-mono font-bold text-navy-text no-underline"
+              >
                 {i.invoice_number ?? "Draft"}
-              </p>
+              </Link>
               <Pill tone={STATUS_TONE[s]}>{STATUS_LABEL[s]}</Pill>
             </div>
             <p className="mt-1 truncate text-sm text-muted">
               {i.client?.business_name ?? "No client"}
             </p>
             <p className="mt-2 flex items-baseline justify-between gap-3">
-              <span className="text-lg font-bold tabular-nums text-navy-text">
+              <span className="text-xl font-extrabold tabular-nums text-navy-text">
                 {formatMoney(Number(i.total))}
               </span>
-              <span
-                className={
-                  s === "overdue" ? "text-sm text-danger" : "text-sm text-muted"
-                }
-              >
+              <span className={s === "overdue" ? "text-sm font-semibold text-danger" : "text-sm text-muted"}>
                 {i.due_on ? `Due ${formatDate(i.due_on)}` : ""}
               </span>
             </p>
-          </Link>
+            <div className={cn("mt-3 grid gap-2", unpaid ? "grid-cols-3" : "grid-cols-1")}>
+              {unpaid ? (
+                <>
+                  <form action={sendInvoice}>
+                    <input type="hidden" name="id" value={i.id} />
+                    <ConfirmSubmit label="Email" className={cn(actionClass(true), "w-full")} />
+                  </form>
+                  <form action={markPaid}>
+                    <input type="hidden" name="id" value={i.id} />
+                    <ConfirmSubmit label="Paid" className={cn(actionClass(), "w-full")} />
+                  </form>
+                </>
+              ) : null}
+              <Link href={adminPath(`invoices/${i.id}`)} className={actionClass()}>Open</Link>
+            </div>
+          </div>
         );
       }}
     />

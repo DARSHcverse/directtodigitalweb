@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useMemo } from "react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/admin/DataTable";
-import { Pill, formatDate } from "@/components/admin/ui";
+import { Pill, formatDate, actionClass } from "@/components/admin/ui";
 import { useAdminPath } from "@/components/admin/AdminPathProvider";
 import type { ClientWithCounts } from "@/lib/admin/shared";
 
@@ -113,25 +113,31 @@ export function ClientsTable({ clients }: { clients: ClientWithCounts[] }) {
         }),
       }}
       renderCard={(c) => (
-        <Link
-          href={adminPath(`clients/${c.id}`)}
-          className="block rounded-lg border-2 border-edge bg-surface p-4 no-underline"
-        >
+        <div className="rounded-xl border border-edge bg-surface p-4">
           <div className="flex items-start justify-between gap-3">
-            <p className="min-w-0 truncate font-bold text-navy-text">
+            <Link
+              href={adminPath(`clients/${c.id}`)}
+              className="min-w-0 truncate text-lg font-bold text-navy-text no-underline"
+            >
               {c.business_name}
-            </p>
+            </Link>
             {c.portal_enabled ? <Pill tone="success">Portal</Pill> : null}
           </div>
-          <p className="mt-1 truncate text-sm text-muted">
-            {c.contact_name} · {c.email}
-          </p>
-          <p className="mt-2 text-sm text-muted">
-            {c.trade ?? "No trade set"} ·{" "}
+          <p className="mt-1 truncate text-sm text-muted">{c.contact_name}</p>
+          <p className="text-sm text-muted">
             {c.project_count === 1 ? "1 project" : `${c.project_count} projects`}
             {c.active_project ? ` · ${c.active_project}` : ""}
           </p>
-        </Link>
+          <div className="mt-3 grid grid-cols-3 gap-2">
+            {c.phone ? (
+              <a href={`tel:${c.phone}`} className={actionClass(true)}>Call</a>
+            ) : (
+              <span />
+            )}
+            <a href={`mailto:${c.email}`} className={actionClass(!c.phone)}>Email</a>
+            <Link href={adminPath(`clients/${c.id}`)} className={actionClass()}>Open</Link>
+          </div>
+        </div>
       )}
     />
   );

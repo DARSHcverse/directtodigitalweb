@@ -11,7 +11,7 @@ export function BriefView({ brief }: { brief: ProjectBrief | null }) {
   const answered = BRIEF_FIELDS.filter((f) => brief?.[f.name]?.trim());
 
   return (
-    <section className="border-2 border-edge rounded-lg bg-surface p-6">
+    <section className="rounded-xl border border-edge bg-surface p-6">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-xl font-bold text-navy-text">Client brief</h2>
         <span className="text-sm text-muted">

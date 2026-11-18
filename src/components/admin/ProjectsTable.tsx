@@ -130,7 +130,7 @@ export function ProjectsTable({ projects }: { projects: ProjectWithClient[] }) {
       renderCard={(p) => (
         <Link
           href={adminPath(`projects/${p.id}`)}
-          className="block rounded-lg border-2 border-edge bg-surface p-4 no-underline"
+          className="block rounded-xl border border-edge bg-surface p-4 no-underline"
         >
           <div className="flex items-start justify-between gap-3">
             <p className="min-w-0 truncate font-bold text-navy-text">{p.title}</p>

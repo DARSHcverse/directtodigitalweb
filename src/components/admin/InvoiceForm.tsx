@@ -169,7 +169,7 @@ export function InvoiceForm({
               { description: "", quantity: "1", unit_price: "" },
             ])
           }
-          className="mt-3 border-2 border-navy rounded-lg px-4 py-2 text-sm font-bold text-navy-text transition hover:bg-navy hover:text-white"
+          className="mt-3 rounded-full border-2 border-navy-text px-4 py-2 text-sm font-bold text-navy-text transition hover:bg-navy-text hover:text-bg"
         >
           Add line
         </button>

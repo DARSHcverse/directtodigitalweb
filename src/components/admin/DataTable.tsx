@@ -111,7 +111,7 @@ export function DataTable<T>({
   const pageCount = table.getPageCount();
 
   return (
-    <div className="grid gap-3">
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-3">
       <div className="flex flex-wrap items-center gap-2">
         <div className="relative min-w-0 flex-1 sm:max-w-xs">
           <svg
@@ -133,19 +133,19 @@ export function DataTable<T>({
             onChange={(e) => setGlobalFilter(e.target.value)}
             placeholder={searchPlaceholder}
             aria-label={searchPlaceholder}
-            className="w-full rounded-md border-2 border-edge bg-surface py-2 pr-3 pl-9 text-sm text-ink outline-none transition focus:border-navy"
+            className="min-h-11 w-full rounded-full border border-edge bg-surface py-2 pr-3 pl-9 text-base text-ink outline-none transition focus:border-navy md:text-sm"
           />
         </div>
 
         {toolbar}
 
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto hidden items-center gap-2 md:flex">
           <div className="relative">
             <button
               type="button"
               onClick={() => setShowCols((v) => !v)}
               aria-expanded={showCols}
-              className="rounded-md border-2 border-edge px-3 py-2 text-sm font-bold text-muted transition hover:border-navy hover:text-navy-text"
+              className="min-h-11 rounded-full border border-edge bg-surface px-4 text-sm font-bold text-muted transition hover:border-navy hover:text-navy-text"
             >
               Columns
             </button>
@@ -157,7 +157,7 @@ export function DataTable<T>({
                   onClick={() => setShowCols(false)}
                   className="fixed inset-0 z-10 cursor-default"
                 />
-                <div className="absolute right-0 z-20 mt-1 w-52 rounded-lg border-2 border-edge bg-surface p-2 shadow-lg">
+                <div className="absolute right-0 z-20 mt-1 w-52 rounded-xl border border-edge bg-surface p-2 shadow-lg">
                   {table.getAllLeafColumns().map((col) => (
                     <label
                       key={col.id}
@@ -191,7 +191,7 @@ export function DataTable<T>({
                   ),
                 )
               }
-              className="rounded-md border-2 border-edge px-3 py-2 text-sm font-bold text-muted transition hover:border-navy hover:text-navy-text"
+              className="min-h-11 rounded-full border border-edge bg-surface px-4 text-sm font-bold text-muted transition hover:border-navy hover:text-navy-text"
             >
               Export
             </button>
@@ -200,7 +200,7 @@ export function DataTable<T>({
       </div>
 
       {total === 0 ? (
-        <div className="rounded-lg border-2 border-edge bg-surface p-10 text-center">
+        <div className="rounded-xl border border-edge bg-surface p-10 text-center">
           <p className="text-lg font-bold text-navy-text">{emptyTitle}</p>
           {emptyBody ? (
             <p className="mx-auto mt-2 max-w-[420px] text-muted">{emptyBody}</p>
@@ -210,7 +210,7 @@ export function DataTable<T>({
         <>
           {/* Phone: stacked cards. A wide table cannot be read on a phone. */}
           {renderCard ? (
-            <ul className="grid gap-2 md:hidden">
+            <ul className="grid grid-cols-[minmax(0,1fr)] gap-2.5 md:hidden">
               {rows.map((r) => (
                 <li key={r.id}>{renderCard(r.original)}</li>
               ))}
@@ -219,14 +219,14 @@ export function DataTable<T>({
 
           <div
             className={cn(
-              "overflow-x-auto rounded-lg border-2 border-edge bg-surface",
+              "overflow-x-auto rounded-xl border border-edge bg-surface",
               renderCard && "hidden md:block",
             )}
           >
             <table className="w-full border-collapse text-sm">
               <thead>
                 {table.getHeaderGroups().map((hg) => (
-                  <tr key={hg.id} className="border-b-2 border-edge">
+                  <tr key={hg.id} className="border-b border-edge">
                     {hg.headers.map((h) => {
                       const sortable = h.column.getCanSort();
                       const dir = h.column.getIsSorted();
@@ -241,7 +241,7 @@ export function DataTable<T>({
                                 ? "descending"
                                 : undefined
                           }
-                          className="px-3 py-2.5 text-left text-xs font-bold tracking-wide text-muted uppercase"
+                          className="px-3 py-3 text-left text-xs font-bold text-muted"
                         >
                           {sortable ? (
                             <button
@@ -270,7 +270,7 @@ export function DataTable<T>({
                     className="border-b border-edge transition last:border-0 hover:bg-bg"
                   >
                     {r.getVisibleCells().map((c) => (
-                      <td key={c.id} className="px-3 py-2.5 align-middle text-ink">
+                      <td key={c.id} className="px-3 py-3 align-middle text-ink">
                         {flexRender(c.column.columnDef.cell, c.getContext())}
                       </td>
                     ))}
@@ -291,7 +291,7 @@ export function DataTable<T>({
                   type="button"
                   onClick={() => table.previousPage()}
                   disabled={!table.getCanPreviousPage()}
-                  className="rounded-md border-2 border-edge px-3 py-1.5 text-sm font-bold text-muted transition hover:border-navy hover:text-navy-text disabled:pointer-events-none disabled:opacity-40"
+                  className="min-h-11 rounded-full border border-edge bg-surface px-4 text-sm font-bold text-muted transition hover:border-navy hover:text-navy-text disabled:pointer-events-none disabled:opacity-40"
                 >
                   Previous
                 </button>
@@ -302,7 +302,7 @@ export function DataTable<T>({
                   type="button"
                   onClick={() => table.nextPage()}
                   disabled={!table.getCanNextPage()}
-                  className="rounded-md border-2 border-edge px-3 py-1.5 text-sm font-bold text-muted transition hover:border-navy hover:text-navy-text disabled:pointer-events-none disabled:opacity-40"
+                  className="min-h-11 rounded-full border border-edge bg-surface px-4 text-sm font-bold text-muted transition hover:border-navy hover:text-navy-text disabled:pointer-events-none disabled:opacity-40"
                 >
                   Next
                 </button>

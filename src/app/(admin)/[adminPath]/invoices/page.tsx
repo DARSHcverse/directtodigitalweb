@@ -13,16 +13,8 @@ import {
 import { getSettings, missingForInvoicing } from "@/lib/admin/settings";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { InvoicesTable } from "@/components/admin/InvoicesTable";
-import { cn } from "@/lib/cn";
+import { FilterTabs, PageHeader, StatTile } from "@/components/admin/ui";
 import type { InvoiceStatus } from "@/lib/db/types";
-
-const STATUS_STYLE: Record<InvoiceStatus, string> = {
-  draft: "bg-edge text-muted",
-  issued: "bg-navy text-white",
-  paid: "bg-success text-white",
-  overdue: "bg-danger text-white",
-  cancelled: "bg-edge text-muted",
-};
 
 export default async function InvoicesPage({
   searchParams,
@@ -48,23 +40,14 @@ export default async function InvoicesPage({
 
   return (
     <AdminShell email={owner.email} current="invoices">
-        <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-bold tracking-display text-navy-text">
-              Invoices
-            </h1>
-            <p className="text-muted">{totals.counts.all ?? 0} total</p>
-          </div>
-          <Link
-            href={adminPath("invoices/new")}
-            className="bg-navy rounded-md px-5 py-3 text-sm font-bold text-white no-underline transition hover:bg-navy-deep"
-          >
-            New invoice
-          </Link>
-        </div>
+        <PageHeader
+          title="Invoices"
+          subtitle={`${totals.counts.all ?? 0} total`}
+          action={{ href: adminPath("invoices/new"), label: "New invoice" }}
+        />
 
         {missing.length > 0 ? (
-          <div className="mb-6 border-l-4 border-amber bg-surface p-5">
+          <div className="mb-5 rounded-xl border border-amber bg-surface p-4">
             <p className="font-bold text-navy-text">
               Finish your invoice details first
             </p>
@@ -81,54 +64,24 @@ export default async function InvoicesPage({
           </div>
         ) : null}
 
-        <div className="mb-6 grid gap-px border-2 border-navy bg-edge sm:grid-cols-3">
-          {[
-            { label: "Outstanding", value: totals.outstanding },
-            { label: "Overdue", value: totals.overdue },
-            { label: "Paid", value: totals.paid },
-          ].map((stat) => (
-            <div key={stat.label} className="bg-surface p-5">
-              <p className="text-xs font-bold tracking-[0.2em] text-muted uppercase">
-                {stat.label}
-              </p>
-              <p
-                className={cn(
-                  "mt-1 text-2xl font-bold",
-                  stat.label === "Overdue" && stat.value > 0
-                    ? "text-danger"
-                    : "text-navy-text",
-                )}
-              >
-                {formatMoney(stat.value)}
-              </p>
-            </div>
-          ))}
+        <div className="no-scrollbar -mx-4 mb-5 flex gap-2.5 overflow-x-auto px-4 md:mx-0 md:px-0">
+          <StatTile label="Owed to you" value={formatMoney(totals.outstanding)} />
+          <StatTile
+            label="Overdue"
+            value={formatMoney(totals.overdue)}
+            tone={totals.overdue > 0 ? "danger" : "navy"}
+          />
+          <StatTile label="Paid" value={formatMoney(totals.paid)} tone="success" />
         </div>
 
-        <nav aria-label="Filter by status" className="mb-6 flex flex-wrap gap-2">
-          {[{ key: "all", label: "All" }, ...INVOICE_STATUSES.map((s) => ({ key: s, label: STATUS_LABEL[s] }))].map(
-            (tab) => {
-              const active = filter === tab.key;
-              return (
-                <Link
-                  key={tab.key}
-                  href={`${adminPath("invoices")}?status=${tab.key}`}
-                  className={cn(
-                    "border-2 px-4 py-2 text-sm font-semibold no-underline transition",
-                    active
-                      ? "border-navy bg-navy text-white"
-                      : "border-edge text-muted hover:border-navy hover:text-navy-text",
-                  )}
-                >
-                  {tab.label}
-                  <span className={cn("ml-2", active ? "text-white/70" : "text-muted")}>
-                    {totals.counts[tab.key] ?? 0}
-                  </span>
-                </Link>
-              );
-            },
-          )}
-        </nav>
+        <FilterTabs
+          label="Filter by status"
+          basePath={adminPath("invoices")}
+          param="status"
+          current={filter}
+          tabs={[{ key: "all", label: "All" }, ...INVOICE_STATUSES.map((s) => ({ key: s, label: STATUS_LABEL[s] }))]}
+          counts={totals.counts}
+        />
 
         <InvoicesTable invoices={invoices} />
 

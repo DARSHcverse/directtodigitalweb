@@ -137,6 +137,8 @@ export async function updateLeadStatus(formData: FormData) {
 
   revalidatePath(adminPath(`leads/${id}`));
   revalidatePath(adminPath("leads"));
+  revalidatePath(adminPath("apps"));
+  revalidatePath(adminPath("dashboard"));
 }
 
 export async function updateLeadNotes(formData: FormData) {

@@ -351,6 +351,73 @@
   }
 }
 
+/* Admin: screens settle in, and phone sheets slide up. */
+@keyframes admin-enter {
+  from { opacity: 0; transform: translateY(8px); }
+}
+
+@keyframes sheet-up {
+  from { transform: translateY(100%); }
+}
+
+@keyframes sheet-pop {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+}
+
+.admin-enter {
+  animation: admin-enter 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.admin-sheet {
+  inset: auto 0 0;
+  width: 100%;
+  max-width: none;
+  max-height: 85dvh;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 1.25rem 1.25rem 0 0;
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+
+.admin-sheet[open] {
+  animation: sheet-up 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.admin-sheet::backdrop {
+  background: rgb(8 23 38 / 0.55);
+}
+
+@media (min-width: 48rem) {
+  .admin-sheet {
+    inset: 12vh 0 auto;
+    width: min(38rem, calc(100% - 2rem));
+    margin-inline: auto;
+    border-radius: 1rem;
+  }
+
+  .admin-sheet[open] {
+    animation-name: sheet-pop;
+    animation-duration: 0.18s;
+  }
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-enter,
+  .admin-sheet[open] {
+    animation: none;
+  }
+}
+
 /**
  * Print rules for the invoice.
  *

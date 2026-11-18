@@ -4,10 +4,13 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/admin/DataTable";
-import { Pill, relativeDate } from "@/components/admin/ui";
+import { actionClass, Pill, relativeDate } from "@/components/admin/ui";
+import { QuickSelect } from "@/components/admin/QuickSelect";
+import { cn } from "@/lib/cn";
 import { useAdminPath } from "@/components/admin/AdminPathProvider";
 import { DeleteButton } from "@/components/admin/DeleteButton";
-import { deleteLead } from "@/app/(admin)/[adminPath]/leads/actions";
+import { deleteLead, updateLeadStatus } from "@/app/(admin)/[adminPath]/leads/actions";
+import { SEGMENTS, SEGMENT_LABEL, segmentOf, type LeadSegment } from "@/lib/admin/shared";
 import type { Lead, LeadStatus } from "@/lib/db/types";
 
 const STATUS_TONE: Record<LeadStatus, "neutral" | "navy" | "amber" | "success" | "danger"> = {
@@ -26,41 +29,10 @@ const STATUS_TEXT: Record<LeadStatus, string> = {
   lost: "Lost",
 };
 
-/**
- * Which part of the business a lead belongs to, from the quote form's
- * answers. Lets Shan see whether garages, trades or apps are bringing in
- * enquiries, which is the test the November 2026 repositioning set.
- */
-type Segment = "automotive" | "trades" | "apps" | "other";
-
-const SEGMENT_LABEL: Record<Segment, string> = {
-  automotive: "Garages & automotive",
-  trades: "Trades",
-  apps: "Apps",
-  other: "Other",
-};
-
-const AUTOMOTIVE = new Set([
-  "Garage / MOT centre",
-  "Car detailing / valeting",
-  "Mobile mechanic",
-  "Car dealer",
-]);
-const TRADES = new Set([
-  "Plumber / heating",
-  "Electrician",
-  "Builder",
-  "Roofer",
-  "Other trade",
-]);
-
-function segmentOf(l: Lead): Segment {
-  if (l.topic === "Web app" || l.topic === "Mobile app") return "apps";
-  if (l.trade && AUTOMOTIVE.has(l.trade)) return "automotive";
-  if (l.trade && TRADES.has(l.trade)) return "trades";
-  if (l.trade === "Just an idea for now") return "apps";
-  return "other";
-}
+const STATUS_OPTIONS = (Object.keys(STATUS_TEXT) as LeadStatus[]).map((value) => ({
+  value,
+  label: STATUS_TEXT[value],
+}));
 
 /** Where an enquiry came from: ref, then utm, then referrer, then the page. */
 function sourceOf(l: Lead): string {
@@ -92,7 +64,7 @@ function hostOf(url: string | null | undefined): string {
  */
 export function LeadsTable({ leads }: { leads: Lead[] }) {
   const adminPath = useAdminPath();
-  const [segment, setSegment] = useState<Segment | "all">("all");
+  const [segment, setSegment] = useState<LeadSegment | "all">("all");
   const shown = useMemo(
     () => (segment === "all" ? leads : leads.filter((l) => segmentOf(l) === segment)),
     [leads, segment],
@@ -223,19 +195,27 @@ export function LeadsTable({ leads }: { leads: Lead[] }) {
       data={shown}
       getRowId={(l) => l.id}
       toolbar={
-        <select
-          value={segment}
-          onChange={(e) => setSegment(e.target.value as Segment | "all")}
-          aria-label="Filter by segment"
-          className="rounded-md border-2 border-edge bg-surface px-3 py-2 text-sm font-semibold text-ink outline-none transition focus:border-navy"
-        >
-          <option value="all">All segments</option>
-          {(Object.keys(SEGMENT_LABEL) as Segment[]).map((key) => (
-            <option key={key} value={key}>
-              {SEGMENT_LABEL[key]} ({leads.filter((l) => segmentOf(l) === key).length})
-            </option>
-          ))}
-        </select>
+        <div className="no-scrollbar -mx-4 order-last flex w-[calc(100%+2rem)] gap-2 overflow-x-auto px-4 md:order-none md:mx-0 md:w-auto md:px-0">
+          {(["all", ...SEGMENTS] as const).map((key) => {
+            const n = key === "all" ? leads.length : leads.filter((l) => segmentOf(l) === key).length;
+            return (
+              <button
+                key={key}
+                type="button"
+                aria-pressed={segment === key}
+                onClick={() => setSegment(key)}
+                className={cn(
+                  "min-h-11 shrink-0 rounded-full border px-3.5 text-sm font-semibold transition",
+                  segment === key
+                    ? "border-amber bg-amber text-on-amber"
+                    : "border-edge bg-surface text-muted hover:border-navy",
+                )}
+              >
+                {key === "all" ? "All" : SEGMENT_LABEL[key]} {n}
+              </button>
+            );
+          })}
+        </div>
       }
       searchPlaceholder="Search name, email, message…"
       emptyTitle="No leads here"
@@ -278,63 +258,41 @@ export function LeadsTable({ leads }: { leads: Lead[] }) {
         }),
       }}
       renderCard={(l) => (
-        <div className="rounded-lg border-2 border-edge bg-surface p-4">
+        <div className="rounded-xl border border-edge bg-surface p-4">
           <div className="flex items-start justify-between gap-3">
-            <div className="min-w-0">
-              <Link
-                href={adminPath(`leads/${l.id}`)}
-                className="block truncate font-bold text-navy-text no-underline"
-              >
-                {l.name}
-              </Link>
-              <p className="truncate text-sm text-muted">{l.email}</p>
-            </div>
+            <Link
+              href={adminPath(`leads/${l.id}`)}
+              className="min-w-0 truncate text-lg font-bold text-navy-text no-underline"
+            >
+              {l.name}
+            </Link>
             <Pill tone={STATUS_TONE[l.status]}>{STATUS_TEXT[l.status]}</Pill>
           </div>
-
-          <p className="mt-2 text-sm text-muted">
-            {relativeDate(l.created_at)}
-            {l.trade ? ` · ${l.trade}` : ""}
-            {l.town ? ` · ${l.town}` : ""}
-            {l.topic ? ` · ${l.topic}` : ""}
-            {l.budget ? ` · ${l.budget}` : ""}
+          <p className="mt-1 text-sm text-muted">
+            {[relativeDate(l.created_at), l.topic, l.trade, l.town, l.budget].filter(Boolean).join(" · ")}
           </p>
-
-          {l.message ? (
-            <p className="mt-2 line-clamp-2 text-sm text-ink">{l.message}</p>
-          ) : null}
-
-          <div className="mt-3 flex flex-wrap gap-3">
-            {l.phone ? (
-              <a
-                href={`tel:${l.phone}`}
-                className="text-sm font-bold text-navy-text no-underline"
-              >
-                Call
-              </a>
-            ) : null}
-            <a
-              href={`mailto:${l.email}`}
-              className="text-sm font-bold text-navy-text no-underline"
-            >
-              Email
+          {l.message ? <p className="mt-2 line-clamp-2 text-sm text-ink">{l.message}</p> : null}
+          <div className="mt-3 grid grid-cols-3 gap-2">
+            <a href={l.phone ? `tel:${l.phone}` : `mailto:${l.email}`} className={actionClass(true)}>
+              {l.phone ? "Call" : "Email"}
             </a>
-            <Link
-              href={
-                l.client_id
-                  ? adminPath(`clients/${l.client_id}`)
-                  : `${adminPath("clients/new")}?lead=${l.id}`
-              }
-              className="ml-auto text-sm font-bold text-navy-text no-underline"
-            >
-              {l.client_id ? "View client" : "Convert"} →
-            </Link>
-            <DeleteButton
-              action={deleteLead}
+            {l.phone ? (
+              <a href={`mailto:${l.email}`} className={actionClass()}>Email</a>
+            ) : (
+              <span />
+            )}
+            <Link href={adminPath(`leads/${l.id}`)} className={actionClass()}>Open</Link>
+          </div>
+          <div className="mt-2 grid grid-cols-[1fr_auto] items-center gap-3">
+            <QuickSelect
+              action={updateLeadStatus}
               id={l.id}
-              what={l.name}
-              compact
+              name="status"
+              label={`Status for ${l.name}`}
+              value={l.status}
+              options={STATUS_OPTIONS}
             />
+            <DeleteButton action={deleteLead} id={l.id} what={l.name} compact />
           </div>
         </div>
       )}

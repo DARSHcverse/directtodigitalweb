@@ -1,11 +1,9 @@
-import Link from "next/link";
 import { requireOwner } from "@/lib/admin/auth";
 import { adminPath } from "@/lib/admin/paths";
 import { listLeads, countByStatus, STATUS_LABEL, LEAD_STATUSES } from "@/lib/admin/leads";
 import { LeadsTable } from "@/components/admin/LeadsTable";
 import { AdminShell } from "@/components/admin/AdminShell";
-import { PageHeader } from "@/components/admin/ui";
-import { cn } from "@/lib/cn";
+import { FilterTabs, PageHeader } from "@/components/admin/ui";
 import type { LeadStatus } from "@/lib/db/types";
 
 export default async function LeadsPage({
@@ -38,33 +36,14 @@ export default async function LeadsPage({
           action={{ href: adminPath("leads/new"), label: "Add lead" }}
         />
 
-        <nav aria-label="Filter by status" className="mb-6 flex flex-wrap gap-2">
-          {tabs.map((tab) => {
-            const active = filter === tab.key;
-            const n = counts[tab.key] ?? 0;
-            return (
-              <Link
-                key={tab.key}
-                href={
-                  tab.key === "all"
-                    ? adminPath("leads")
-                    : `${adminPath("leads")}?status=${tab.key}`
-                }
-                className={cn(
-                  "border-2 px-4 py-2 text-sm font-semibold no-underline transition",
-                  active
-                    ? "border-navy bg-navy text-white"
-                    : "border-edge text-muted hover:border-navy hover:text-navy-text",
-                )}
-              >
-                {tab.label}
-                <span className={cn("ml-2", active ? "text-white/70" : "text-muted")}>
-                  {n}
-                </span>
-              </Link>
-            );
-          })}
-        </nav>
+        <FilterTabs
+          label="Filter by status"
+          basePath={adminPath("leads")}
+          param="status"
+          current={filter}
+          tabs={tabs}
+          counts={counts}
+        />
 
         <LeadsTable leads={leads} />
 

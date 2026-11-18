@@ -1,28 +1,28 @@
 import type { ReactNode } from "react";
 import { signOut } from "@/app/(admin)/[adminPath]/actions";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { Brand, MobileNav, SidebarNav } from "@/components/admin/Sidebar";
+import { AdminSearch } from "@/components/admin/AdminSearch";
+import { Brand, MobileTabs, QuickAdd, SidebarNav } from "@/components/admin/Sidebar";
+import { getNavCounts } from "@/lib/admin/badges";
 import type { NavKey } from "@/lib/admin/nav";
 
 /**
- * The admin chrome: a fixed navy rail, a topbar, and the page beside them.
+ * The admin chrome. Desktop gets a navy rail and a working top bar; phones get
+ * an app layout, with daily screens on a bottom bar within thumb reach.
  *
- * This replaces a horizontal strip of seven equal tabs, which gave no sense of
- * structure and pushed the page content down on every screen. A rail keeps the
- * whole map visible without competing with the page, and leaves the top of the
- * content area for the page's own heading and actions.
+ * Counts are handed over as a promise, so the page never waits for them.
  */
 export function AdminShell({
   email,
   current,
-  counts,
   children,
 }: {
   email: string;
   current: NavKey;
-  counts?: Partial<Record<NavKey, number>>;
   children: ReactNode;
 }) {
+  const counts = getNavCounts();
+
   return (
     <div className="flex min-h-dvh">
       <a
@@ -32,8 +32,8 @@ export function AdminShell({
         Skip to content
       </a>
 
-      <aside className="hidden w-60 shrink-0 flex-col bg-navy-deep md:flex print:hidden">
-        <div className="flex h-14 shrink-0 items-center border-b border-white/10 px-4">
+      <aside className="surface-navy sticky top-0 hidden h-dvh w-58 shrink-0 flex-col md:flex print:hidden">
+        <div className="flex h-16 shrink-0 items-center px-5">
           <Brand />
         </div>
         <div className="flex-1 overflow-y-auto">
@@ -42,16 +42,21 @@ export function AdminShell({
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-30 flex h-14 shrink-0 items-center gap-3 border-b-2 border-edge bg-surface px-4 md:px-6 print:hidden">
-          <MobileNav current={current} counts={counts} />
+        <header className="surface-navy sticky top-0 z-30 flex h-16 shrink-0 items-center justify-between px-4 md:hidden print:hidden">
+          <Brand />
+          <AdminSearch variant="icon" />
+        </header>
 
+        <header className="sticky top-0 z-30 hidden h-16 shrink-0 items-center gap-3 border-b border-edge bg-surface px-6 md:flex print:hidden">
+          <AdminSearch variant="bar" />
           <div className="ml-auto flex items-center gap-2">
-            <span className="hidden text-sm text-muted sm:inline">{email}</span>
+            <QuickAdd variant="button" />
             <ThemeToggle />
+            <span className="hidden max-w-44 truncate text-sm text-muted xl:inline">{email}</span>
             <form action={signOut}>
               <button
                 type="submit"
-                className="rounded-md border-2 border-edge px-3 py-1.5 text-sm font-bold text-muted transition hover:border-navy hover:text-navy-text"
+                className="min-h-10 rounded-full border border-edge px-4 text-sm font-bold text-muted transition hover:border-navy hover:text-navy-text"
               >
                 Sign out
               </button>
@@ -59,10 +64,18 @@ export function AdminShell({
           </div>
         </header>
 
-        <main id="admin-main" className="flex-1 px-4 py-6 md:px-6 print:p-0">
-          <div className="mx-auto max-w-[1200px]">{children}</div>
+        <main
+          id="admin-main"
+          className="flex-1 px-4 pt-5 pb-[calc(6.5rem+env(safe-area-inset-bottom))] md:px-6 md:py-7 print:p-0"
+        >
+          <div key={current} className="admin-enter mx-auto max-w-[1200px]">
+            {children}
+          </div>
         </main>
       </div>
+
+      <QuickAdd variant="fab" />
+      <MobileTabs current={current} counts={counts} />
     </div>
   );
 }

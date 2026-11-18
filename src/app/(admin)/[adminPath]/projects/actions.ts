@@ -138,6 +138,8 @@ export async function setStage(formData: FormData) {
 
   revalidatePath(adminPath(`projects/${id}`));
   revalidatePath(adminPath("projects"));
+  revalidatePath(adminPath("apps"));
+  revalidatePath(adminPath("dashboard"));
 }
 
 /** Locks the brief so the client can no longer edit it mid-build. */
@@ -209,6 +211,14 @@ export async function replyToClient(formData: FormData) {
     });
   }
 
+  // A reply answers what came before, so it clears those from "Do next".
+  await db
+    .from("messages")
+    .update({ read_at: new Date().toISOString() })
+    .eq("project_id", projectId)
+    .eq("author", "client")
+    .is("read_at", null);
+
   await db.from("audit_log").insert({
     actor: owner.email,
     action: "project.replied",
@@ -217,6 +227,7 @@ export async function replyToClient(formData: FormData) {
   });
 
   revalidatePath(adminPath(`projects/${projectId}`));
+  revalidatePath(adminPath("dashboard"));
 }
 
 export async function archiveProject(formData: FormData) {

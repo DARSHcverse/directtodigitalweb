@@ -26,7 +26,7 @@ export function AdminThread({
   ).length;
 
   return (
-    <section className="border-2 border-edge rounded-lg bg-surface p-6">
+    <section className="rounded-xl border border-edge bg-surface p-6">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-xl font-bold text-navy-text">Messages</h2>
         {unread > 0 ? (
